@@ -68,7 +68,7 @@ CCMotionStreak* streak;
         framespast = 0;
         secondspast = 0;
         gameSegment = 0;
-        bosstime = false;
+        bosstime = true;
         isTimeWarped = false;
         thetemporalint = 180;
         omganothertemportalint = 180;
@@ -1212,7 +1212,7 @@ CCMotionStreak* streak;
             id newboss = [CCScaleTo actionWithDuration:0.5f scale:1.0f];
             [tut runAction:newboss];
             [self schedule:@selector(newBoss) interval:3.0];
-            int x = 150;
+            int x = 190;
             int y = 400;
 //            boss = [CCSprite spriteWithFile:@"Glowing_Blue_Orb.png"];
             boss = [CCSprite spriteWithFile:@"target.png"];
@@ -1225,7 +1225,7 @@ CCMotionStreak* streak;
         }
         else if(level == 2) {
             [[SimpleAudioEngine sharedEngine] playEffect:@"down2.mp3"];
-            int x = 150;
+            int x = 180;
             int y = 400;
             boss = [CCSprite spriteWithFile:@"target.png"];
             boss.position = ccp(x,y);
@@ -1240,7 +1240,7 @@ CCMotionStreak* streak;
             }
         }
         else if(level == 3) {
-            int x = 180;
+            int x = 170;
             int y = 400;
             boss = [CCSprite spriteWithFile:@"target.png"];
             boss.position = ccp(x,y);
@@ -1255,7 +1255,7 @@ CCMotionStreak* streak;
             }
         }
         else if(level == 4) {
-            int x = 150;
+            int x = 160;
             int y = 400;
             boss = [CCSprite spriteWithFile:@"target.png"];
             boss.position = ccp(x,y);
@@ -1270,8 +1270,8 @@ CCMotionStreak* streak;
             }
         }
         else if(level == 5) {
-            int x = 150;
-            int y = 500;
+            int x = 170;
+            int y = 400;
             boss = [CCSprite spriteWithFile:@"target.png"];
             boss.position = ccp(x,y);
             boss.scale = 0;
@@ -1940,7 +1940,6 @@ CCMotionStreak* streak;
                 [self gameEnd];
             }
         }
-        
         [self returnBullet];
         for(int i = 0; i < [bullets count]; i++) {
             Bullet *temp = [bullets objectAtIndex:i];
@@ -1949,22 +1948,13 @@ CCMotionStreak* streak;
         [bullets removeAllObjects];
         
         player.position = ccp(160,50);
-        
-        
-      //  [[CCDirector sharedDirector] pushScene: [CCTransitionCrossFade transitionWithDuration:0.5f scene:[LevelSelect node]]];
+        //  [[CCDirector sharedDirector] pushScene: [CCTransitionCrossFade transitionWithDuration:0.5f scene:[LevelSelect node]]];
     } else if (targetHit == false) {
         
     }
 }
 -(void) detectCollisions
 {
-//    if (CGRectIntersectsRect(CGRectMake(player.position.x, player.position.y, playerWidth, playerHeight), CGRectMake(boss.position.x, boss.position.y, bossWidth, bossHeight)) == true) {
-//        // NSLog(@"Collision detected!");
-//        // [self removeChild:player cleanup:YES];
-//        [self newBoss];
-////        [[CCDirector sharedDirector] pushScene:
-////         [CCTransitionCrossFade transitionWithDuration:0.5f scene:[LevelSelect node]]];
-//    }
     if (CGRectIntersectsRect(CGRectMake(player.position.x, player.position.y, playerWidth, playerHeight), CGRectMake(boss.position.x, boss.position.y, bossWidth, bossHeight)) == true) {
         targetHit = true;
         [self targetHit];
