@@ -1378,30 +1378,6 @@ CCMotionStreak* streak;
     
     [self shootBulletwithPosSmall:1 angle:270 xpos:-50 ypos:-328];
 }
--(void) makeCircles {
-    
-}
--(void) makeLightning {
-    
-}
--(void) makeStar {
-    
-}
--(void) makeSquare {
-    
-}
--(void) makeQuestion {
-    
-}
--(void) makeExclamation {
-    
-}
--(void) makeCheckmark {
-    
-}
--(void) makeX {
-    
-}
 -(void) initObstacles {
     int x = 20;
     int y= 20;
