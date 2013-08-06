@@ -123,7 +123,6 @@
 		84B44E02178F397900B70A4D /* title-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B44DD7178F397800B70A4D /* title-hd.png */; };
 		84B44E03178F397900B70A4D /* w_obama-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B44DD8178F397800B70A4D /* w_obama-hd.png */; };
 		84B44E04178F397900B70A4D /* yellowback-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B44DD9178F397900B70A4D /* yellowback-hd.png */; };
-		84B44E06178F3D3D00B70A4D /* w_obama-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B44E05178F3D3C00B70A4D /* w_obama-hd.png */; };
 		84C7BC2D17A98C77001D5648 /* giveup-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C7BC2917A98C75001D5648 /* giveup-hd.png */; };
 		84C7BC2E17A98C77001D5648 /* giveup.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C7BC2A17A98C75001D5648 /* giveup.png */; };
 		84C7BC2F17A98C77001D5648 /* panic-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C7BC2B17A98C76001D5648 /* panic-hd.png */; };
@@ -578,7 +577,7 @@
 		DCC1A10513A94ED5005BD75D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		DCC1A10713A94ED5005BD75D /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		DCC1A10913A94ED5005BD75D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DCC1A25A13A94EE6005BD75D /* bullet hell-o-Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "bullet hell-o-Mac.app"; path = "targeted-Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCC1A25A13A94EE6005BD75D /* targeted-Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "targeted-Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCC1A26813A94EE6005BD75D /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = Resources/English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DCC1A26B13A94EE6005BD75D /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		DCC1A26D13A94EE6005BD75D /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fps_images.png; path = Resources/fps_images.png; sourceTree = "<group>"; };
@@ -766,7 +765,7 @@
 			isa = PBXGroup;
 			children = (
 				DCC1A0E313A94ED5005BD75D /* targeted-iOS.app */,
-				DCC1A25A13A94EE6005BD75D /* bullet hell-o-Mac.app */,
+				DCC1A25A13A94EE6005BD75D /* targeted-Mac.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1087,7 +1086,7 @@
 			);
 			name = "targeted-Mac";
 			productName = "Hello-World-Mac";
-			productReference = DCC1A25A13A94EE6005BD75D /* bullet hell-o-Mac.app */;
+			productReference = DCC1A25A13A94EE6005BD75D /* targeted-Mac.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1096,7 +1095,7 @@
 		DCC1A0D813A94EC0005BD75D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0460;
 			};
 			buildConfigurationList = DCC1A0DB13A94EC0005BD75D /* Build configuration list for PBXProject "targeted" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1294,7 +1293,6 @@
 				84B44E02178F397900B70A4D /* title-hd.png in Resources */,
 				84B44E03178F397900B70A4D /* w_obama-hd.png in Resources */,
 				84B44E04178F397900B70A4D /* yellowback-hd.png in Resources */,
-				84B44E06178F3D3D00B70A4D /* w_obama-hd.png in Resources */,
 				8480AEBE1790987400AE2540 /* hex.mp3 in Resources */,
 				8480AEC01790B03700AE2540 /* timewwarp.mp3 in Resources */,
 				8480AEC21790B1D800AE2540 /* yeswecan.mp3 in Resources */,
@@ -1469,6 +1467,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC9C33E713B5024400931BF2 /* BuildSettings-Debug-Mac.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 			};
 			name = Debug;
 		};
@@ -1476,6 +1475,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC9C33E913B5024400931BF2 /* BuildSettings-Release-Mac.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 			};
 			name = Release;
 		};
