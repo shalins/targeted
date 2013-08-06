@@ -233,10 +233,44 @@ CCMotionStreak* streak;
 //                    [self shootBullet:5 angle:300];
 //                    [self shootBullet:5 angle:240];
                     
-                    [self shootBulletwithPos:1 angle:360 xpos:-200 ypos:-80];
-                    [self shootBulletwithPos:1 angle:360 xpos:-200 ypos:-200];
-                    [self shootBulletwithPos:1 angle:360 xpos:-200 ypos:-320];
-                    [self shootBulletwithPos:1 angle:360 xpos:-200 ypos:-440];
+//                    [self shootBulletwithPos:1 angle:360 xpos:-200 ypos:-80];
+//                    [self shootBulletwithPos:1 angle:360 xpos:-200 ypos:-200];
+//                    [self shootBulletwithPos:1 angle:360 xpos:-200 ypos:-320];
+//                    [self shootBulletwithPos:1 angle:360 xpos:-200 ypos:-440];
+                    
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    for(int i = 0; i < 8;i++) {
+                        id flowermove = [CCMoveTo actionWithDuration:1.0 position:ccp(160,460 - i*60)];
+                        [[flowerbullets objectAtIndex:i] runAction:flowermove];
+                    }
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    for(int i = 9; i < 16;i++) {
+                        id flowermove = [CCMoveTo actionWithDuration:1.0 position:ccp(0,460 - (i-8)*60)];
+                        [[flowerbullets objectAtIndex:i] runAction:flowermove];
+                    }
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+                    
                 }
 //                for(int i = 0; i < [bullets count]; i++) {
 //                    NSInteger j = i;
@@ -1739,7 +1773,9 @@ CCMotionStreak* streak;
 }
 -(void) shootBulletwithPos: (float) speed angle:(float) angleInput xpos:(float) xInput ypos:(float) yInput {
     Bullet *newB = [Bullet bullet:speed :angleInput];
-    newB.position = boss.position;
+    int x = screenCenter.x - 20;
+    int y = screenCenter.y + 50;
+    newB.position = ccp(x,y);
     newB.position = ccp(newB.position.x + xInput, newB.position.y + yInput);
     [self addChild:newB z:9];
     [bullets addObject:newB];
