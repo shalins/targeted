@@ -58,12 +58,12 @@ CCMotionStreak* streak;
         shieldon = false;
         if([[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialcompleted"] == false) {
             stagespast = 0;
-            bosstime = false;
+//            bosstime = false;
         }
         if([[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialcompleted"] == true) {
             stagespast = 4;
             attacktype = 4;
-            bosstime = true;
+//            bosstime = true;
         }
         framespast = 0;
         secondspast = 0;
@@ -1682,8 +1682,8 @@ CCMotionStreak* streak;
          [CCTransitionCrossFade transitionWithDuration:0.5f scene:[LevelSelect node]]];
     }
     stagespast = stagespast + 1;
-    bosstime = false;
-    bosstime = true;
+//    bosstime = false;
+//    bosstime = true;
     [self initBoss];
     gameSegment = 0;
     framespast = 0;
@@ -1841,7 +1841,7 @@ CCMotionStreak* streak;
     framespast = 0;
     stagespast = 4;
     [self flash:255 green:255 blue:255 alpha:255 actionWithDuration:0.5];
-    bosstime = false;
+//    bosstime = false;
     thetemporalint = 180;
     omganothertemportalint = 180;
 }
@@ -1889,7 +1889,7 @@ CCMotionStreak* streak;
         [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"bossdefeat"];
     }
     stagespast = stagespast + 1;
-    bosstime = false;
+//    bosstime = false;
     [self initBoss];
     gameSegment = 0;
     framespast = 0;
@@ -1927,11 +1927,13 @@ CCMotionStreak* streak;
         } else if (level == 2) {
             gameSegment++;
             if (gameSegment >= 6) {
+                level++;
                 [self gameEnd];
             }
         } else if (level == 3) {
             gameSegment++;
             if (gameSegment >= 6) {
+                level++;
                 [self gameEnd];
             }
         } else if (level == 4) {
