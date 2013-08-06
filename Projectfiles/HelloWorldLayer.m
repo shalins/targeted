@@ -132,11 +132,11 @@ CCMotionStreak* streak;
     for(int i = 0; i < [bullets count]; i++)
     {
         CCSprite* shalinbullet = [bullets objectAtIndex:i];        
-        if(shalinbullet.position.x > 300) {
+        if(shalinbullet.position.x > 310) {
             Bullet *temp = [bullets objectAtIndex:i];
             [self removeChild:temp cleanup:YES];
             [bullets removeObjectAtIndex:i];        }
-        if(shalinbullet.position.x < 0) {
+        if(shalinbullet.position.x < -5) {
             Bullet *temp = [bullets objectAtIndex:i];
             [self removeChild:temp cleanup:YES];
             [bullets removeObjectAtIndex:i];        }
@@ -153,7 +153,7 @@ CCMotionStreak* streak;
                 [self returnBullet];
                 for(int i = 0; i < [bullets count]; i++) {
                     Bullet *temp = [bullets objectAtIndex:i];
-                    [self removeChild:temp];
+                    [self removeChild:temp cleanup:YES];
                     int randomtemp = arc4random() % 10;
                     if(randomtemp == 5) {}
                 }
@@ -340,13 +340,13 @@ CCMotionStreak* streak;
                     [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"downwall"];
                 }
                 if((framespast % 250) == 0) {
-                    [self makeDownvote:-200];
+//                    [self makeDownvote:-200];
                     [self makeDownvote:-100];
                     if(isTimeWarped == false) {
                         [self makeDownvote:0];
                     }
-                    [self makeDownvote:100];
-                    [self makeDownvote:200];
+//                    [self makeDownvote:100];
+//                    [self makeDownvote:200];
                 }
             }
             if(gameSegment ==4) {
@@ -1132,13 +1132,13 @@ CCMotionStreak* streak;
     [self shootBulletwithPos:1 angle:270 xpos:88+xOffset ypos:10];
     [self shootBulletwithPos:1 angle:270 xpos:52+xOffset ypos:20];
     [self shootBulletwithPos:1 angle:270 xpos:88+xOffset ypos:20];
-    [self shootBulletwithPos:1 angle:270 xpos:52+xOffset ypos:30];
-    [self shootBulletwithPos:1 angle:270 xpos:88+xOffset ypos:30];
-    [self shootBulletwithPos:1 angle:270 xpos:52+xOffset ypos:40];
-    [self shootBulletwithPos:1 angle:270 xpos:88+xOffset ypos:40];
-    [self shootBulletwithPos:1 angle:270 xpos:50+xOffset ypos:50];
-    [self shootBulletwithPos:1 angle:270 xpos:70+xOffset ypos:50];
-    [self shootBulletwithPos:1 angle:270 xpos:90+xOffset ypos:50];
+//    [self shootBulletwithPos:1 angle:270 xpos:52+xOffset ypos:30];
+//    [self shootBulletwithPos:1 angle:270 xpos:88+xOffset ypos:30];
+//    [self shootBulletwithPos:1 angle:270 xpos:52+xOffset ypos:40];
+//    [self shootBulletwithPos:1 angle:270 xpos:88+xOffset ypos:40];
+//    [self shootBulletwithPos:1 angle:270 xpos:50+xOffset ypos:50];
+//    [self shootBulletwithPos:1 angle:270 xpos:70+xOffset ypos:50];
+//    [self shootBulletwithPos:1 angle:270 xpos:90+xOffset ypos:50];
     [self shootBulletwithPos:1 angle:270 xpos:30+xOffset ypos:-10];
     [self shootBulletwithPos:1 angle:270 xpos:110+xOffset ypos:-10];
     [self shootBulletwithPos:1 angle:270 xpos:40+xOffset ypos:-20];
@@ -1392,6 +1392,7 @@ CCMotionStreak* streak;
         projectile.position = ccp(projectile.position.x,projectile.position.y - 1);
     }
 }
+// This was the original code for switching the levels and gamesegments
 //-(void) gameSeg {
 //    if(bosstime == true) {
 //        if(level == 1) {
@@ -1775,6 +1776,8 @@ CCMotionStreak* streak;
         [powerups addObject:newB];
         newB.tag = 42;
         newB.scale = 0.2f;
+//        [self removeChild:newB cleanup:YES];
+        [self removeChild:shield cleanup:YES];
     }
 }
 -(void) shootBulletwithPosDonkey: (float) speed angle:(float) angleInput xpos:(float) xInput ypos:(float) yInput {
@@ -1859,14 +1862,17 @@ CCMotionStreak* streak;
     for(int i = 0; i < [bullets count]; i++) {
         Bullet *temp = [bullets objectAtIndex:i];
         [self removeChild:temp cleanup:YES];
+        [bullets removeAllObjects];
    }
     for(int i = 0; i < [donkeys count]; i++) {
         CCSprite *temp = [donkeys objectAtIndex:i];
         [self removeChild:temp cleanup:YES];
+        [bullets removeAllObjects];
     }
     for(int i = 0; i < [flowerbullets count]; i++) {
         CCSprite *temp = [flowerbullets objectAtIndex:i];
         [self removeChild:temp cleanup:YES];
+        [bullets removeAllObjects];
     }
 //    if (bullet.position.x > screenSize.width || bullet.position.y > screenSize.height) {
 //        Bullet *Somebullets = [bullets objectAtIndex:i];
@@ -1882,7 +1888,7 @@ CCMotionStreak* streak;
 }
 -(void) deathplusdeath {
     [[NSUserDefaults standardUserDefaults] setInteger:(coins + 1) forKey:@"coins"];
-    [self removeChild:streak];
+    [self removeChild:streak cleanup:YES];
     [self flash:0 green:0 blue:255 alpha:255 actionWithDuration:0];
     [self rflash:255 green:255 blue:255 alpha:255 actionWithDuration:0];
     [self shootBulletwithPosPowerup:3 angle:260 xpos:0 ypos:0];
@@ -1907,7 +1913,7 @@ CCMotionStreak* streak;
     //create first,delay,create second
     [self schedule:@selector(mySelector) interval:3.0];
     for(int i = 0; i<[donkeys count]; i++) {
-        [self removeChild:[donkeys objectAtIndex:i]];
+        [self removeChild:[donkeys objectAtIndex:i] cleanup:YES];
     }
     [donkeys removeAllObjects];
 }
@@ -1927,34 +1933,39 @@ CCMotionStreak* streak;
 }
 -(void) targetHit {
     if (targetHit == true) {
+        // This should happen when the bullet is deleted.
+                
         if (level == 1) {
             gameSegment++;
             if (gameSegment >= 7) {
                 level++;
                 [self gameEnd];
+                [self removeChild:boss cleanup:YES];
             }
         } else if (level == 2) {
             gameSegment++;
             if (gameSegment >= 6) {
                 level++;
                 [self gameEnd];
+                [self removeChild:boss cleanup:YES];
             }
         } else if (level == 3) {
             gameSegment++;
             if (gameSegment >= 6) {
                 level++;
                 [self gameEnd];
+                [self removeChild:boss cleanup:YES];
             }
         } else if (level == 4) {
             gameSegment++;
             if (gameSegment >= 9) {
                 [self gameEnd];
+                [self removeChild:boss cleanup:YES];
             }
         }
-        [self returnBullet];
         for(int i = 0; i < [bullets count]; i++) {
             Bullet *temp = [bullets objectAtIndex:i];
-            [self removeChild:temp];
+            [self removeChild:temp cleanup:YES];
         }
         [bullets removeAllObjects];
         
@@ -1970,14 +1981,21 @@ CCMotionStreak* streak;
         targetHit = true;
         [self targetHit];
     }
+    
+    if (CGRectIntersectsRect(CGRectMake(player.position.x, player.position.y, playerWidth, playerHeight), CGRectMake(shield.position.x, shield.position.y, shield.boundingBox.size.width, shield.boundingBox.size.height)) == true) {
+//        [powerups removeAllObjects];
+//        [self removeChild:shield cleanup:YES];
+    }
+    
     for(int i = 0; i < [bullets count]; i++) {
         NSInteger j = i;
         CCSprite* tempSprite = [bullets objectAtIndex:j];
         if ([self isCollidingSphere:tempSprite WithSphere:player] == true) {
             if(shieldon == true) {
-                [self removeChild:tempSprite];
+                [self removeChild:tempSprite cleanup:YES];
                 [bullets removeObjectAtIndex:i];
-                [self removeChild:shield];
+                [self removeChild:shield cleanup:YES];
+                [self deleteubershield];
                 shieldon = false;
                 if([[NSUserDefaults standardUserDefaults]boolForKey:@"protection"] == false) {
                     [MGWU showMessage:@"Achievement Get!      Chicken Blocked" withImage:nil];
@@ -1985,7 +2003,9 @@ CCMotionStreak* streak;
                 }
             }
             else if(ubershieldon == true) {
-                [self removeChild:tempSprite];
+                [self removeChild:shield cleanup:YES];
+                [self deleteubershield];
+                [self removeChild:tempSprite cleanup:YES];
                 [bullets removeObjectAtIndex:i];
                 if([[NSUserDefaults standardUserDefaults]boolForKey:@"protection"] == false) {
                     [MGWU showMessage:@"Achievement Get!      Temp Inviniciblity" withImage:nil];
@@ -2002,9 +2022,9 @@ CCMotionStreak* streak;
         CCSprite* tempSprite = [flowerbullets objectAtIndex:j];
         if ([self isCollidingSphere:tempSprite WithSphere:player] == true) {
             if(shieldon == true) {
-                [self removeChild:tempSprite];
+                [self removeChild:tempSprite cleanup:YES];
                 [flowerbullets removeObjectAtIndex:i];
-                [self removeChild:shield];
+                [self removeChild:shield cleanup:YES];
                 shieldon = false;
                 if([[NSUserDefaults standardUserDefaults]boolForKey:@"protection"] == false) {
                     [MGWU showMessage:@"Achievement Get!      Chicken Blocked" withImage:nil];
@@ -2012,7 +2032,7 @@ CCMotionStreak* streak;
                 }
             }
             if(ubershieldon == true) {
-                [self removeChild:tempSprite];
+                [self removeChild:tempSprite cleanup:YES];
                 [flowerbullets removeObjectAtIndex:i];
                 if([[NSUserDefaults standardUserDefaults]boolForKey:@"protection"] == false) {
                     [MGWU showMessage:@"Achievement Get!      Chicken Blocked" withImage:nil];
@@ -2084,11 +2104,11 @@ CCMotionStreak* streak;
 }
 - (void)delflash {
     [self unschedule:@selector(delflash)];
-    [self removeChild:colorLayer];
+    [self removeChild:colorLayer cleanup:YES];
 }
 - (void)delrflash {
     [self unschedule:@selector(delrflash)];
-    [self removeChild:colorLayer];
+    [self removeChild:colorLayer cleanup:YES];
     if(bosstime == true) {
         glClearColor(0, 0, 0, 255);
         NSLog(@"ok, go.");
@@ -2213,20 +2233,20 @@ CCMotionStreak* streak;
     [player runAction:scalep];
     deathanimation = true;
     //[self removeChild:countdown];
-    [self removeChild:border];
-    [self removeChild:coinLabel];
-    [self removeChild:gameOver];
-    [self removeChild:gameOver1];
-    [self removeChild:gameOver2];
-    [self removeChild:gameOver3];
-    [self removeChild:gameOverLayer];
-    [self removeChild:GameOverMenu];
+    [self removeChild:border cleanup:YES];
+    [self removeChild:coinLabel cleanup:YES];
+    [self removeChild:gameOver cleanup:YES];
+    [self removeChild:gameOver1 cleanup:YES];
+    [self removeChild:gameOver2 cleanup:YES];
+    [self removeChild:gameOver3 cleanup:YES];
+    [self removeChild:gameOverLayer cleanup:YES];
+    [self removeChild:GameOverMenu cleanup:YES];
     [self scheduleUpdate];
     [[CCDirector sharedDirector] resume];
     [self returnBullet];
     for(int i = 0; i < [bullets count]; i++) {
         Bullet *temp = [bullets objectAtIndex:i];
-        [self removeChild:temp];
+        [self removeChild:temp cleanup:YES];
         //  [bullets removeObjectAtIndex:j];
         //[bulletDirection removeObjectAtIndex:j];
         //[bulletSpeed removeObjectAtIndex:j];
@@ -2234,7 +2254,7 @@ CCMotionStreak* streak;
     [bullets removeAllObjects];
     for(int i = 0; i < [flowerbullets count]; i++) {
         Bullet *temp = [flowerbullets objectAtIndex:i];
-        [self removeChild:temp];
+        [self removeChild:temp cleanup:YES];
         //  [bullets removeObjectAtIndex:j];
         //[bulletDirection removeObjectAtIndex:j];
         //[bulletSpeed removeObjectAtIndex:j];
