@@ -79,7 +79,7 @@
         moreMenu.position = CGPointZero;
         [self addChild:moreMenu];
         
-        CCLabelTTF *back = [CCMenuItemImage itemFromNormalImage:@"bback.png" selectedImage:@"bback.png" target:self selector:@selector(unPause)];
+        CCLabelTTF *back = [CCMenuItemImage itemFromNormalImage:@"back.png" selectedImage:@"back-sel.png" target:self selector:@selector(unPause)];
         back.position = ccp(50, 240);
         back.scale = 0.5;
         CCMenu *backmenu = [CCMenu menuWithItems:back, nil];
@@ -112,31 +112,7 @@
             [gameOver runAction:tint];
             CCTintTo* tint2 = [CCTintTo actionWithDuration:0 red:0 green:0 blue:0];
             [bosstag runAction:tint2];
-            /*// game over label runs 3 different actions at the same time to create the combined effect
-             // 1) color tinting
-             CCTintTo* tint1 = [CCTintTo actionWithDuration:2 red:255 green:0 blue:0];
-             CCTintTo* tint2 = [CCTintTo actionWithDuration:2 red:255 green:255 blue:0];
-             CCTintTo* tint3 = [CCTintTo actionWithDuration:2 red:0 green:255 blue:0];
-             CCTintTo* tint4 = [CCTintTo actionWithDuration:2 red:0 green:255 blue:255];
-             CCTintTo* tint5 = [CCTintTo actionWithDuration:2 red:0 green:0 blue:255];
-             CCTintTo* tint6 = [CCTintTo actionWithDuration:2 red:255 green:0 blue:255];
-             CCSequence* tintSequence = [CCSequence actions:tint1, tint2, tint3, tint4, tint5, tint6, nil];
-             CCRepeatForever* repeatTint = [CCRepeatForever actionWithAction:tintSequence];
-             [gameOver runAction:repeatTint];
-             
-             // 2) rotation with ease
-             CCRotateTo* rotate1 = [CCRotateTo actionWithDuration:2 angle:3];
-             CCEaseBounceInOut* bounce1 = [CCEaseBounceInOut actionWithAction:rotate1];
-             CCRotateTo* rotate2 = [CCRotateTo actionWithDuration:2 angle:-3];
-             CCEaseBounceInOut* bounce2 = [CCEaseBounceInOut actionWithAction:rotate2];
-             CCSequence* rotateSequence = [CCSequence actions:bounce1, bounce2, nil];
-             CCRepeatForever* repeatBounce = [CCRepeatForever actionWithAction:rotateSequence];
-             [gameOver runAction:repeatBounce];
-             d
-             // 3) jumping
-             CCJumpBy* jump = [CCJumpBy actionWithDuration:3 position:CGPointZero height:screenSize.height / 3 jumps:1];
-             CCRepeatForever* repeatJump = [CCRepeatForever actionWithAction:jump];
-             [gameOver runAction:repeatJump];*/
+            
             CCSprite* background = [CCSprite spriteWithFile:@"back31.png"];
             background.position = ccp(screen.width/2,screen.height/2);
             
@@ -168,7 +144,7 @@
             moreMenu.position = CGPointZero;
             [self addChild:moreMenu];
             
-            CCLabelTTF *back = [CCMenuItemImage itemFromNormalImage:@"bback.png" selectedImage:@"bback.png" target:self selector:@selector(unPause)];
+            CCLabelTTF *back = [CCMenuItemImage itemFromNormalImage:@"back.png" selectedImage:@"back-sel.png" target:self selector:@selector(unPause)];
             back.position = ccp(50, 240);
             back.scale = 0.5;
             CCMenu *backmenu = [CCMenu menuWithItems:back, nil];

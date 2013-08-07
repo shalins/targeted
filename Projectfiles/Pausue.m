@@ -36,9 +36,25 @@
         [self addChild:background];
         
         
-        CCLabelTTF* gameOver = [CCLabelTTF labelWithString:@"Paused" fontName:@"Arial" fontSize:40];
-        [gameOver setColor:ccc3(0, 0, 0)];
-        gameOver.position = CGPointMake(screenSize.width / 2, 440);
+//        CCLabelTTF* gameOver = [CCLabelTTF labelWithString:@"Paused" fontName:@"Arial" fontSize:40];
+//        [gameOver setColor:ccc3(0, 0, 0)];
+//        gameOver.position = CGPointMake(screenSize.width / 2, 440);
+        
+        CCLabelTTF *playAgainLabel = [CCLabelTTF labelWithString:@"Resume" fontName:@"HelveticaNeue-Light" fontSize:22];
+        playAgainLabel.position = ccp(screenSize.width/2, screenSize.height/2 - 5);
+        playAgainLabel.color = ccc3(52,73,94);
+        [self addChild:playAgainLabel z:7];
+        
+        CCLabelTTF *restartLabel = [CCLabelTTF labelWithString:@"Quit" fontName:@"HelveticaNeue-Light" fontSize:22];
+        restartLabel.position = ccp(screenSize.width/2, screenSize.height/2 - 80);
+        restartLabel.color = ccc3(52,73,94);
+        [self addChild:restartLabel z:7];
+        
+        CCLabelTTF *quitLabel = [CCLabelTTF labelWithString:@"Store" fontName:@"HelveticaNeue-Light" fontSize:22];
+        quitLabel.position = ccp(screenSize.width/2, screenSize.height/2 - 160);
+        quitLabel.color = ccc3(52,73,94);
+        [self addChild:quitLabel z:7];
+        
         //[self addChild:gameOver z:100 tag:100];
         
        /* // game over label runs 3 different actions at the same time to create the combined effect
@@ -67,26 +83,38 @@
         CCRepeatForever* repeatJump = [CCRepeatForever actionWithAction:jump];
         [gameOver runAction:repeatJump];*/
         
-        CCLabelTTF *highscore = [CCMenuItemImage itemFromNormalImage:@"orangecont.png" selectedImage:@"orangecont.png" target:self selector:@selector(unPause)];
-        highscore.position = ccp(160, 290);
-        highscore.scale = 1;
-        CCMenu *starMenu = [CCMenu menuWithItems:highscore, nil];
-        starMenu.position = CGPointZero;
-        [self addChild:starMenu];
+//        CCLabelTTF *highscore = [CCMenuItemImage itemFromNormalImage:@"orangecont.png" selectedImage:@"orangecont.png" target:self selector:@selector(unPause)];
+//        highscore.position = ccp(160, 290);
+//        highscore.scale = 1;
+//        CCMenu *starMenu = [CCMenu menuWithItems:highscore, nil];
+//        starMenu.position = CGPointZero;
+//        [self addChild:starMenu];
+//        
+//        CCLabelTTF *boss = [CCMenuItemImage itemFromNormalImage:@"giveup.png" selectedImage:@"giveup.png" target:self selector:@selector(restartGame)];
+//        boss.position = ccp(160, 210);
+//        CCMenu *moreMenu = [CCMenu menuWithItems:boss, nil];
+//        moreMenu.position = CGPointZero;
+//        [self addChild:moreMenu];
+//        
+//        CCLabelTTF *back = [CCMenuItemImage itemFromNormalImage:@"panic.png" selectedImage:@"panic.png" target:self selector:@selector(quitGame)];
+//        back.position = ccp(160, 130);
+//        CCMenu *backmenu = [CCMenu menuWithItems:back, nil];
+//        backmenu.position = CGPointZero;
+//        [self addChild:backmenu];
         
-        CCLabelTTF *boss = [CCMenuItemImage itemFromNormalImage:@"giveup.png" selectedImage:@"giveup.png" target:self selector:@selector(restartGame)];
-        boss.position = ccp(160, 210);
-        CCMenu *moreMenu = [CCMenu menuWithItems:boss, nil];
-        moreMenu.position = CGPointZero;
-        [self addChild:moreMenu];
         
-        CCLabelTTF *back = [CCMenuItemImage itemFromNormalImage:@"panic.png" selectedImage:@"panic.png" target:self selector:@selector(quitGame)];
-        back.position = ccp(160, 130);
-        CCMenu *backmenu = [CCMenu menuWithItems:back, nil];
-        backmenu.position = CGPointZero;
-        [self addChild:backmenu];
+        CCMenuItemImage *highscore = [CCMenuItemImage itemWithNormalImage:@"button.png" selectedImage:@"button-sel.png" target:self selector:@selector(unPause)];
+        highscore.scale = 1.0f;
+        CCMenuItemImage *boss = [CCMenuItemImage itemWithNormalImage:@"button.png" selectedImage:@"button-sel.png" target:self selector:@selector(restartGame)];
+        boss.scale = 1.0f;
+        CCMenuItemImage *back = [CCMenuItemImage itemWithNormalImage:@"button.png" selectedImage:@"button-sel.png" target:self selector:@selector(quitGame)];
+        back.scale = 1.0f;
         
-
+        CCMenu *gameOverMenu = [CCMenu menuWithItems:highscore, boss, back, nil];
+        [gameOverMenu alignItemsVertically];
+        gameOverMenu.position = ccp(screenSize.width/2, screenSize.height/2 - 80);
+        [self addChild:gameOverMenu];
+        
     }
     return self;
 }

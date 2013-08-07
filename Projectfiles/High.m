@@ -34,7 +34,7 @@ CGSize screenSize;
 
         [self getScores];
         
-        CCLabelTTF *back3 = [CCMenuItemImage itemFromNormalImage:@"bback.png" selectedImage:@"bback.png" target:self selector:@selector(goHome)];
+        CCLabelTTF *back3 = [CCMenuItemImage itemFromNormalImage:@"back.png" selectedImage:@"back-sel.png" target:self selector:@selector(goHome)];
         back3.position = ccp(160, 80);
         back3.scale = 0.5;
         CCMenu *backmenu3 = [CCMenu menuWithItems:back3, nil];

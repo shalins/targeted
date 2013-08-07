@@ -26,138 +26,91 @@ CCLabelBMFont *coinsLabel;
         background.position = ccp(160,240);
         [self addChild:background];
         
-        //glClearColor(255, 255, 255, 255);
         screenSize = [[CCDirector sharedDirector] winSize];
-        CGPoint screenCenter = [[CCDirector sharedDirector] screenCenter];
-        CCLabelBMFont *gameTitle = [CCLabelTTF labelWithString:@"STORE" fontName:@"Bend2SquaresBRK" fontSize:75];
-        gameTitle.color = ccc3(0,0,0);
-        gameTitle.position = ccp(screenCenter.x, screenCenter.y + 210);
-     //   [self addChild:gameTitle];
         
         int CoinNumber = [[NSUserDefaults standardUserDefaults] integerForKey:@"coins"];
         //        NSNumber *endingHighScoreNumber = [MGWU objectForKey:@"sharedHighScore"];
         coins = CoinNumber;
         CoinString = [[NSString alloc] initWithFormat:@"Coins: %i", coins];
-        coinsLabel = [CCLabelTTF labelWithString:CoinString fontName:@"NexaBold" fontSize:30];
-        coinsLabel.position = ccp(screenSize.width/2, screenSize.height -125);
-        coinsLabel.color = ccc3(0, 0, 0);
+        coinsLabel = [CCLabelTTF labelWithString:CoinString fontName:@"HelveticaNeue-Light" fontSize:28];
+        coinsLabel.position = ccp(screenSize.width/2, screenSize.height - 145);
         [self addChild:coinsLabel];
         
+                
+        CCMenuItemImage *buyMoney1 = [CCMenuItemImage itemWithNormalImage:@"money1.png" selectedImage:@"money1-sel.png" target:self selector:@selector(buyCash1)];
+        CCMenuItemImage *buyMoney2 = [CCMenuItemImage itemWithNormalImage:@"money2.png" selectedImage:@"money2-sel.png" target:self selector:@selector(buyCash2)];
+        CCMenuItemImage *buyMoney3 = [CCMenuItemImage itemWithNormalImage:@"money3.png" selectedImage:@"money3-sel.png" target:self selector:@selector(buyCash3)];
         
-        CCLabelBMFont *label1 = [CCLabelTTF labelWithString:@"1.00" fontName:@"Bend2SquaresBRK" fontSize:30];
-        label1.color = ccc3(0,0,0);
-        label1.position = ccp(80, 280);
-      //  [self addChild:label1];
+        CCMenu *moneyVendor = [CCMenu menuWithItems:buyMoney1, buyMoney2, buyMoney3, nil];
+        moneyVendor.position = ccp(screenSize.width/2, screenSize.height/2 - 45);
+        [moneyVendor alignItemsVerticallyWithPadding:1.0f];
+        [self addChild:moneyVendor];
         
-        CCLabelBMFont *label2 = [CCLabelTTF labelWithString:@"2.00" fontName:@"Bend2SquaresBRK" fontSize:30];
-        label2.color = ccc3(0,0,0);
-        label2.position = ccp(240, 280);
-     //   [self addChild:label2];
+        CCLabelTTF *restartLabel = [CCLabelTTF labelWithString:@"Leave" fontName:@"HelveticaNeue-Light" fontSize:22];
+        restartLabel.position = ccp(screenSize.width/2, screenSize.height/2 - 200);
+        restartLabel.color = ccc3(52,73,94);
+        [self addChild:restartLabel z:9012];
         
-        CCLabelBMFont *label3 = [CCLabelTTF labelWithString:@"5.00" fontName:@"Bend2SquaresBRK" fontSize:30];
-        label3.color = ccc3(0,0,0);
-        label3.position = ccp(160, 160);
-       // [self addChild:label3];
+        CCMenuItemImage *goBack = [CCMenuItemImage itemWithNormalImage:@"button.png" selectedImage:@"button-sel.png" target:self selector:@selector(goHome)];
+        goBack.scale = 0.8f;
         
-        
-        /*CCMenuItemFont *goBackToHome = [CCMenuItemFont itemFromString: @"Back to Menu" target:self selector:@selector(goHome)];
-        [goBackToHome setFontName:@"Bend2SquaresBRK"];
-        [goBackToHome setFontSize:25];
-        goBackToHome.color = ccc3(0, 0, 0);
-        
-        CCMenu *goHomeMenu = [CCMenu menuWithItems:goBackToHome, nil];
-        [goHomeMenu alignItemsVertically];
-        goHomeMenu.position = ccp(screenSize.width/2, 40);
-        [self addChild:goHomeMenu];*/
-        
-        
-        CCLabelTTF *highscore = [CCMenuItemImage itemFromNormalImage:@"smallcoins.png" selectedImage:@"smallcoins.png" target:self selector:@selector(buyCash1)];
-        highscore.position = ccp(160, 300);
-        CCMenu *starMenu = [CCMenu menuWithItems:highscore, nil];
-        starMenu.position = CGPointZero;
-        [self addChild:starMenu];
-        
-        CCLabelTTF *boss = [CCMenuItemImage itemFromNormalImage:@"medcoins.png" selectedImage:@"medcoins.png" target:self selector:@selector(buyCash2)];
-        boss.position = ccp(160, 220);
-        CCMenu *moreMenu = [CCMenu menuWithItems:boss, nil];
-        moreMenu.position = CGPointZero;
-        [self addChild:moreMenu];
-        
-        CCLabelTTF *back = [CCMenuItemImage itemFromNormalImage:@"bigconins.png" selectedImage:@"bigconins.png" target:self selector:@selector(buyCash3)];
-        back.position = ccp(160, 140);
-        //back.scale = 0.5;
-        CCMenu *backmenu = [CCMenu menuWithItems:back, nil];
-        backmenu.position = CGPointZero;
-        [self addChild:backmenu];
-        
-        CCLabelTTF *back2 = [CCMenuItemImage itemFromNormalImage:@"leave.png" selectedImage:@"leave.png" target:self selector:@selector(goHome)];
-        back2.position = ccp(160, 70);
-        back2.scale = 0.8;
-        CCMenu *backmenu2 = [CCMenu menuWithItems:back2, nil];
-        backmenu2.position = CGPointZero;
+        CCMenu *backmenu2 = [CCMenu menuWithItems:goBack, nil];
+        backmenu2.position = ccp(screenSize.width/2, screenSize.height/2 - 204);
         [self addChild:backmenu2];
         
         [self scheduleUpdate];
-        
     }
     return self;
 }
 
 -(void) buyCash1
 {
-    [MGWU testBuyProduct:@"com.kev.blu.10" withCallback:@selector(boughtProduct:) onTarget:self];
+    [MGWU testBuyProduct:@"com.kev.blu.100" withCallback:@selector(boughtProduct:) onTarget:self];
 }
-
 -(void) buyCash2
 {
-    [MGWU testBuyProduct:@"com.kev.blu.50" withCallback:@selector(boughtProduct:) onTarget:self];
+    [MGWU testBuyProduct:@"com.kev.blu.250" withCallback:@selector(boughtProduct:) onTarget:self];
 }
-
 -(void) buyCash3
 {
-    [MGWU testBuyProduct:@"com.kev.blu.300" withCallback:@selector(boughtProduct:) onTarget:self];
+    [MGWU testBuyProduct:@"com.kev.blu.500" withCallback:@selector(boughtProduct:) onTarget:self];
 }
-
 
 -(void) boughtProduct:(NSString*) powerupToBuy
 {
     NSLog(@"Something was Bought!");
     [MGWU showMessage:@"Purchase Successful" withImage:nil];
-    if ([powerupToBuy isEqualToString:@"com.kev.blu.10"] == true)
+    if ([powerupToBuy isEqualToString:@"com.kev.blu.100"] == true)
     {
-        NSLog(@"1000 Coins added!");
-        coins += 10;
+        NSLog(@"100 Coins added!");
+        coins += 100;
         //NSNumber *boughtCoinVal = [NSNumber numberWithInt:coins];
         [[NSUserDefaults standardUserDefaults] setInteger:coins forKey:@"coins"];
     }
     
-    if ([powerupToBuy isEqualToString:@"com.kev.blu.50"] == true)
+    if ([powerupToBuy isEqualToString:@"com.kev.blu.250"] == true)
     {
-        NSLog(@"3000 Coins added!");
-        coins += 50;
+        NSLog(@"250 Coins added!");
+        coins += 250;
         //NSNumber *boughtCoinVal = [NSNumber numberWithInt:coins];
         [[NSUserDefaults standardUserDefaults] setInteger:coins forKey:@"coins"];
         
     }
     
-    if ([powerupToBuy isEqualToString:@"com.kev.blu.300"] == true)
+    if ([powerupToBuy isEqualToString:@"com.kev.blu.500"] == true)
     {
-        NSLog(@"10000 Coins added!");
-        coins += 300;
+        NSLog(@"500 Coins added!");
+        coins += 500;
         //NSNumber *boughtCoinVal = [NSNumber numberWithInt:coins];
         [[NSUserDefaults standardUserDefaults] setInteger:coins forKey:@"coins"];
     }
-    
 }
-
 
 -(void) goHome
 {
     //glClearColor(0, 0, 0, 255);
     [[CCDirector sharedDirector] popScene];
 }
-
-
 -(void) update:(ccTime)delta
 {
     CoinString = [[NSString alloc] initWithFormat:@"Coins: %i", coins];

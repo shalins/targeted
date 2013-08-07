@@ -64,6 +64,8 @@
     CCLabelTTF* gameOver1;
     CCLabelTTF* gameOver2;
     CCLabelTTF* gameOver3;
+    CCLabelTTF *dieLabel;
+    CCLabelTTF *continuePressed;
     CCLabelBMFont* coinLabel;
     int continueCost;
     CCSprite *player;

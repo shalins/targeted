@@ -38,7 +38,7 @@
             // add the labels shown during game over
            // CGSize screenSize = [[CCDirector sharedDirector] winSize];
             
-            CCLabelTTF* play = [CCMenuItemImage itemFromNormalImage:@"play.png" selectedImage:@"play.png" target:self selector:@selector(unPause)];
+            CCLabelTTF* play = [CCMenuItemImage itemFromNormalImage:@"play.png" selectedImage:@"play-sel.png" target:self selector:@selector(unPause)];
             play.position = ccp(160, 230);
             CCMenu *playmenu = [CCMenu menuWithItems:play, nil];
             playmenu.position = CGPointZero;
@@ -49,7 +49,7 @@
             
             
             
-            CCLabelTTF *highscore = [CCMenuItemImage itemFromNormalImage:@"highscores.png" selectedImage:@"highscores.png" target:self selector:@selector(high)];
+            CCLabelTTF *highscore = [CCMenuItemImage itemFromNormalImage:@"highscores.png" selectedImage:@"highscores-sel.png" target:self selector:@selector(high)];
             highscore.position = ccp(80, 60);
             CCMenu *starMenu = [CCMenu menuWithItems:highscore, nil];
             starMenu.position = CGPointZero;
@@ -58,7 +58,7 @@
             id menuscale = [CCScaleTo actionWithDuration:0.7f scale:1.0f];
             [highscore runAction:menuscale];
             
-            CCLabelTTF *mgwu = [CCMenuItemImage itemFromNormalImage:@"mgwu.png" selectedImage:@"mgwu.png" target:self selector:@selector(mgwu)];
+            CCLabelTTF *mgwu = [CCMenuItemImage itemFromNormalImage:@"mgwu.png" selectedImage:@"mgwu-sel.png" target:self selector:@selector(mgwu)];
             mgwu.position = ccp(240, 60);
             CCMenu *mgmenu = [CCMenu menuWithItems:mgwu, nil];
             mgmenu.position = CGPointZero;
@@ -67,14 +67,12 @@
             id mmenuscale = [CCScaleTo actionWithDuration:0.7f scale:1.0f];
             [mgwu runAction:mmenuscale];
             
+//            CCSprite* title = [CCSprite spriteWithFile:@"blue.png"];
+//            title.position = ccp(160,650);
+//            [self addChild:title];
             
-            
-            CCSprite* title = [CCSprite spriteWithFile:@"blue.png"];
-            title.position = ccp(160,650);
-            [self addChild:title];
-            
-            id movein = [CCMoveTo actionWithDuration:0.7f position:ccp(160,440)];
-            [title runAction:movein];
+//            id movein = [CCMoveTo actionWithDuration:0.7f position:ccp(160,440)];
+//            [title runAction:movein];
             
             //if([[SimpleAudioEngine sharedEngine] isBackgroundMusicPlaying] == false)
             //{
@@ -99,7 +97,7 @@
         // add the labels shown during game over
         CGSize screenSize = [[CCDirector sharedDirector] winSize];
         
-        CCLabelTTF* play = [CCMenuItemImage itemFromNormalImage:@"play.png" selectedImage:@"play.png" target:self selector:@selector(unPause)];
+        CCLabelTTF* play = [CCMenuItemImage itemFromNormalImage:@"play.png" selectedImage:@"play-sel.png" target:self selector:@selector(unPause)];
         play.position = ccp(160, 200);
         CCMenu *playmenu = [CCMenu menuWithItems:play, nil];
         playmenu.position = CGPointZero;
@@ -110,7 +108,7 @@
         
 
         
-        CCLabelTTF *highscore = [CCMenuItemImage itemFromNormalImage:@"highscores.png" selectedImage:@"highscores.png" target:self selector:@selector(high)];
+        CCLabelTTF *highscore = [CCMenuItemImage itemFromNormalImage:@"highscores.png" selectedImage:@"highscores-sel.png" target:self selector:@selector(high)];
         highscore.position = ccp(80, 60);
         CCMenu *starMenu = [CCMenu menuWithItems:highscore, nil];
         starMenu.position = CGPointZero;
@@ -119,7 +117,7 @@
         id menuscale = [CCScaleTo actionWithDuration:0.7f scale:1.0f];
         [highscore runAction:menuscale];
         
-        CCLabelTTF *mgwu = [CCMenuItemImage itemFromNormalImage:@"mgwu.png" selectedImage:@"mgwu.png" target:self selector:@selector(mgwu)];
+        CCLabelTTF *mgwu = [CCMenuItemImage itemFromNormalImage:@"mgwu.png" selectedImage:@"mgwu-sel.png" target:self selector:@selector(mgwu)];
         mgwu.position = ccp(240, 60);
         CCMenu *mgmenu = [CCMenu menuWithItems:mgwu, nil];
         mgmenu.position = CGPointZero;
