@@ -101,8 +101,6 @@
         id bossscale = [CCScaleTo actionWithDuration:0.5f scale:1.0f];
         [play runAction:bossscale];
         
-
-        
         CCLabelTTF *highscore = [CCMenuItemImage itemFromNormalImage:@"highscores.png" selectedImage:@"highscores-sel.png" target:self selector:@selector(high)];
         highscore.position = ccp(80, 60);
         CCMenu *starMenu = [CCMenu menuWithItems:highscore, nil];
@@ -131,33 +129,33 @@
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"techno.mp3" loop:YES];
         //}
             
-            bluemove = [CCSprite spriteWithFile:@"Glowing_Blue_Orb.png"];
-            bluemove.scale = 0.1;
-            bluemove.position = ccp(250,450);
-            [self addChild:bluemove];
-            
-            orangemove = [CCSprite spriteWithFile:@"shield.png"];
-            orangemove.scale = 0.05;
-            orangemove.position = ccp(245,365);
-            [self addChild:orangemove];
-            
-            id moveAction = [CCMoveTo actionWithDuration:1 position:ccp(290,365)];
-            id moveActionBack = [CCMoveTo actionWithDuration:1 position:ccp(245,365)];
-            id delayTimeAction = [CCDelayTime actionWithDuration:1];
-            id delayTime2 = [CCDelayTime actionWithDuration:2];
-            CCSequence *act =[CCSequence actions:moveAction,delayTimeAction,moveActionBack,delayTimeAction,nil];
-            CCRepeatForever *repeat = [CCRepeatForever actionWithAction:act];
-            [orangemove runAction:repeat];
-            id makeblueball = [CCCallFunc actionWithTarget:self selector:@selector(makeblueball)];
-            id makeblueball2 = [CCCallFunc actionWithTarget:self selector:@selector(makeblueball2)];
-            
-            id moveBlueLeft = [CCMoveTo actionWithDuration:2 position:ccp(250,345)];
-            id removeMySprite = [CCCallFuncND actionWithTarget:bluemove selector:@selector(removeFromParentAndCleanup:) data:(void*)NO];
-            [bluemove runAction:[CCSequence actions:moveBlueLeft,removeMySprite,nil]];
-            
-            CCSequence *spawnBlue = [CCSequence actions:makeblueball,delayTime2,makeblueball2,delayTime2,nil];
-            CCRepeatForever *repblue = [CCRepeatForever actionWithAction:spawnBlue];
-            [self runAction:repblue];
+//            bluemove = [CCSprite spriteWithFile:@"Glowing_Blue_Orb.png"];
+//            bluemove.scale = 0.1;
+//            bluemove.position = ccp(250,450);
+//            [self addChild:bluemove];
+//            
+//            orangemove = [CCSprite spriteWithFile:@"shield.png"];
+//            orangemove.scale = 0.05;
+//            orangemove.position = ccp(245,365);
+//            [self addChild:orangemove];
+//            
+//            id moveAction = [CCMoveTo actionWithDuration:1 position:ccp(290,365)];
+//            id moveActionBack = [CCMoveTo actionWithDuration:1 position:ccp(245,365)];
+//            id delayTimeAction = [CCDelayTime actionWithDuration:1];
+//            id delayTime2 = [CCDelayTime actionWithDuration:2];
+//            CCSequence *act =[CCSequence actions:moveAction,delayTimeAction,moveActionBack,delayTimeAction,nil];
+//            CCRepeatForever *repeat = [CCRepeatForever actionWithAction:act];
+//            [orangemove runAction:repeat];
+//            id makeblueball = [CCCallFunc actionWithTarget:self selector:@selector(makeblueball)];
+//            id makeblueball2 = [CCCallFunc actionWithTarget:self selector:@selector(makeblueball2)];
+//            
+//            id moveBlueLeft = [CCMoveTo actionWithDuration:2 position:ccp(250,345)];
+//            id removeMySprite = [CCCallFuncND actionWithTarget:bluemove selector:@selector(removeFromParentAndCleanup:) data:(void*)NO];
+//            [bluemove runAction:[CCSequence actions:moveBlueLeft,removeMySprite,nil]];
+//            
+//            CCSequence *spawnBlue = [CCSequence actions:makeblueball,delayTime2,makeblueball2,delayTime2,nil];
+//            CCRepeatForever *repblue = [CCRepeatForever actionWithAction:spawnBlue];
+//            [self runAction:repblue];
         }
     }
     return self;
