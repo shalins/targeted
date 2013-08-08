@@ -20,6 +20,7 @@
     {
         
         size = [[CCDirector sharedDirector] winSize];
+        screenCenter = CGPointMake(size.width/2, size.height/2);
         glClearColor(255, 255, 255, 255);
         [self unscheduleAllSelectors];
         
@@ -32,7 +33,7 @@
         
         
         CCSprite* background = [CCSprite spriteWithFile:@"sunbg.png"];
-        background.position = ccp(size.height/2,size.width/2);
+        background.position = screenCenter;
         [self addChild:background z:-10000];
         
         // add the labels shown during game over
@@ -42,12 +43,10 @@
         // Game Over
         CCLabelTTF* gameOver = [CCLabelTTF labelWithString:@"Game Over" fontName:@"HelveticaNeue-Light" fontSize:32];
         gameOver.position = CGPointMake((screenSize.width / 2)-60, 400);
-        gameOver.color = ccc3(0, 0, 0);
         [self addChild:gameOver z:100 tag:100];
         // Score
         CCLabelTTF* gameOver2 = [CCLabelTTF labelWithString:score fontName:@"HelveticaNeue-Light" fontSize:30];
         gameOver2.position = CGPointMake((screenSize.width / 2)-60, 370);
-        gameOver2.color = ccc3(0, 0, 0);
         [self addChild:gameOver2 z:100 tag:100];
         // Restart Button
         CCLabelTTF *highscore = [CCMenuItemImage itemFromNormalImage:@"reset.png" selectedImage:@"reset-sel.png" target:self selector:@selector(retry)];
@@ -89,7 +88,7 @@
         fb.scale = 1;
         CCMenu *fbm = [CCMenu menuWithItems:fb, nil];
         fbm.position = CGPointZero;
-        [self addChild:fbm];
+//        [self addChild:fbm];
         
        // [MGWU submitHighScore:[[NSUserDefaults standardUserDefaults] integerForKey:@"score"] byPlayer:@"Player" forLeaderboard:@"defaultLeaderboard"];
         

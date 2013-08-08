@@ -19,10 +19,18 @@
 {
     if ((self = [super init]))
     {
+        size = [[CCDirector sharedDirector] winSize];
         CGSize screensize = [[CCDirector sharedDirector] screenSizeInPixels];
+        screenCenter = CGPointMake(size.width/2, size.height/2);
+        
+        CCSprite* background = [CCSprite spriteWithFile:@"targeted.png"];
+        background.position = screenCenter;
+        [self addChild:background z:-10000];
+        
+        
         if(screensize.height == 1136)
         {
-            glClearColor(255, 255, 255, 255);
+//            glClearColor(255, 255, 255, 255);
             [self unscheduleAllSelectors];
             
             // have everything stop
@@ -47,8 +55,6 @@
             id bossscale = [CCScaleTo actionWithDuration:0.5f scale:1.0f];
             [play runAction:bossscale];
             
-            
-            
             CCLabelTTF *highscore = [CCMenuItemImage itemFromNormalImage:@"highscores.png" selectedImage:@"highscores-sel.png" target:self selector:@selector(high)];
             highscore.position = ccp(80, 60);
             CCMenu *starMenu = [CCMenu menuWithItems:highscore, nil];
@@ -67,21 +73,10 @@
             id mmenuscale = [CCScaleTo actionWithDuration:0.7f scale:1.0f];
             [mgwu runAction:mmenuscale];
             
-//            CCSprite* title = [CCSprite spriteWithFile:@"blue.png"];
-//            title.position = ccp(160,650);
-//            [self addChild:title];
-            
-//            id movein = [CCMoveTo actionWithDuration:0.7f position:ccp(160,440)];
-//            [title runAction:movein];
-            
-            //if([[SimpleAudioEngine sharedEngine] isBackgroundMusicPlaying] == false)
-            //{
             [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"techno.mp3" loop:YES];
-            //}
-
         }
         else{
-        glClearColor(0.91,0.92, 0.91, 1.0);
+//        glClearColor(0.91,0.92, 0.91, 1.0);
         [self unscheduleAllSelectors];
         
         // have everything stop
@@ -126,31 +121,25 @@
         id mmenuscale = [CCScaleTo actionWithDuration:0.7f scale:1.0f];
         [mgwu runAction:mmenuscale];
         
-        
-        
-        CCSprite* title = [CCSprite spriteWithFile:@"title_logo.png"];
-        title.position = ccp(160,390);
-        [self addChild:title];
+//        CCSprite* title = [CCSprite spriteWithFile:@"title_logo.png"];
+//        title.position = ccp(160,390);
+//        [self dotsEffect:title];
+//        [self addChild:title];
         
         //if([[SimpleAudioEngine sharedEngine] isBackgroundMusicPlaying] == false)
         //{
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"techno.mp3" loop:YES];
         //}
             
-            
-            
-            
-            
             bluemove = [CCSprite spriteWithFile:@"Glowing_Blue_Orb.png"];
             bluemove.scale = 0.1;
             bluemove.position = ccp(250,450);
             [self addChild:bluemove];
             
-            orangemove = [CCSprite spriteWithFile:@"orange.png"];
+            orangemove = [CCSprite spriteWithFile:@"shield.png"];
             orangemove.scale = 0.05;
             orangemove.position = ccp(245,365);
             [self addChild:orangemove];
-            
             
             id moveAction = [CCMoveTo actionWithDuration:1 position:ccp(290,365)];
             id moveActionBack = [CCMoveTo actionWithDuration:1 position:ccp(245,365)];
@@ -169,13 +158,7 @@
             CCSequence *spawnBlue = [CCSequence actions:makeblueball,delayTime2,makeblueball2,delayTime2,nil];
             CCRepeatForever *repblue = [CCRepeatForever actionWithAction:spawnBlue];
             [self runAction:repblue];
-            
-            
-            
-            
         }
-        
-
     }
     return self;
 }
@@ -183,8 +166,6 @@
 
 -(void) makeblueball
 {
- 
-    
     bluemove = [CCSprite spriteWithFile:@"Glowing_Blue_Orb.png"];
     bluemove.scale = 0.1;
     bluemove.position = ccp(250,450);
@@ -202,8 +183,6 @@
 
 -(void) makeblueball2
 {
-    
-    
     bluemove = [CCSprite spriteWithFile:@"Glowing_Blue_Orb.png"];
     bluemove.scale = 0.1;
     bluemove.position = ccp(280,450);
@@ -252,5 +231,10 @@
      [CCTransitionSlideInR transitionWithDuration:0.5f scene:[LevelSelect node]]];
     [[SimpleAudioEngine sharedEngine] playEffect:@"zoom.mp3"];
 }
-
+-(void) dotsEffect:(CCSprite *) spriteToBeTheNextBigThing {
+    id dropdown = [CCMoveTo actionWithDuration:1.0f position:ccp(screenCenter.x, screenCenter.y + 140)];
+    id jump = [CCJumpBy actionWithDuration:0.75f position:CGPointZero height:20 jumps:3];
+    id repeatJump = [CCRepeat actionWithAction:jump times:1];
+    [spriteToBeTheNextBigThing runAction:[CCSequence actions:dropdown, repeatJump, nil]];
+}
 @end

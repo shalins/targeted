@@ -12,6 +12,8 @@
 {
     CCSprite* bluemove;
     CCSprite* orangemove;
+    CGPoint screenCenter;
+    CGSize size;
 }
 
 @end

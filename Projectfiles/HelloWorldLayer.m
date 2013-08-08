@@ -213,15 +213,45 @@ CCMotionStreak* streak;
 /* -------------------------------------------------------------------------------- */
 -(void) bossAttack {
     if(bosstime == true) {
+        if(level == 0){
+            if(gameSegment == 0) {
+                if((framespast % 25) == 0) {
+                    tut = [CCLabelTTF labelWithString:@"Touch to move" fontName:@"Bend2SquaresBRK" fontSize:60];
+                    tut.position = ccp(160,320);
+                    tut.color = ccc3(0, 0, 0);
+                    [self addChild: tut];
+                }
+            }
+            if(gameSegment == 1) {
+                if((framespast % 25) ==0) {
+                    [self shootBulletwithPos:1 angle:260 xpos:0 ypos:0];
+                    [self removeChild:tut];
+                    tut = [CCLabelTTF labelWithString:@"Don't touch blue" fontName:@"Bend2SquaresBRK" fontSize:60];
+                    tut.position = ccp(160,320);
+                    tut.color = ccc3(0, 0, 0);
+                    [self addChild:tut];
+                }
+            }
+            if(gameSegment == 2) {
+                if((framespast % 25) ==0) {
+                    [self shootBulletwithPosPowerup:1 angle:260 xpos:0 ypos:0];
+                    [self removeChild:tut];
+                    tut = [CCLabelTTF labelWithString:@"Grab shields" fontName:@"Bend2SquaresBRK" fontSize:60];
+                    tut.position = ccp(160,320);
+                    tut.color = ccc3(0, 0, 0);
+                    [self addChild:tut];
+                }
+            }
+        }        
         if(level == 1) {
-            if(gameSegment ==0) {
+            if(gameSegment == 0) {
                 if((framespast % 25) == 0) {
 //                    int tempInt = (arc4random() % 90) + 240;
 //                    [self shootBullet:1 angle:tempInt];
                     [self shootBullet:3 angle:270];
                 }
             }
-            if(gameSegment ==1) {
+            if(gameSegment == 1) {
                 if((framespast % 25) ==0) {
                     [self shootBullet:3 angle:230];
                     [self shootBullet:5 angle:270];
@@ -229,10 +259,8 @@ CCMotionStreak* streak;
                 }
             }
             if(gameSegment == 2) {
-                if((framespast % 25) ==0)
-                {
+                if((framespast % 25) ==0) {
                     [self shootBullet:5 angle:300];
-                    
                     [self shootBullet:5 angle:240];
                 }
                 
@@ -241,23 +269,18 @@ CCMotionStreak* streak;
                     NSInteger j = i;
                     projectile = [bullets objectAtIndex:j];
                     
-                    if(projectile.position.x > 300)
-                    {
+                    if(projectile.position.x > 300) {
                         
                         [[bullets objectAtIndex:j] changeAngle:240.0];
                     }
-                    if(projectile.position.x < 10)
-                    {
+                    if(projectile.position.x < 10) {
                         [[bullets objectAtIndex:j] changeAngle:300.0];
                     }
-                    if(projectile.position.y < 0)
-                    {
-                        if( [[bullets objectAtIndex:j] getAngle] == 240)
-                        {
+                    if(projectile.position.y < 0) {
+                        if( [[bullets objectAtIndex:j] getAngle] == 240) {
                             [[bullets objectAtIndex:j] changeAngle:160.0];
                         }
-                        if([[bullets objectAtIndex:j] getAngle] == 300)
-                        {
+                        if([[bullets objectAtIndex:j] getAngle] == 300) {
                             [[bullets objectAtIndex:j] changeAngle:390.0];
                         }
                     }
@@ -299,14 +322,14 @@ CCMotionStreak* streak;
             if(gameSegment == 6) {
                 if((framespast % 45) ==0) {
                     [self shootBullet:3 angle:180];
-                    [self shootBullet:3 angle:200];
-                    [self shootBullet:3 angle:220];
+//                    [self shootBullet:3 angle:200];
+//                    [self shootBullet:3 angle:220];
                     [self shootBullet:3 angle:240];
                     [self shootBullet:3 angle:260];
                     [self shootBullet:3 angle:280];
                     [self shootBullet:3 angle:300];
-                    [self shootBullet:3 angle:320];
-                    [self shootBullet:3 angle:340];
+//                    [self shootBullet:3 angle:320];
+//                    [self shootBullet:3 angle:340];
                     [self shootBullet:3 angle:360];
                 }
             }
@@ -378,7 +401,7 @@ CCMotionStreak* streak;
         if(level == 3) {
             if(gameSegment ==0) {
                 if(framespast == 160) {
-                    [self yeswecan];
+                    [self makeFace];
                 }
             }
             if(gameSegment ==1) {
@@ -396,9 +419,9 @@ CCMotionStreak* streak;
             }
             if(gameSegment ==3) {
                 if((framespast % 10) == 0) {
-                    [self shootBulletwithPos:7 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPos:7 angle:275 xpos:0 ypos:0];
                     [self shootBulletwithPos:7 angle:250 xpos:0 ypos:0];
-                    [self shootBulletwithPos:7 angle:290 xpos:0 ypos:0];
+                    [self shootBulletwithPos:7 angle:300 xpos:0 ypos:0];
                     if([[NSUserDefaults standardUserDefaults]boolForKey:@"obamablast"] == false)
                     {
                         [MGWU showMessage:@"Achievement Get!      Obamablast!" withImage:nil];
@@ -1233,6 +1256,143 @@ CCMotionStreak* streak;
     [self shootBulletwithPos:speedInput angle:270 xpos:60+xOffset ypos:-40];
     [self shootBulletwithPos:speedInput angle:270 xpos:80+xOffset ypos:-40];
     [self shootBulletwithPos:speedInput angle:270 xpos:70+xOffset ypos:-50];
+}
+-(void) makeHeadphones {
+    // Left Headphone
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-100];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-90];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-80];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-70];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-60];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-50];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-80 ypos:-40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-90 ypos:-40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-100 ypos:-40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-110 ypos:-40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-120 ypos:-40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-50];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-60];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-70];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-80];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-90];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-100];
+    // Middle Headphone   
+//    [self shootBulletwithPosSmall:1 angle:270 xpos:30 ypos:-100];
+//    [self shootBulletwithPosSmall:1 angle:270 xpos:30 ypos:-90];
+//    [self shootBulletwithPosSmall:1 angle:270 xpos:30 ypos:-80];
+//    [self shootBulletwithPosSmall:1 angle:270 xpos:30 ypos:-70];
+//    [self shootBulletwithPosSmall:1 angle:270 xpos:30 ypos:-60];
+//    [self shootBulletwithPosSmall:1 angle:270 xpos:30 ypos:-50];
+//    [self shootBulletwithPosSmall:1 angle:270 xpos:20 ypos:-40];
+//    [self shootBulletwithPosSmall:1 angle:270 xpos:10 ypos:-40];
+//    [self shootBulletwithPosSmall:1 angle:270 xpos:0 ypos:-40];
+//    [self shootBulletwithPosSmall:1 angle:270 xpos:-10 ypos:-40];
+//    [self shootBulletwithPosSmall:1 angle:270 xpos:-20 ypos:-40];
+//    [self shootBulletwithPosSmall:1 angle:270 xpos:-30 ypos:-50];
+//    [self shootBulletwithPosSmall:1 angle:270 xpos:-30 ypos:-60];
+//    [self shootBulletwithPosSmall:1 angle:270 xpos:-30 ypos:-70];
+//    [self shootBulletwithPosSmall:1 angle:270 xpos:-30 ypos:-80];
+//    [self shootBulletwithPosSmall:1 angle:270 xpos:-30 ypos:-90];
+//    [self shootBulletwithPosSmall:1 angle:270 xpos:-30 ypos:-100];
+    // Right Headphone
+    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-100];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-90];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-80];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-70];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-60];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-50];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:120 ypos:-40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:110 ypos:-40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:100 ypos:-40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:90 ypos:-40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:80 ypos:-40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-50];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-60];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-70];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-80];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-90];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-100];
+}
+- (void) makeFace {
+    // Left Eye
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-100];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-90];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-80];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-70];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-60];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-50];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-80 ypos:-40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-90 ypos:-40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-100 ypos:-40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-110 ypos:-40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-120 ypos:-40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-50];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-60];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-70];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-80];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-90];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-100];
+    // Right Eye
+    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-100];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-90];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-80];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-70];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-60];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-50];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:120 ypos:-40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:110 ypos:-40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:100 ypos:-40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:90 ypos:-40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:80 ypos:-40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-50];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-60];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-70];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-80];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-90];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-100];
+    // Nose
+    [self shootBulletwithPosSmall:1 angle:270 xpos:4 ypos:-236];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:0 ypos:-240];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-4 ypos:-244];
+    // Smile
+    [self shootBulletwithPosSmall:1 angle:270 xpos:50 ypos:-328];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:40 ypos:-332];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:30 ypos:-336];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:20 ypos:-340];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:10 ypos:-340];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:0 ypos:-340];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-10 ypos:-340];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-20 ypos:-340];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-30 ypos:-336];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-40 ypos:-332];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-50 ypos:-328];
+}
+-(void) makeMusicNotes {
+    
+}
+-(void) makeCircles {
+    
+}
+-(void) makeLightning {
+    
+}
+-(void) makeStar {
+    
+}
+-(void) makeSquare {
+    
+}
+-(void) makeQuestion {
+    
+}
+-(void) makeExclamation {
+    
+}
+-(void) makeCheckmark {
+    
+}
+-(void) makeX {
+    
 }
 -(void) initObstacles {
     int x = 20;
@@ -2145,6 +2305,12 @@ CCMotionStreak* streak;
 /* -------------------------------------------------------------------------------- */
 /*    USEFUL CODE TO MAKE MY LIFE EASIER                                            */
 /* -------------------------------------------------------------------------------- */
+-(void) dotsEffect:(CCSprite *) spriteToBeTheNextBigThing {
+    id dropdown = [CCMoveTo actionWithDuration:1.0f position:ccp(screenCenter.x, screenCenter.y + 140)];
+    id jump = [CCJumpBy actionWithDuration:0.75f position:CGPointZero height:15 jumps:3];
+    id repeatJump = [CCRepeat actionWithAction:jump times:1];
+    [spriteToBeTheNextBigThing runAction:[CCSequence actions:dropdown, repeatJump, nil]];
+}
 -(void) flash:(int) red green:(int) green blue:(int) blue alpha:(int) alpha actionWithDuration:(float) duration {
     colorLayer = [CCLayerColor layerWithColor:ccc4(red, green, blue, alpha)];
     [self addChild:colorLayer z:0];
