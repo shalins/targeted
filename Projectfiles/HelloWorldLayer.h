@@ -53,6 +53,7 @@
     bool ubershieldon;
     bool shieldon;
     bool targetHit;
+    BOOL playedTutorial;
     int redtint;
     int bluetint;
     int greentint;

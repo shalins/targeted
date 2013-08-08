@@ -123,6 +123,18 @@ CCMotionStreak* streak;
                 stagespast = 20;
             }
         }
+        tut = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:30];
+        tut.position = screenCenter;
+        [self addChild:tut z:10000];
+        tut.visible = FALSE;
+        bool tutorialStatusCheck = [[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialStatus"];
+        if (tutorialStatusCheck == FALSE) {
+            playedTutorial = FALSE;
+        }
+        
+        else {
+            playedTutorial = [[NSUserDefaults standardUserDefaults] objectForKey:@"tutorialStatus"];
+        }
         [self initBoss];
     }
     return self;
@@ -164,29 +176,23 @@ CCMotionStreak* streak;
                 bosstime = true;
                 
                 [tut setString:@"Dont touch blue!"];
-                
-                //ccaction//delay 3 seconds after 3 secs: [self shootBulletWithPosPowerup 3 370 0 0];
             }
         }
     }
-    
     if(bosstime == false) {
         if(stagespast > 3) {
             bosstime = true;
             stagespast = 5;
         }
     }
-
     [self grabTouchCoord];
     [streak setPosition:player.position];
     framespast++;
-    if(isTimeWarped)
-    {
+    if(isTimeWarped) {
         framespast++;
     }
     secondspast = framespast/60;
     [self bossAttack];
-//    [self gameSeg];
     [self detectCollisions];
     // [self tint];
     KKInput* input = [KKInput sharedInput];
@@ -201,54 +207,52 @@ CCMotionStreak* streak;
         [MGWU showMessage:@"Achievement Get!      A Blue World" withImage:nil];
         [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"startgame"];
     }
-    label = [CCLabelTTF labelWithString:@"0" fontName:@"NexaBold" fontSize:24];
+    label = [CCLabelTTF labelWithString:@"0" fontName:@"HelveticaNeue-Light" fontSize:24];
     label.position = ccp(5,463);
     label.anchorPoint = ccp(0.0,0.5);
     label.color = ccc3(0, 0, 0);
     [self addChild: label];
 }
-
+-(void) startTutorial {
+    // Uses NSUserDefaults so doesn't appear twice
+    if (playedTutorial == FALSE) {
+        playedTutorial = TRUE;
+        id delay = [CCDelayTime actionWithDuration:4.0f];
+        id part1 = [CCCallFunc actionWithTarget:self selector:@selector(tutorial1)];
+        id part2 = [CCCallFunc actionWithTarget:self selector:@selector(tutorial2)];
+        id part3 = [CCCallFunc actionWithTarget:self selector:@selector(tutorial3)];
+        CCSequence *tutorialSeq = [CCSequence actions:part1, delay, part2, delay, part3, delay, nil];
+        [self runAction:tutorialSeq];
+        [[NSUserDefaults standardUserDefaults] setBool:playedTutorial forKey:@"tutorialStatus"];
+    }
+}
+-(void) tutorial1
+{
+    [self flashLabel:@"Tap to move" actionWithDuration:2.0f color:@"white"];
+}
+-(void) tutorial2
+{
+    [self flashLabel:@"Avoid blue" actionWithDuration:2.0f color:@"white"];
+    [self shootBulletwithPos:1 angle:260 xpos:0 ypos:0];
+}
+-(void) tutorial3
+{
+    [self deleteBullets];
+    [self shootBulletwithPosPowerup:1 angle:260 xpos:0 ypos:0];
+    [self flashLabel:@"Grab shields" actionWithDuration:2.0f color:@"white"];
+}
 /* -------------------------------------------------------------------------------- */
 /*    GAMEPLAY                                                                      */
 /* -------------------------------------------------------------------------------- */
 -(void) bossAttack {
     if(bosstime == true) {
-        if(level == 0){
-            if(gameSegment == 0) {
-                if((framespast % 25) == 0) {
-                    tut = [CCLabelTTF labelWithString:@"Touch to move" fontName:@"Bend2SquaresBRK" fontSize:60];
-                    tut.position = ccp(160,320);
-                    tut.color = ccc3(0, 0, 0);
-                    [self addChild: tut];
-                }
-            }
-            if(gameSegment == 1) {
-                if((framespast % 25) ==0) {
-                    [self shootBulletwithPos:1 angle:260 xpos:0 ypos:0];
-                    [self removeChild:tut];
-                    tut = [CCLabelTTF labelWithString:@"Don't touch blue" fontName:@"Bend2SquaresBRK" fontSize:60];
-                    tut.position = ccp(160,320);
-                    tut.color = ccc3(0, 0, 0);
-                    [self addChild:tut];
-                }
-            }
-            if(gameSegment == 2) {
-                if((framespast % 25) ==0) {
-                    [self shootBulletwithPosPowerup:1 angle:260 xpos:0 ypos:0];
-                    [self removeChild:tut];
-                    tut = [CCLabelTTF labelWithString:@"Grab shields" fontName:@"Bend2SquaresBRK" fontSize:60];
-                    tut.position = ccp(160,320);
-                    tut.color = ccc3(0, 0, 0);
-                    [self addChild:tut];
-                }
-            }
-        }        
         if(level == 1) {
             if(gameSegment == 0) {
                 if((framespast % 25) == 0) {
 //                    int tempInt = (arc4random() % 90) + 240;
 //                    [self shootBullet:1 angle:tempInt];
                     [self shootBullet:3 angle:270];
+//                    [self startTutorial];
                 }
             }
             if(gameSegment == 1) {
@@ -1368,7 +1372,11 @@ CCMotionStreak* streak;
     [self shootBulletwithPosSmall:1 angle:270 xpos:-50 ypos:-328];
 }
 -(void) makeMusicNotes {
+    [self shootBulletwithPosSmall:1 angle:270 xpos:4 ypos:-236];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:0 ypos:-240];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-4 ypos:-244];
     
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-50 ypos:-328];
 }
 -(void) makeCircles {
     
@@ -1408,7 +1416,7 @@ CCMotionStreak* streak;
 }
 -(void) initBoss {
     if(bosstime == true) {
-        label.color = ccc3(255, 255, 255);
+        label.color = ccc3(0, 0, 0);
         streak = [CCMotionStreak streakWithFade:0.5 minSeg:1 width:50 color:ccc3(247,148,29) textureFilename:@"orange.png"];
         streak.position = player.position;
         [self addChild:streak];
@@ -2147,9 +2155,10 @@ CCMotionStreak* streak;
 -(void) targetHit {
     if (targetHit == true) {
         // This should happen when the bullet is deleted.
-                
         if (level == 1) {
-            gameSegment++;
+            if(framespast >= 40) {
+                gameSegment++;
+            }
             if (gameSegment >= 7) {
                 level++;
                 [self gameEnd];
@@ -2305,6 +2314,40 @@ CCMotionStreak* streak;
 /* -------------------------------------------------------------------------------- */
 /*    USEFUL CODE TO MAKE MY LIFE EASIER                                            */
 /* -------------------------------------------------------------------------------- */
+-(void) flashLabel:(NSString *) stringToFlashOnScreen actionWithDuration:(float) numSecondsToFlash color:(NSString *) colorString
+{
+    if ([colorString isEqualToString:@"red"] == TRUE) {
+        tut.color = ccc3(255,0,0);
+    }
+    if ([colorString isEqualToString:@"blue"] == TRUE) {
+        tut.color = ccc3(0,0,255);
+    }
+    if ([colorString isEqualToString:@"green"] == TRUE) {
+        tut.color = ccc3(0,255,0);
+    }
+    if ([colorString isEqualToString:@"black"] == TRUE) {
+        tut.color = ccc3(0,0,0);
+    }
+    if ([colorString isEqualToString:@"white"] == TRUE) {
+        tut.color = ccc3(255,255,255);
+    }
+    tut.fontName = @"HelveticaNeue-Light";
+    [tut setString:stringToFlashOnScreen];
+    id addVisibility = [CCCallFunc actionWithTarget:self selector:@selector(makeFlashLabelVisible)];
+    id delayInvis = [CCDelayTime actionWithDuration:numSecondsToFlash];
+    id addInvis = [CCCallFunc actionWithTarget:self selector:@selector(makeFlashLabelInvisible)];
+    CCSequence *showLabelSeq = [CCSequence actions:addVisibility, delayInvis, addInvis, nil];
+    [self runAction:showLabelSeq];
+}
+
+-(void) makeFlashLabelVisible
+{
+    tut.visible = TRUE;
+}
+-(void) makeFlashLabelInvisible
+{
+    tut.visible = FALSE;
+}
 -(void) dotsEffect:(CCSprite *) spriteToBeTheNextBigThing {
     id dropdown = [CCMoveTo actionWithDuration:1.0f position:ccp(screenCenter.x, screenCenter.y + 140)];
     id jump = [CCJumpBy actionWithDuration:0.75f position:CGPointZero height:15 jumps:3];
@@ -2336,7 +2379,7 @@ CCMotionStreak* streak;
     [self unschedule:@selector(delrflash)];
     [self removeChild:colorLayer cleanup:YES];
     if(bosstime == true) {
-        glClearColor(0, 0, 0, 255);
+        glClearColor(255, 255, 255, 255);
         NSLog(@"ok, go.");
     }
     else {

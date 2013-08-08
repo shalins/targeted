@@ -20,6 +20,8 @@
     {
         
         size = [[CCDirector sharedDirector] winSize];
+        screenCenter = CGPointMake(size.width/2, size.height/2);
+
         glClearColor(255, 255, 255, 255);
         [self unscheduleAllSelectors];
         
@@ -32,7 +34,7 @@
         
         
         CCSprite* background = [CCSprite spriteWithFile:@"sunbg.png"];
-        background.position = ccp(size.height/2,size.width/2);
+        background.position = screenCenter;
         [self addChild:background z:-10000];
         
         // add the labels shown during game over

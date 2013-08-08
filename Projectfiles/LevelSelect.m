@@ -34,11 +34,11 @@
         // add the labels shown during game over
         CGSize screenSize = [[CCDirector sharedDirector] winSize];
         
-        CCLabelTTF* gameOver = [CCLabelTTF labelWithString:@"Endless Mode" fontName:@"Arial" fontSize:40];
+        CCLabelTTF* gameOver = [CCLabelTTF labelWithString:@"Endless Mode" fontName:@"HelveticaNeue-Light" fontSize:40];
         gameOver.position = CGPointMake(160, 300);
         [self addChild:gameOver z:100 tag:100];
         
-        CCLabelTTF* bosstag = [CCLabelTTF labelWithString:@"Boss Bash" fontName:@"Bend2SquaresBRK" fontSize:40];
+        CCLabelTTF* bosstag = [CCLabelTTF labelWithString:@"Level Select" fontName:@"HelveticaNeue-Light" fontSize:40];
         bosstag.position = CGPointMake(160, 50);
         [self addChild:bosstag z:100 tag:100];
         
@@ -57,11 +57,8 @@
         CCMenuItemFont *restart = [CCMenuItemFont itemFromString: @"Endless Mode" target:self selector:@selector(level1)];
         CCMenuItemFont *quit = [CCMenuItemFont itemFromString: @"Scene Selection" target:self selector:@selector(level2)];
          CCMenuItemFont *obama = [CCMenuItemFont itemFromString: @"Level 3" target:self selector:@selector(obama)];
-        [gameOver setFontName:@"Bend2SquaresBRK"];
-        /*[restart setFontName:@"Arial"];
-        [quit setFontName:@"Arial"];
-        [obama setFontName:@"Arial"];
-        CCMenu *gameOverMenu = [CCMenu menuWithItems:restart, quit, playAgain, nil];
+
+      /*CCMenu *gameOverMenu = [CCMenu menuWithItems:restart, quit, playAgain, nil];
         [gameOverMenu alignItemsVertically];
         gameOverMenu.position = ccp(screenSize.width/2, screenSize.height/2 - 80);
         gameOverMenu.color = ccc3(0, 0, 0);
@@ -100,11 +97,11 @@
             // add the labels shown during game over
             CGSize screenSize = [[CCDirector sharedDirector] winSize];
             
-            CCLabelTTF* gameOver = [CCLabelTTF labelWithString:@"Endless Mode" fontName:@"NexaBold" fontSize:30];
+            CCLabelTTF* gameOver = [CCLabelTTF labelWithString:@"Endless Mode" fontName:@"HelveticaNeue-Light" fontSize:30];
             gameOver.position = CGPointMake(160, 300);
             [self addChild:gameOver z:100 tag:100];
             
-            CCLabelTTF* bosstag = [CCLabelTTF labelWithString:@"Boss Bash" fontName:@"NexaBold" fontSize:30];
+            CCLabelTTF* bosstag = [CCLabelTTF labelWithString:@"Level Select" fontName:@"HelveticaNeue-Light" fontSize:30];
             bosstag.position = CGPointMake(160, 50);
             [self addChild:bosstag z:100 tag:100];
             
@@ -122,11 +119,7 @@
             CCMenuItemFont *restart = [CCMenuItemFont itemFromString: @"Endless Mode" target:self selector:@selector(level1)];
             CCMenuItemFont *quit = [CCMenuItemFont itemFromString: @"Scene Selection" target:self selector:@selector(level2)];
             CCMenuItemFont *obama = [CCMenuItemFont itemFromString: @"Level 3" target:self selector:@selector(obama)];
-            [gameOver setFontName:@"NexaBold"];
-            /*[restart setFontName:@"Arial"];
-             [quit setFontName:@"Arial"];
-             [obama setFontName:@"Arial"];
-             CCMenu *gameOverMenu = [CCMenu menuWithItems:restart, quit, playAgain, nil];
+            /*CCMenu *gameOverMenu = [CCMenu menuWithItems:restart, quit, playAgain, nil];
              [gameOverMenu alignItemsVertically];
              gameOverMenu.position = ccp(screenSize.width/2, screenSize.height/2 - 80);
              gameOverMenu.color = ccc3(0, 0, 0);

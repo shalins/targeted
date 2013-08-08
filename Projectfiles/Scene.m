@@ -36,7 +36,7 @@
         //gameOver.position = CGPointMake(160, 300);
         //[self addChild:gameOver z:100 tag:100];
         
-        CCLabelTTF* bosstag = [CCLabelTTF labelWithString:@"Boss Bash" fontName:@"Bend2SquaresBRK" fontSize:40];
+        CCLabelTTF* bosstag = [CCLabelTTF labelWithString:@"Level Select" fontName:@"HelveticaNeue-Light" fontSize:40];
         bosstag.position = CGPointMake(160, 440);
         [self addChild:bosstag z:100 tag:100];
         
