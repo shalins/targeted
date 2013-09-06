@@ -30,36 +30,7 @@
         [self addChild:background z:-10000];
         
         
-        if(screensize.height == 1136)
-        {
-            //            glClearColor(255, 255, 255, 255);
-            [self unscheduleAllSelectors];
-            
-            // have everything stop
-            CCNode* node;
-            CCARRAY_FOREACH([self children], node)
-            {
-                [node pauseSchedulerAndActions];
-            }
-                        
-            [[SimpleAudioEngine sharedEngine] preloadEffect:@"zoom.mp3"];
-            
-            // add a play button
-            CCSprite *playButton = [CCSprite spriteWithFile:@"startButton.png"];
-            CCSprite *playButtonSel = [CCSprite spriteWithFile:@"startButton-sel.png"];
-            playMenuItem = [[CCMenuItemSprite alloc] initWithNormalSprite:playButton selectedSprite:playButtonSel disabledSprite:nil target:self selector:@selector(unPause)];
-            
-            // add a quit button
-            CCSprite *leaderboardButton = [CCSprite spriteWithFile:@"leaderButton.png"];
-            CCSprite *leaderboardButtonSel = [CCSprite spriteWithFile:@"leaderButton-sel.png"];
-            leaderMenuItem = [[CCMenuItemSprite alloc] initWithNormalSprite:leaderboardButton selectedSprite:leaderboardButtonSel disabledSprite:nil target:self selector:@selector(high)];
-            
-            menu = [CCMenu menuWithItems:playMenuItem, leaderMenuItem, nil];
-            [menu alignItemsHorizontallyWithPadding:2.0f];
-            menu.position = ccp(screenCenter.x, screenCenter.y / 1.2);
-            [self addChild:menu];
-        }
-        else{
+        
             //        glClearColor(0.91,0.92, 0.91, 1.0);
             [self unscheduleAllSelectors];
             
@@ -86,10 +57,17 @@
             CCSprite *leaderboardButtonSel = [CCSprite spriteWithFile:@"leaderButton-sel.png"];
             leaderMenuItem = [[CCMenuItemSprite alloc] initWithNormalSprite:leaderboardButton selectedSprite:leaderboardButtonSel disabledSprite:nil target:self selector:@selector(high)];
             
-            menu = [CCMenu menuWithItems:playMenuItem, leaderMenuItem, nil];
-            [menu alignItemsVerticallyWithPadding:20.0f];
-            menu.position = ccp(screenCenter.x, screenCenter.y / 2.2);
+            menu = [CCMenu menuWithItems:playMenuItem, nil];
+            [menu alignItemsHorizontally];
+            menu.position = ccp(screenCenter.x * 5, screenCenter.y / 1.5);
+            [self slideEffect:menu];
             [self addChild:menu];
+            
+            menu2 = [CCMenu menuWithItems:leaderMenuItem, nil];
+            [menu2 alignItemsHorizontally];
+            menu2.position = ccp(screenCenter.x / 5, screenCenter.y / 3.1);
+            [self slideEffect2:menu2];
+            [self addChild:menu2];
             
             
 //            CCLabelTTF* play = [CCMenuItemImage itemFromNormalImage:@"play.png" selectedImage:@"play-sel.png" target:self selector:@selector(unPause)];
@@ -128,35 +106,25 @@
 //{
 //            [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"techno.mp3" loop:YES];
 //}
-
-//            bluemove = [CCSprite spriteWithFile:@"Glowing_Blue_Orb.png"];
-//            bluemove.scale = 0.1;
-//            bluemove.position = ccp(250,450);
-//            [self addChild:bluemove];
-//
-//            orangemove = [CCSprite spriteWithFile:@"shield.png"];
-//            orangemove.scale = 0.05;
-//            orangemove.position = ccp(245,365);
-//            [self addChild:orangemove];
-//
-//            id moveAction = [CCMoveTo actionWithDuration:1 position:ccp(290,365)];
-//            id moveActionBack = [CCMoveTo actionWithDuration:1 position:ccp(245,365)];
-//            id delayTimeAction = [CCDelayTime actionWithDuration:1];
-//            id delayTime2 = [CCDelayTime actionWithDuration:2];
-//            CCSequence *act =[CCSequence actions:moveAction,delayTimeAction,moveActionBack,delayTimeAction,nil];
-//            CCRepeatForever *repeat = [CCRepeatForever actionWithAction:act];
-//            [orangemove runAction:repeat];
-//            id makeblueball = [CCCallFunc actionWithTarget:self selector:@selector(makeblueball)];
-//            id makeblueball2 = [CCCallFunc actionWithTarget:self selector:@selector(makeblueball2)];
-//
-//            id moveBlueLeft = [CCMoveTo actionWithDuration:2 position:ccp(250,345)];
-//            id removeMySprite = [CCCallFuncND actionWithTarget:bluemove selector:@selector(removeFromParentAndCleanup:) data:(void*)NO];
-//            [bluemove runAction:[CCSequence actions:moveBlueLeft,removeMySprite,nil]];
-//
-//            CCSequence *spawnBlue = [CCSequence actions:makeblueball,delayTime2,makeblueball2,delayTime2,nil];
-//            CCRepeatForever *repblue = [CCRepeatForever actionWithAction:spawnBlue];
-//            [self runAction:repblue];
-        }
+        
+        
+        CCSprite *ballDrop = [CCSprite spriteWithFile:@"cyan.png"];
+        ballDrop.scale = 0.3f;
+        [ballDrop setAnchorPoint:ccp(.5,0)];
+        [ballDrop setPosition:ccp(size.width*.3,size.height*.1)];
+        [self addChild:ballDrop z:-4];
+        
+        CCJumpBy *jumping1 = [CCJumpTo actionWithDuration:2 position:ccp(size.width*.4,size.height*.1) height:size.height*.5 jumps:1];
+        CCEaseOut *squezing1 = [CCEaseOut actionWithAction:[CCScaleTo actionWithDuration:.1 scaleX:0.3 scaleY:0.1] rate:2];
+        CCEaseIn *expanding1 = [CCEaseIn actionWithAction:[CCScaleTo actionWithDuration:.1 scaleX:0.3 scaleY:0.3] rate:2];
+        
+        CCJumpBy *jumping2 = [CCJumpTo actionWithDuration:2 position:ccp(size.width*.5,size.height*.1) height:size.height*.5 jumps:1];
+        CCEaseOut *squezing2 = [CCEaseOut actionWithAction:[CCScaleTo actionWithDuration:.1 scaleX:0.3 scaleY:0.1] rate:2];
+        CCEaseIn *expanding2 = [CCEaseIn actionWithAction:[CCScaleTo actionWithDuration:.1 scaleX:0.3 scaleY:0.3] rate:2];
+        
+        CCSequence *ballDropSeq = [CCSequence actions: jumping1, squezing1, expanding1, jumping2, squezing2, expanding2, nil];
+        CCRepeatForever *repeatJumps = [CCRepeatForever actionWithAction:ballDropSeq];
+        [ballDrop runAction:repeatJumps];
     }
     return self;
 }
@@ -237,9 +205,17 @@
 }
 
 -(void) slideEffect:(CCSprite *) spriteToBeTheNextBigThing {
-    id dropdown = [CCMoveTo actionWithDuration:0.5f position:ccp(screenCenter.x, screenCenter.y * 1.4)];
-    id jump = [CCJumpBy actionWithDuration:0.35f position:CGPointZero height:40 jumps:1];
-    id repeatJump = [CCRepeat actionWithAction:jump times:1];
-    [spriteToBeTheNextBigThing runAction:[CCSequence actions:dropdown, repeatJump, nil]];
+    id slide = [CCMoveTo actionWithDuration:0.5f position:ccp(screenCenter.x, screenCenter.y / 1.5)];
+//    id jump = [CCJumpBy actionWithDuration:0.35f position:CGPointZero height:40 jumps:1];
+//    id repeatJump = [CCRepeat actionWithAction:jump times:1];
+    [spriteToBeTheNextBigThing runAction:[CCSequence actions:slide, nil]];
+    
+}
+-(void) slideEffect2:(CCSprite *) spriteToBeTheNextBigThing {
+    id slide = [CCMoveTo actionWithDuration:0.5f position:ccp(screenCenter.x, screenCenter.y / 3.1)];
+    //    id jump = [CCJumpBy actionWithDuration:0.35f position:CGPointZero height:40 jumps:1];
+    //    id repeatJump = [CCRepeat actionWithAction:jump times:1];
+    [spriteToBeTheNextBigThing runAction:[CCSequence actions:slide, nil]];
+    
 }
 @end

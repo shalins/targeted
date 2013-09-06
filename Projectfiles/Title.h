@@ -16,6 +16,7 @@
     CGSize size;
     
     CCMenu *menu;
+    CCMenu *menu2;
     CCMenuItemSprite *playMenuItem;
     CCMenuItemSprite *leaderMenuItem;
 }
