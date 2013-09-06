@@ -37,10 +37,14 @@ CCMotionStreak* streak;
 {
     if ((self = [super init]))
     {
+        // get screen center and screen size
+        screenCenter = [CCDirector sharedDirector].screenCenter;
+        screenSize = [[CCDirector sharedDirector] winSize];
+
         targetHit = false;
         [[NSUserDefaults standardUserDefaults] setBool:targetHit forKey:@"targetHit"];
-        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"hex.mp3" loop:YES];
+//        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+//        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"hex.mp3" loop:YES];
         deathanimation = true;
         streak = [CCMotionStreak streakWithFade:0.5 minSeg:1 width:50 color:ccc3(247,148,29) textureFilename:@"orange.png"];
         streak.position = player.position;
@@ -73,7 +77,6 @@ CCMotionStreak* streak;
         thetemporalint = 180;
         omganothertemportalint = 180;
         intScore = 0;
-        screenSize = [[CCDirector sharedDirector] winSize];
         bullets = [[NSMutableArray alloc] init];
         donkeys = [[NSMutableArray alloc] init];
         flowerbullets = [[NSMutableArray alloc] init];
@@ -82,7 +85,6 @@ CCMotionStreak* streak;
         powerups = [[NSMutableArray alloc] init];
         //bulletDirection = [[NSMutableArray alloc] init];
         director = [CCDirector sharedDirector];
-        screenCenter = [[CCDirector sharedDirector] screenCenter];
         glClearColor(255, 255, 255, 255);
         // initialize player sprite
         player = [CCSprite spriteWithFile:@"orange.png"];
@@ -93,7 +95,7 @@ CCMotionStreak* streak;
         [self scheduleUpdate];
         [self pause];
         pausebutton = [CCSprite spriteWithFile:@"pause.png"];
-        pausebutton.position = ccp(305,465);
+        pausebutton.position = ccp(screenSize.width - 15,screenSize.height - 15);
         pausebutton.scale = 1;
         [self addChild:pausebutton];
         [self initScore];
@@ -123,7 +125,7 @@ CCMotionStreak* streak;
                 stagespast = 20;
             }
         }
-        tut = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:30];
+        tut = [CCLabelTTF labelWithString:@"" fontName:@"HelveticaNeue-Light" fontSize:30];
         tut.position = screenCenter;
         [self addChild:tut z:10000];
         tut.visible = FALSE;
@@ -750,13 +752,13 @@ CCMotionStreak* streak;
                 if(framespast == 10){
                     if(isTimeWarped == false){
                         tut = [CCLabelTTF labelWithString:@"Touch to move" fontName:@"Bend2SquaresBRK" fontSize:60];
-                        tut.position = ccp(160,320);
+                        tut.position = ccp(screenCenter.x,screenCenter.y);
                         tut.color = ccc3(0, 0, 0);
                         [self addChild: tut];
                     }
                     else if(isTimeWarped == true){
                         tut = [CCLabelTTF labelWithString:@"time has been warped" fontName:@"Bend2SquaresBRK" fontSize:30];
-                        tut.position = ccp(160,320);
+                        tut.position = ccp(screenCenter.x,screenCenter.y);
                         tut.color = ccc3(0, 0, 0);
                         [self addChild: tut];
                     }
@@ -767,7 +769,7 @@ CCMotionStreak* streak;
                     [self shootBulletwithPos:1 angle:260 xpos:0 ypos:0];
                     [self removeChild:tut];
                     tut = [CCLabelTTF labelWithString:@"Don't touch blue" fontName:@"Bend2SquaresBRK" fontSize:60];
-                    tut.position = ccp(160,320);
+                    tut.position = ccp(screenCenter.x,screenCenter.y);
                     tut.color = ccc3(0, 0, 0);
                     [self addChild:tut];
                 }
@@ -777,7 +779,7 @@ CCMotionStreak* streak;
                     [self shootBulletwithPosPowerup:1 angle:260 xpos:0 ypos:0];
                     [self removeChild:tut];
                     tut = [CCLabelTTF labelWithString:@"Grab powerups for\nan additional shield" fontName:@"Bend2SquaresBRK" fontSize:60];
-                    tut.position = ccp(160,320);
+                    tut.position = ccp(screenCenter.x,screenCenter.y);
                     tut.color = ccc3(0, 0, 0);
                     [self addChild:tut];
                     
@@ -1382,6 +1384,11 @@ CCMotionStreak* streak;
     
 }
 -(void) makeLightning {
+    [self shootBulletwithPosSmall:1 angle:270 xpos:0 ypos:0];
+     [self shootBulletwithPosSmall:1 angle:270 xpos:10 ypos:0];
+     [self shootBulletwithPosSmall:1 angle:270 xpos:-10 ypos:0];
+     [self shootBulletwithPosSmall:1 angle:270 xpos:10 ypos:10];
+     [self shootBulletwithPosSmall:1 angle:270 xpos:-10 ypos:10];
     
 }
 -(void) makeStar {
@@ -1423,7 +1430,7 @@ CCMotionStreak* streak;
         [self rflash:0 green:0 blue:0 alpha:255 actionWithDuration:0];
         if([[NSUserDefaults standardUserDefaults] integerForKey:@"boss"] < level) {
             tut = [CCLabelTTF labelWithString:@"New Boss!" fontName:@"Bend2SquaresBRK" fontSize:60];
-            tut.position = ccp(160,320);
+            tut.position = ccp(screenCenter.x,screenCenter.y);
             tut.color = ccc3(255, 255, 255);
             [self addChild:tut z:9002];
             [[NSUserDefaults standardUserDefaults] setInteger:level forKey:@"boss"];
@@ -1436,6 +1443,8 @@ CCMotionStreak* streak;
             id newboss = [CCScaleTo actionWithDuration:0.5f scale:1.0f];
             [tut runAction:newboss];
             [self schedule:@selector(newBoss) interval:3.0];
+//            int x = screenSize.height - 30;
+//            int y = screenCenter.y;
             int x = 150;
             int y = 400;
 //            boss = [CCSprite spriteWithFile:@"Glowing_Blue_Orb.png"];
@@ -2067,7 +2076,7 @@ CCMotionStreak* streak;
 }
 -(void) warpTime {
     [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"techno.mp3" loop:YES];
+//    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"techno.mp3" loop:YES];
     [[SimpleAudioEngine sharedEngine] playEffect:@"timewwarp.mp3"];
     [self removeChild:tut];
     isTimeWarped = true;

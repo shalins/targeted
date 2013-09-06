@@ -14,6 +14,10 @@
     CCSprite* orangemove;
     CGPoint screenCenter;
     CGSize size;
+    
+    CCMenu *menu;
+    CCMenuItemSprite *playMenuItem;
+    CCMenuItemSprite *leaderMenuItem;
 }
 
 @end

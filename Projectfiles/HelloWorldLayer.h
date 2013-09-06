@@ -12,6 +12,18 @@
 #import "Powerup.h"
 #import "Donkey.h"
 
+// Device and Widescreen Detection
+#define IS_WIDESCREEN ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+// iPhone
+#define IS_IPHONE ( ( [ [ [ UIDevice currentDevice ] model ] isEqualToString: @"iPhone" ] )  || ( [ [ [ UIDevice currentDevice ] model ] isEqualToString: @"iPhone Simulator" ] ) )
+#define IS_IPHONE_5 ( IS_IPHONE && IS_WIDESCREEN )
+// iPod Touch
+#define IS_IPOD   ( [ [ [ UIDevice currentDevice ] model ] isEqualToString: @"iPod touch" ] )
+#define IS_IPOD_5 ( IS_IPOD && IS_WIDESCREEN )
+// iPad
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define IS_IPAD_RETINA ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)] && ([UIScreen mainScreen].scale == 2.0))
+
 @interface HelloWorldLayer : CCLayer
 {
 	NSString* helloWorldString;
@@ -35,7 +47,6 @@
     CCSprite* projectile;
     CCSprite* projectile2;
     int framespast;
-    CGSize screenSize;
     CCSprite* pausebutton;
     CCLabelTTF* label;
     CCLabelTTF* tut;
@@ -71,9 +82,12 @@
     int continueCost;
     CCSprite *player;
     CCSprite *shield;
-    CGPoint screenCenter;
     CCDirector *director;
     CCSprite *obstacle;
+    
+    // get screen center and screen size
+    CGPoint screenCenter;
+    CGSize screenSize;
 }
 
 @property (nonatomic, copy) NSString* helloWorldString;
