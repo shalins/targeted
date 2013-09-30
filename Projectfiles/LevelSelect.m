@@ -6,6 +6,23 @@
 //
 //
 
+
+/*
+ 
+ 
+ This is stuff I have to do before I sleep today:
+ 
+ I have to set up all the scenes and optimize them for mostly every device
+ I have to set up the level select menus and make them appear correctly
+ I have to change some of the gameplay graphics including the target
+ I have to make the level generation process as easy as possible
+ I have to make some pre-made patterns that can be used again in combos
+ I have to remove the MGWU SDK unless I actually have a need for it
+ 
+ 
+ 
+ */
+
 #import "LevelSelect.h"
 #import "HelloWorldLayer.h"
 #import "Title.h"
@@ -19,8 +36,8 @@
     if ((self = [super init]))
     {
         CGSize screen = [[CCDirector sharedDirector] screenSize];
-        if(screen.height == 1136)
-        {
+        CGSize screenSize = [[CCDirector sharedDirector] winSize];
+        
         glClearColor(255, 255, 255, 255);
         [self unscheduleAllSelectors];
         
@@ -31,131 +48,48 @@
             [node pauseSchedulerAndActions];
         }
         
-        // add the labels shown during game over
-        CGSize screenSize = [[CCDirector sharedDirector] winSize];
-        
-        CCLabelTTF* gameOver = [CCLabelTTF labelWithString:@"Endless Mode" fontName:@"HelveticaNeue-Light" fontSize:40];
+        CCLabelTTF* gameOver = [CCLabelTTF labelWithString:@"Endless Mode" fontName:@"HelveticaNeue-Light" fontSize:30];
         gameOver.position = CGPointMake(160, 300);
         [self addChild:gameOver z:100 tag:100];
         
-        CCLabelTTF* bosstag = [CCLabelTTF labelWithString:@"Level Select" fontName:@"HelveticaNeue-Light" fontSize:40];
+        CCLabelTTF* bosstag = [CCLabelTTF labelWithString:@"Level Select" fontName:@"HelveticaNeue-Light" fontSize:30];
         bosstag.position = CGPointMake(160, 50);
         [self addChild:bosstag z:100 tag:100];
         
-        CCTintTo* tint = [CCTintTo actionWithDuration:0.1 red:0 green:0 blue:255];
+        CCTintTo* tint = [CCTintTo actionWithDuration:0 red:10 green:0 blue:0];
         [gameOver runAction:tint];
-        CCTintTo* tint2 = [CCTintTo actionWithDuration:0.1 red:0 green:0 blue:255];
+        CCTintTo* tint2 = [CCTintTo actionWithDuration:0 red:10 green:0 blue:0];
         [bosstag runAction:tint2];
-            
+        
         CCSprite* background = [CCSprite spriteWithFile:@"back31.png"];
-        background.position = ccp(160,284);
-            [self setDimensionsInPixelsOnSprite:background width:320 height:568];
-        
+        background.position = ccp(screen.width/2,screen.height/2);
         [self addChild:background];
-        
-        CCMenuItemFont *playAgain = [CCMenuItemFont itemFromString: @"back" target:self selector:@selector(unPause)];
-        CCMenuItemFont *restart = [CCMenuItemFont itemFromString: @"Endless Mode" target:self selector:@selector(level1)];
-        CCMenuItemFont *quit = [CCMenuItemFont itemFromString: @"Scene Selection" target:self selector:@selector(level2)];
-         CCMenuItemFont *obama = [CCMenuItemFont itemFromString: @"Level 3" target:self selector:@selector(obama)];
-
-      /*CCMenu *gameOverMenu = [CCMenu menuWithItems:restart, quit, playAgain, nil];
-        [gameOverMenu alignItemsVertically];
-        gameOverMenu.position = ccp(screenSize.width/2, screenSize.height/2 - 80);
-        gameOverMenu.color = ccc3(0, 0, 0);
-        [self addChild:gameOverMenu];*/
                 
-        CCLabelTTF *highscore = [CCMenuItemImage itemFromNormalImage:@"endless.png" selectedImage:@"endless.png" target:self selector:@selector(level1)];
-        highscore.position = ccp(160, 390);
-        CCMenu *starMenu = [CCMenu menuWithItems:highscore, nil];
-        starMenu.position = CGPointZero;
-        [self addChild:starMenu];
+        CCMenuItem *endlessMode = [CCMenuItemImage itemWithNormalImage:@"endless.png" selectedImage:@"endless.png" target:self selector:@selector(level1)];
+        endlessMode.position = ccp(screenSize.width/2, (screenSize.height/4) *3);
+        CCMenu *endlessModeMenu = [CCMenu menuWithItems:endlessMode, nil];
+        endlessModeMenu.position = CGPointZero;
+        [self addChild:endlessModeMenu];
         
-        CCLabelTTF *boss = [CCMenuItemImage itemFromNormalImage:@"bossmode.png" selectedImage:@"bossmode.png" target:self selector:@selector(level2)];
-        boss.position = ccp(160, 150);
-        CCMenu *moreMenu = [CCMenu menuWithItems:boss, nil];
-        moreMenu.position = CGPointZero;
-        [self addChild:moreMenu];
+        CCMenuItem *bossMode = [CCMenuItemImage itemWithNormalImage:@"bossmode.png" selectedImage:@"bossmode.png" target:self selector:@selector(level2)];
+        bossMode.position = ccp(screenSize.width/2, screenSize.height/4);
+        CCMenu *bossModeMenu = [CCMenu menuWithItems:bossMode, nil];
+        bossModeMenu.position = CGPointZero;
+        [self addChild:bossModeMenu];
         
-        CCLabelTTF *back = [CCMenuItemImage itemFromNormalImage:@"back.png" selectedImage:@"back-sel.png" target:self selector:@selector(unPause)];
-        back.position = ccp(50, 240);
-        back.scale = 0.5;
-        CCMenu *backmenu = [CCMenu menuWithItems:back, nil];
-        backmenu.position = CGPointZero;
-        [self addChild:backmenu];
-        }
-        else{
-            glClearColor(255, 255, 255, 255);
-            [self unscheduleAllSelectors];
-            
-            // have everything stop
-            CCNode* node;
-            CCARRAY_FOREACH([self children], node)
-            {
-                [node pauseSchedulerAndActions];
-            }
-            
-            // add the labels shown during game over
-            CGSize screenSize = [[CCDirector sharedDirector] winSize];
-            
-            CCLabelTTF* gameOver = [CCLabelTTF labelWithString:@"Endless Mode" fontName:@"HelveticaNeue-Light" fontSize:30];
-            gameOver.position = CGPointMake(160, 300);
-            [self addChild:gameOver z:100 tag:100];
-            
-            CCLabelTTF* bosstag = [CCLabelTTF labelWithString:@"Level Select" fontName:@"HelveticaNeue-Light" fontSize:30];
-            bosstag.position = CGPointMake(160, 50);
-            [self addChild:bosstag z:100 tag:100];
-            
-            CCTintTo* tint = [CCTintTo actionWithDuration:0 red:0 green:0 blue:0];
-            [gameOver runAction:tint];
-            CCTintTo* tint2 = [CCTintTo actionWithDuration:0 red:0 green:0 blue:0];
-            [bosstag runAction:tint2];
-            
-            CCSprite* background = [CCSprite spriteWithFile:@"back31.png"];
-            background.position = ccp(screen.width/2,screen.height/2);
-            
-            [self addChild:background];
-            
-            CCMenuItemFont *playAgain = [CCMenuItemFont itemFromString: @"back" target:self selector:@selector(unPause)];
-            CCMenuItemFont *restart = [CCMenuItemFont itemFromString: @"Endless Mode" target:self selector:@selector(level1)];
-            CCMenuItemFont *quit = [CCMenuItemFont itemFromString: @"Scene Selection" target:self selector:@selector(level2)];
-            CCMenuItemFont *obama = [CCMenuItemFont itemFromString: @"Level 3" target:self selector:@selector(obama)];
-            /*CCMenu *gameOverMenu = [CCMenu menuWithItems:restart, quit, playAgain, nil];
-             [gameOverMenu alignItemsVertically];
-             gameOverMenu.position = ccp(screenSize.width/2, screenSize.height/2 - 80);
-             gameOverMenu.color = ccc3(0, 0, 0);
-             [self addChild:gameOverMenu];*/
-            
-            CCLabelTTF *highscore = [CCMenuItemImage itemFromNormalImage:@"endless.png" selectedImage:@"endless.png" target:self selector:@selector(level1)];
-            highscore.position = ccp(160, 390);
-            CCMenu *starMenu = [CCMenu menuWithItems:highscore, nil];
-            starMenu.position = CGPointZero;
-            [self addChild:starMenu];
-            
-            CCLabelTTF *boss = [CCMenuItemImage itemFromNormalImage:@"bossmode.png" selectedImage:@"bossmode.png" target:self selector:@selector(level2)];
-            boss.position = ccp(160, 150);
-            CCMenu *moreMenu = [CCMenu menuWithItems:boss, nil];
-            moreMenu.position = CGPointZero;
-            [self addChild:moreMenu];
-            
-            CCLabelTTF *back = [CCMenuItemImage itemFromNormalImage:@"back.png" selectedImage:@"back-sel.png" target:self selector:@selector(unPause)];
-            back.position = ccp(50, 240);
-            back.scale = 0.5;
-            CCMenu *backmenu = [CCMenu menuWithItems:back, nil];
-            backmenu.position = CGPointZero;
-            [self addChild:backmenu];
-        }
+        CCMenuItem *backButton = [CCMenuItemImage itemWithNormalImage:@"back.png" selectedImage:@"back-sel.png" target:self selector:@selector(unPause)];
+        backButton.position = ccp(screenSize.width / 14, screenSize.height / 1.05);
+        backButton.scale = 0.5;
+        CCMenu *backButtonMenu = [CCMenu menuWithItems:backButton, nil];
+        backButtonMenu.position = CGPointZero;
+        [self addChild:backButtonMenu];
+        
     }
     return self;
 }
 
 -(void) level2
 {
-   // NSNumber *leveldata = [NSNumber numberWithInteger:2];
-   // [[NSUserDefaults standardUserDefaults] setObject:leveldata forKey:@"leveldata"];
-    
-    //NSLog([NSString stringWithFormat:@"%d", level]);
-    //NSLog(@"d");
-    
     [[CCDirector sharedDirector] replaceScene:
      [CCTransitionSlideInR transitionWithDuration:0.5f scene:[Scene node]]];
 }
@@ -170,9 +104,7 @@
 {
     NSNumber *leveldata = [NSNumber numberWithInteger:1];
     [[NSUserDefaults standardUserDefaults] setObject:leveldata forKey:@"leveldata"];
-    
     [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"endless"];
-    
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInB transitionWithDuration:0.5f scene:[HelloWorldLayer node]]];
 }
 
@@ -180,14 +112,11 @@
 {
     NSNumber *leveldata = [NSNumber numberWithInteger:3];
     [[NSUserDefaults standardUserDefaults] setObject:leveldata forKey:@"leveldata"];
-    
     [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[HelloWorldLayer node]]];
 }
 
 -(void) unPause
 {
-    //    [[CCDirector sharedDirector] popSceneWithTransition:
-    //       [CCTransitionCrossFade transitionWithDuration:0.5f scene:[HelloWorldLayer node]]];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:0.5f scene:[Title node]]];
 }
 

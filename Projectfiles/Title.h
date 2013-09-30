@@ -10,11 +10,13 @@
 
 @interface Title : CCScene
 {
+    BOOL theLogs;
+    
     CCSprite* bluemove;
     CCSprite* orangemove;
     CGPoint screenCenter;
     CGSize size;
-    
+    CCSprite *myTitleLogo;
     CCMenu *menu;
     CCMenu *menu2;
     CCMenuItemSprite *playMenuItem;

@@ -37,6 +37,12 @@ CCMotionStreak* streak;
 {
     if ((self = [super init]))
     {
+        bulletsCount = [bullets count];
+        flowerbulletsCount = [flowerbullets count];
+        donkeysCount = [donkeys count];
+        fakebulletsCount = [fakebullets count];
+        powerupsCount = [powerups count];
+        
         // get screen center and screen size
         screenCenter = [CCDirector sharedDirector].screenCenter;
         screenSize = [[CCDirector sharedDirector] winSize];
@@ -143,6 +149,7 @@ CCMotionStreak* streak;
 }
 -(void)update:(ccTime)dt
 {
+    // Remove all the bullets after they move off the screen
     for(int i = 0; i < [bullets count]; i++)
     {
         CCSprite* shalinbullet = [bullets objectAtIndex:i];        
@@ -160,7 +167,28 @@ CCMotionStreak* streak;
             [bullets removeObjectAtIndex:i];
         }
     }
-    
+    // Remove the level labels after they leave the screen
+    if (levelOneLabel.position.y < 0) {
+        [self removeChild:levelOneLabel];
+    } else if (levelTwoLabel.position.y < 0) {
+        [self removeChild:levelTwoLabel];
+    } else if (levelThreeLabel.position.y < 0) {
+        [self removeChild:levelThreeLabel];
+    } else if (levelFourLabel.position.y < 0) {
+        [self removeChild:levelFourLabel];
+    } else if (levelFiveLabel.position.y < 0) {
+        [self removeChild:levelFiveLabel];
+    } else if (levelSixLabel.position.y < 0) {
+        [self removeChild:levelSixLabel];
+    } else if (levelSevenLabel.position.y < 0) {
+        [self removeChild:levelSevenLabel];
+    } else if (levelEightLabel.position.y < 0) {
+        [self removeChild:levelEightLabel];
+    } else if (levelNineLabel.position.y < 0) {
+        [self removeChild:levelNineLabel];
+    } else if (levelTenLabel.position.y < 0) {
+        [self removeChild:levelTenLabel];
+    }
     if(bosstime == false) {
         if(framespast == 300) {
             if(stagespast > -1) {
@@ -250,51 +278,37 @@ CCMotionStreak* streak;
     if(bosstime == true) {
         if(level == 1) {
             if(gameSegment == 0) {
-                if((framespast % 25) == 0) {
-//                    int tempInt = (arc4random() % 90) + 240;
-//                    [self shootBullet:1 angle:tempInt];
-                    [self shootBullet:3 angle:270];
+                if((framespast % 155) == 0) {
+                    [self shootBullet:1 angle:270];
 //                    [self startTutorial];
+//                    if (targetHit == true) {
+//                        if(framespast == 440) {
+//                            id someDelay = [CCDelayTime actionWithDuration:2.0];
+//                            id nextLevel = [CCCallFunc actionWithTarget:self selector:@selector(targetHit)];
+//                            [CCSequence actions:someDelay, nextLevel, someDelay, nil];
+//                        }
+//                    }
                 }
             }
             if(gameSegment == 1) {
-                if((framespast % 25) ==0) {
-                    [self shootBullet:3 angle:230];
-                    [self shootBullet:5 angle:270];
-                    [self shootBullet:3 angle:310];
+                if((framespast % 155) ==0) {
+                    [self shootBullet:1 angle:230];
+                    [self shootBullet:2 angle:270];
+                    [self shootBullet:1 angle:310];
                 }
             }
             if(gameSegment == 2) {
-                if((framespast % 25) ==0) {
-                    [self shootBullet:5 angle:300];
-                    [self shootBullet:5 angle:240];
+                if((framespast % 75) ==0) {
+                    [self shootBullet:3 angle:300];
+                    [self shootBullet:3 angle:240];
                 }
-                
-                for(int i = 0; i < [bullets count]; i++)
-                {
+                for(int i = 0; i < [bullets count]; i++) {
                     NSInteger j = i;
                     projectile = [bullets objectAtIndex:j];
-                    
-                    if(projectile.position.x > 300) {
-                        
-                        [[bullets objectAtIndex:j] changeAngle:240.0];
-                    }
-                    if(projectile.position.x < 10) {
-                        [[bullets objectAtIndex:j] changeAngle:300.0];
-                    }
-                    if(projectile.position.y < 0) {
-                        if( [[bullets objectAtIndex:j] getAngle] == 240) {
-                            [[bullets objectAtIndex:j] changeAngle:160.0];
-                        }
-                        if([[bullets objectAtIndex:j] getAngle] == 300) {
-                            [[bullets objectAtIndex:j] changeAngle:390.0];
-                        }
-                    }
-                    
                 }
             }
             if(gameSegment == 3) {
-                if((framespast % 25) ==0) {
+                if((framespast % 30) ==0) {
                     [self shootBullet:3 angle:180];
                     for(int i = 0; i < [bullets count]; i++) {
                         NSInteger j = i;
@@ -304,9 +318,9 @@ CCMotionStreak* streak;
                 }
             }
             if(gameSegment == 4) {
-                if((framespast % 25) ==0) {
-                    [self shootBullet:3 angle:270];
-                    [self shootBullet:3 angle:270];
+                if((framespast % 75) ==0) {
+                    [self shootBullet:1 angle:270];
+                    [self shootBullet:1 angle:270];
                     for(int i = 0; i < [bullets count]; i++) {
                         NSInteger j = i;
                         int tempDir = [[bullets objectAtIndex:j] getAngle] + (arc4random() % 90)-45;
@@ -315,7 +329,7 @@ CCMotionStreak* streak;
                 }
             }
             if(gameSegment == 5) {
-                if((framespast % 45) ==0) {
+                if((framespast % 75) ==0) {
                     [self shootBullet:3 angle:thetemporalint];
                     thetemporalint = thetemporalint + 15;
                     [self shootBullet:3 angle:thetemporalint];
@@ -326,17 +340,17 @@ CCMotionStreak* streak;
                 }
             }
             if(gameSegment == 6) {
-                if((framespast % 45) ==0) {
-                    [self shootBullet:3 angle:180];
+                if((framespast % 125) ==0) {
+                    [self shootBullet:2 angle:180];
 //                    [self shootBullet:3 angle:200];
 //                    [self shootBullet:3 angle:220];
-                    [self shootBullet:3 angle:240];
-                    [self shootBullet:3 angle:260];
-                    [self shootBullet:3 angle:280];
-                    [self shootBullet:3 angle:300];
+                    [self shootBullet:2 angle:240];
+                    [self shootBullet:2 angle:260];
+                    [self shootBullet:2 angle:280];
+                    [self shootBullet:2 angle:300];
 //                    [self shootBullet:3 angle:320];
 //                    [self shootBullet:3 angle:340];
-                    [self shootBullet:3 angle:360];
+                    [self shootBullet:2 angle:360];
                 }
             }
         }
@@ -344,44 +358,38 @@ CCMotionStreak* streak;
             if(gameSegment ==0) {
                 if((framespast % 100) == 0) {
                     int tempInt = (arc4random() % 90) + 240;
-                    [self shootBullet:1 angle:tempInt];
+                    [self shootBullet:3 angle:tempInt];
 //                    int tempInt = (arc4random() % 300) -245;
 //                    [self makeDownvote:tempInt];
                 }
             }
             if(gameSegment ==1) {
-                if((framespast % 25) == 0) {
-                    [self shootBulletwithPos:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPos:3 angle:240 xpos:-50 ypos:0];
-                    [self shootBulletwithPos:3 angle:300 xpos:50 ypos:0];
+                if((framespast % 70) == 0) {
+                    [self shootBulletwithPos:2 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPos:2 angle:240 xpos:-50 ypos:0];
+                    [self shootBulletwithPos:2 angle:300 xpos:50 ypos:0];
                 }
             }
             if(gameSegment ==2) {
-                if((framespast % 25) == 0) {
-                    [self shootBulletwithPos:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPos:3 angle:240 xpos:100 ypos:0];
-                    [self shootBulletwithPos:3 angle:300 xpos:-100 ypos:0];
+                if((framespast % 70) == 0) {
+                    [self shootBulletwithPos:2 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPos:2 angle:240 xpos:100 ypos:0];
+                    [self shootBulletwithPos:2 angle:300 xpos:-100 ypos:0];
                 }
             }
             if(gameSegment ==3) {
-                if([[NSUserDefaults standardUserDefaults]boolForKey:@"downwall"] == false) {
-                    [MGWU showMessage:@"Achievement Get!      Retreat" withImage:nil];
-                    [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"downwall"];
-                }
-                if((framespast % 250) == 0) {
+                if((framespast % 150) == 0) {
 //                    [self makeDownvote:-200];
                     [self makeDownvote:-100];
-                    if(isTimeWarped == false) {
-                        [self makeDownvote:0];
-                    }
+                    [self makeDownvote:0];
 //                    [self makeDownvote:100];
 //                    [self makeDownvote:200];
                 }
             }
             if(gameSegment ==4) {
-                if((framespast % 25) == 0) {
-                    [self shootBulletwithPos:3 angle:270 xpos:100 ypos:0];
-                    [self shootBulletwithPos:3 angle:271 xpos:-100 ypos:0];
+                if((framespast % 70) == 0) {
+                    [self shootBulletwithPos:2 angle:270 xpos:100 ypos:0];
+                    [self shootBulletwithPos:2 angle:271 xpos:-100 ypos:0];
                     for(int i = 0; i < [bullets count];i++) {
                         if([[bullets objectAtIndex:i] getAngle] > 270) {
                             [[bullets objectAtIndex:i] changeAngle:[[bullets objectAtIndex:i] getAngle] + 15];
@@ -393,14 +401,14 @@ CCMotionStreak* streak;
                 }
             }
             if(gameSegment ==5) {
-                if((framespast % 25) == 0) {
-                    [self shootBulletwithPos:3 angle:300 xpos:-100 ypos:0];
-                    [self shootBulletwithPos:3 angle:240 xpos:100 ypos:0];
+                if((framespast % 70) == 0) {
+                    [self shootBulletwithPos:2 angle:300 xpos:-100 ypos:0];
+                    [self shootBulletwithPos:2 angle:240 xpos:100 ypos:0];
                     for(int i = 0; i < [bullets count];i++) {
                     }
                 }
-                if((framespast % 130) == 0) {
-//                    [self makeDownvote:-65];
+                if((framespast % 180) == 0) {
+                    [self makeDownvote:-65];
                 }
             }
         }
@@ -449,42 +457,45 @@ CCMotionStreak* streak;
         if(level == 4) {
             if(gameSegment ==0) {
                 if(framespast == 160) {
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    for(int i = 0; i < 8;i++) {
-                        id flowermove = [CCMoveTo actionWithDuration:1.0 position:ccp(160,460 - i*60)];
-                        [[flowerbullets objectAtIndex:i] runAction:flowermove];
-                    }
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    for(int i = 9; i < 16;i++) {
-                        id flowermove = [CCMoveTo actionWithDuration:1.0 position:ccp(0,460 - (i-8)*60)];
-                        [[flowerbullets objectAtIndex:i] runAction:flowermove];
-                    }
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
-                    for(int i = 17; i < 24;i++) {
-                        id flowermove = [CCMoveTo actionWithDuration:1.0 position:ccp(320,460 - (i-16)*60)];
-                        [[flowerbullets objectAtIndex:i] runAction:flowermove];
-                    }
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    for(int i = 0; i < 8;i++) {
+//                        id flowermove = [CCMoveTo actionWithDuration:1.0 position:ccp(160,460 - i*60)];
+//                        [[flowerbullets objectAtIndex:i] runAction:flowermove];
+//                    }
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    for(int i = 9; i < 16;i++) {
+//                        id flowermove = [CCMoveTo actionWithDuration:1.0 position:ccp(0,460 - (i-8)*60)];
+//                        [[flowerbullets objectAtIndex:i] runAction:flowermove];
+//                    }
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosNoArray:3 angle:270 xpos:0 ypos:0];
+//                    for(int i = 17; i < 24;i++) {
+//                        id flowermove = [CCMoveTo actionWithDuration:1.0 position:ccp(320,460 - (i-16)*60)];
+//                        [[flowerbullets objectAtIndex:i] runAction:flowermove];
+//                    }
+                    int tempInt = (arc4random() % 90) + 240;
+                    [self shootBullet:1 angle:tempInt];
+
                 }
             }
             if(gameSegment ==1) {
@@ -814,7 +825,7 @@ CCMotionStreak* streak;
                     tempattacktype = (arc4random() % 5)+1;
                 }
                 attacktype = tempattacktype;
-                NSLog([NSString stringWithFormat:@"%d",attacktype]);
+//                NSLog([NSString stringWithFormat:@"%d",attacktype]);
                 wowanothertemportalint = 180;
             }
             if(attacktype == 1) {
@@ -1421,6 +1432,18 @@ CCMotionStreak* streak;
         y = y + 10;
     }
 }
+//-(void) scaleEffect:(CCSprite *) spriteToHaveTheEffectOn {
+//    id scaleUp = [CCScaleTo actionWithDuration:5.0f scale:1.1f];
+//    id scaleDown = [CCScaleTo actionWithDuration:5.0f scale:0.1f];
+//    id deleteSprite = [CCCallFunc actionWithTarget:self selector:@selector(removeLevelOneText)];
+//    [spriteToHaveTheEffectOn runAction:[CCSequence actions:scaleUp, scaleDown, deleteSprite, nil]];
+//}
+-(void) dropEffect:(CCSprite *) spriteToHaveTheEffectOn {
+      id dropdown = [CCMoveTo actionWithDuration:0.9f position:ccp(screenCenter.x, screenCenter.y)];
+      id scaleUp = [CCScaleTo actionWithDuration:5.0f scale:0.6f];
+      id dropdownagain = [CCMoveTo actionWithDuration:0.9f position:ccp(screenCenter.x, screenCenter.y-1000)];
+      [spriteToHaveTheEffectOn runAction:[CCSequence actions:dropdown, scaleUp, dropdownagain, nil]];
+}
 -(void) initBoss {
     if(bosstime == true) {
         label.color = ccc3(0, 0, 0);
@@ -1428,26 +1451,29 @@ CCMotionStreak* streak;
         streak.position = player.position;
         [self addChild:streak];
         [self rflash:0 green:0 blue:0 alpha:255 actionWithDuration:0];
-        if([[NSUserDefaults standardUserDefaults] integerForKey:@"boss"] < level) {
-            tut = [CCLabelTTF labelWithString:@"New Boss!" fontName:@"Bend2SquaresBRK" fontSize:60];
-            tut.position = ccp(screenCenter.x,screenCenter.y);
-            tut.color = ccc3(255, 255, 255);
-            [self addChild:tut z:9002];
-            [[NSUserDefaults standardUserDefaults] setInteger:level forKey:@"boss"];
-        }
+//        if([[NSUserDefaults standardUserDefaults] integerForKey:@"boss"] < level) {
+//            tut = [CCLabelTTF labelWithString:@"New Boss!" fontName:@"Bend2SquaresBRK" fontSize:60];
+//            tut.position = ccp(screenCenter.x,screenCenter.y);
+//            tut.color = ccc3(0, 0, 0);
+//            [self addChild:tut z:9002];
+//            [[NSUserDefaults standardUserDefaults] setInteger:level forKey:@"boss"];
+//        }
         if(level == 1) {
+            NSLog(@"Level 1");
             if([[NSUserDefaults standardUserDefaults]boolForKey:@"bigblue"] == false) {
                 [MGWU showMessage:@"Achievement Get!      The Big Blue, ruler of Blutopia" withImage:nil];
                 [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"bigblue"];
             }
-            id newboss = [CCScaleTo actionWithDuration:0.5f scale:1.0f];
-            [tut runAction:newboss];
-            [self schedule:@selector(newBoss) interval:3.0];
-//            int x = screenSize.height - 30;
-//            int y = screenCenter.y;
-            int x = 150;
-            int y = 400;
-//            boss = [CCSprite spriteWithFile:@"Glowing_Blue_Orb.png"];
+
+            levelOneLabel = [CCLabelTTF labelWithString:@"Level One!" fontName:@"Arial" fontSize:60];
+            levelOneLabel.position = ccp(screenSize.width/2,screenSize.height*3);
+            levelOneLabel.color = ccc3(0, 0, 0);
+            levelOneLabel.scale = 0.2;
+            [self addChild:levelOneLabel];
+            [self dropEffect:levelOneLabel];
+            
+            int x = screenCenter.x;
+            int y = screenCenter.y * 1.6;
             boss = [CCSprite spriteWithFile:@"target.png"];
             boss.position = ccp(x,y);
             boss.scale = 0;
@@ -1457,9 +1483,16 @@ CCMotionStreak* streak;
             [self shootBullet:1 angle:270];
         }
         else if(level == 2) {
+            NSLog(@"Level 2");
+            levelTwoLabel = [CCLabelTTF labelWithString:@"Level Two!" fontName:@"Arial" fontSize:60];
+            levelTwoLabel.position = ccp(screenSize.width/2,screenSize.height*3);
+            levelTwoLabel.color = ccc3(0, 0, 0);
+            levelTwoLabel.scale = 0.2;
+            [self addChild:levelTwoLabel];
+            [self dropEffect:levelTwoLabel];
             [[SimpleAudioEngine sharedEngine] playEffect:@"down2.mp3"];
-            int x = 150;
-            int y = 400;
+            int x = screenCenter.x;
+            int y = screenCenter.y * 1.6;
             boss = [CCSprite spriteWithFile:@"w_obama.png"];
             boss.position = ccp(x,y);
             boss.scale = 0;
@@ -1473,8 +1506,15 @@ CCMotionStreak* streak;
             }
         }
         else if(level == 3) {
-            int x = 150;
-            int y = 400;
+            NSLog(@"Level 3");
+            levelThreeLabel = [CCLabelTTF labelWithString:@"Level Three!" fontName:@"Arial" fontSize:60];
+            levelThreeLabel.position = ccp(screenSize.width/2,screenSize.height*3);
+            levelThreeLabel.color = ccc3(0, 0, 0);
+            levelThreeLabel.scale = 0.2;
+            [self addChild:levelThreeLabel];
+            [self dropEffect:levelThreeLabel];
+            int x = screenCenter.x;
+            int y = screenCenter.y * 1.6;
             boss = [CCSprite spriteWithFile:@"Glowing_Blue_Orb.png"];
             boss.position = ccp(x,y);
             boss.scale = 0;
@@ -1488,8 +1528,15 @@ CCMotionStreak* streak;
             }
         }
         else if(level == 4) {
-            int x = 150;
-            int y = 400;
+            NSLog(@"Level 4");
+            levelFourLabel = [CCLabelTTF labelWithString:@"Level Four!" fontName:@"Arial" fontSize:60];
+            levelFourLabel.position = ccp(screenSize.width/2,screenSize.height*3);
+            levelFourLabel.color = ccc3(0, 0, 0);
+            levelFourLabel.scale = 0.2;
+            [self addChild:levelFourLabel];
+            [self dropEffect:levelFourLabel];
+            int x = screenCenter.x;
+            int y = screenCenter.y * 1.6;
             boss = [CCSprite spriteWithFile:@"target.png"];
             boss.position = ccp(x,y);
             boss.scale = 0;
@@ -1503,8 +1550,15 @@ CCMotionStreak* streak;
             }
         }
         else if(level == 5) {
-            int x = 150;
-            int y = 400;
+            NSLog(@"Level 5");
+            levelFiveLabel = [CCLabelTTF labelWithString:@"Level Four!" fontName:@"Arial" fontSize:60];
+            levelFiveLabel.position = ccp(screenSize.width/2,screenSize.height*3);
+            levelFiveLabel.color = ccc3(0, 0, 0);
+            levelFiveLabel.scale = 0.2;
+            [self addChild:levelFiveLabel];
+            [self dropEffect:levelFiveLabel];
+            int x = screenCenter.x;
+            int y = screenCenter.y * 1.6;
             boss = [CCSprite spriteWithFile:@"download.png"];
             boss.position = ccp(x,y);
             boss.scale = 0;
@@ -1519,8 +1573,8 @@ CCMotionStreak* streak;
         }
     }
     else if(bosstime == false) {
-        int x = 150;
-        int y = 500;
+        int x = screenCenter.x;
+        int y = screenCenter.y * 1.6;
         boss = [CCSprite spriteWithFile:@"target.png"];
         boss.position = ccp(x,y);
         boss.scale = 0;
@@ -1532,7 +1586,6 @@ CCMotionStreak* streak;
 }
 - (void)newBoss {
     [self unschedule:@selector(newBoss)];
-    [self removeChild:tut cleanup:YES];
 }
 -(void) movePlayerPos: (CGPoint) rot_pos1 rot_pos2:(CGPoint) rot_pos2 {
     float rotation_theta = atan((rot_pos1.y-rot_pos2.y)/(rot_pos1.x-rot_pos2.x)) * 180 / M_PI;
@@ -1969,6 +2022,7 @@ CCMotionStreak* streak;
 -(void) shootBullet: (float) speed angle:(float) angleInput {
     Bullet *newB = [Bullet bullet:speed :angleInput];
     newB.position = boss.position;
+//    newB.position = ccp(arc4random()%346 + 75,arc4random()%406 + 75);
     [self addChild:newB z:9];
     [bullets addObject:newB];
     newB.scale = 0;
@@ -1977,9 +2031,10 @@ CCMotionStreak* streak;
 }
 -(void) shootBulletwithPos: (float) speed angle:(float) angleInput xpos:(float) xInput ypos:(float) yInput {
     Bullet *newB = [Bullet bullet:speed :angleInput];
-    int x = screenCenter.x - 20;
+    int x = screenCenter.x;
     int y = screenCenter.y + 50;
-    newB.position = boss.position;
+    newB.position = ccp(x, y);
+//    newB.position = ccp(arc4random()%346 + 75,arc4random()%406 + 75);
     newB.position = ccp(newB.position.x + xInput, newB.position.y + yInput);
     [self addChild:newB z:9];
     [bullets addObject:newB];
@@ -1989,7 +2044,8 @@ CCMotionStreak* streak;
 }
 -(void) shootBulletwithPosNoArray: (float) speed angle:(float) angleInput xpos:(float) xInput ypos:(float) yInput {
     Bullet *newB = [Bullet bullet:speed :angleInput];
-    newB.position = boss.position;
+//    newB.position = boss.position;
+    newB.position = ccp(arc4random()%346 + 75,arc4random()%406 + 75);
     newB.position = ccp(newB.position.x + xInput, newB.position.y + yInput);
     [self addChild:newB z:9];
     [flowerbullets addObject:newB];
@@ -2135,11 +2191,8 @@ CCMotionStreak* streak;
     }
     stagespast = stagespast + 1;
 //    bosstime = false;
-    [self initBoss];
-    gameSegment = 0;
-    framespast = 0;
-    NSLog([NSString stringWithFormat:@"%d",stagespast]);
-    NSLog([NSString stringWithFormat:@"%d",bosstime]);
+//    NSLog([NSString stringWithFormat:@"%d",stagespast]);
+//    NSLog([NSString stringWithFormat:@"%d",bosstime]);
     //create first,delay,create second
     [self schedule:@selector(mySelector) interval:3.0];
     for(int i = 0; i<[donkeys count]; i++) {
@@ -2161,57 +2214,84 @@ CCMotionStreak* streak;
     }
     return NO;
 }
+// This is what moves the game on to the next level after you hit the target
 -(void) targetHit {
     if (targetHit == true) {
         // This should happen when the bullet is deleted.
         if (level == 1) {
             if(framespast >= 40) {
-                gameSegment++;
+                gameSegment += 1;
             }
             if (gameSegment >= 7) {
-                level++;
+                level += 1;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
+            }
+            for(int i = 0; i < [bullets count]; i++) {
+                Bullet *temp = [bullets objectAtIndex:i];
+                [self removeChild:temp];
             }
         } else if (level == 2) {
-            gameSegment++;
+            gameSegment += 1;
             if (gameSegment >= 6) {
-                level++;
+                level += 1;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
+            }
+            for(int i = 0; i < [bullets count]; i++) {
+                Bullet *temp = [bullets objectAtIndex:i];
+                [self removeChild:temp];
             }
         } else if (level == 3) {
-            gameSegment++;
+            gameSegment += 1;
             if (gameSegment >= 6) {
-                level++;
+                level += 1;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
+            }
+            for(int i = 0; i < [bullets count]; i++) {
+                Bullet *temp = [bullets objectAtIndex:i];
+                [self removeChild:temp];
             }
         } else if (level == 4) {
-            gameSegment++;
+            gameSegment += 1;
             if (gameSegment >= 9) {
-                level++;
+                level += 1;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
             }
+            for(int i = 0; i < [bullets count]; i++) {
+                Bullet *temp = [bullets objectAtIndex:i];
+                [self removeChild:temp];
+            }
         } else if (level == 5) {
-            gameSegment++;
+            gameSegment += 1;
             if (gameSegment >= 9) {
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
+            }
+            for(int i = 0; i < [bullets count]; i++) {
+                Bullet *temp = [bullets objectAtIndex:i];
+                [self removeChild:temp];
             }
         }
         for(int i = 0; i < [bullets count]; i++) {
             Bullet *temp = [bullets objectAtIndex:i];
             [self removeChild:temp cleanup:YES];
         }
-        [bullets removeAllObjects];
-        
-        player.position = ccp(screenCenter.x,screenCenter.y - 200);
+        [bullets removeAllObjects];        
+//        id movePlayPosition = [CCCallFunc actionWithTarget:self selector:@selector(changePlayerPosition)];
+//        id delayTime2 = [CCDelayTime actionWithDuration:2.0];
+//        [player runAction:[CCSequence actions:movePlayPosition, delayTime2, nil]];
+        player.position = ccp(screenCenter.x,screenCenter.y / 3);
+
         //  [[CCDirector sharedDirector] pushScene: [CCTransitionCrossFade transitionWithDuration:0.5f scene:[LevelSelect node]]];
     } else if (targetHit == false) {
         
     }
+}
+-(void) changePlayerPosition {
+//    player.position = ccp(screenCenter.x,screenCenter.y / 3);
 }
 -(void) detectCollisions
 {
@@ -2397,8 +2477,8 @@ CCMotionStreak* streak;
     }
 }
 -(void) setDimensionsInPixelsGraduallyOnSprite:(CCSprite *) spriteToSetDimensions width:(int) width height:(int) height {
-    float scaleXDimensions = width/[spriteToSetDimensions boundingBox].size.width;
-    float scaleYDimensions = height/[spriteToSetDimensions boundingBox].size.height;
+//    float scaleXDimensions = width/[spriteToSetDimensions boundingBox].size.width;
+//    float scaleYDimensions = height/[spriteToSetDimensions boundingBox].size.height;
     id scaleX = [CCScaleTo actionWithDuration:0.5f scaleX:0 scaleY:1];
     [spriteToSetDimensions runAction:scaleX];
 }
@@ -2482,7 +2562,7 @@ CCMotionStreak* streak;
     dieLabel.position = ccp(screenSize.width/2, screenSize.height/2 - 80);
     dieLabel.color = ccc3(52,73,94);
     [self addChild:dieLabel z:9012];
-    CCMenuItemImage* continueButton = [CCMenuItemImage itemWithNormalImage:@"button.png" selectedImage:@"button-sel.png" target:self selector:@selector(continuee)];    
+    CCMenuItemImage* continueButton = [CCMenuItemImage itemWithNormalImage:@"button.png" selectedImage:@"button-sel.png" target:self selector:@selector(continuee)];
     CCMenuItemImage* dieButton = [CCMenuItemImage itemWithNormalImage:@"button.png" selectedImage:@"button-sel.png" target:self selector:@selector(gameover)];
 
     GameOverMenu = [CCMenu menuWithItems: continueButton, dieButton, nil];
@@ -2507,8 +2587,8 @@ CCMotionStreak* streak;
     [coinLabel setString:[NSString stringWithFormat:@"%i",coins]];
 }
 -(void) boughtProduct {
-    id tintp = [CCTintTo actionWithDuration:0.5 red:247 green:147 blue:29];
-    id scalep = [CCScaleTo actionWithDuration:0.5 scale:0.15];
+    id tintp = [CCTintTo actionWithDuration:0.6 red:247 green:147 blue:29];
+    id scalep = [CCScaleTo actionWithDuration:0.6 scale:0.15];
     [player runAction:tintp];
     [player runAction:scalep];
     deathanimation = true;
@@ -2529,17 +2609,11 @@ CCMotionStreak* streak;
     for(int i = 0; i < [bullets count]; i++) {
         Bullet *temp = [bullets objectAtIndex:i];
         [self removeChild:temp cleanup:YES];
-        //  [bullets removeObjectAtIndex:j];
-        //[bulletDirection removeObjectAtIndex:j];
-        //[bulletSpeed removeObjectAtIndex:j];
     }
     [bullets removeAllObjects];
     for(int i = 0; i < [flowerbullets count]; i++) {
         Bullet *temp = [flowerbullets objectAtIndex:i];
         [self removeChild:temp cleanup:YES];
-        //  [bullets removeObjectAtIndex:j];
-        //[bulletDirection removeObjectAtIndex:j];
-        //[bulletSpeed removeObjectAtIndex:j];
     }
     [flowerbullets removeAllObjects];
     isDying = false;

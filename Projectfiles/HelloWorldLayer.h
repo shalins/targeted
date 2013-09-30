@@ -26,6 +26,17 @@
 
 @interface HelloWorldLayer : CCLayer
 {
+    CCLabelTTF *levelOneLabel;
+    CCLabelTTF *levelTwoLabel;
+    CCLabelTTF *levelThreeLabel;
+    CCLabelTTF *levelFourLabel;
+    CCLabelTTF *levelFiveLabel;
+    CCLabelTTF *levelSixLabel;
+    CCLabelTTF *levelSevenLabel;
+    CCLabelTTF *levelEightLabel;
+    CCLabelTTF *levelNineLabel;
+    CCLabelTTF *levelTenLabel;
+
 	NSString* helloWorldString;
 	NSString* helloWorldFontName;
 	int helloWorldFontSize;
@@ -88,6 +99,13 @@
     // get screen center and screen size
     CGPoint screenCenter;
     CGSize screenSize;
+    
+    int bulletsCount;
+    int flowerbulletsCount;
+    int donkeysCount;
+    int fakebulletsCount;
+    int powerupsCount;
+    
 }
 
 @property (nonatomic, copy) NSString* helloWorldString;

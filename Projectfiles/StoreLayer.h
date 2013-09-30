@@ -11,6 +11,7 @@
 @interface StoreLayer : CCScene
 {
     CGSize screenSize;
+    CGPoint screenCenter;
 }
 
 @end
