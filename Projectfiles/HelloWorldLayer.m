@@ -37,11 +37,6 @@ CCMotionStreak* streak;
 {
     if ((self = [super init]))
     {
-        bulletsCount = [bullets count];
-        flowerbulletsCount = [flowerbullets count];
-        donkeysCount = [donkeys count];
-        fakebulletsCount = [fakebullets count];
-        powerupsCount = [powerups count];
         
         // get screen center and screen size
         screenCenter = [CCDirector sharedDirector].screenCenter;
@@ -64,7 +59,7 @@ CCMotionStreak* streak;
         wowanothertemportalint = 180;
         NSNumber *leveldata = [[NSUserDefaults standardUserDefaults] objectForKey:@"leveldata"];
         level = [leveldata intValue];
-        NSLog([NSString stringWithFormat:@"%i", level]);
+        NSLog(@"Level %i", level);
         shieldon = false;
         if([[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialcompleted"] == false) {
             stagespast = 0;
@@ -150,8 +145,7 @@ CCMotionStreak* streak;
 -(void)update:(ccTime)dt
 {
     // Remove all the bullets after they move off the screen
-    for(int i = 0; i < [bullets count]; i++)
-    {
+    for(NSUInteger i = 0; i < [bullets count]; i++) {
         CCSprite* shalinbullet = [bullets objectAtIndex:i];        
         if(shalinbullet.position.x > 310) {
             Bullet *temp = [bullets objectAtIndex:i];
@@ -193,7 +187,7 @@ CCMotionStreak* streak;
         if(framespast == 300) {
             if(stagespast > -1) {
                 [self returnBullet];
-                for(int i = 0; i < [bullets count]; i++) {
+                for(NSUInteger i = 0; i < [bullets count]; i++) {
                     Bullet *temp = [bullets objectAtIndex:i];
                     [self removeChild:temp cleanup:YES];
                     int randomtemp = arc4random() % 10;
@@ -302,7 +296,7 @@ CCMotionStreak* streak;
                     [self shootBullet:3 angle:300];
                     [self shootBullet:3 angle:240];
                 }
-                for(int i = 0; i < [bullets count]; i++) {
+                for(NSUInteger i = 0; i < [bullets count]; i++) {
                     NSInteger j = i;
                     projectile = [bullets objectAtIndex:j];
                 }
@@ -310,7 +304,7 @@ CCMotionStreak* streak;
             if(gameSegment == 3) {
                 if((framespast % 30) ==0) {
                     [self shootBullet:3 angle:180];
-                    for(int i = 0; i < [bullets count]; i++) {
+                    for(NSUInteger i = 0; i < [bullets count]; i++) {
                         NSInteger j = i;
                         int tempDir = [[bullets objectAtIndex:j] getAngle] + 30;
                         [[bullets objectAtIndex:j] changeAngle:tempDir];
@@ -321,7 +315,7 @@ CCMotionStreak* streak;
                 if((framespast % 75) ==0) {
                     [self shootBullet:1 angle:270];
                     [self shootBullet:1 angle:270];
-                    for(int i = 0; i < [bullets count]; i++) {
+                    for(NSUInteger i = 0; i < [bullets count]; i++) {
                         NSInteger j = i;
                         int tempDir = [[bullets objectAtIndex:j] getAngle] + (arc4random() % 90)-45;
                         [[bullets objectAtIndex:j] changeAngle:tempDir];
@@ -333,7 +327,7 @@ CCMotionStreak* streak;
                     [self shootBullet:3 angle:thetemporalint];
                     thetemporalint = thetemporalint + 15;
                     [self shootBullet:3 angle:thetemporalint];
-                    for(int i = 0; i < [bullets count]; i++) {
+                    for(NSUInteger i = 0; i < [bullets count]; i++) {
                         NSInteger j = i;
                         [[bullets objectAtIndex:j] changeAngle:[[bullets objectAtIndex:j] getAngle] + 5];
                     }
@@ -390,7 +384,7 @@ CCMotionStreak* streak;
                 if((framespast % 70) == 0) {
                     [self shootBulletwithPos:2 angle:270 xpos:100 ypos:0];
                     [self shootBulletwithPos:2 angle:271 xpos:-100 ypos:0];
-                    for(int i = 0; i < [bullets count];i++) {
+                    for(NSUInteger i = 0; i < [bullets count];i++) {
                         if([[bullets objectAtIndex:i] getAngle] > 270) {
                             [[bullets objectAtIndex:i] changeAngle:[[bullets objectAtIndex:i] getAngle] + 15];
                         }
@@ -404,7 +398,7 @@ CCMotionStreak* streak;
                 if((framespast % 70) == 0) {
                     [self shootBulletwithPos:2 angle:300 xpos:-100 ypos:0];
                     [self shootBulletwithPos:2 angle:240 xpos:100 ypos:0];
-                    for(int i = 0; i < [bullets count];i++) {
+                    for(NSUInteger i = 0; i < [bullets count];i++) {
                     }
                 }
                 if((framespast % 180) == 0) {
@@ -634,7 +628,7 @@ CCMotionStreak* streak;
                     [self shootBulletwithPos:3 angle:180 xpos:-80 ypos:-100];
                     [self shootBulletwithPos:3 angle:180 xpos:80 ypos:-100];
                     [self shootBulletwithPos:3 angle:180 xpos:0 ypos:-180];
-                    for(int i = 0; i < [bullets count]; i++) {
+                    for(NSUInteger i = 0; i < [bullets count]; i++) {
                         NSInteger j = i;
                         int tempDir = [[bullets objectAtIndex:j] getAngle] + 30;
                         
@@ -647,7 +641,7 @@ CCMotionStreak* streak;
                 if((framespast % 15) ==0) {
                     [self shootBulletwithPos:3 angle:180 xpos:-160 ypos:-140];
                     [self shootBulletwithPos:3 angle:180 xpos:160 ypos:-140];
-                    for(int i = 0; i < [bullets count]; i++) {
+                    for(NSUInteger i = 0; i < [bullets count]; i++) {
                         NSInteger j = i;
                         int tempDir = [[bullets objectAtIndex:j] getAngle] + 30;
                         [[bullets objectAtIndex:j] changeAngle:tempDir];
@@ -659,7 +653,7 @@ CCMotionStreak* streak;
                 if((framespast % 15) ==0) {
                     [self shootBulletwithPos:3 angle:0 xpos:-160 ypos:-140];
                     [self shootBulletwithPos:3 angle:180 xpos:160 ypos:-140];
-                    for(int i = 0; i < [bullets count]; i++) {
+                    for(NSUInteger i = 0; i < [bullets count]; i++) {
                         NSInteger j = i;
                         int tempDir = [[bullets objectAtIndex:j] getAngle] + 20;
                         [[bullets objectAtIndex:j] changeAngle:tempDir];
@@ -671,7 +665,7 @@ CCMotionStreak* streak;
                 if((framespast % 15) ==0){
                     [self shootBulletwithPos:3 angle:90 xpos:0 ypos:-440];
                     [self shootBulletwithPos:3 angle:270 xpos:0 ypos:0];
-                    for(int i = 0; i < [bullets count]; i++){
+                    for(NSUInteger i = 0; i < [bullets count]; i++){
                         NSInteger j = i;
                         int tempDir = [[bullets objectAtIndex:j] getAngle] + 20;
                         
@@ -814,7 +808,7 @@ CCMotionStreak* streak;
                 if((framespast % 25) == 0){
                     wowanothertemportalint = wowanothertemportalint + 15;
                     [self shootBulletwithPos:3 angle:wowanothertemportalint xpos:0 ypos:0];
-                    for(int i = 0; i < [bullets count]; i++) {}
+                    for(NSUInteger i = 0; i < [bullets count]; i++) {}
                 }
             }
         }
@@ -857,10 +851,10 @@ CCMotionStreak* streak;
                 if((framespast % 25) == 0) {
                     wowanothertemportalint = wowanothertemportalint + 15;
                     [self shootBulletwithPos:3 angle:wowanothertemportalint xpos:0 ypos:0];
-                    for(int i = 0; i < [bullets count]; i++){}
+                    for(NSUInteger i = 0; i < [bullets count]; i++){}
                 }
                 if((framespast % 50) == 0) {
-                    for(int i = 0; i < [bullets count]; i++){
+                    for(NSUInteger i = 0; i < [bullets count]; i++){
                         [[bullets objectAtIndex:i] changeAngle:[[bullets objectAtIndex:i] getAngle] + 15];
                     }
                 }
@@ -912,10 +906,10 @@ CCMotionStreak* streak;
                 if((framespast % 25) == 0){
                     wowanothertemportalint = wowanothertemportalint + 15;
                     [self shootBulletwithPos:3 angle:wowanothertemportalint xpos:0 ypos:0];
-                    for(int i = 0; i < [bullets count]; i++) {}
+                    for(NSUInteger i = 0; i < [bullets count]; i++) {}
                 }
                 if((framespast % 50) == 0) {
-                    for(int i = 0; i < [bullets count]; i++) {
+                    for(NSUInteger i = 0; i < [bullets count]; i++) {
                         [[bullets objectAtIndex:i] changeAngle:[[bullets objectAtIndex:i] getAngle] - 15];
                     }
                 }
@@ -966,10 +960,10 @@ CCMotionStreak* streak;
                 if((framespast % 25) == 0) {
                     wowanothertemportalint = wowanothertemportalint + 15;
                     [self shootBulletwithPos:3 angle:wowanothertemportalint xpos:0 ypos:0];
-                    for(int i = 0; i < [bullets count]; i++){}
+                    for(NSUInteger i = 0; i < [bullets count]; i++){}
                 }
                 if((framespast % 50) == 0){
-                    for(int i = 0; i < [bullets count]; i++) {
+                    for(NSUInteger i = 0; i < [bullets count]; i++) {
                         [[bullets objectAtIndex:i] changeAngle:[[bullets objectAtIndex:i] getAngle] - 15];
                     }
                 }
@@ -1013,10 +1007,10 @@ CCMotionStreak* streak;
                 if((framespast % 25) == 0) {
                     wowanothertemportalint = wowanothertemportalint + 15;
                     [self shootBulletwithPos:3 angle:wowanothertemportalint xpos:0 ypos:0];
-                    for(int i = 0; i < [bullets count]; i++) {}
+                    for(NSUInteger i = 0; i < [bullets count]; i++) {}
                 }
                 if((framespast % 50) == 0) {
-                    for(int i = 0; i < [bullets count]; i++) {
+                    for(NSUInteger i = 0; i < [bullets count]; i++) {
                         [[bullets objectAtIndex:i] changeAngle:[[bullets objectAtIndex:i] getAngle] + 15];
                     }
                 }
@@ -1057,10 +1051,10 @@ CCMotionStreak* streak;
                 if((framespast % 25) == 0) {
                     wowanothertemportalint = wowanothertemportalint + 15;
                     [self shootBulletwithPos:3 angle:wowanothertemportalint xpos:0 ypos:0];
-                    for(int i = 0; i < [bullets count]; i++) {}
+                    for(NSUInteger i = 0; i < [bullets count]; i++) {}
                 }
                 if((framespast % 50) == 0) {
-                    for(int i = 0; i < [bullets count]; i++) {
+                    for(NSUInteger i = 0; i < [bullets count]; i++) {
                         [[bullets objectAtIndex:i] changeAngle:[[bullets objectAtIndex:i] getAngle] - 15];
                     }
                 }
@@ -1101,10 +1095,10 @@ CCMotionStreak* streak;
                 if((framespast % 25) == 0) {
                     wowanothertemportalint = wowanothertemportalint + 15;
                     [self shootBulletwithPos:3 angle:wowanothertemportalint xpos:0 ypos:0];
-                    for(int i = 0; i < [bullets count]; i++) {}
+                    for(NSUInteger i = 0; i < [bullets count]; i++) {}
                 }
                 if((framespast % 50) == 0) {
-                    for(int i = 0; i < [bullets count]; i++) {
+                    for(NSUInteger i = 0; i < [bullets count]; i++) {
                         [[bullets objectAtIndex:i] changeAngle:[[bullets objectAtIndex:i] getAngle] - 15];
                     }
                 }
@@ -1459,7 +1453,6 @@ CCMotionStreak* streak;
 //            [[NSUserDefaults standardUserDefaults] setInteger:level forKey:@"boss"];
 //        }
         if(level == 1) {
-            NSLog(@"Level 1");
             if([[NSUserDefaults standardUserDefaults]boolForKey:@"bigblue"] == false) {
                 [MGWU showMessage:@"Achievement Get!      The Big Blue, ruler of Blutopia" withImage:nil];
                 [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"bigblue"];
@@ -1483,7 +1476,6 @@ CCMotionStreak* streak;
             [self shootBullet:1 angle:270];
         }
         else if(level == 2) {
-            NSLog(@"Level 2");
             levelTwoLabel = [CCLabelTTF labelWithString:@"Level Two!" fontName:@"Arial" fontSize:60];
             levelTwoLabel.position = ccp(screenSize.width/2,screenSize.height*3);
             levelTwoLabel.color = ccc3(0, 0, 0);
@@ -1506,7 +1498,6 @@ CCMotionStreak* streak;
             }
         }
         else if(level == 3) {
-            NSLog(@"Level 3");
             levelThreeLabel = [CCLabelTTF labelWithString:@"Level Three!" fontName:@"Arial" fontSize:60];
             levelThreeLabel.position = ccp(screenSize.width/2,screenSize.height*3);
             levelThreeLabel.color = ccc3(0, 0, 0);
@@ -1528,7 +1519,6 @@ CCMotionStreak* streak;
             }
         }
         else if(level == 4) {
-            NSLog(@"Level 4");
             levelFourLabel = [CCLabelTTF labelWithString:@"Level Four!" fontName:@"Arial" fontSize:60];
             levelFourLabel.position = ccp(screenSize.width/2,screenSize.height*3);
             levelFourLabel.color = ccc3(0, 0, 0);
@@ -1550,7 +1540,6 @@ CCMotionStreak* streak;
             }
         }
         else if(level == 5) {
-            NSLog(@"Level 5");
             levelFiveLabel = [CCLabelTTF labelWithString:@"Level Four!" fontName:@"Arial" fontSize:60];
             levelFiveLabel.position = ccp(screenSize.width/2,screenSize.height*3);
             levelFiveLabel.color = ccc3(0, 0, 0);
@@ -1640,7 +1629,7 @@ CCMotionStreak* streak;
 }
 -(void) moveBullet {
     //move the bullets
-    for(int i = 0; i < [bullets count]; i++) {
+    for(NSUInteger i = 0; i < [bullets count]; i++) {
         NSInteger j = i;
         projectile = [bullets objectAtIndex:j];
         float angle = [[bullets objectAtIndex:j] getAngle];
@@ -1653,7 +1642,7 @@ CCMotionStreak* streak;
         CGPoint direction = ccp(vx,vy);
         projectile.position = ccpAdd(projectile.position, direction);
     }
-    for(int i = 0; i < [donkeys count]; i++) {
+    for(NSUInteger i = 0; i < [donkeys count]; i++) {
         NSInteger j = i;
         projectile = [donkeys objectAtIndex:j];
         float angle = 270;
@@ -1663,7 +1652,7 @@ CCMotionStreak* streak;
         CGPoint direction = ccp(vx,vy);
         projectile.position = ccpAdd(projectile.position, direction);
     }
-    for(int i = 0; i < [powerups count]; i++) {
+    for(NSUInteger i = 0; i < [powerups count]; i++) {
         NSInteger j = i;
         projectile = [powerups objectAtIndex:j];
         float angle = [[powerups objectAtIndex:j] getAngle];
@@ -1982,7 +1971,7 @@ CCMotionStreak* streak;
 }
 -(void) moveFakeBullet
 {
-    for(int i = 0; i < [fakebullets count]; i++) {
+    for(NSUInteger i = 0; i < [fakebullets count]; i++) {
         NSInteger j = i;
         projectile2 = [fakebullets objectAtIndex:j];
         CGPoint rot_pos2 = [projectile2 position];
@@ -2098,7 +2087,7 @@ CCMotionStreak* streak;
     [newB runAction:scale];
 }
 -(void) returnBullet {
-    for(int i = 0; i < [bullets count]; i++) {
+    for(NSUInteger i = 0; i < [bullets count]; i++) {
         NSInteger j = i;
         projectile = [bullets objectAtIndex:j];
         fakebullet = [CCSprite spriteWithFile:@"orange.png"];
@@ -2109,7 +2098,7 @@ CCMotionStreak* streak;
         [[SimpleAudioEngine sharedEngine] playEffect:@"bwooo.mp3"];
         bwooo = false;
     }
-    for(int i = 0; i < [flowerbullets count]; i++) {
+    for(NSUInteger i = 0; i < [flowerbullets count]; i++) {
         NSInteger j = i;
         projectile = [flowerbullets objectAtIndex:j];
         fakebullet = [CCSprite spriteWithFile:@"orange.png"];
@@ -2145,17 +2134,17 @@ CCMotionStreak* streak;
 }
 -(void) deleteBullets {
     [self returnBullet];
-    for(int i = 0; i < [bullets count]; i++) {
+    for(NSUInteger i = 0; i < [bullets count]; i++) {
         Bullet *temp = [bullets objectAtIndex:i];
         [self removeChild:temp cleanup:YES];
         [bullets removeAllObjects];
    }
-    for(int i = 0; i < [donkeys count]; i++) {
+    for(NSUInteger i = 0; i < [donkeys count]; i++) {
         CCSprite *temp = [donkeys objectAtIndex:i];
         [self removeChild:temp cleanup:YES];
         [bullets removeAllObjects];
     }
-    for(int i = 0; i < [flowerbullets count]; i++) {
+    for(NSUInteger i = 0; i < [flowerbullets count]; i++) {
         CCSprite *temp = [flowerbullets objectAtIndex:i];
         [self removeChild:temp cleanup:YES];
         [bullets removeAllObjects];
@@ -2195,7 +2184,7 @@ CCMotionStreak* streak;
 //    NSLog([NSString stringWithFormat:@"%d",bosstime]);
     //create first,delay,create second
     [self schedule:@selector(mySelector) interval:3.0];
-    for(int i = 0; i<[donkeys count]; i++) {
+    for(NSUInteger i = 0; i<[donkeys count]; i++) {
         [self removeChild:[donkeys objectAtIndex:i] cleanup:YES];
     }
     [donkeys removeAllObjects];
@@ -2227,7 +2216,7 @@ CCMotionStreak* streak;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
             }
-            for(int i = 0; i < [bullets count]; i++) {
+            for(NSUInteger i = 0; i < [bullets count]; i++) {
                 Bullet *temp = [bullets objectAtIndex:i];
                 [self removeChild:temp];
             }
@@ -2238,7 +2227,7 @@ CCMotionStreak* streak;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
             }
-            for(int i = 0; i < [bullets count]; i++) {
+            for(NSUInteger i = 0; i < [bullets count]; i++) {
                 Bullet *temp = [bullets objectAtIndex:i];
                 [self removeChild:temp];
             }
@@ -2249,7 +2238,7 @@ CCMotionStreak* streak;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
             }
-            for(int i = 0; i < [bullets count]; i++) {
+            for(NSUInteger i = 0; i < [bullets count]; i++) {
                 Bullet *temp = [bullets objectAtIndex:i];
                 [self removeChild:temp];
             }
@@ -2260,7 +2249,7 @@ CCMotionStreak* streak;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
             }
-            for(int i = 0; i < [bullets count]; i++) {
+            for(NSUInteger i = 0; i < [bullets count]; i++) {
                 Bullet *temp = [bullets objectAtIndex:i];
                 [self removeChild:temp];
             }
@@ -2270,12 +2259,12 @@ CCMotionStreak* streak;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
             }
-            for(int i = 0; i < [bullets count]; i++) {
+            for(NSUInteger i = 0; i < [bullets count]; i++) {
                 Bullet *temp = [bullets objectAtIndex:i];
                 [self removeChild:temp];
             }
         }
-        for(int i = 0; i < [bullets count]; i++) {
+        for(NSUInteger i = 0; i < [bullets count]; i++) {
             Bullet *temp = [bullets objectAtIndex:i];
             [self removeChild:temp cleanup:YES];
         }
@@ -2305,7 +2294,7 @@ CCMotionStreak* streak;
 //        [self removeChild:shield cleanup:YES];
     }
     
-    for(int i = 0; i < [bullets count]; i++) {
+    for(NSUInteger i = 0; i < [bullets count]; i++) {
         NSInteger j = i;
         CCSprite* tempSprite = [bullets objectAtIndex:j];
         if ([self isCollidingSphere:tempSprite WithSphere:player] == true) {
@@ -2335,7 +2324,7 @@ CCMotionStreak* streak;
             }
         }
     }
-    for(int i = 0; i < [flowerbullets count]; i++) {
+    for(NSUInteger i = 0; i < [flowerbullets count]; i++) {
         NSInteger j = i;
         CCSprite* tempSprite = [flowerbullets objectAtIndex:j];
         if ([self isCollidingSphere:tempSprite WithSphere:player] == true) {
@@ -2362,7 +2351,7 @@ CCMotionStreak* streak;
             }
         }
     }
-    for(int i = 0; i < [fakebullets count]; i++) {
+    for(NSUInteger i = 0; i < [fakebullets count]; i++) {
         NSInteger j = i;
         if([fakebullets count] > 0) {
             CCSprite* tempFakeSprite = [fakebullets objectAtIndex:j];
@@ -2380,7 +2369,7 @@ CCMotionStreak* streak;
             }
         }
     }
-    for(int i = 0; i < [powerups count];i++) {
+    for(NSUInteger i = 0; i < [powerups count];i++) {
         NSInteger j = i;
         CCSprite* tempSprite = [powerups objectAtIndex:j];
         if ([self isCollidingSphere:tempSprite WithSphere:player] == true) {
@@ -2606,12 +2595,12 @@ CCMotionStreak* streak;
     [self scheduleUpdate];
     [[CCDirector sharedDirector] resume];
     [self returnBullet];
-    for(int i = 0; i < [bullets count]; i++) {
+    for(NSUInteger i = 0; i < [bullets count]; i++) {
         Bullet *temp = [bullets objectAtIndex:i];
         [self removeChild:temp cleanup:YES];
     }
     [bullets removeAllObjects];
-    for(int i = 0; i < [flowerbullets count]; i++) {
+    for(NSUInteger i = 0; i < [flowerbullets count]; i++) {
         Bullet *temp = [flowerbullets objectAtIndex:i];
         [self removeChild:temp cleanup:YES];
     }

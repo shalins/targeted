@@ -98,14 +98,7 @@
     
     // get screen center and screen size
     CGPoint screenCenter;
-    CGSize screenSize;
-    
-    int bulletsCount;
-    int flowerbulletsCount;
-    int donkeysCount;
-    int fakebulletsCount;
-    int powerupsCount;
-    
+    CGSize screenSize;    
 }
 
 @property (nonatomic, copy) NSString* helloWorldString;
