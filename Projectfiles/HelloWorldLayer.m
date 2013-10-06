@@ -106,10 +106,6 @@ CCMotionStreak* streak;
         blank = [CCSprite spriteWithFile:@"blank.png"];
         blank.position = ccp(160,240);
         if([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == false) {
-            if (level == 0) {
-                bosstime = true;
-                stagespast = 1;
-            }
             if(level == 1) {
                 bosstime = true;
                 stagespast = 5;
@@ -269,43 +265,50 @@ CCMotionStreak* streak;
 /* -------------------------------------------------------------------------------- */
 /*    GAMEPLAY                                                                      */
 /* -------------------------------------------------------------------------------- */
+
+
+
+
 -(void) bossAttack {
     if(bosstime == true) {
-        if (level == 0) {
-            if(gameSegment == 0) {
-                if(framespast == 440) {
-                    gameSegment = 1;
-                    tut = [CCLabelTTF labelWithString:@"Touch to move" fontName:@"Bend2SquaresBRK" fontSize:60];
-                    tut.position = ccp(screenCenter.x,screenCenter.y);
-                    tut.color = ccc3(0, 0, 0);
-                    [self addChild: tut];
-                }
-                if(framespast == 740) {
-                    gameSegment = 2;
-                    [self shootBulletwithPos:1 angle:260 xpos:0 ypos:0];
-                    [self removeChild:tut];
-                    tut = [CCLabelTTF labelWithString:@"Don't touch blue" fontName:@"Bend2SquaresBRK" fontSize:60];
-                    tut.position = ccp(screenCenter.x,screenCenter.y);
-                    tut.color = ccc3(0, 0, 0);
-                    [self addChild:tut];
-               }
-                if(framespast == 940) {
-                    gameSegment = 3;
-                    [self shootBulletwithPosPowerup:1 angle:260 xpos:0 ypos:0];
-                    [self removeChild:tut];
-                    tut = [CCLabelTTF labelWithString:@"Grab powerups for\nan additional shield" fontName:@"Bend2SquaresBRK" fontSize:60];
-                    tut.position = ccp(screenCenter.x,screenCenter.y);
-                    tut.color = ccc3(0, 0, 0);
-                    [self addChild:tut];
-                }
-            }
-        }
-        
-        
         if(level == 1) {
             if(gameSegment == 0) {
-                if((framespast % 155) == 0) {
-                    [self shootBullet:1 angle:270];
+                    if(framespast == 10) {
+                        tut = [CCLabelTTF labelWithString:@"Tap to move" fontName:@"Bend2SquaresBRK" fontSize:60];
+                        tut.position = ccp(screenCenter.x,screenCenter.y);
+                        tut.color = ccc3(0, 0, 0);
+                        [self addChild: tut];
+                    }
+                    if(framespast == 300) {
+                        [self shootBulletwithPos:1 angle:260 xpos:0 ypos:0];
+                        [self removeChild:tut];
+                        tut = [CCLabelTTF labelWithString:@"Avoid these" fontName:@"Bend2SquaresBRK" fontSize:60];
+                        tut.position = ccp(screenCenter.x,screenCenter.y);
+                        tut.color = ccc3(0, 0, 0);
+                        [self addChild:tut];
+
+                    }
+                    if(framespast == 580) {
+                        [self shootBulletwithPosPowerup:1 angle:260 xpos:0 ypos:0];
+                        [self removeChild:tut];
+                        tut = [CCLabelTTF labelWithString:@"These are shields" fontName:@"Bend2SquaresBRK" fontSize:60];
+                        tut.position = ccp(screenCenter.x,screenCenter.y);
+                        tut.color = ccc3(0, 0, 0);
+                        [self addChild:tut];
+                    }
+                    if(framespast == 750) {
+                        [self shootBulletwithPosPowerup:1 angle:260 xpos:0 ypos:0];
+                        [self removeChild:tut];
+                        tut = [CCLabelTTF labelWithString:@"Move to the target" fontName:@"Bend2SquaresBRK" fontSize:60];
+                        tut.position = ccp(screenCenter.x,screenCenter.y);
+                        tut.color = ccc3(0, 0, 0);
+                        [self addChild:tut];
+                    }
+                    if (framespast == 1100) {
+                        [self removeChild:tut];
+                    }
+                
+//                    [self shootBullet:1 angle:270];
 //                    [self startTutorial];
 //                    if (targetHit == true) {
 //                        if(framespast == 440) {
@@ -314,7 +317,6 @@ CCMotionStreak* streak;
 //                            [CCSequence actions:someDelay, nextLevel, someDelay, nil];
 //                        }
 //                    }
-                }
             }
             if(gameSegment == 1) {
                 if((framespast % 155) ==0) {
@@ -1483,18 +1485,7 @@ CCMotionStreak* streak;
 //            [self addChild:tut z:9002];
 //            [[NSUserDefaults standardUserDefaults] setInteger:level forKey:@"boss"];
 //        }
-        if (level == 0) {
-            int x = screenCenter.x;
-            int y = screenCenter.y * 1.6;
-            boss = [CCSprite spriteWithFile:@"target.png"];
-            boss.position = ccp(x,y);
-            boss.scale = 0;
-            [self addChild:boss z:0];
-            id bossscale = [CCScaleTo actionWithDuration:1.0f scale:0.5f];
-            [boss runAction:bossscale];
-            [self shootBullet:1 angle:270];
-        }
-        else if(level == 1) {
+        if(level == 1) {
             if([[NSUserDefaults standardUserDefaults]boolForKey:@"bigblue"] == false) {
                 [MGWU showMessage:@"Achievement Get!      The Big Blue, ruler of Blutopia" withImage:nil];
                 [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"bigblue"];
@@ -1515,7 +1506,7 @@ CCMotionStreak* streak;
             [self addChild:boss z:0];
             id bossscale = [CCScaleTo actionWithDuration:1.0f scale:0.5f];
             [boss runAction:bossscale];
-            [self shootBullet:1 angle:270];
+//            [self shootBullet:1 angle:270];
         }
         else if(level == 2) {
             levelTwoLabel = [CCLabelTTF labelWithString:@"Level Two!" fontName:@"Arial" fontSize:60];
@@ -2249,16 +2240,7 @@ CCMotionStreak* streak;
 -(void) targetHit {
     if (targetHit == true) {
         // This should happen when the bullet is deleted.
-        if (level == 0) {
-            level += 1;
-            [self gameEnd];
-            [self removeChild:boss cleanup:YES];
-            for(NSUInteger i = 0; i < [bullets count]; i++) {
-                Bullet *temp = [bullets objectAtIndex:i];
-                [self removeChild:temp];
-            }
-        }
-        else if (level == 1) {
+        if (level == 1) {
             if(framespast >= 40) {
                 gameSegment += 1;
             }
