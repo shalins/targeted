@@ -75,7 +75,6 @@
     bool ubershieldon;
     bool shieldon;
     bool targetHit;
-    BOOL playedTutorial;
     int redtint;
     int bluetint;
     int greentint;
@@ -95,10 +94,10 @@
     CCSprite *shield;
     CCDirector *director;
     CCSprite *obstacle;
-    
     // get screen center and screen size
     CGPoint screenCenter;
-    CGSize screenSize;    
+    CGSize screenSize;
+    BOOL playedTutorial;
 }
 
 @property (nonatomic, copy) NSString* helloWorldString;

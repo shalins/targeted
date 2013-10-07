@@ -2,15 +2,14 @@
  * Copyright (c) 2010-2011 Shalin Shah.
  */
 
+// side missions
+
 #import "HelloWorldLayer.h"
 #import "SimpleAudioEngine.h"
 #import "Player.h"
 #import "Dead.h"
 #import "LevelSelect.h"
 #import "StoreLayer.h"
-
-@interface HelloWorldLayer (PrivateMethods)
-@end
 
 @implementation HelloWorldLayer
 
@@ -37,7 +36,6 @@ CCMotionStreak* streak;
 {
     if ((self = [super init]))
     {
-        
         // get screen center and screen size
         screenCenter = [CCDirector sharedDirector].screenCenter;
         screenSize = [[CCDirector sharedDirector] winSize];
@@ -58,15 +56,6 @@ CCMotionStreak* streak;
         level = [leveldata intValue];
         NSLog(@"Level %i", level);
         shieldon = false;
-        if([[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialcompleted"] == false) {
-            stagespast = 0;
-//            bosstime = false;
-        }
-        if([[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialcompleted"] == true) {
-            stagespast = 4;
-            attacktype = 4;
-//            bosstime = true;
-        }
         framespast = 0;
         secondspast = 0;
         gameSegment = 0;
@@ -96,7 +85,8 @@ CCMotionStreak* streak;
         pausebutton.position = ccp(screenSize.width - 15,screenSize.height - 15);
         pausebutton.scale = 1;
         [self addChild:pausebutton];
-        [self initScore];
+        // This shows the score
+//        [self initScore];
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"bwooo.mp3"];
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"zoom.mp3"];
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"timewwarp.mp3"];
@@ -105,6 +95,8 @@ CCMotionStreak* streak;
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"down2.mp3"];
         blank = [CCSprite spriteWithFile:@"blank.png"];
         blank.position = ccp(160,240);
+        
+        // If it's not endless mode
         if([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == false) {
             if(level == 1) {
                 bosstime = true;
@@ -123,23 +115,19 @@ CCMotionStreak* streak;
                 stagespast = 20;
             }
         }
-        tut = [CCLabelTTF labelWithString:@"" fontName:@"HelveticaNeue-Light" fontSize:30];
+        
+        // Set up Tutorial
+        tut = [CCLabelTTF labelWithString:@"" fontName:@"HelveticaNeue-UltraLight" fontSize:30];
         tut.position = screenCenter;
         [self addChild:tut z:10000];
         tut.visible = FALSE;
-        bool tutorialStatusCheck = [[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialStatus"];
-        if (tutorialStatusCheck == FALSE) {
-            playedTutorial = FALSE;
-        }
         
-        else {
-            playedTutorial = [[NSUserDefaults standardUserDefaults] objectForKey:@"tutorialStatus"];
-        }
+        // The setup for the game
         [self initBoss];
     }
     return self;
 }
--(void)update:(ccTime)dt
+-(void)update:(ccTime)delta
 {
     // Remove all the bullets after they move off the screen
     for(NSUInteger i = 0; i < [bullets count]; i++) {
@@ -195,8 +183,6 @@ CCMotionStreak* streak;
                 framespast = 0;
                 stagespast++;
                 bosstime = true;
-                
-                [tut setString:@"Dont touch blue!"];
             }
         }
     }
@@ -228,7 +214,7 @@ CCMotionStreak* streak;
         [MGWU showMessage:@"Achievement Get!      A Blue World" withImage:nil];
         [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"startgame"];
     }
-    label = [CCLabelTTF labelWithString:@"0" fontName:@"HelveticaNeue-Light" fontSize:24];
+    label = [CCLabelTTF labelWithString:@"0" fontName:@"HelveticaNeue-UltraLight" fontSize:24];
     label.position = ccp(5,463);
     label.anchorPoint = ccp(0.0,0.5);
     label.color = ccc3(0, 0, 0);
@@ -236,96 +222,62 @@ CCMotionStreak* streak;
 }
 -(void) startTutorial {
     // Uses NSUserDefaults so doesn't appear twice
-    if (playedTutorial == FALSE) {
-        playedTutorial = TRUE;
-        id delay = [CCDelayTime actionWithDuration:4.0f];
-        id part1 = [CCCallFunc actionWithTarget:self selector:@selector(tutorial1)];
-        id part2 = [CCCallFunc actionWithTarget:self selector:@selector(tutorial2)];
-        id part3 = [CCCallFunc actionWithTarget:self selector:@selector(tutorial3)];
-        CCSequence *tutorialSeq = [CCSequence actions:part1, delay, part2, delay, part3, delay, nil];
-        [self runAction:tutorialSeq];
-        [[NSUserDefaults standardUserDefaults] setBool:playedTutorial forKey:@"tutorialStatus"];
+    if(framespast == 10) {
+        tut = [CCLabelTTF labelWithString:@"Tap to move" fontName:@"HelveticaNeue-UltraLight" fontSize:30];
+        tut.position = ccp(screenCenter.x,screenCenter.y);
+        tut.color = ccc3(0, 0, 0);
+        [self addChild: tut];
     }
-}
--(void) tutorial1
-{
-    [self flashLabel:@"Tap to move" actionWithDuration:2.0f color:@"white"];
-}
--(void) tutorial2
-{
-    [self flashLabel:@"Avoid blue" actionWithDuration:2.0f color:@"white"];
-    [self shootBulletwithPos:1 angle:260 xpos:0 ypos:0];
-}
--(void) tutorial3
-{
-    [self deleteBullets];
-    [self shootBulletwithPosPowerup:1 angle:260 xpos:0 ypos:0];
-    [self flashLabel:@"Grab shields" actionWithDuration:2.0f color:@"white"];
+    if(framespast == 300) {
+        [self shootBulletwithPos:1 angle:260 xpos:0 ypos:0];
+        [self removeChild:tut];
+        tut = [CCLabelTTF labelWithString:@"Avoid these" fontName:@"HelveticaNeue-UltraLight" fontSize:30];
+        tut.position = ccp(screenCenter.x,screenCenter.y);
+        tut.color = ccc3(0, 0, 0);
+        [self addChild:tut];
+        
+    }
+    if(framespast == 580) {
+        [self shootBulletwithPosPowerup:1 angle:260 xpos:0 ypos:0];
+        [self removeChild:tut];
+        tut = [CCLabelTTF labelWithString:@"These are shields" fontName:@"HelveticaNeue-UltraLight" fontSize:30];
+        tut.position = ccp(screenCenter.x,screenCenter.y);
+        tut.color = ccc3(0, 0, 0);
+        [self addChild:tut];
+    }
+    if(framespast == 750) {
+        [self shootBulletwithPosPowerup:1 angle:260 xpos:0 ypos:0];
+        [self removeChild:tut];
+        tut = [CCLabelTTF labelWithString:@"Drag into target" fontName:@"HelveticaNeue-UltraLight" fontSize:30];
+        tut.position = ccp(screenCenter.x,screenCenter.y);
+        tut.color = ccc3(0, 0, 0);
+        [self addChild:tut];
+    }
 }
 /* -------------------------------------------------------------------------------- */
 /*    GAMEPLAY                                                                      */
 /* -------------------------------------------------------------------------------- */
-
-
-
-
 -(void) bossAttack {
     if(bosstime == true) {
         if(level == 1) {
             if(gameSegment == 0) {
-                    if(framespast == 10) {
-                        tut = [CCLabelTTF labelWithString:@"Tap to move" fontName:@"Bend2SquaresBRK" fontSize:60];
-                        tut.position = ccp(screenCenter.x,screenCenter.y);
-                        tut.color = ccc3(0, 0, 0);
-                        [self addChild: tut];
-                    }
-                    if(framespast == 300) {
-                        [self shootBulletwithPos:1 angle:260 xpos:0 ypos:0];
-                        [self removeChild:tut];
-                        tut = [CCLabelTTF labelWithString:@"Avoid these" fontName:@"Bend2SquaresBRK" fontSize:60];
-                        tut.position = ccp(screenCenter.x,screenCenter.y);
-                        tut.color = ccc3(0, 0, 0);
-                        [self addChild:tut];
-
-                    }
-                    if(framespast == 580) {
-                        [self shootBulletwithPosPowerup:1 angle:260 xpos:0 ypos:0];
-                        [self removeChild:tut];
-                        tut = [CCLabelTTF labelWithString:@"These are shields" fontName:@"Bend2SquaresBRK" fontSize:60];
-                        tut.position = ccp(screenCenter.x,screenCenter.y);
-                        tut.color = ccc3(0, 0, 0);
-                        [self addChild:tut];
-                    }
-                    if(framespast == 750) {
-                        [self shootBulletwithPosPowerup:1 angle:260 xpos:0 ypos:0];
-                        [self removeChild:tut];
-                        tut = [CCLabelTTF labelWithString:@"Move to the target" fontName:@"Bend2SquaresBRK" fontSize:60];
-                        tut.position = ccp(screenCenter.x,screenCenter.y);
-                        tut.color = ccc3(0, 0, 0);
-                        [self addChild:tut];
-                    }
-                    if (framespast == 1100) {
-                        [self removeChild:tut];
-                    }
-                
-//                    [self shootBullet:1 angle:270];
-//                    [self startTutorial];
-//                    if (targetHit == true) {
-//                        if(framespast == 440) {
-//                            id someDelay = [CCDelayTime actionWithDuration:2.0];
-//                            id nextLevel = [CCCallFunc actionWithTarget:self selector:@selector(targetHit)];
-//                            [CCSequence actions:someDelay, nextLevel, someDelay, nil];
-//                        }
-//                    }
+                [self startTutorial];
             }
             if(gameSegment == 1) {
+                [self removeChild:tut];
+                [[NSUserDefaults standardUserDefaults]setBool:true forKey:@"tutorialcompleted"];
+                if((framespast % 100) ==0) {
+                    [self shootBullet:1 angle:270];
+                }
+            }
+            if(gameSegment == 2) {
                 if((framespast % 155) ==0) {
                     [self shootBullet:1 angle:230];
                     [self shootBullet:2 angle:270];
                     [self shootBullet:1 angle:310];
                 }
             }
-            if(gameSegment == 2) {
+            if(gameSegment == 3) {
                 if((framespast % 75) ==0) {
                     [self shootBullet:3 angle:300];
                     [self shootBullet:3 angle:240];
@@ -335,7 +287,7 @@ CCMotionStreak* streak;
                     projectile = [bullets objectAtIndex:j];
                 }
             }
-            if(gameSegment == 3) {
+            if(gameSegment == 4) {
                 if((framespast % 30) ==0) {
                     [self shootBullet:3 angle:180];
                     for(NSUInteger i = 0; i < [bullets count]; i++) {
@@ -345,7 +297,7 @@ CCMotionStreak* streak;
                     }
                 }
             }
-            if(gameSegment == 4) {
+            if(gameSegment == 5) {
                 if((framespast % 75) ==0) {
                     [self shootBullet:1 angle:270];
                     [self shootBullet:1 angle:270];
@@ -356,7 +308,7 @@ CCMotionStreak* streak;
                     }
                 }
             }
-            if(gameSegment == 5) {
+            if(gameSegment == 6) {
                 if((framespast % 75) ==0) {
                     [self shootBullet:3 angle:thetemporalint];
                     thetemporalint = thetemporalint + 15;
@@ -367,7 +319,7 @@ CCMotionStreak* streak;
                     }
                 }
             }
-            if(gameSegment == 6) {
+            if(gameSegment == 7) {
                 if((framespast % 125) ==0) {
                     [self shootBullet:2 angle:180];
 //                    [self shootBullet:3 angle:200];
@@ -790,13 +742,13 @@ CCMotionStreak* streak;
             if(attacktype == 1){
                 if(framespast == 10){
                     if(isTimeWarped == false){
-                        tut = [CCLabelTTF labelWithString:@"Touch to move" fontName:@"Bend2SquaresBRK" fontSize:60];
+                        tut = [CCLabelTTF labelWithString:@"Touch to move" fontName:@"HelveticaNeue-UltraLight" fontSize:60];
                         tut.position = ccp(screenCenter.x,screenCenter.y);
                         tut.color = ccc3(0, 0, 0);
                         [self addChild: tut];
                     }
                     else if(isTimeWarped == true){
-                        tut = [CCLabelTTF labelWithString:@"time has been warped" fontName:@"Bend2SquaresBRK" fontSize:30];
+                        tut = [CCLabelTTF labelWithString:@"time has been warped" fontName:@"HelveticaNeue-UltraLight" fontSize:30];
                         tut.position = ccp(screenCenter.x,screenCenter.y);
                         tut.color = ccc3(0, 0, 0);
                         [self addChild: tut];
@@ -807,7 +759,7 @@ CCMotionStreak* streak;
                 if(framespast ==10){
                     [self shootBulletwithPos:1 angle:260 xpos:0 ypos:0];
                     [self removeChild:tut];
-                    tut = [CCLabelTTF labelWithString:@"Don't touch blue" fontName:@"Bend2SquaresBRK" fontSize:60];
+                    tut = [CCLabelTTF labelWithString:@"Don't touch blue" fontName:@"HelveticaNeue-UltraLight" fontSize:60];
                     tut.position = ccp(screenCenter.x,screenCenter.y);
                     tut.color = ccc3(0, 0, 0);
                     [self addChild:tut];
@@ -817,7 +769,7 @@ CCMotionStreak* streak;
                 if(framespast ==10){
                     [self shootBulletwithPosPowerup:1 angle:260 xpos:0 ypos:0];
                     [self removeChild:tut];
-                    tut = [CCLabelTTF labelWithString:@"Grab powerups for\nan additional shield" fontName:@"Bend2SquaresBRK" fontSize:60];
+                    tut = [CCLabelTTF labelWithString:@"Grab powerups for\nan additional shield" fontName:@"HelveticaNeue-UltraLight" fontSize:60];
                     tut.position = ccp(screenCenter.x,screenCenter.y);
                     tut.color = ccc3(0, 0, 0);
                     [self addChild:tut];
@@ -828,7 +780,7 @@ CCMotionStreak* streak;
                 if(framespast == 10){
                     [self removeChild:tut];
                     bosstime = true;
-                    [[NSUserDefaults standardUserDefaults]setBool:true forKey:@"tutorialcompleted"];
+//                    [[NSUserDefaults standardUserDefaults]setBool:true forKey:@"tutorialcompleted"];
                 }
                 if((framespast % 50) == 0){
                     
@@ -1479,24 +1431,39 @@ CCMotionStreak* streak;
         [self addChild:streak];
         [self rflash:0 green:0 blue:0 alpha:255 actionWithDuration:0];
 //        if([[NSUserDefaults standardUserDefaults] integerForKey:@"boss"] < level) {
-//            tut = [CCLabelTTF labelWithString:@"New Boss!" fontName:@"Bend2SquaresBRK" fontSize:60];
+//            tut = [CCLabelTTF labelWithString:@"New Boss!" fontName:@"HelveticaNeue-UltraLight" fontSize:60];
 //            tut.position = ccp(screenCenter.x,screenCenter.y);
 //            tut.color = ccc3(0, 0, 0);
 //            [self addChild:tut z:9002];
 //            [[NSUserDefaults standardUserDefaults] setInteger:level forKey:@"boss"];
 //        }
         if(level == 1) {
+            if (gameSegment == 1) {
+            }
+            if (gameSegment == 2) {
+            }
+            if (gameSegment == 3) {
+            }
+            
+            [self removeChild:streak cleanup:YES];
             if([[NSUserDefaults standardUserDefaults]boolForKey:@"bigblue"] == false) {
                 [MGWU showMessage:@"Achievement Get!      The Big Blue, ruler of Blutopia" withImage:nil];
                 [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"bigblue"];
             }
-
-            levelOneLabel = [CCLabelTTF labelWithString:@"Level One!" fontName:@"Arial" fontSize:60];
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialcompleted"] == TRUE) {
+            levelOneLabel = [CCLabelTTF labelWithString:@"Level One!" fontName:@"HelveticaNeue-UltraLight" fontSize:60];
             levelOneLabel.position = ccp(screenSize.width/2,screenSize.height*3);
             levelOneLabel.color = ccc3(0, 0, 0);
             levelOneLabel.scale = 0.2;
             [self addChild:levelOneLabel];
             [self dropEffect:levelOneLabel];
+            }
+            
+            if([[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialcompleted"] == FALSE){
+                gameSegment = 0;
+            } else if([[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialcompleted"] == TRUE) {
+                gameSegment = 1;
+            }
             
             int x = screenCenter.x;
             int y = screenCenter.y * 1.6;
@@ -1509,7 +1476,7 @@ CCMotionStreak* streak;
 //            [self shootBullet:1 angle:270];
         }
         else if(level == 2) {
-            levelTwoLabel = [CCLabelTTF labelWithString:@"Level Two!" fontName:@"Arial" fontSize:60];
+            levelTwoLabel = [CCLabelTTF labelWithString:@"Level Two!" fontName:@"HelveticaNeue-UltraLight" fontSize:60];
             levelTwoLabel.position = ccp(screenSize.width/2,screenSize.height*3);
             levelTwoLabel.color = ccc3(0, 0, 0);
             levelTwoLabel.scale = 0.2;
@@ -1531,7 +1498,8 @@ CCMotionStreak* streak;
             }
         }
         else if(level == 3) {
-            levelThreeLabel = [CCLabelTTF labelWithString:@"Level Three!" fontName:@"Arial" fontSize:60];
+            [self removeChild:streak cleanup:YES];
+            levelThreeLabel = [CCLabelTTF labelWithString:@"Level Three!" fontName:@"HelveticaNeue-UltraLight" fontSize:60];
             levelThreeLabel.position = ccp(screenSize.width/2,screenSize.height*3);
             levelThreeLabel.color = ccc3(0, 0, 0);
             levelThreeLabel.scale = 0.2;
@@ -1552,7 +1520,7 @@ CCMotionStreak* streak;
             }
         }
         else if(level == 4) {
-            levelFourLabel = [CCLabelTTF labelWithString:@"Level Four!" fontName:@"Arial" fontSize:60];
+            levelFourLabel = [CCLabelTTF labelWithString:@"Level Four!" fontName:@"HelveticaNeue-UltraLight" fontSize:60];
             levelFourLabel.position = ccp(screenSize.width/2,screenSize.height*3);
             levelFourLabel.color = ccc3(0, 0, 0);
             levelFourLabel.scale = 0.2;
@@ -1573,7 +1541,7 @@ CCMotionStreak* streak;
             }
         }
         else if(level == 5) {
-            levelFiveLabel = [CCLabelTTF labelWithString:@"Level Four!" fontName:@"Arial" fontSize:60];
+            levelFiveLabel = [CCLabelTTF labelWithString:@"Level Four!" fontName:@"HelveticaNeue-UltraLight" fontSize:60];
             levelFiveLabel.position = ccp(screenSize.width/2,screenSize.height*3);
             levelFiveLabel.color = ccc3(0, 0, 0);
             levelFiveLabel.scale = 0.2;
@@ -1658,7 +1626,7 @@ CCMotionStreak* streak;
 -(void) deleteubershield {
     [self unschedule:@selector(deleteubershield)];
     ubershieldon = false;
-    [self removeChild:shield cleanup:true];
+    [self removeChild:shield cleanup:YES];
 }
 -(void) moveBullet {
     //move the bullets
@@ -2241,10 +2209,14 @@ CCMotionStreak* streak;
     if (targetHit == true) {
         // This should happen when the bullet is deleted.
         if (level == 1) {
-            if(framespast >= 40) {
-                gameSegment += 1;
+            gameSegment += 1;
+            if (gameSegment == 1) {
             }
-            if (gameSegment >= 7) {
+            if (gameSegment == 2) {
+            }
+            if (gameSegment == 3) {
+            }
+            if (gameSegment >= 8) {
                 level += 1;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
@@ -2555,10 +2527,10 @@ CCMotionStreak* streak;
     [self addChild: gameOverLayer z:9010];
     NSString* coinsl = @"Coins: ";
     NSString* coincount = [coinsl stringByAppendingString:[NSString stringWithFormat:@"%i",coins]];
-    gameOver1 = [CCLabelTTF labelWithString:coincount fontName:@"HelveticaNeue-Light" fontSize:40];
+    gameOver1 = [CCLabelTTF labelWithString:coincount fontName:@"HelveticaNeue-UltraLight" fontSize:40];
     gameOver1.position = ccp(160, 320);
     [self addChild:gameOver1 z:9011];
-    coinLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",coins] fontName:@"HelveticaNeue-Light" fontSize:75];
+    coinLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",coins] fontName:@"HelveticaNeue-UltraLight" fontSize:75];
     coinLabel.position = ccp(240, 300);
     //[self addChild:coinLabel z:9011];
     NSString* hello = @"";
@@ -2571,16 +2543,16 @@ CCMotionStreak* streak;
     helloWorld = [hello stringByAppendingString:world];
     burpworld = @" coins.";
     coinc = [helloWorld stringByAppendingString:burpworld];
-    gameOver2 = [CCLabelTTF labelWithString:coinc fontName:@"HelveticaNeue-Light" fontSize:30];
+    gameOver2 = [CCLabelTTF labelWithString:coinc fontName:@"HelveticaNeue-UltraLight" fontSize:30];
     gameOver2.position = ccp(160, 55);
     [self addChild:gameOver2 z:9011];
     //gameOver.color=ccc3(0,0,0);
-    continuePressed = [CCLabelTTF labelWithString:@"Continue" fontName:@"HelveticaNeue-Light" fontSize:24];
+    continuePressed = [CCLabelTTF labelWithString:@"Continue" fontName:@"HelveticaNeue-UltraLight" fontSize:24];
     continuePressed.position = ccp(screenSize.width/2, screenSize.height/2 - 5);
     continuePressed.color = ccc3(52,73,94);
     [self addChild:continuePressed z:9012];
     
-    dieLabel = [CCLabelTTF labelWithString:@"Give Up" fontName:@"HelveticaNeue-Light" fontSize:24];
+    dieLabel = [CCLabelTTF labelWithString:@"Give Up" fontName:@"HelveticaNeue-UltraLight" fontSize:24];
     dieLabel.position = ccp(screenSize.width/2, screenSize.height/2 - 80);
     dieLabel.color = ccc3(52,73,94);
     [self addChild:dieLabel z:9012];
