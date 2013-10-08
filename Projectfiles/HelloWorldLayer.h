@@ -98,6 +98,7 @@
     CGPoint screenCenter;
     CGSize screenSize;
     BOOL playedTutorial;
+    int secs;
 }
 
 @property (nonatomic, copy) NSString* helloWorldString;

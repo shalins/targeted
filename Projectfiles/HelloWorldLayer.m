@@ -23,7 +23,7 @@ int toNumber;
 id movePlayer;
 int omganothertemportalint;
 bool bwooo = false;
-int gameSegment = 0;
+int gameSegment;
 int framespast;
 int secondspast;
 int stagespast;
@@ -194,11 +194,10 @@ CCMotionStreak* streak;
     }
     [self grabTouchCoord];
     [streak setPosition:player.position];
+    
     framespast++;
-    if(isTimeWarped) {
-        framespast++;
-    }
-    secondspast = framespast/60;
+    secondspast = framespast / 60;
+    
     [self bossAttack];
     [self detectCollisions];
     // [self tint];
@@ -2209,13 +2208,11 @@ CCMotionStreak* streak;
     if (targetHit == true) {
         // This should happen when the bullet is deleted.
         if (level == 1) {
+            [self schedule:@selector(gameSegmentBeat) interval:0];
+            if (secondspast == 3) {
+                [self unschedule:@selector(gameSegmentBeat)];
+            }
             gameSegment += 1;
-            if (gameSegment == 1) {
-            }
-            if (gameSegment == 2) {
-            }
-            if (gameSegment == 3) {
-            }
             if (gameSegment >= 8) {
                 level += 1;
                 [self gameEnd];
@@ -2275,8 +2272,15 @@ CCMotionStreak* streak;
         }
         [bullets removeAllObjects];        
 //        id movePlayPosition = [CCCallFunc actionWithTarget:self selector:@selector(changePlayerPosition)];
+//        [self performSelector:@selector(changePlayerPosition) withObject:self afterDelay:2.5f];
 //        id delayTime2 = [CCDelayTime actionWithDuration:2.0];
 //        [player runAction:[CCSequence actions:movePlayPosition, delayTime2, nil]];
+        
+//        [self removeChild:player cleanup:YES];
+//        if((framespast % 30) ==0) {
+//            [self addChild:player];
+//        }
+        
         player.position = ccp(screenCenter.x,screenCenter.y / 3);
 
         //  [[CCDirector sharedDirector] pushScene: [CCTransitionCrossFade transitionWithDuration:0.5f scene:[LevelSelect node]]];
@@ -2285,7 +2289,7 @@ CCMotionStreak* streak;
     }
 }
 -(void) changePlayerPosition {
-//    player.position = ccp(screenCenter.x,screenCenter.y / 3);
+    player.position = ccp(screenCenter.x,screenCenter.y / 3);
 }
 -(void) detectCollisions
 {
@@ -2513,6 +2517,39 @@ CCMotionStreak* streak;
     [player runAction:scalep];
     [self schedule:@selector(playerdeath) interval:0.5];
 }
+
+-(void) gameSegmentBeat {
+    [self pauseSchedulerAndActions];
+    
+    CCSprite *opaqueBG = [CCSprite spriteWithFile:@"background1.png"];
+    opaqueBG.position = screenCenter;
+    [self addChild:opaqueBG z:10000];
+        
+    CCLabelTTF *three = [CCLabelTTF labelWithString:@"3" fontName:@"Helvetica" fontSize:100];
+    three.position = ccp(screenCenter.x, screenCenter.y);
+    CCLabelTTF *two = [CCLabelTTF labelWithString:@"2" fontName:@"Helvetica" fontSize:100];
+    two.position = ccp(screenCenter.x, screenCenter.y);
+    CCLabelTTF *one = [CCLabelTTF labelWithString:@"1" fontName:@"Helvetica" fontSize:100];
+    one.position = ccp(screenCenter.x, screenCenter.y);
+    
+    secondspast = 0;
+    if (secondspast == 1) {
+        [self addChild:three z:10001];
+    } else if (secondspast == 2) {
+        [self removeChild:three];
+        [self addChild:two z:10001];
+    } else if (secondspast == 3) {
+        [self removeChild:two];
+        [self addChild:one z:10001];
+    }
+}
+
+-(void) newGameSegment {
+    [self scheduleUpdate];
+    [self resumeSchedulerAndActions];
+    [self unschedule:@selector(gameSegmentBeat)];
+}
+
 -(void) playerdeath {
     isDying = true;
     [self unschedule:@selector(playerdeath)];
