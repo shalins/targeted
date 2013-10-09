@@ -2208,10 +2208,15 @@ CCMotionStreak* streak;
     if (targetHit == true) {
         // This should happen when the bullet is deleted.
         if (level == 1) {
-            [self schedule:@selector(gameSegmentBeat) interval:0];
-            if (secondspast == 3) {
+            [self schedule:@selector(gameSegmentBeat)];
+            dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC));
+            dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                [self resumeSchedulerAndActions];
+            });
+            dispatch_time_t countdownTime1 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC));
+            dispatch_after(countdownTime1, dispatch_get_main_queue(), ^(void){
                 [self unschedule:@selector(gameSegmentBeat)];
-            }
+            });
             gameSegment += 1;
             if (gameSegment >= 8) {
                 level += 1;
@@ -2518,30 +2523,73 @@ CCMotionStreak* streak;
     [self schedule:@selector(playerdeath) interval:0.5];
 }
 
+//-(void) visit{
+//    CCLabelTTF *three = [CCLabelTTF labelWithString:@"3" fontName:@"Helvetica" fontSize:100];
+//    three.position = ccp(screenCenter.x, screenCenter.y);
+//    CCLabelTTF *two = [CCLabelTTF labelWithString:@"2" fontName:@"Helvetica" fontSize:100];
+//    two.position = ccp(screenCenter.x, screenCenter.y);
+//    CCLabelTTF *one = [CCLabelTTF labelWithString:@"1" fontName:@"Helvetica" fontSize:100];
+//    one.position = ccp(screenCenter.x, screenCenter.y);
+//    
+//    framespast++;
+//    secondspast = framespast / 60;
+//    
+//    if (secondspast == 1) {
+//        [self addChild:three z:10001];
+//    } else if (secondspast == 2) {
+//        [self removeChild:three];
+//        [self addChild:two z:10001];
+//    } else if (secondspast == 3) {
+//        [self removeChild:two];
+//        [self addChild:one z:10001];
+//    }
+//    [super visit];
+//}
+
 -(void) gameSegmentBeat {
     [self pauseSchedulerAndActions];
     
     CCSprite *opaqueBG = [CCSprite spriteWithFile:@"background1.png"];
     opaqueBG.position = screenCenter;
     [self addChild:opaqueBG z:10000];
-        
+    
     CCLabelTTF *three = [CCLabelTTF labelWithString:@"3" fontName:@"Helvetica" fontSize:100];
     three.position = ccp(screenCenter.x, screenCenter.y);
     CCLabelTTF *two = [CCLabelTTF labelWithString:@"2" fontName:@"Helvetica" fontSize:100];
     two.position = ccp(screenCenter.x, screenCenter.y);
     CCLabelTTF *one = [CCLabelTTF labelWithString:@"1" fontName:@"Helvetica" fontSize:100];
     one.position = ccp(screenCenter.x, screenCenter.y);
+    CCLabelTTF *go = [CCLabelTTF labelWithString:@"Go!" fontName:@"Helvetica" fontSize:100];
+    go.position = ccp(screenCenter.x, screenCenter.y);
     
-    secondspast = 0;
-    if (secondspast == 1) {
-        [self addChild:three z:10001];
-    } else if (secondspast == 2) {
+    dispatch_time_t countdownTime1 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC));
+    dispatch_after(countdownTime1, dispatch_get_main_queue(), ^(void){
+        [self addChild:three z:10001];        
+    });
+    
+    dispatch_time_t countdownTime2 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC));
+    dispatch_after(countdownTime2, dispatch_get_main_queue(), ^(void){
         [self removeChild:three];
         [self addChild:two z:10001];
-    } else if (secondspast == 3) {
+    });
+    
+    dispatch_time_t countdownTime3 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC));
+    dispatch_after(countdownTime3, dispatch_get_main_queue(), ^(void){
         [self removeChild:two];
         [self addChild:one z:10001];
-    }
+    });
+    
+    dispatch_time_t countdownTime4 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC));
+    dispatch_after(countdownTime4, dispatch_get_main_queue(), ^(void){
+        [self removeChild:one];
+        [self addChild:go z:10001];
+    });
+    
+    dispatch_time_t countdownTime5 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC));
+    dispatch_after(countdownTime5, dispatch_get_main_queue(), ^(void){
+        [self removeChild:go];
+        [self removeChild:opaqueBG];
+    });
 }
 
 -(void) newGameSegment {
