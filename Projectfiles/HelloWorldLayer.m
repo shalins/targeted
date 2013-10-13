@@ -69,7 +69,8 @@ NSMutableDictionary *initialBoss;
         omganothertemportalint = 180;
         intScore = 0;
         bullets = [[NSMutableArray alloc] init];
-        donkeys = [[NSMutableArray alloc] init];
+        fireBalls = [[NSMutableArray alloc] init];
+        smileyFaces = [[NSMutableArray alloc] init];
         flowerbullets = [[NSMutableArray alloc] init];
         //bulletSpeed = [[NSMutableArray alloc] init];
         fakebullets = [[NSMutableArray alloc] init];
@@ -137,19 +138,37 @@ NSMutableDictionary *initialBoss;
     // Remove all the bullets after they move off the screen
     for(NSUInteger i = 0; i < [bullets count]; i++) {
         CCSprite* shalinbullet = [bullets objectAtIndex:i];        
-        if(shalinbullet.position.x > 310) {
+        if(shalinbullet.position.x > screenSize.width + 50) {
             Bullet *temp = [bullets objectAtIndex:i];
             [self removeChild:temp cleanup:YES];
             [bullets removeObjectAtIndex:i];        }
-        if(shalinbullet.position.x < -5) {
+        if(shalinbullet.position.x < (screenSize.width / 10) - 50) {
             Bullet *temp = [bullets objectAtIndex:i];
             [self removeChild:temp cleanup:YES];
             [bullets removeObjectAtIndex:i];        }
-        if(shalinbullet.position.y < 0) {
+        if(shalinbullet.position.y < -20) {
             Bullet *temp = [bullets objectAtIndex:i];
             [self removeChild:temp cleanup:YES];
-            [bullets removeObjectAtIndex:i];
-        }
+            [bullets removeObjectAtIndex:i]; }
+        if(shalinbullet.position.y > screenCenter.y * 3) {
+            Bullet *temp = [bullets objectAtIndex:i];
+            [self removeChild:temp cleanup:YES];
+            [bullets removeObjectAtIndex:i]; }
+        
+//        if(shalinbullet.position.x > 310) {
+//            Bullet *temp = [bullets objectAtIndex:i];
+//            [self removeChild:temp cleanup:YES];
+//            [bullets removeObjectAtIndex:i];        }
+//        if(shalinbullet.position.x < -5) {
+//            Bullet *temp = [bullets objectAtIndex:i];
+//            [self removeChild:temp cleanup:YES];
+//            [bullets removeObjectAtIndex:i];        }
+//        if(shalinbullet.position.y < 0) {
+//            Bullet *temp = [bullets objectAtIndex:i];
+//            [self removeChild:temp cleanup:YES];
+//            [bullets removeObjectAtIndex:i];
+//        }
+
     }
     // Remove the level labels after they leave the screen
     if (levelOneLabel.position.y < 0) {
@@ -417,18 +436,19 @@ NSMutableDictionary *initialBoss;
                 }
             }
             if(gameSegment ==1) {
-                if((framespast % 50) == 0 || ![initialBoss objectForKey:@3.1]) {
+                if((framespast % 70) == 0 || ![initialBoss objectForKey:@3.1]) {
                     [initialBoss setObject:@TRUE forKey:@3.1];
-                    [self shootBulletwithPosFire:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosSmiley:3 angle:270 xpos:0 ypos:0];
                 }
             }
             if(gameSegment ==2) {
-                if((framespast % 25) == 0 || ![initialBoss objectForKey:@3.2]) {
+                if((framespast % 400) == 0 || ![initialBoss objectForKey:@3.2]) {
                     [initialBoss setObject:@TRUE forKey:@3.2];
-                    [self shootBulletwithPos:3 angle:omganothertemportalint xpos:0 ypos:screenCenter.y *0.5];
-                    omganothertemportalint = omganothertemportalint + 15;
-                    [self shootBulletwithPos:3 angle:omganothertemportalint xpos:0 ypos:screenCenter.y *0.5];
-                    omganothertemportalint = omganothertemportalint + 15;
+//                    [self shootBulletwithPos:3 angle:omganothertemportalint xpos:0 ypos:screenCenter.y *0.5];
+//                    omganothertemportalint = omganothertemportalint + 15;
+//                    [self shootBulletwithPos:3 angle:omganothertemportalint xpos:0 ypos:screenCenter.y *0.5];
+//                    omganothertemportalint = omganothertemportalint + 15;
+                    [self laughoutloud];
                 }
             }
             if(gameSegment ==3) {
@@ -1212,6 +1232,34 @@ NSMutableDictionary *initialBoss;
     [self shootBulletwithPosSmall:1 angle:270 xpos:80 ypos:-320];
     [self shootBulletwithPosSmall:1 angle:270 xpos:160 ypos:-320];
 }
+-(void) laughoutloud {
+    // L
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-140 ypos:100];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-140 ypos:80];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-140 ypos:60];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-140 ypos:40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-120 ypos:40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-100 ypos:40];
+    // O
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-20 ypos:100];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-20 ypos:80];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-20 ypos:60];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:-20 ypos:40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:0 ypos:40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:20 ypos:40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:20 ypos:60];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:20 ypos:80];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:20 ypos:100];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:0 ypos:100];
+    // L
+    [self shootBulletwithPosSmall:1 angle:270 xpos:100 ypos:100];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:100 ypos:80];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:100 ypos:60];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:100 ypos:40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:120 ypos:40];
+    [self shootBulletwithPosSmall:1 angle:270 xpos:140 ypos:40];
+
+}
 -(void) makeDownvote:(float) xOffset {
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"downvote"] == false) {
         [MGWU showMessage:@"Achievement Get!      Downvoted" withImage:nil];
@@ -1658,9 +1706,19 @@ NSMutableDictionary *initialBoss;
         CGPoint direction = ccp(vx,vy);
         projectile.position = ccpAdd(projectile.position, direction);
     }
-    for(NSUInteger i = 0; i < [donkeys count]; i++) {
+    for(NSUInteger i = 0; i < [fireBalls count]; i++) {
         NSInteger j = i;
-        projectile = [donkeys objectAtIndex:j];
+        projectile = [fireBalls objectAtIndex:j];
+        float angle = 270;
+        float speed = 3;
+        float vx = cos(angle * M_PI / 180) * speed;
+        float vy = sin(angle * M_PI / 180) * speed;
+        CGPoint direction = ccp(vx,vy);
+        projectile.position = ccpAdd(projectile.position, direction);
+    }
+    for(NSUInteger i = 0; i < [smileyFaces count]; i++) {
+        NSInteger j = i;
+        projectile = [smileyFaces objectAtIndex:j];
         float angle = 270;
         float speed = 3;
         float vx = cos(angle * M_PI / 180) * speed;
@@ -2080,17 +2138,13 @@ NSMutableDictionary *initialBoss;
     newB.scale = 0;
     id scale = [CCScaleTo actionWithDuration:1.0f scale:0.1f];
     [newB runAction:scale];
-    donkey = [CCSprite spriteWithFile:@"fire.png"];
-    donkey.position = newB.position;
-    donkey.scale = 0;
-    [self addChild:donkey z:-20];
+    fireball = [CCSprite spriteWithFile:@"fire.png"];
+    fireball.position = newB.position;
+    fireball.scale = 0;
+    [self addChild:fireball z:-20];
     id bossscale = [CCScaleTo actionWithDuration:1.0f scale:0.7f];
-    [donkey runAction:bossscale];
-    [donkeys addObject:donkey];
-    if([[NSUserDefaults standardUserDefaults]boolForKey:@"donkey"] == false) {
-        [MGWU showMessage:@"Achievement Get!      Democratic Donkey" withImage:nil];
-        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"donkey"];
-    }
+    [fireball runAction:bossscale];
+    [fireBalls addObject:fireBalls];
 }
 -(void) shootBulletwithPosSmiley: (float) speed angle:(float) angleInput xpos:(float) xInput ypos:(float) yInput {
     Bullet *newB = [Bullet bullet:speed :angleInput];
@@ -2099,19 +2153,15 @@ NSMutableDictionary *initialBoss;
     [self addChild:newB z:9];
     [bullets addObject:newB];
     newB.scale = 0;
-    id scale = [CCScaleTo actionWithDuration:1.0f scale:0.1f];
+    id scale = [CCScaleTo actionWithDuration:1.0f scale:0.2f];
     [newB runAction:scale];
-    donkey = [CCSprite spriteWithFile:@"fire.png"];
-    donkey.position = newB.position;
-    donkey.scale = 0;
-    [self addChild:donkey z:-20];
-    id bossscale = [CCScaleTo actionWithDuration:1.0f scale:0.7f];
-    [donkey runAction:bossscale];
-    [donkeys addObject:donkey];
-    if([[NSUserDefaults standardUserDefaults]boolForKey:@"donkey"] == false) {
-        [MGWU showMessage:@"Achievement Get!      Democratic Donkey" withImage:nil];
-        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"donkey"];
-    }
+    smileyface = [CCSprite spriteWithFile:@"smileyface.png"];
+    smileyface.position = newB.position;
+    smileyface.scale = 0;
+    [self addChild:smileyface z:10];
+    id bossscale = [CCScaleTo actionWithDuration:1.0f scale:0.4f];
+    [smileyface runAction:bossscale];
+    [smileyFaces addObject:smileyface];
 }
 -(void) shootBulletwithPosSmall: (float) speed angle:(float) angleInput xpos:(float) xInput ypos:(float) yInput {
     Bullet *newB = [Bullet bullet:speed :angleInput];
@@ -2175,9 +2225,9 @@ NSMutableDictionary *initialBoss;
         Bullet *temp = [bullets objectAtIndex:i];
         [self removeChild:temp cleanup:YES];
         [bullets removeAllObjects];
-   }
-    for(NSUInteger i = 0; i < [donkeys count]; i++) {
-        CCSprite *temp = [donkeys objectAtIndex:i];
+    }
+    for(NSUInteger i = 0; i < [fireBalls count]; i++) {
+        CCSprite *temp = [fireBalls objectAtIndex:i];
         [self removeChild:temp cleanup:YES];
         [bullets removeAllObjects];
     }
@@ -2186,15 +2236,21 @@ NSMutableDictionary *initialBoss;
         [self removeChild:temp cleanup:YES];
         [bullets removeAllObjects];
     }
+    for(NSUInteger i = 0; i < [smileyFaces count]; i++) {
+        CCSprite *temp = [smileyFaces objectAtIndex:i];
+        [self removeChild:temp cleanup:YES];
+        [bullets removeAllObjects];
+    }
 //    if (bullet.position.x > screenSize.width || bullet.position.y > screenSize.height) {
 //        Bullet *Somebullets = [bullets objectAtIndex:i];
 //        [self removeChild:Somebullets cleanup:YES];
 //        CCSprite *SomeflowerBullets = [flowerbullets objectAtIndex:i];
 //        [self removeChild:SomeflowerBullets cleanup:YES];
-//        CCSprite *someDonkeys = [donkeys objectAtIndex:i];
+//        CCSprite *someDonkeys = [fireBalls objectAtIndex:i];
 //        [self removeChild:someDonkeys cleanup:YES];
 //    }
-    [donkeys removeAllObjects];
+    [smileyFaces removeAllObjects];
+    [fireBalls removeAllObjects];
     [bullets removeAllObjects];
     [flowerbullets removeAllObjects];
 }
@@ -2221,10 +2277,14 @@ NSMutableDictionary *initialBoss;
 //    NSLog([NSString stringWithFormat:@"%d",bosstime]);
     //create first,delay,create second
     [self schedule:@selector(mySelector) interval:3.0];
-    for(NSUInteger i = 0; i<[donkeys count]; i++) {
-        [self removeChild:[donkeys objectAtIndex:i] cleanup:YES];
+    for(NSUInteger i = 0; i<[fireBalls count]; i++) {
+        [self removeChild:[fireBalls objectAtIndex:i] cleanup:YES];
     }
-    [donkeys removeAllObjects];
+    [fireBalls removeAllObjects];
+    for(NSUInteger i = 0; i<[smileyFaces count]; i++) {
+        [self removeChild:[smileyFaces objectAtIndex:i] cleanup:YES];
+    }
+    [smileyFaces removeAllObjects];
 }
 /* -------------------------------------------------------------------------------- */
 /*    COLLISIONS                                                                    */

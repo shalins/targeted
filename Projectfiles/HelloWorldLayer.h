@@ -36,7 +36,6 @@
     CCLabelTTF *levelEightLabel;
     CCLabelTTF *levelNineLabel;
     CCLabelTTF *levelTenLabel;
-
 	NSString* helloWorldString;
 	NSString* helloWorldFontName;
 	int helloWorldFontSize;
@@ -52,7 +51,8 @@
     NSMutableArray *bulletDirection;
     NSMutableArray *bulletSpeed;
     NSMutableArray *fakebullets;
-    NSMutableArray *donkeys;
+    NSMutableArray *fireBalls;
+    NSMutableArray *smileyFaces;
     NSMutableArray *powerups;
     NSMutableArray *flowerbullets;
     CCSprite* projectile;
@@ -63,7 +63,8 @@
     CCLabelTTF* tut;
     NSString* score;
     int intScore;
-    CCSprite* donkey;
+    CCSprite* fireball;
+    CCSprite* smileyface;
     CCLayerColor* colorLayer;
     int level;
     bool bosstime;
