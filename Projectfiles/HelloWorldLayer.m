@@ -3,6 +3,8 @@
  */
 
 // side missions
+// also, implement code for if someone taps home button while game is still going
+
 
 #import "HelloWorldLayer.h"
 #import "SimpleAudioEngine.h"
@@ -31,6 +33,7 @@ int wowanothertemportalint;
 int coins;
 CCSprite* blank;
 CCMotionStreak* streak;
+NSMutableDictionary *initialBoss;
 
 -(id) init
 {
@@ -39,11 +42,11 @@ CCMotionStreak* streak;
         // get screen center and screen size
         screenCenter = [CCDirector sharedDirector].screenCenter;
         screenSize = [[CCDirector sharedDirector] winSize];
-
+        
         targetHit = false;
         [[NSUserDefaults standardUserDefaults] setBool:targetHit forKey:@"targetHit"];
-//        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-//        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"hex.mp3" loop:YES];
+        //        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+        //        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"hex.mp3" loop:YES];
         deathanimation = true;
         glClearColor(255,255,255,255);
         continueCost = 1;
@@ -70,6 +73,7 @@ CCMotionStreak* streak;
         //bulletSpeed = [[NSMutableArray alloc] init];
         fakebullets = [[NSMutableArray alloc] init];
         powerups = [[NSMutableArray alloc] init];
+        initialBoss = [[NSMutableDictionary alloc] init];
         //bulletDirection = [[NSMutableArray alloc] init];
         director = [CCDirector sharedDirector];
         glClearColor(255, 255, 255, 255);
@@ -86,7 +90,7 @@ CCMotionStreak* streak;
         pausebutton.scale = 1;
         [self addChild:pausebutton];
         // This shows the score
-//        [self initScore];
+        //        [self initScore];
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"bwooo.mp3"];
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"zoom.mp3"];
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"timewwarp.mp3"];
@@ -265,19 +269,22 @@ CCMotionStreak* streak;
             if(gameSegment == 1) {
                 [self removeChild:tut];
                 [[NSUserDefaults standardUserDefaults]setBool:true forKey:@"tutorialcompleted"];
-                if((framespast % 100) ==0) {
+                if(((framespast % 100) ==0) || ![initialBoss objectForKey:@1.1]) {
+                    [initialBoss setObject:@TRUE forKey:@1.1];
                     [self shootBullet:1 angle:270];
                 }
             }
             if(gameSegment == 2) {
-                if((framespast % 155) ==0) {
+                if((framespast % 155) ==0 || ![initialBoss objectForKey:@1.2]) {
+                    [initialBoss setObject:@TRUE forKey:@1.2];
                     [self shootBullet:1 angle:230];
                     [self shootBullet:2 angle:270];
                     [self shootBullet:1 angle:310];
                 }
             }
             if(gameSegment == 3) {
-                if((framespast % 75) ==0) {
+                if((framespast % 75) ==0 || ![initialBoss objectForKey:@1.3]) {
+                    [initialBoss setObject:@TRUE forKey:@1.3];
                     [self shootBullet:3 angle:300];
                     [self shootBullet:3 angle:240];
                 }
@@ -287,7 +294,8 @@ CCMotionStreak* streak;
                 }
             }
             if(gameSegment == 4) {
-                if((framespast % 30) ==0) {
+                if((framespast % 30) ==0 || ![initialBoss objectForKey:@1.4]) {
+                    [initialBoss setObject:@TRUE forKey:@1.4];
                     [self shootBullet:3 angle:180];
                     for(NSUInteger i = 0; i < [bullets count]; i++) {
                         NSInteger j = i;
@@ -297,7 +305,8 @@ CCMotionStreak* streak;
                 }
             }
             if(gameSegment == 5) {
-                if((framespast % 75) ==0) {
+                if((framespast % 75) ==0 || ![initialBoss objectForKey:@1.5]) {
+                    [initialBoss setObject:@TRUE forKey:@1.5];
                     [self shootBullet:1 angle:270];
                     [self shootBullet:1 angle:270];
                     for(NSUInteger i = 0; i < [bullets count]; i++) {
@@ -308,7 +317,8 @@ CCMotionStreak* streak;
                 }
             }
             if(gameSegment == 6) {
-                if((framespast % 75) ==0) {
+                if((framespast % 75) ==0 || ![initialBoss objectForKey:@1.6]) {
+                    [initialBoss setObject:@TRUE forKey:@1.6];
                     [self shootBullet:3 angle:thetemporalint];
                     thetemporalint = thetemporalint + 15;
                     [self shootBullet:3 angle:thetemporalint];
@@ -319,23 +329,25 @@ CCMotionStreak* streak;
                 }
             }
             if(gameSegment == 7) {
-                if((framespast % 125) ==0) {
+                if((framespast % 125) ==0 || ![initialBoss objectForKey:@1.7]) {
+                    [initialBoss setObject:@TRUE forKey:@1.7];
                     [self shootBullet:2 angle:180];
-//                    [self shootBullet:3 angle:200];
-//                    [self shootBullet:3 angle:220];
+                    //                    [self shootBullet:3 angle:200];
+                    //                    [self shootBullet:3 angle:220];
                     [self shootBullet:2 angle:240];
                     [self shootBullet:2 angle:260];
                     [self shootBullet:2 angle:280];
                     [self shootBullet:2 angle:300];
-//                    [self shootBullet:3 angle:320];
-//                    [self shootBullet:3 angle:340];
+                    //                    [self shootBullet:3 angle:320];
+                    //                    [self shootBullet:3 angle:340];
                     [self shootBullet:2 angle:360];
                 }
             }
         }
         if(level == 2) {
             if(gameSegment ==0) {
-                if((framespast % 100) == 0) {
+                if((framespast % 100) == 0 || ![initialBoss objectForKey:@2.0]) {
+                    [initialBoss setObject:@TRUE forKey:@2.0];
                     int tempInt = (arc4random() % 90) + 240;
                     [self shootBullet:3 angle:tempInt];
 //                    int tempInt = (arc4random() % 300) -245;
@@ -343,21 +355,24 @@ CCMotionStreak* streak;
                 }
             }
             if(gameSegment ==1) {
-                if((framespast % 70) == 0) {
-                    [self shootBulletwithPos:2 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPos:2 angle:240 xpos:-50 ypos:0];
-                    [self shootBulletwithPos:2 angle:300 xpos:50 ypos:0];
+                if((framespast % 70) == 0 || ![initialBoss objectForKey:@2.1]) {
+                    [initialBoss setObject:@TRUE forKey:@2.1];
+                    [self shootBulletwithPos:2 angle:270 xpos:0 ypos:screenCenter.y *0.5];
+                    [self shootBulletwithPos:2 angle:240 xpos:-50 ypos:screenCenter.y *0.5];
+                    [self shootBulletwithPos:2 angle:300 xpos:50 ypos:screenCenter.y *0.5];
                 }
             }
             if(gameSegment ==2) {
-                if((framespast % 70) == 0) {
-                    [self shootBulletwithPos:2 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPos:2 angle:240 xpos:100 ypos:0];
-                    [self shootBulletwithPos:2 angle:300 xpos:-100 ypos:0];
+                if((framespast % 70) == 0 || ![initialBoss objectForKey:@2.2]) {
+                    [initialBoss setObject:@TRUE forKey:@2.2];
+                    [self shootBulletwithPos:2 angle:270 xpos:0 ypos:screenCenter.y *0.5];
+                    [self shootBulletwithPos:2 angle:240 xpos:100 ypos:screenCenter.y *0.5];
+                    [self shootBulletwithPos:2 angle:300 xpos:-100 ypos:screenCenter.y *0.5];
                 }
             }
             if(gameSegment ==3) {
-                if((framespast % 150) == 0) {
+                if((framespast % 150) == 0 || ![initialBoss objectForKey:@2.3]) {
+                    [initialBoss setObject:@TRUE forKey:@2.3];
 //                    [self makeDownvote:-200];
                     [self makeDownvote:-100];
                     [self makeDownvote:0];
@@ -366,9 +381,10 @@ CCMotionStreak* streak;
                 }
             }
             if(gameSegment ==4) {
-                if((framespast % 70) == 0) {
-                    [self shootBulletwithPos:2 angle:270 xpos:100 ypos:0];
-                    [self shootBulletwithPos:2 angle:271 xpos:-100 ypos:0];
+                if((framespast % 70) == 0 || ![initialBoss objectForKey:@2.4]) {
+                    [initialBoss setObject:@TRUE forKey:@2.4];
+                    [self shootBulletwithPos:2 angle:270 xpos:100 ypos:screenCenter.y *0.5];
+                    [self shootBulletwithPos:2 angle:271 xpos:-100 ypos:screenCenter.y *0.5];
                     for(NSUInteger i = 0; i < [bullets count];i++) {
                         if([[bullets objectAtIndex:i] getAngle] > 270) {
                             [[bullets objectAtIndex:i] changeAngle:[[bullets objectAtIndex:i] getAngle] + 15];
@@ -380,9 +396,10 @@ CCMotionStreak* streak;
                 }
             }
             if(gameSegment ==5) {
-                if((framespast % 70) == 0) {
-                    [self shootBulletwithPos:2 angle:300 xpos:-100 ypos:0];
-                    [self shootBulletwithPos:2 angle:240 xpos:100 ypos:0];
+                if((framespast % 70) == 0 || ![initialBoss objectForKey:@2.5]) {
+                    [initialBoss setObject:@TRUE forKey:@2.5];
+                    [self shootBulletwithPos:2 angle:300 xpos:-100 ypos:screenCenter.y *0.5];
+                    [self shootBulletwithPos:2 angle:240 xpos:100 ypos:screenCenter.y *0.5];
                     for(NSUInteger i = 0; i < [bullets count];i++) {
                     }
                 }
@@ -393,28 +410,32 @@ CCMotionStreak* streak;
         }
         if(level == 3) {
             if(gameSegment ==0) {
-                if(framespast == 160) {
+                if((framespast % 450) == 0 || ![initialBoss objectForKey:@3.0]) {
+                    [initialBoss setObject:@TRUE forKey:@3.0];
                     [self makeFace];
                 }
             }
             if(gameSegment ==1) {
-                if((framespast % 50) == 0) {
+                if((framespast % 50) == 0 || ![initialBoss objectForKey:@3.1]) {
+                    [initialBoss setObject:@TRUE forKey:@3.1];
                     [self shootBulletwithPosDonkey:3 angle:270 xpos:0 ypos:0];
                 }
             }
             if(gameSegment ==2) {
-                if((framespast % 25) == 0) {
-                    [self shootBulletwithPos:3 angle:omganothertemportalint xpos:0 ypos:0];
+                if((framespast % 25) == 0 || ![initialBoss objectForKey:@3.2]) {
+                    [initialBoss setObject:@TRUE forKey:@3.2];
+                    [self shootBulletwithPos:3 angle:omganothertemportalint xpos:0 ypos:screenCenter.y *0.5];
                     omganothertemportalint = omganothertemportalint + 15;
-                    [self shootBulletwithPos:3 angle:omganothertemportalint xpos:0 ypos:0];
+                    [self shootBulletwithPos:3 angle:omganothertemportalint xpos:0 ypos:screenCenter.y *0.5];
                     omganothertemportalint = omganothertemportalint + 15;
                 }
             }
             if(gameSegment ==3) {
-                if((framespast % 10) == 0) {
-                    [self shootBulletwithPos:7 angle:275 xpos:0 ypos:0];
-                    [self shootBulletwithPos:7 angle:250 xpos:0 ypos:0];
-                    [self shootBulletwithPos:7 angle:300 xpos:0 ypos:0];
+                if((framespast % 10) == 0 || ![initialBoss objectForKey:@3.3]) {
+                    [initialBoss setObject:@TRUE forKey:@3.3];
+                    [self shootBulletwithPos:7 angle:275 xpos:0 ypos:screenCenter.y *0.5];
+                    [self shootBulletwithPos:7 angle:250 xpos:0 ypos:screenCenter.y *0.5];
+                    [self shootBulletwithPos:7 angle:300 xpos:0 ypos:screenCenter.y *0.5];
                     if([[NSUserDefaults standardUserDefaults]boolForKey:@"obamablast"] == false)
                     {
                         [MGWU showMessage:@"Achievement Get!      Obamablast!" withImage:nil];
@@ -423,7 +444,8 @@ CCMotionStreak* streak;
                 }
             }
             if(gameSegment ==4) {
-                if(framespast == 1500) {
+                if(framespast == 1500 || ![initialBoss objectForKey:@3.4]) {
+                    [initialBoss setObject:@TRUE forKey:@3.4];
                     [self yeswecan];
                 }
                 if((framespast % 50) == 0) {
@@ -1437,13 +1459,6 @@ CCMotionStreak* streak;
 //            [[NSUserDefaults standardUserDefaults] setInteger:level forKey:@"boss"];
 //        }
         if(level == 1) {
-            if (gameSegment == 1) {
-            }
-            if (gameSegment == 2) {
-            }
-            if (gameSegment == 3) {
-            }
-            
             [self removeChild:streak cleanup:YES];
             if([[NSUserDefaults standardUserDefaults]boolForKey:@"bigblue"] == false) {
                 [MGWU showMessage:@"Achievement Get!      The Big Blue, ruler of Blutopia" withImage:nil];
