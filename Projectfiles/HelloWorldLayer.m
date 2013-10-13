@@ -3,6 +3,7 @@
  */
 
 // side missions
+// bosses: robot, shadow, scull, ghost, volcano, fury mode
 // also, implement code for if someone taps home button while game is still going
 
 
@@ -418,7 +419,7 @@ NSMutableDictionary *initialBoss;
             if(gameSegment ==1) {
                 if((framespast % 50) == 0 || ![initialBoss objectForKey:@3.1]) {
                     [initialBoss setObject:@TRUE forKey:@3.1];
-                    [self shootBulletwithPosDonkey:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosFire:3 angle:270 xpos:0 ypos:0];
                 }
             }
             if(gameSegment ==2) {
@@ -449,9 +450,9 @@ NSMutableDictionary *initialBoss;
                     [self yeswecan];
                 }
                 if((framespast % 50) == 0) {
-                    [self shootBulletwithPosDonkey:3 angle:270 xpos:100 ypos:0];
-                    [self shootBulletwithPosDonkey:3 angle:270 xpos:0 ypos:0];
-                    [self shootBulletwithPosDonkey:3 angle:270 xpos:-100 ypos:0];
+                    [self shootBulletwithPosFire:3 angle:270 xpos:100 ypos:0];
+                    [self shootBulletwithPosFire:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPosFire:3 angle:270 xpos:-100 ypos:0];
                 }
             }
         }
@@ -717,7 +718,7 @@ NSMutableDictionary *initialBoss;
             }
             if(gameSegment ==1) {
                 if((framespast % 50) == 0) {
-//                    [self shootBulletwithPosDonkey:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosFire:3 angle:270 xpos:0 ypos:0];
                 }
             }
             if(gameSegment ==2) {
@@ -745,9 +746,9 @@ NSMutableDictionary *initialBoss;
 //                    [self yeswecan];
                 }
                 if((framespast % 50) == 0) {
-//                    [self shootBulletwithPosDonkey:3 angle:270 xpos:100 ypos:0];
-//                    [self shootBulletwithPosDonkey:3 angle:270 xpos:0 ypos:0];
-//                    [self shootBulletwithPosDonkey:3 angle:270 xpos:-100 ypos:0];
+//                    [self shootBulletwithPosFire:3 angle:270 xpos:100 ypos:0];
+//                    [self shootBulletwithPosFire:3 angle:270 xpos:0 ypos:0];
+//                    [self shootBulletwithPosFire:3 angle:270 xpos:-100 ypos:0];
                 }
             }
         }
@@ -934,7 +935,7 @@ NSMutableDictionary *initialBoss;
             if(attacktype == 1) {
                 if((framespast % 75) == 0) {
                     int tempInt = (arc4random() % 300) -245;
-                    [self shootBulletwithPosDonkey:2 angle:270 xpos:tempInt ypos:0];
+                    [self shootBulletwithPosFire:2 angle:270 xpos:tempInt ypos:0];
                 }
             }
             else if(attacktype == 2) {
@@ -1069,7 +1070,7 @@ NSMutableDictionary *initialBoss;
             if(attacktype == 11) {
                 if((framespast % 75) == 0) {
                     int tempInt = (arc4random() % 300) -245;
-                    [self shootBulletwithPosDonkey:2 angle:270 xpos:tempInt ypos:0];
+                    [self shootBulletwithPosFire:2 angle:270 xpos:tempInt ypos:0];
                 }
             }
             else if(attacktype == 12) {
@@ -2070,20 +2071,41 @@ NSMutableDictionary *initialBoss;
         [self removeChild:shield cleanup:YES];
     }
 }
--(void) shootBulletwithPosDonkey: (float) speed angle:(float) angleInput xpos:(float) xInput ypos:(float) yInput {
+-(void) shootBulletwithPosFire: (float) speed angle:(float) angleInput xpos:(float) xInput ypos:(float) yInput {
     Bullet *newB = [Bullet bullet:speed :angleInput];
-    newB.position = boss.position;
+    newB.position = ccp(boss.position.x, boss.position.y + 30);
     newB.position = ccp(newB.position.x + xInput, newB.position.y + yInput);
     [self addChild:newB z:9];
     [bullets addObject:newB];
     newB.scale = 0;
     id scale = [CCScaleTo actionWithDuration:1.0f scale:0.1f];
     [newB runAction:scale];
-    donkey = [CCSprite spriteWithFile:@"Democrat_Donkey.png"];
+    donkey = [CCSprite spriteWithFile:@"fire.png"];
     donkey.position = newB.position;
     donkey.scale = 0;
     [self addChild:donkey z:-20];
-    id bossscale = [CCScaleTo actionWithDuration:1.0f scale:0.5f];
+    id bossscale = [CCScaleTo actionWithDuration:1.0f scale:0.7f];
+    [donkey runAction:bossscale];
+    [donkeys addObject:donkey];
+    if([[NSUserDefaults standardUserDefaults]boolForKey:@"donkey"] == false) {
+        [MGWU showMessage:@"Achievement Get!      Democratic Donkey" withImage:nil];
+        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"donkey"];
+    }
+}
+-(void) shootBulletwithPosSmiley: (float) speed angle:(float) angleInput xpos:(float) xInput ypos:(float) yInput {
+    Bullet *newB = [Bullet bullet:speed :angleInput];
+    newB.position = ccp(boss.position.x, boss.position.y + 30);
+    newB.position = ccp(newB.position.x + xInput, newB.position.y + yInput);
+    [self addChild:newB z:9];
+    [bullets addObject:newB];
+    newB.scale = 0;
+    id scale = [CCScaleTo actionWithDuration:1.0f scale:0.1f];
+    [newB runAction:scale];
+    donkey = [CCSprite spriteWithFile:@"fire.png"];
+    donkey.position = newB.position;
+    donkey.scale = 0;
+    [self addChild:donkey z:-20];
+    id bossscale = [CCScaleTo actionWithDuration:1.0f scale:0.7f];
     [donkey runAction:bossscale];
     [donkeys addObject:donkey];
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"donkey"] == false) {
