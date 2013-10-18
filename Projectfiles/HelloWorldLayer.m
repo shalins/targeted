@@ -1258,7 +1258,6 @@ NSMutableDictionary *initialBoss;
     [self shootBulletwithPosSmall:1 angle:270 xpos:100 ypos:40];
     [self shootBulletwithPosSmall:1 angle:270 xpos:120 ypos:40];
     [self shootBulletwithPosSmall:1 angle:270 xpos:140 ypos:40];
-
 }
 -(void) makeDownvote:(float) xOffset {
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"downvote"] == false) {
@@ -2090,6 +2089,7 @@ NSMutableDictionary *initialBoss;
     [bullets addObject:newB];
     newB.scale = 0;
     id scale = [CCScaleTo actionWithDuration:1.0f scale:0.1f];
+    
     [newB runAction:scale];
 }
 -(void) shootBulletwithPos: (float) speed angle:(float) angleInput xpos:(float) xInput ypos:(float) yInput {
@@ -2291,23 +2291,26 @@ NSMutableDictionary *initialBoss;
 /* -------------------------------------------------------------------------------- */
 //obj2 is the player
 -(BOOL) isCollidingSphere:(CCSprite *) obj1 WithSphere:(CCSprite *) obj2 {
-    float minDistance = 12 + 30;
+    float obj1Radii = [obj1 boundingBox].size.width/2;
+    float obj2Radii = [obj2 boundingBox].size.width/2;
+    float minDistance = obj1Radii + obj2Radii; //12 + 30;
     float dx = obj2.position.x - obj1.position.x;
     float dy = obj2.position.y - obj1.position.y;
-    if (! (dx > minDistance || dy > minDistance) ) {
-        float actualDistance = sqrt( dx * dx + dy * dy );
-        return (actualDistance <= minDistance);
+    float actualDistance = sqrtf((dx * dx) + (dy * dy));
+    if (actualDistance <= minDistance) {
+        return true;
+    } else {
+        return false;
     }
-    return NO;
 }
 // This is what moves the game on to the next level after you hit the target
 -(void) targetHit {
     if (targetHit == true) {
-//        [self schedule:@selector(gameSegmentBeat)];
-//        dispatch_time_t countdownTime1 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC));
-//        dispatch_after(countdownTime1, dispatch_get_main_queue(), ^(void){
-//            [self unschedule:@selector(gameSegmentBeat)];
-//        });
+        //        [self schedule:@selector(gameSegmentBeat)];
+        //        dispatch_time_t countdownTime1 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC));
+        //        dispatch_after(countdownTime1, dispatch_get_main_queue(), ^(void){
+        //            [self unschedule:@selector(gameSegmentBeat)];
+        //        });
         // This should happen when the bullet is deleted.
         if (level == 1) {
             gameSegment += 1;
@@ -2368,19 +2371,19 @@ NSMutableDictionary *initialBoss;
             Bullet *temp = [bullets objectAtIndex:i];
             [self removeChild:temp cleanup:YES];
         }
-        [bullets removeAllObjects];        
-//        id movePlayPosition = [CCCallFunc actionWithTarget:self selector:@selector(changePlayerPosition)];
-//        [self performSelector:@selector(changePlayerPosition) withObject:self afterDelay:2.5f];
-//        id delayTime2 = [CCDelayTime actionWithDuration:2.0];
-//        [player runAction:[CCSequence actions:movePlayPosition, delayTime2, nil]];
+        [bullets removeAllObjects];
+        //        id movePlayPosition = [CCCallFunc actionWithTarget:self selector:@selector(changePlayerPosition)];
+        //        [self performSelector:@selector(changePlayerPosition) withObject:self afterDelay:2.5f];
+        //        id delayTime2 = [CCDelayTime actionWithDuration:2.0];
+        //        [player runAction:[CCSequence actions:movePlayPosition, delayTime2, nil]];
         
-//        [self removeChild:player cleanup:YES];
-//        if((framespast % 30) ==0) {
-//            [self addChild:player];
-//        }
+        //        [self removeChild:player cleanup:YES];
+        //        if((framespast % 30) ==0) {
+        //            [self addChild:player];
+        //        }
         
         player.position = ccp(screenCenter.x,screenCenter.y / 3);
-
+        
         //  [[CCDirector sharedDirector] pushScene: [CCTransitionCrossFade transitionWithDuration:0.5f scene:[LevelSelect node]]];
     } else if (targetHit == false) {
         
@@ -2397,8 +2400,8 @@ NSMutableDictionary *initialBoss;
     }
     
     if (CGRectIntersectsRect(CGRectMake(player.position.x, player.position.y, playerWidth, playerHeight), CGRectMake(shield.position.x, shield.position.y, shield.boundingBox.size.width, shield.boundingBox.size.height)) == true) {
-//        [powerups removeAllObjects];
-//        [self removeChild:shield cleanup:YES];
+        //        [powerups removeAllObjects];
+        //        [self removeChild:shield cleanup:YES];
     }
     
     for(NSUInteger i = 0; i < [bullets count]; i++) {
