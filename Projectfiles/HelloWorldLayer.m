@@ -552,7 +552,6 @@ NSMutableDictionary *initialBoss;
                     for(NSUInteger i = 0; i < [bullets count]; i++) {
                         NSInteger j = i;
                         int tempDir = [[bullets objectAtIndex:j] getAngle] + 40;
-                        
                         [[bullets objectAtIndex:j] changeAngle:tempDir];
                     }
                 }
@@ -675,8 +674,7 @@ NSMutableDictionary *initialBoss;
             if(gameSegment ==0) {
                 if((framespast % 50) == 0 || ![initialBoss objectForKey:@6.0]) {
                     [initialBoss setObject:@TRUE forKey:@6.0];
-                    [self shootBullet:1 angle:270];
-                    [self shootBullet:1 angle:270];
+                    [self shootBullet:5 angle:270];
                     for(NSUInteger i = 0; i < [bullets count]; i++) {
                         NSInteger j = i;
                         int tempDir = [[bullets objectAtIndex:j] getAngle] + (arc4random() % 90)-45;
@@ -700,10 +698,9 @@ NSMutableDictionary *initialBoss;
             if(gameSegment ==2) {
                 if((framespast % 50) == 0 || ![initialBoss objectForKey:@6.2]) {
                     [initialBoss setObject:@TRUE forKey:@6.2];
-                    [self shootBulletwithPos:2 angle:340 xpos:-200 ypos:-80];
-                    [self shootBulletwithPos:2 angle:350 xpos:-200 ypos:-200];
-                    [self shootBulletwithPos:2 angle:10 xpos:-200 ypos:-320];
-                    [self shootBulletwithPos:2 angle:20 xpos:-200 ypos:-440];
+                    [self shootBulletwithPos:2 angle:360 xpos:-150 ypos:-40];
+                    [self shootBulletwithPos:2 angle:360 xpos:-150 ypos:-160];
+                    [self shootBulletwithPos:2 angle:360 xpos:-150 ypos:-280];
                 }
             }
             if(gameSegment ==3) {
@@ -731,8 +728,6 @@ NSMutableDictionary *initialBoss;
             }
         }
         if(level == 7) {
-            
-            
             if(gameSegment ==0) {
                 if((framespast % 90) == 0 || ![initialBoss objectForKey:@7.0]) {
                     [initialBoss setObject:@TRUE forKey:@7.0];
@@ -789,61 +784,92 @@ NSMutableDictionary *initialBoss;
         }
         if(level == 8) {
             if(gameSegment ==0) {
-                if((framespast % 50) == 0 || ![initialBoss objectForKey:@5.0]) {
-                    [initialBoss setObject:@TRUE forKey:@5.0];
-                    [self shootBulletwithPos:4 angle:260 xpos:-50 ypos:screenCenter.y *0.5];
-                    [self shootBulletwithPos:4 angle:240 xpos:-50 ypos:screenCenter.y *0.5];
-                    [self shootBulletwithPos:4 angle:220 xpos:-50 ypos:screenCenter.y *0.5];
+                if((framespast % 50) == 0 || ![initialBoss objectForKey:@8.0]) {
+                    [initialBoss setObject:@TRUE forKey:@8.0];
+                    [self shootBulletwithPos:4 angle:260 xpos:50 ypos:screenCenter.y *0.5];
+                    [self shootBulletwithPos:4 angle:240 xpos:50 ypos:screenCenter.y *0.5];
+                    [self shootBulletwithPos:4 angle:220 xpos:50 ypos:screenCenter.y *0.5];
                 }
             }
             if(gameSegment ==1) {
-                if((framespast % 50) == 0 || ![initialBoss objectForKey:@5.0]) {
-                    [initialBoss setObject:@TRUE forKey:@5.0];
-                    [self shootBulletwithPos:4 angle:300 xpos:50 ypos:screenCenter.y *0.5];
-                    [self shootBulletwithPos:4 angle:320 xpos:50 ypos:screenCenter.y *0.5];
-                    [self shootBulletwithPos:4 angle:280 xpos:50 ypos:screenCenter.y *0.5];
+                if((framespast % 50) == 0 || ![initialBoss objectForKey:@8.1]) {
+                    [initialBoss setObject:@TRUE forKey:@8.1];
+                    [self shootBulletwithPos:4 angle:300 xpos:-50 ypos:screenCenter.y *0.5];
+                    [self shootBulletwithPos:4 angle:320 xpos:-50 ypos:screenCenter.y *0.5];
+                    [self shootBulletwithPos:4 angle:280 xpos:-50 ypos:screenCenter.y *0.5];
                 }
             }
             if(gameSegment ==2) {
-                if((framespast % 50) == 0 || ![initialBoss objectForKey:@5.0]) {
-                    [initialBoss setObject:@TRUE forKey:@5.0];
+                if((framespast % 60) == 0 || ![initialBoss objectForKey:@8.2]) {
+                    [initialBoss setObject:@TRUE forKey:@8.2];
+                    [self shootBulletwithPosMult:4 angle:20 xpos:1/10 ypos:1/10];
+                    [self shootBulletwithPosMult:4 angle:40 xpos:1/10 ypos:1/10];
+                    [self shootBulletwithPosMult:4 angle:60 xpos:1/10 ypos:1/10];
                 }
             }
             if(gameSegment ==3) {
-                if((framespast % 50) == 0 || ![initialBoss objectForKey:@5.0]) {
-                    [initialBoss setObject:@TRUE forKey:@5.0];
+                if((framespast % 60) == 0 || ![initialBoss objectForKey:@8.3]) {
+                    [initialBoss setObject:@TRUE forKey:@8.3];
+                    [self shootBulletwithPosMult:4 angle:100 xpos:1.5 ypos:1/10];
+                    [self shootBulletwithPosMult:4 angle:120 xpos:1.5 ypos:1/10];
+                    [self shootBulletwithPosMult:4 angle:140 xpos:1.5 ypos:1/10];
                 }
             }
             if(gameSegment ==4) {
-                if((framespast % 60) == 0 || ![initialBoss objectForKey:@5.0]) {
-                    [initialBoss setObject:@TRUE forKey:@5.0];
+                if((framespast % 60) == 0 || ![initialBoss objectForKey:@8.4]) {
+                    [initialBoss setObject:@TRUE forKey:@8.4];
+                    [self shootBulletwithPos:5 angle:90 xpos:-120 ypos:-180];
+                    [self shootBulletwithPos:5 angle:90 xpos:0 ypos:-180];
+                    [self shootBulletwithPos:5 angle:90 xpos:120 ypos:-180];
                 }
             }
         }
         if(level == 9) {
             if(gameSegment ==0) {
-                if((framespast % 50) == 0 || ![initialBoss objectForKey:@5.0]) {
-                    [initialBoss setObject:@TRUE forKey:@5.0];
+                if((framespast % 50) == 0 || ![initialBoss objectForKey:@9.0]) {
+                    [initialBoss setObject:@TRUE forKey:@9.0];
+                    [self shootBulletwithPos:2 angle:180 xpos:0 ypos:-240];
+                    [self shootBulletwithPos:2 angle:90 xpos:0 ypos:-240];
+                    [self shootBulletwithPos:2 angle:270 xpos:0 ypos:-240];
+                    [self shootBulletwithPos:2 angle:360 xpos:0 ypos:-240];
+                    [self shootBulletwithPos:2 angle:45 xpos:0 ypos:-240];
+                    [self shootBulletwithPos:2 angle:135 xpos:0 ypos:-240];
+                    [self shootBulletwithPos:2 angle:225 xpos:0 ypos:-240];
+                    [self shootBulletwithPos:2 angle:315 xpos:0 ypos:-240];
+
+                }
+            }
+            if(gameSegment ==1) {
+                if((framespast % 50) == 0 || ![initialBoss objectForKey:@9.1]) {
+                    [initialBoss setObject:@TRUE forKey:@9.1];
+                    int tempInt = (arc4random() % 300) -245;
+                    [self shootBulletwithPosFire:2 angle:270 xpos:0 ypos:30];
                 }
             }
             if(gameSegment ==2) {
-                if((framespast % 50) == 0 || ![initialBoss objectForKey:@5.0]) {
-                    [initialBoss setObject:@TRUE forKey:@5.0];
+                if((framespast % 25) == 0 || ![initialBoss objectForKey:@9.2]) {
+                    [initialBoss setObject:@TRUE forKey:@9.2];
+                    [self shootBulletwithPos:3 angle:300 xpos:-100 ypos:0];
+                    [self shootBulletwithPos:3 angle:270 xpos:0 ypos:0];
+                    [self shootBulletwithPos:3 angle:240 xpos:100 ypos:0];
                 }
             }
             if(gameSegment ==3) {
-                if((framespast % 50) == 0 || ![initialBoss objectForKey:@5.0]) {
-                    [initialBoss setObject:@TRUE forKey:@5.0];
+                if((framespast % 25) == 0 || ![initialBoss objectForKey:@9.3]) {
+                    [initialBoss setObject:@TRUE forKey:@9.3];
+                    [self shootBulletwithPos:5 angle:(arc4random() % 360) xpos:0 ypos:-240];
                 }
             }
             if(gameSegment ==4) {
-                if((framespast % 50) == 0 || ![initialBoss objectForKey:@5.0]) {
-                    [initialBoss setObject:@TRUE forKey:@5.0];
+                if((framespast % 30) == 0 || ![initialBoss objectForKey:@9.4]) {
+                    [initialBoss setObject:@TRUE forKey:@9.4];
+                    wowanothertemportalint = wowanothertemportalint + 15;
+                    [self shootBulletwithPos:3 angle:wowanothertemportalint xpos:0 ypos:0];
                 }
-            }
-            if(gameSegment ==5) {
-                if((framespast % 60) == 0 || ![initialBoss objectForKey:@5.0]) {
-                    [initialBoss setObject:@TRUE forKey:@5.0];
+                if((framespast % 55) == 0){
+                    for(NSUInteger i = 0; i < [bullets count]; i++) {
+                        [[bullets objectAtIndex:i] changeAngle:[[bullets objectAtIndex:i] getAngle] - 15];
+                    }
                 }
             }
         }
@@ -851,50 +877,12 @@ NSMutableDictionary *initialBoss;
     else if(bosstime == false){
         if(stagespast < 5){
             if(attacktype == 0){
-                attacktype = 1;
-            }
-            if(attacktype == 1){
-                if(framespast == 10){
-                    if(isTimeWarped == false){
-                        tut = [CCLabelTTF labelWithString:@"Touch to move" fontName:@"Bend2SquaresBRK" fontSize:60];
-                        tut.position = ccp(screenCenter.x,screenCenter.y);
-                        tut.color = ccc3(0, 0, 0);
-                        [self addChild: tut];
-                    }
-                    else if(isTimeWarped == true){
-                        tut = [CCLabelTTF labelWithString:@"time has been warped" fontName:@"Bend2SquaresBRK" fontSize:30];
-                        tut.position = ccp(screenCenter.x,screenCenter.y);
-                        tut.color = ccc3(0, 0, 0);
-                        [self addChild: tut];
-                    }
-                }
-            }
-            else if(attacktype == 2){
-                if(framespast ==10){
-                    [self shootBulletwithPos:1 angle:260 xpos:0 ypos:0];
-                    [self removeChild:tut];
-                    tut = [CCLabelTTF labelWithString:@"Don't touch blue" fontName:@"Bend2SquaresBRK" fontSize:60];
-                    tut.position = ccp(screenCenter.x,screenCenter.y);
-                    tut.color = ccc3(0, 0, 0);
-                    [self addChild:tut];
-                }
-            }
-            else if(attacktype == 3){
-                if(framespast ==10){
-                    [self shootBulletwithPosPowerup:1 angle:260 xpos:0 ypos:0];
-                    [self removeChild:tut];
-                    tut = [CCLabelTTF labelWithString:@"Grab powerups for\nan additional shield" fontName:@"Bend2SquaresBRK" fontSize:60];
-                    tut.position = ccp(screenCenter.x,screenCenter.y);
-                    tut.color = ccc3(0, 0, 0);
-                    [self addChild:tut];
-                    
-                }
+                attacktype = 4;
             }
             else if(attacktype == 4){
                 if(framespast == 10){
                     [self removeChild:tut];
                     bosstime = true;
-//                    [[NSUserDefaults standardUserDefaults]setBool:true forKey:@"tutorialcompleted"];
                 }
                 if((framespast % 50) == 0){
                     
@@ -1523,24 +1511,24 @@ NSMutableDictionary *initialBoss;
      [self shootBulletwithPosSmall:1 angle:270 xpos:-10 ypos:10];
     
 }
--(void) makeStar {
-    
-}
--(void) makeSquare {
-    
-}
--(void) makeQuestion {
-    
-}
--(void) makeExclamation {
-    
-}
--(void) makeCheckmark {
-    
-}
--(void) makeX {
-    
-}
+//-(void) makeStar {
+//    
+//}
+//-(void) makeSquare {
+//    
+//}
+//-(void) makeQuestion {
+//    
+//}
+//-(void) makeExclamation {
+//    
+//}
+//-(void) makeCheckmark {
+//    
+//}
+//-(void) makeX {
+//    
+//}
 -(void) initObstacles {
     int x = 20;
     int y= 20;
