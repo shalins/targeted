@@ -2,10 +2,7 @@
  * Copyright (c) 2010-2011 Shalin Shah.
  */
 
-// side missions
-// bosses: robot, shadow, scull, ghost, volcano, fury mode
 // also, implement code for if someone taps home button while game is still going
-
 
 #import "HelloWorldLayer.h"
 #import "SimpleAudioEngine.h"
@@ -140,15 +137,12 @@ NSMutableDictionary *initialBoss;
                 bosstime = true;
                 stagespast = 45;
             }
-
-        }
-        
+        }        
         // Set up Tutorial
         tut = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:30];
         tut.position = screenCenter;
         [self addChild:tut z:10000];
         tut.visible = FALSE;
-        
         // The setup for the game
         [self initBoss];
     }
@@ -443,8 +437,7 @@ NSMutableDictionary *initialBoss;
         }
         if(level == 3) {
             if(gameSegment ==0) {
-                if((framespast % 450) == 0 || ![initialBoss objectForKey:@3.0]) {
-                    [initialBoss setObject:@TRUE forKey:@3.0];
+                if((framespast % 450) == 0) {
                     [self makeFace];
                 }
             }
@@ -481,8 +474,8 @@ NSMutableDictionary *initialBoss;
                 }
             }
             if(gameSegment ==6) {
-                if((framespast % 60) == 0 || ![initialBoss objectForKey:@3.5]) {
-                    [initialBoss setObject:@TRUE forKey:@3.5];
+                if((framespast % 60) == 0 || ![initialBoss objectForKey:@3.6]) {
+                    [initialBoss setObject:@TRUE forKey:@3.6];
                     [self shootBulletwithPosMult:4 angle:90 xpos:1 ypos:1/10];
                 }
             }
@@ -531,9 +524,9 @@ NSMutableDictionary *initialBoss;
             if(gameSegment ==5) {
                 if((framespast % 15) ==0 || ![initialBoss objectForKey:@4.5]) {
                     [initialBoss setObject:@TRUE forKey:@4.5];
-                    [self shootBulletwithPos:4 angle:180 xpos:-80 ypos:-100];
-                    [self shootBulletwithPos:4 angle:180 xpos:80 ypos:-100];
-                    [self shootBulletwithPos:4 angle:180 xpos:0 ypos:-180];
+                    [self shootBulletwithPos:4 angle:180 xpos:-40 ypos:0];
+                    [self shootBulletwithPos:4 angle:180 xpos:40 ypos:0];
+//                    [self shootBulletwithPos:4 angle:180 xpos:0 ypos:-25];
                     for(NSUInteger i = 0; i < [bullets count]; i++) {
                         NSInteger j = i;
                         int tempDir = [[bullets objectAtIndex:j] getAngle] + 40;
@@ -591,7 +584,6 @@ NSMutableDictionary *initialBoss;
                     [self shootBulletwithPos:3 angle:135 xpos:0 ypos:-240];
                     [self shootBulletwithPos:3 angle:225 xpos:0 ypos:-240];
                     [self shootBulletwithPos:3 angle:315 xpos:0 ypos:-240];
-
                 }
             }
             if(gameSegment ==1) {
@@ -1050,18 +1042,6 @@ NSMutableDictionary *initialBoss;
     [self shootBulletwithPosSmall:1 angle:270 xpos:-40 ypos:-332];
     [self shootBulletwithPosSmall:1 angle:270 xpos:-50 ypos:-328];
 }
--(void) initObstacles {
-    int x = 20;
-    int y= 20;
-    for (int i = 0; i < 1; i++) {
-        obstacle = [CCSprite spriteWithFile:@"monster8.png"];
-        obstacle.scale = 0.5;
-        obstacle.position = ccp(x, y);
-        [self addChild:obstacle z:10 tag:i];
-        x = x + 40;
-        y = y + 10;
-    }
-}
 -(void) dropEffect:(CCSprite *) spriteToHaveTheEffectOn {
       id dropdown = [CCMoveTo actionWithDuration:0.9f position:ccp(screenCenter.x, screenCenter.y)];
       id scaleUp = [CCScaleTo actionWithDuration:5.0f scale:0.6f];
@@ -1073,32 +1053,24 @@ NSMutableDictionary *initialBoss;
         label.color = ccc3(0, 0, 0);
         streak = [CCMotionStreak streakWithFade:0.5 minSeg:1 width:50 color:ccc3(247,148,29) textureFilename:@"orange.png"];
         [self addChild:streak];
-        [self rflash:0 green:0 blue:0 alpha:255 actionWithDuration:0];
-        // This is for the level changing mechanism for the levels
+//        [self rflash:0 green:0 blue:0 alpha:255 actionWithDuration:0];
+        // This is for the level changing mechanism for the level screen
         if([[NSUserDefaults standardUserDefaults] integerForKey:@"boss"] < level) {
             [[NSUserDefaults standardUserDefaults] setInteger:level forKey:@"boss"];
         }
         if(level == 1) {
             [self removeChild:streak cleanup:YES];
-            if([[NSUserDefaults standardUserDefaults]boolForKey:@"bigblue"] == false) {
-                [MGWU showMessage:@"Achievement Get!      The Big Blue, ruler of Blutopia" withImage:nil];
-                [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"bigblue"];
-            }
-            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialcompleted"] == TRUE) {
-            levelOneLabel = [CCLabelTTF labelWithString:@"Level One!" fontName:@"Arial" fontSize:60];
-            levelOneLabel.position = ccp(screenSize.width/2,screenSize.height*3);
-            levelOneLabel.color = ccc3(0, 0, 0);
-            levelOneLabel.scale = 0.2;
-            [self addChild:levelOneLabel];
-            [self dropEffect:levelOneLabel];
-            }
-            
             if([[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialcompleted"] == FALSE){
                 gameSegment = 0;
             } else if([[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialcompleted"] == TRUE) {
                 gameSegment = 1;
+                levelOneLabel = [CCLabelTTF labelWithString:@"Level One!" fontName:@"Arial" fontSize:60];
+                levelOneLabel.position = ccp(screenSize.width/2,screenSize.height*3);
+                levelOneLabel.color = ccc3(0, 0, 0);
+                levelOneLabel.scale = 0.2;
+                [self addChild:levelOneLabel];
+                [self dropEffect:levelOneLabel];
             }
-            
             int x = screenCenter.x;
             int y = screenCenter.y * 1.6;
             boss = [CCSprite spriteWithFile:@"target.png"];
@@ -1115,7 +1087,6 @@ NSMutableDictionary *initialBoss;
             levelTwoLabel.scale = 0.2;
             [self addChild:levelTwoLabel];
             [self dropEffect:levelTwoLabel];
-            [[SimpleAudioEngine sharedEngine] playEffect:@"down2.mp3"];
             int x = screenCenter.x;
             int y = screenCenter.y * 1.6;
             boss = [CCSprite spriteWithFile:@"w_obama.png"];
@@ -1124,10 +1095,6 @@ NSMutableDictionary *initialBoss;
             [self addChild:boss z:0];
             id bossscale = [CCScaleTo actionWithDuration:1.0f scale:0.5f];
             [boss runAction:bossscale];
-            if([[NSUserDefaults standardUserDefaults]boolForKey:@"alienblue"] == false) {
-                [MGWU showMessage:@"Achievement Get!      Alien Blue, Karmalord of Reddit" withImage:nil];
-                [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"alienblue"];
-            }
         }
         else if(level == 3) {
             [self removeChild:streak cleanup:YES];
@@ -1145,10 +1112,6 @@ NSMutableDictionary *initialBoss;
             [self addChild:boss z:0];
             id bossscale = [CCScaleTo actionWithDuration:1.0f scale:0.5f];
             [boss runAction:bossscale];
-            if([[NSUserDefaults standardUserDefaults]boolForKey:@"obama"] == false) {
-                [MGWU showMessage:@"Achievement Get!      Blubama, political overlord" withImage:nil];
-                [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"obama"];
-            }
         }
         else if(level == 4) {
             levelFourLabel = [CCLabelTTF labelWithString:@"Level Four!" fontName:@"Arial" fontSize:60];
@@ -1165,10 +1128,6 @@ NSMutableDictionary *initialBoss;
             [self addChild:boss z:0];
             id bossscale = [CCScaleTo actionWithDuration:1.0f scale:1.0f];
             [boss runAction:bossscale];
-            if([[NSUserDefaults standardUserDefaults]boolForKey:@"blossom"] == false) {
-                [MGWU showMessage:@"Achievement Get!      Blossom, the blue rose" withImage:nil];
-                [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"blossom"];
-            }
         }
         else if(level == 5) {
             levelFiveLabel = [CCLabelTTF labelWithString:@"Level Five!" fontName:@"Arial" fontSize:60];
@@ -1185,10 +1144,6 @@ NSMutableDictionary *initialBoss;
             [self addChild:boss z:0];
             id bossscale = [CCScaleTo actionWithDuration:1.0f scale:0.1f];
             [boss runAction:bossscale];
-            if([[NSUserDefaults standardUserDefaults]boolForKey:@"time"] == false){
-                [MGWU showMessage:@"Achievement Get!      Time Vortex" withImage:nil];
-                [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"time"];
-            }
         }
         else if(level == 6) {
             levelSixLabel = [CCLabelTTF labelWithString:@"Level Six!" fontName:@"Arial" fontSize:60];
@@ -1254,7 +1209,6 @@ NSMutableDictionary *initialBoss;
             id bossscale = [CCScaleTo actionWithDuration:1.0f scale:0.1f];
             [boss runAction:bossscale];
         }
-
     }
     else if(bosstime == false) {
         int x = screenCenter.x;
@@ -1267,9 +1221,6 @@ NSMutableDictionary *initialBoss;
         [boss runAction:bossscale];
         [self shootBullet:1 angle:90];
     }
-}
-- (void)newBoss {
-    [self unschedule:@selector(newBoss)];
 }
 -(void) movePlayerPos: (CGPoint) rot_pos1 rot_pos2:(CGPoint) rot_pos2 {
     float rotation_theta = atan((rot_pos1.y-rot_pos2.y)/(rot_pos1.x-rot_pos2.x)) * 180 / M_PI;
@@ -1374,11 +1325,9 @@ NSMutableDictionary *initialBoss;
     //create one
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == false) {
         [[CCDirector sharedDirector] pushScene:
-         [CCTransitionCrossFade transitionWithDuration:0.5f scene:[LevelSelect node]]];
+         [CCTransitionJumpZoom transitionWithDuration:0.5f scene:[LevelSelect node]]];
     }
     stagespast = stagespast + 1;
-//    bosstime = false;
-//    bosstime = true;
     [self initBoss];
     gameSegment = 0;
     framespast = 0;
@@ -1392,7 +1341,6 @@ NSMutableDictionary *initialBoss;
         CGPoint rot_pos2 = [projectile2 position];
         CGPoint rot_pos1 = [player position];
         float rotation_theta = atan((rot_pos1.y-rot_pos2.y)/(rot_pos1.x-rot_pos2.x)) * 180 / M_PI;
-        //        float rotation;
         if(rot_pos1.y - rot_pos2.y > 0) {
             if(rot_pos1.x - rot_pos2.x < 0) {
                 fakebulletangle = (-90-rotation_theta);
@@ -1620,28 +1568,21 @@ NSMutableDictionary *initialBoss;
     [flowerbullets removeAllObjects];
 }
 -(void) deathplusdeath {
-    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 1) forKey:@"coins"];
+    //    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 1) forKey:@"coins"];
     [self removeChild:streak cleanup:YES];
     [self flash:0 green:0 blue:255 alpha:255 actionWithDuration:0];
     [self rflash:255 green:255 blue:255 alpha:255 actionWithDuration:0];
     [self shootBulletwithPosPowerup:3 angle:260 xpos:0 ypos:0];
     label.color = ccc3(0, 0, 0);
-    id bossscale = [CCScaleTo actionWithDuration:1.0f scale:2.0f];
+    id bossscale = [CCScaleTo actionWithDuration:0.5f scale:2.0f];
     [boss runAction:bossscale];
-    id bossturn = [CCRotateTo actionWithDuration:3.0 angle:200];
+    id bossturn = [CCRotateTo actionWithDuration:2.0 angle:200];
     [boss runAction:bossturn];
-    id bossscale2 = [CCScaleTo actionWithDuration:3.0f scale:0.0f];
+    id bossscale2 = [CCScaleTo actionWithDuration:2.0f scale:0.0f];
     [boss runAction:bossscale2];
-    if([[NSUserDefaults standardUserDefaults]boolForKey:@"bossdefeat"] == false) {
-        [MGWU showMessage:@"Achievement Get!      Boss Slayer" withImage:nil];
-        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"bossdefeat"];
-    }
     stagespast = stagespast + 1;
-//    bosstime = false;
-//    NSLog([NSString stringWithFormat:@"%d",stagespast]);
-//    NSLog([NSString stringWithFormat:@"%d",bosstime]);
     //create first,delay,create second
-    [self schedule:@selector(mySelector) interval:3.0];
+    [self schedule:@selector(mySelector) interval:0.0];
     for(NSUInteger i = 0; i<[fireBalls count]; i++) {
         [self removeChild:[fireBalls objectAtIndex:i] cleanup:YES];
     }
@@ -1679,25 +1620,17 @@ NSMutableDictionary *initialBoss;
         // This should happen when the bullet is deleted.
         if (level == 1) {
             gameSegment += 1;
-            if (gameSegment >= 8) {
+            if (gameSegment >= 7) {
                 level += 1;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
-            }
-            for(NSUInteger i = 0; i < [bullets count]; i++) {
-                Bullet *temp = [bullets objectAtIndex:i];
-                [self removeChild:temp];
             }
         } else if (level == 2) {
             gameSegment += 1;
-            if (gameSegment >= 6) {
+            if (gameSegment >= 5) {
                 level += 1;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
-            }
-            for(NSUInteger i = 0; i < [bullets count]; i++) {
-                Bullet *temp = [bullets objectAtIndex:i];
-                [self removeChild:temp];
             }
         } else if (level == 3) {
             gameSegment += 1;
@@ -1706,10 +1639,6 @@ NSMutableDictionary *initialBoss;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
             }
-            for(NSUInteger i = 0; i < [bullets count]; i++) {
-                Bullet *temp = [bullets objectAtIndex:i];
-                [self removeChild:temp];
-            }
         } else if (level == 4) {
             gameSegment += 1;
             if (gameSegment >= 8) {
@@ -1717,31 +1646,19 @@ NSMutableDictionary *initialBoss;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
             }
-            for(NSUInteger i = 0; i < [bullets count]; i++) {
-                Bullet *temp = [bullets objectAtIndex:i];
-                [self removeChild:temp];
-            }
         } else if (level == 5) {
             gameSegment += 1;
-            if (gameSegment >= 8) {
+            if (gameSegment >= 5) {
                 level += 1;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
-            }
-            for(NSUInteger i = 0; i < [bullets count]; i++) {
-                Bullet *temp = [bullets objectAtIndex:i];
-                [self removeChild:temp];
             }
         } else if (level == 6) {
             gameSegment += 1;
-            if (gameSegment >= 6) {
+            if (gameSegment >= 5) {
                 level += 1;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
-            }
-            for(NSUInteger i = 0; i < [bullets count]; i++) {
-                Bullet *temp = [bullets objectAtIndex:i];
-                [self removeChild:temp];
             }
         } else if (level == 7) {
             gameSegment += 1;
@@ -1782,21 +1699,8 @@ NSMutableDictionary *initialBoss;
             [self removeChild:temp cleanup:YES];
         }
         [bullets removeAllObjects];
-        //        id movePlayPosition = [CCCallFunc actionWithTarget:self selector:@selector(changePlayerPosition)];
-        //        [self performSelector:@selector(changePlayerPosition) withObject:self afterDelay:2.5f];
-        //        id delayTime2 = [CCDelayTime actionWithDuration:2.0];
-        //        [player runAction:[CCSequence actions:movePlayPosition, delayTime2, nil]];
-        
-        //        [self removeChild:player cleanup:YES];
-        //        if((framespast % 30) ==0) {
-        //            [self addChild:player];
-        //        }
-        
-        player.position = ccp(screenCenter.x,screenCenter.y / 3);
-        
-        //  [[CCDirector sharedDirector] pushScene: [CCTransitionCrossFade transitionWithDuration:0.5f scene:[LevelSelect node]]];
+        player.position = ccp(screenCenter.x,screenCenter.y / 4);
     } else if (targetHit == false) {
-        
     }
 }
 -(void) changePlayerPosition {
@@ -1824,20 +1728,12 @@ NSMutableDictionary *initialBoss;
                 [self removeChild:shield cleanup:YES];
                 [self deleteubershield];
                 shieldon = false;
-                if([[NSUserDefaults standardUserDefaults]boolForKey:@"protection"] == false) {
-                    [MGWU showMessage:@"Achievement Get!      Chicken Blocked" withImage:nil];
-                    [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"protection"];
-                }
             }
             else if(ubershieldon == true) {
                 [self removeChild:shield cleanup:YES];
                 [self deleteubershield];
                 [self removeChild:tempSprite cleanup:YES];
                 [bullets removeObjectAtIndex:i];
-                if([[NSUserDefaults standardUserDefaults]boolForKey:@"protection"] == false) {
-                    [MGWU showMessage:@"Achievement Get!      Temp Inviniciblity" withImage:nil];
-                    [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"protection"];
-                }
             }
             else {
                 [self playerdeathstart];
@@ -1853,18 +1749,10 @@ NSMutableDictionary *initialBoss;
                 [flowerbullets removeObjectAtIndex:i];
                 [self removeChild:shield cleanup:YES];
                 shieldon = false;
-                if([[NSUserDefaults standardUserDefaults]boolForKey:@"protection"] == false) {
-                    [MGWU showMessage:@"Achievement Get!      Chicken Blocked" withImage:nil];
-                    [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"protection"];
-                }
             }
             if(ubershieldon == true) {
                 [self removeChild:tempSprite cleanup:YES];
                 [flowerbullets removeObjectAtIndex:i];
-                if([[NSUserDefaults standardUserDefaults]boolForKey:@"protection"] == false) {
-                    [MGWU showMessage:@"Achievement Get!      Chicken Blocked" withImage:nil];
-                    [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"protection"];
-                }
             }
             else{
                 [self playerdeathstart];
@@ -1882,10 +1770,6 @@ NSMutableDictionary *initialBoss;
                 NSString *str = [NSString stringWithFormat:@"%d",intScore];
                 [label setString:str];
                 [label draw];
-                if(bwooo == false) {
-                    //[[SimpleAudioEngine sharedEngine] playEffect:@"bwooo.mp3"];
-                    bwooo = true;
-                }
             }
         }
     }
@@ -1938,12 +1822,10 @@ NSMutableDictionary *initialBoss;
     [self runAction:showLabelSeq];
 }
 
--(void) makeFlashLabelVisible
-{
+-(void) makeFlashLabelVisible {
     tut.visible = TRUE;
 }
--(void) makeFlashLabelInvisible
-{
+-(void) makeFlashLabelInvisible {
     tut.visible = FALSE;
 }
 -(void) dotsEffect:(CCSprite *) spriteToBeTheNextBigThing {
@@ -1978,16 +1860,12 @@ NSMutableDictionary *initialBoss;
     [self removeChild:colorLayer cleanup:YES];
     if(bosstime == true) {
         glClearColor(255, 255, 255, 255);
-        NSLog(@"ok, go.");
     }
     else {
         glClearColor(255, 255, 255, 255);
-        NSLog(@"ok, go2.");
     }
 }
 -(void) setDimensionsInPixelsGraduallyOnSprite:(CCSprite *) spriteToSetDimensions width:(int) width height:(int) height {
-//    float scaleXDimensions = width/[spriteToSetDimensions boundingBox].size.width;
-//    float scaleYDimensions = height/[spriteToSetDimensions boundingBox].size.height;
     id scaleX = [CCScaleTo actionWithDuration:0.5f scaleX:0 scaleY:1];
     [spriteToSetDimensions runAction:scaleX];
 }
@@ -2053,7 +1931,7 @@ NSMutableDictionary *initialBoss;
     isDying = true;
     [self unschedule:@selector(playerdeath)];
     [self unscheduleUpdate];
-    NSLog(@"player died");
+    NSLog(@"Player Died");
     border = [CCSprite spriteWithFile:@"continue.png"];
     border.position = ccp(160,240);
     [self addChild:border z:9010];
