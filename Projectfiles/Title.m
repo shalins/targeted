@@ -26,12 +26,38 @@
             size = [[CCDirector sharedDirector] winSize];
             CGSize screenSize = [[CCDirector sharedDirector] winSize];
             screenCenter = ccp(size.width/2, size.height/2);
-        
+
             // Background Sprite
-            CCSprite *background = [CCSprite spriteWithFile:@"blank.png"];
+            CCSprite *background = [CCSprite spriteWithFile:@"mainmenubg.png"];
             background.position = screenCenter;
             [self addChild:background z:-10000];
         
+            // Play Button
+            CCMenuItemImage *start = [CCMenuItemImage itemWithNormalImage:@"start.png" selectedImage:@"start.png" target:self selector:@selector(unPause)];
+            start.scale = 1.3;
+            menu = [CCMenu menuWithItems:start, nil];
+            menu.position = ccp(screenCenter.x,screenCenter.y);
+            [self addChild:menu];
+        
+            // Sound Button
+            CCMenuItemImage *sound = [CCMenuItemImage itemWithNormalImage:@"music.png" selectedImage:@"music.png" target:self selector:@selector(high)];
+            sound.scale = 1.1;
+            menu2 = [CCMenu menuWithItems:sound, nil];
+            menu2.position = ccp(screenCenter.x - 33,screenCenter.y / 5);
+            [self addChild:menu2];
+        
+            // Settings Button
+            CCMenuItemImage *settings = [CCMenuItemImage itemWithNormalImage:@"settings.png" selectedImage:@"settings.png" target:self selector:@selector(high)];
+            settings.scale = 1.1;
+            menu3 = [CCMenu menuWithItems:settings, nil];
+            menu3.position = ccp(screenCenter.x + 33,screenCenter.y / 5);
+            [self addChild:menu3];
+        
+            if ([[CCDirector sharedDirector] winSizeInPixels].height == 1136){
+                CCSprite *background = [CCSprite spriteWithFile:@"mainmenubg-568h.png"];
+                background.position = screenCenter;
+                [self addChild:background z:-10000];
+            }
             // Have Everything Stop
             [self unscheduleAllSelectors];
             CCNode* node;
@@ -39,130 +65,8 @@
             {
                 [node pauseSchedulerAndActions];
             }
-        
             // Sounds
             [[SimpleAudioEngine sharedEngine] preloadEffect:@"zoom.mp3"];
-        
-            // Title Logo - Bulls Eye
-            myTitleLogo = [CCSprite spriteWithFile:@"logo.png"];
-            myTitleLogo.position = ccp(screenCenter.x,screenCenter.y * 3);
-            [self addChild:myTitleLogo z:10000];
-            [self dotsEffect:myTitleLogo];
-        
-//            // Add and Display the Start Button
-//            CCSprite *startButton = [CCSprite spriteWithFile:@"startButton.png"];
-//            CCSprite *startButtonSel = [CCSprite spriteWithFile:@"startButton-sel.png"];
-//            startButton.scale = 1.0;
-//            startButtonSel.scale = 1.0;
-//            if ([[CCDirector sharedDirector] winSizeInPixels].height == 1024 || [[CCDirector sharedDirector] winSizeInPixels].height == 2048){
-//                startButton.scale = 1.5;
-//                startButtonSel.scale = 1.5;
-//            }
-//            playMenuItem = [[CCMenuItemSprite alloc] initWithNormalSprite:startButton selectedSprite:startButtonSel disabledSprite:nil target:self selector:@selector(unPause)];
-//            // Start Menu
-//            menu = [CCMenu menuWithItems:playMenuItem, nil];
-//            [menu alignItemsHorizontally];
-//            menu.position = ccp(screenCenter.x * 5, screenCenter.y / 1.5);
-////            if ([[CCDirector sharedDirector] winSizeInPixels].height == 1024 || [[CCDirector sharedDirector] winSizeInPixels].height == 2048){
-////                menu.position = ccp(menu.position.x - 400, screenCenter.y / 1.7);
-////            }
-//            [self slideEffectRight:menu];
-//            [self addChild:menu];
-//        
-//            // Add and Display the Leaderboard Button
-//            CCSprite *leaderboardButton = [CCSprite spriteWithFile:@"leaderButton.png"];
-//            CCSprite *leaderboardButtonSel = [CCSprite spriteWithFile:@"leaderButton-sel.png"];
-//            leaderboardButton.scale = 1.0;
-//            leaderboardButtonSel.scale = 1.0;
-//            if ([[CCDirector sharedDirector] winSizeInPixels].height == 1024 || [[CCDirector sharedDirector] winSizeInPixels].height == 2048){
-//                leaderboardButton.scale = 1.5;
-//                leaderboardButtonSel.scale = 1.5;
-//            }
-//            leaderMenuItem = [[CCMenuItemSprite alloc] initWithNormalSprite:leaderboardButton selectedSprite:leaderboardButtonSel disabledSprite:nil target:self selector:@selector(high)];
-//            // Leaderboard Menu
-//            menu2 = [CCMenu menuWithItems:leaderMenuItem, nil];
-//            [menu2 alignItemsHorizontally];
-//            menu2.position = ccp(screenCenter.x / 5, screenCenter.y / 3.1);
-//            [self slideEffectLeft:menu2];
-//            [self addChild:menu2];
-        
-        
-        CCMenuItemImage *start = [CCMenuItemImage itemWithNormalImage:@"start.png" selectedImage:@"start-sel.png" target:self selector:@selector(unPause)];
-        start.scale = 1.1;
-        
-        CCMenuItemImage *about = [CCMenuItemImage itemWithNormalImage:@"about.png" selectedImage:@"about-sel.png" target:self selector:@selector(high)];
-        about.scale = 1.1;
-        
-        CCMenuItemImage *settings = [CCMenuItemImage itemWithNormalImage:@"settings.png" selectedImage:@"settings-sel.png" target:self selector:@selector(high)];
-        settings.scale = 1.1;
-        
-        CCMenu *playMenu = [CCMenu menuWithItems:start, about, settings, nil];
-        [playMenu alignItemsVerticallyWithPadding:5];
-        playMenu.position = ccp(screenSize.width/2, screenSize.height/3.5);
-        [self addChild:playMenu];
-        
-        CCSprite *opaqueBG = [CCSprite spriteWithFile:@"background1.png"];
-        opaqueBG.position = screenCenter;
-        [self addChild:opaqueBG z:-4];
-
-            // First Ball - The One on the Left
-            CCSprite *firstBall = [CCSprite spriteWithFile:@"cyan.png"];
-            firstBall.scale = .3;
-            [firstBall setAnchorPoint:ccp(.5,0)];
-            [firstBall setPosition:ccp(size.width*.2,size.height*.1)];
-            [self addChild:firstBall z:-5];
-            // List of Actions for the Ball Dropping
-            CCJumpBy *dropTheBall = [CCJumpBy actionWithDuration:2 position:CGPointZero height:screenSize.height / 3 jumps:1];
-            CCEaseOut *squeze1 = [CCEaseOut actionWithAction:[CCScaleTo actionWithDuration:.1 scaleX:.3 scaleY:.1] rate:2];
-            CCEaseIn *expand1 = [CCEaseIn actionWithAction:[CCScaleTo actionWithDuration:.1 scaleX:.3 scaleY:.3] rate:2];
-            if ([[CCDirector sharedDirector] winSizeInPixels].height == 1024 || [[CCDirector sharedDirector] winSizeInPixels].height == 2048){
-                squeze1 = [CCEaseOut actionWithAction:[CCScaleTo actionWithDuration:.1 scaleX:.8 scaleY:.4] rate:2];
-                expand1 = [CCEaseIn actionWithAction:[CCScaleTo actionWithDuration:.1 scaleX:.8 scaleY:.8] rate:2];
-            }
-            CCSequence *ballDropSequence = [CCSequence actions: dropTheBall, squeze1, expand1, nil];
-            CCRepeatForever* repeatJump = [CCRepeatForever actionWithAction:ballDropSequence];
-            [firstBall runAction:repeatJump];
-
-            // Second Ball - The One on the Right
-            CCSprite *secondBall = [CCSprite spriteWithFile:@"cyan.png"];
-            secondBall.scale = .3;
-            [secondBall setAnchorPoint:ccp(.5,0)];
-            [secondBall setPosition:ccp(size.width*.8,size.height*.1)];
-            [self addChild:secondBall z:-5];
-            // List of Actions for the Ball Dropping
-            CCJumpBy *dropTheBall2 = [CCJumpBy actionWithDuration:1.1 position:CGPointZero height:screenSize.height / 3 jumps:1];
-            CCEaseOut *squeze2 = [CCEaseOut actionWithAction:[CCScaleTo actionWithDuration:.1 scaleX:.3 scaleY:.1] rate:2];
-            CCEaseIn *expand2 = [CCEaseIn actionWithAction:[CCScaleTo actionWithDuration:.1 scaleX:.3 scaleY:.3] rate:2];
-            if ([[CCDirector sharedDirector] winSizeInPixels].height == 1024 || [[CCDirector sharedDirector] winSizeInPixels].height == 2048){
-                squeze2 = [CCEaseOut actionWithAction:[CCScaleTo actionWithDuration:.1 scaleX:.8 scaleY:.4] rate:2];
-                expand2 = [CCEaseIn actionWithAction:[CCScaleTo actionWithDuration:.1 scaleX:.8 scaleY:.8] rate:2];
-            }
-            CCSequence *ballDropSequence2 = [CCSequence actions: dropTheBall2, squeze2, expand2, nil];
-            CCRepeatForever* repeatJump2 = [CCRepeatForever actionWithAction:ballDropSequence2];
-            [secondBall runAction:repeatJump2];
-        
-            // This is the OLD code for the bouncing of the ball
-            // Fix the bouncing problems and/or write better code
-            //        CCJumpTo *jumping1 = [CCJumpTo actionWithDuration:2 position:ccp(size.width*.4,size.height*.1) height:size.height*.5 jumps:1];
-            //        CCEaseOut *squezing1 = [CCEaseOut actionWithAction:[CCScaleTo actionWithDuration:.1 scaleX:.3 scaleY:.1] rate:2];
-            //        CCEaseIn *expanding1 = [CCEaseIn actionWithAction:[CCScaleTo actionWithDuration:.1 scaleX:.3 scaleY:.3] rate:2];
-            //        
-            //        CCJumpTo *jumping2 = [CCJumpTo actionWithDuration:2 position:ccp(size.width*.5,size.height*.1) height:size.height*.5 jumps:1];
-            //        CCEaseOut *squezing2 = [CCEaseOut actionWithAction:[CCScaleTo actionWithDuration:.1 scaleX:.3 scaleY:.1] rate:2];
-            //        CCEaseIn *expanding2 = [CCEaseIn actionWithAction:[CCScaleTo actionWithDuration:.1 scaleX:.3 scaleY:.3] rate:2];
-            //        
-            //        CCSequence *ballDropSeq = [CCSequence actions: jumping1, squezing1, expanding1, jumping2, squezing2, expanding2, nil];
-            //        CCRepeatForever *repeatJumps = [CCRepeatForever actionWithAction:ballDropSeq];
-            //        [ballDrop runAction:repeatJumps];
-        
-            // Other Device Optimizations (Like iPad, iPhone 5, etc.)
-            if ([[CCDirector sharedDirector] winSizeInPixels].height == 1024 || [[CCDirector sharedDirector] winSizeInPixels].height == 2048){
-                // First Ball - The One on the Left
-                firstBall.scale = .8;
-                // Second Ball - The One on the Right
-                secondBall.scale = .8;
-                // Menu Scale
-            }
     }
     return self;
 }

@@ -19,6 +19,7 @@
     CCSprite *myTitleLogo;
     CCMenu *menu;
     CCMenu *menu2;
+    CCMenu *menu3;
     CCMenuItemSprite *playMenuItem;
     CCMenuItemSprite *leaderMenuItem;
 }
