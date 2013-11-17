@@ -2,8 +2,6 @@
  * Copyright (c) 2010-2011 Shalin Shah.
  */
 
-// also, implement code for if someone taps home button while game is still going
-
 #import "HelloWorldLayer.h"
 #import "SimpleAudioEngine.h"
 #import "Player.h"
@@ -72,11 +70,9 @@ NSMutableDictionary *initialBoss;
         smallerBallers = [[NSMutableArray alloc] init];
         slowDowners = [[NSMutableArray alloc] init];
         flowerbullets = [[NSMutableArray alloc] init];
-        //bulletSpeed = [[NSMutableArray alloc] init];
         fakebullets = [[NSMutableArray alloc] init];
         powerups = [[NSMutableArray alloc] init];
         initialBoss = [[NSMutableDictionary alloc] init];
-        //bulletDirection = [[NSMutableArray alloc] init];
         director = [CCDirector sharedDirector];
         glClearColor(255, 255, 255, 255);
         // initialize player sprite
@@ -92,16 +88,7 @@ NSMutableDictionary *initialBoss;
         pausebutton.scale = 1;
         [self addChild:pausebutton];
         // This shows the score
-        //        [self initScore];
-        [[SimpleAudioEngine sharedEngine] preloadEffect:@"bwooo.mp3"];
-        [[SimpleAudioEngine sharedEngine] preloadEffect:@"zoom.mp3"];
-        [[SimpleAudioEngine sharedEngine] preloadEffect:@"timewwarp.mp3"];
-        [[SimpleAudioEngine sharedEngine] preloadEffect:@"swip.mp3"];
-        [[SimpleAudioEngine sharedEngine] preloadEffect:@"yeswecan.mp3"];
-        [[SimpleAudioEngine sharedEngine] preloadEffect:@"down2.mp3"];
-        blank = [CCSprite spriteWithFile:@"blank.png"];
-        blank.position = ccp(160,240);
-        
+        //        [self initScore];        
         // If it's not endless mode
         if([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == false) {
             if(level == 1) {
