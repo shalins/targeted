@@ -28,13 +28,18 @@
         }
         
         
-        // add the labels shown during game over
-        CGSize screenSize = [[CCDirector sharedDirector] winSize];
+        // Some variables to make positioning more easy
+        size = [[CCDirector sharedDirector] winSize];
+        screenCenter = ccp(size.width/2, size.height/2);
         
-        CCSprite* background = [CCSprite spriteWithFile:@"blank.png"];
-        background.position = ccp(160,240);
+        CCSprite* background = [CCSprite spriteWithFile:@"pausedbg.png"];
+        background.position = ccp(screenCenter.x,screenCenter.y);
         [self addChild:background];
-        
+        if ([[CCDirector sharedDirector] winSizeInPixels].height == 1136){
+            CCSprite* background = [CCSprite spriteWithFile:@"pausedbg-568h.png"];
+            background.position = ccp(screenCenter.x,screenCenter.y);
+            [self addChild:background];
+        }
         
 //        CCLabelTTF* gameOver = [CCLabelTTF labelWithString:@"Paused" fontName:@"Arial" fontSize:40];
 //        [gameOver setColor:ccc3(0, 0, 0)];
@@ -88,38 +93,35 @@
 //        [self addChild:backmenu];
         
         
-        CCMenuItemImage *resume = [CCMenuItemImage itemWithNormalImage:@"resume.png" selectedImage:@"resume-sel.png" target:self selector:@selector(unPause)];
-        if ([[CCDirector sharedDirector] winSizeInPixels].height == 1024 || [[CCDirector sharedDirector] winSizeInPixels].height == 2048){
-        }
-        CCMenuItemImage *quit = [CCMenuItemImage itemWithNormalImage:@"quit.png" selectedImage:@"quit-sel.png" target:self selector:@selector(restartGame)];
-        if ([[CCDirector sharedDirector] winSizeInPixels].height == 1024 || [[CCDirector sharedDirector] winSizeInPixels].height == 2048){
-        }
-        CCMenuItemImage *store = [CCMenuItemImage itemWithNormalImage:@"store.png" selectedImage:@"store-sel.png" target:self selector:@selector(quitGame)];
-        if ([[CCDirector sharedDirector] winSizeInPixels].height == 1024 || [[CCDirector sharedDirector] winSizeInPixels].height == 2048){
-        }
+        CCMenuItemImage *resume = [CCMenuItemImage itemWithNormalImage:@"resumed.png" selectedImage:@"resumed-sel.png" target:self selector:@selector(unPause)];
+        resume.scale = 1.3f;
+        CCMenu *resumeMenu = [CCMenu menuWithItems:resume, nil];
+        resumeMenu.position = ccp(screenCenter.x, screenCenter.y);
+        [self addChild:resumeMenu];
         
-        CCMenu *gameOverMenu = [CCMenu menuWithItems:resume, quit, store, nil];
-        [gameOverMenu alignItemsVerticallyWithPadding:6];
-        gameOverMenu.position = ccp(screenSize.width/2, screenSize.height/3.2);
-        [self addChild:gameOverMenu];
+        CCMenuItemImage *quit = [CCMenuItemImage itemWithNormalImage:@"quited.png" selectedImage:@"quited-sel.png" target:self selector:@selector(restartGame)];
+        quit.scale = 1.2f;
+        CCMenu *quitMenu = [CCMenu menuWithItems:quit, nil];
+        quitMenu.position = ccp(screenCenter.x - 85, screenCenter.y - 110);
+        [self addChild:quitMenu];
         
+        CCMenuItemImage *store = [CCMenuItemImage itemWithNormalImage:@"shop.png" selectedImage:@"shop-sel.png" target:self selector:@selector(quitGame)];
+        store.scale = 1.2f;
+        CCMenu *storeMenu = [CCMenu menuWithItems:store, nil];
+        storeMenu.position = ccp(screenCenter.x + 85, screenCenter.y - 110);
+        [self addChild:storeMenu];        
     }
     return self;
 }
-
 -(void) quitGame
 {
-    
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"panic"] == false)
     {
         [MGWU showMessage:@"Achievement Get!     Panic Shopping" withImage:nil];
         [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"panic"];
     }
-    
-    
     [[CCDirector sharedDirector] replaceScene:
      [CCTransitionCrossFade transitionWithDuration:0.5f scene:[StoreLayer node]]];
-    
 }
 
 -(void) restartGame

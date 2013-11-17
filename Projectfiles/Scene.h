@@ -9,5 +9,13 @@
 #import "CCScene.h"
 
 @interface Scene : CCScene
+{
+    
+    CGPoint screenCenter;
+    CGSize size;
+
+
+
+}
 
 @end

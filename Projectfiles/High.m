@@ -20,8 +20,6 @@ CGSize screenSize;
 {
     if ((self = [super init]))
     {
-        
-        
         glClearColor(255, 255, 255, 255);
         screenSize = [[CCDirector sharedDirector] winSize];
         CGPoint screenCenter = [[CCDirector sharedDirector] screenCenter];

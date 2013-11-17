@@ -10,6 +10,8 @@
 #import "Pausue.h"
 #import "Bullet.h"
 #import "Powerup.h"
+#import "SlowDown.h"
+#import "SmallerBall.h"
 #import "Donkey.h"
 
 // Device and Widescreen Detection
@@ -53,6 +55,8 @@
     NSMutableArray *fakebullets;
     NSMutableArray *fireBalls;
     NSMutableArray *smileyFaces;
+    NSMutableArray *smallerBallers;
+    NSMutableArray *slowDowners;
     NSMutableArray *powerups;
     NSMutableArray *flowerbullets;
     CCSprite* projectile;
@@ -67,6 +71,7 @@
     CCSprite* smileyface;
     CCLayerColor* colorLayer;
     int level;
+    BOOL isItSlow;
     bool bosstime;
     bool isDying;
     int attacktype;
@@ -93,6 +98,8 @@
     int continueCost;
     CCSprite *player;
     CCSprite *shield;
+    CCSprite *smallerBall;
+    CCSprite *slowDown;
     CCDirector *director;
     CCSprite *obstacle;
     // get screen center and screen size

@@ -56,6 +56,7 @@ NSMutableDictionary *initialBoss;
         NSNumber *leveldata = [[NSUserDefaults standardUserDefaults] objectForKey:@"leveldata"];
         level = [leveldata intValue];
         NSLog(@"Level %i", level);
+        isItSlow = false;
         shieldon = false;
         framespast = 0;
         secondspast = 0;
@@ -68,6 +69,8 @@ NSMutableDictionary *initialBoss;
         bullets = [[NSMutableArray alloc] init];
         fireBalls = [[NSMutableArray alloc] init];
         smileyFaces = [[NSMutableArray alloc] init];
+        smallerBallers = [[NSMutableArray alloc] init];
+        slowDowners = [[NSMutableArray alloc] init];
         flowerbullets = [[NSMutableArray alloc] init];
         //bulletSpeed = [[NSMutableArray alloc] init];
         fakebullets = [[NSMutableArray alloc] init];
@@ -188,6 +191,42 @@ NSMutableDictionary *initialBoss;
             Bullet *temp = [smileyFaces objectAtIndex:i];
             [self removeChild:temp cleanup:YES];
             [smileyFaces removeObjectAtIndex:i]; }
+    } for(NSUInteger i = 0; i < [smallerBallers count]; i++) {
+        CCSprite* shalinbullet = [smallerBallers objectAtIndex:i];
+        if(shalinbullet.position.x > screenSize.width + 50) {
+            Bullet *temp = [smallerBallers objectAtIndex:i];
+            [self removeChild:temp cleanup:YES];
+            [smallerBallers removeObjectAtIndex:i];        }
+        if(shalinbullet.position.x < (screenSize.width / 10) - 50) {
+            Bullet *temp = [smallerBallers objectAtIndex:i];
+            [self removeChild:temp cleanup:YES];
+            [smallerBallers removeObjectAtIndex:i];        }
+        if(shalinbullet.position.y < -20) {
+            Bullet *temp = [smallerBallers objectAtIndex:i];
+            [self removeChild:temp cleanup:YES];
+            [smallerBallers removeObjectAtIndex:i]; }
+        if(shalinbullet.position.y > screenCenter.y * 3) {
+            Bullet *temp = [smallerBallers objectAtIndex:i];
+            [self removeChild:temp cleanup:YES];
+            [smallerBallers removeObjectAtIndex:i]; }
+    } for(NSUInteger i = 0; i < [slowDowners count]; i++) {
+        CCSprite* shalinbullet = [slowDowners objectAtIndex:i];
+        if(shalinbullet.position.x > screenSize.width + 50) {
+            Bullet *temp = [slowDowners objectAtIndex:i];
+            [self removeChild:temp cleanup:YES];
+            [slowDowners removeObjectAtIndex:i];        }
+        if(shalinbullet.position.x < (screenSize.width / 10) - 50) {
+            Bullet *temp = [slowDowners objectAtIndex:i];
+            [self removeChild:temp cleanup:YES];
+            [slowDowners removeObjectAtIndex:i];        }
+        if(shalinbullet.position.y < -20) {
+            Bullet *temp = [slowDowners objectAtIndex:i];
+            [self removeChild:temp cleanup:YES];
+            [slowDowners removeObjectAtIndex:i]; }
+        if(shalinbullet.position.y > screenCenter.y * 3) {
+            Bullet *temp = [slowDowners objectAtIndex:i];
+            [self removeChild:temp cleanup:YES];
+            [slowDowners removeObjectAtIndex:i]; }
     }
     // Remove the level labels after they leave the screen
     if (levelOneLabel.position.y < 0) {
@@ -243,18 +282,12 @@ NSMutableDictionary *initialBoss;
     
     [self bossAttack];
     [self detectCollisions];
-    // [self tint];
     KKInput* input = [KKInput sharedInput];
     if ([input isAnyTouchOnNode:pausebutton touchPhase:KKTouchPhaseAny]) {
         [self pause];
     }
 }
 //-(void) initScore {
-//    if([[NSUserDefaults standardUserDefaults]boolForKey:@"startgame"] == false)
-//    {
-//        [MGWU showMessage:@"Achievement Get!      A Blue World" withImage:nil];
-//        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"startgame"];
-//    }
 //    label = [CCLabelTTF labelWithString:@"0" fontName:@"HelveticaNeue-Light" fontSize:24];
 //    label.position = ccp(5,463);
 //    label.anchorPoint = ccp(0.0,0.5);
@@ -279,7 +312,7 @@ NSMutableDictionary *initialBoss;
         
     }
     if(framespast == 580) {
-        [self shootBulletwithPosPowerup:1 angle:260 xpos:0 ypos:0];
+        [self shootBulletwithPosShield:1 angle:260 xpos:0 ypos:0];
         [self removeChild:tut];
         tut = [CCLabelTTF labelWithString:@"These are shields" fontName:@"Helvetica" fontSize:30];
         tut.position = ccp(screenCenter.x,screenCenter.y);
@@ -287,7 +320,7 @@ NSMutableDictionary *initialBoss;
         [self addChild:tut];
     }
     if(framespast == 750) {
-        [self shootBulletwithPosPowerup:1 angle:260 xpos:0 ypos:0];
+        [self shootBulletwithPosShield:1 angle:260 xpos:0 ypos:0];
         [self removeChild:tut];
         tut = [CCLabelTTF labelWithString:@"Drag into target" fontName:@"Helvetica" fontSize:30];
         tut.position = ccp(screenCenter.x,screenCenter.y);
@@ -882,10 +915,6 @@ NSMutableDictionary *initialBoss;
     [self shootBulletwithPosSmall:1 angle:270 xpos:140 ypos:40];
 }
 -(void) makeDownvote:(float) xOffset {
-    if([[NSUserDefaults standardUserDefaults]boolForKey:@"downvote"] == false) {
-        [MGWU showMessage:@"Achievement Get!      Downvoted" withImage:nil];
-        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"downvote"];
-    }
     [self shootBulletwithPos:1 angle:270 xpos:30+xOffset ypos:-10];
     [self shootBulletwithPos:1 angle:270 xpos:110+xOffset ypos:-10];
     [self shootBulletwithPos:1 angle:270 xpos:40+xOffset ypos:-20];
@@ -931,62 +960,6 @@ NSMutableDictionary *initialBoss;
     [self shootBulletwithPos:speedInput angle:270 xpos:60+xOffset ypos:-40];
     [self shootBulletwithPos:speedInput angle:270 xpos:80+xOffset ypos:-40];
     [self shootBulletwithPos:speedInput angle:270 xpos:70+xOffset ypos:-50];
-}
--(void) makeHeadphones {
-    // Left Headphone
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-100];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-90];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-80];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-70];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-60];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-50];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-80 ypos:-40];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-90 ypos:-40];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-100 ypos:-40];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-110 ypos:-40];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-120 ypos:-40];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-50];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-60];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-70];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-80];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-90];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-100];
-    // Middle Headphone   
-//    [self shootBulletwithPosSmall:1 angle:270 xpos:30 ypos:-100];
-//    [self shootBulletwithPosSmall:1 angle:270 xpos:30 ypos:-90];
-//    [self shootBulletwithPosSmall:1 angle:270 xpos:30 ypos:-80];
-//    [self shootBulletwithPosSmall:1 angle:270 xpos:30 ypos:-70];
-//    [self shootBulletwithPosSmall:1 angle:270 xpos:30 ypos:-60];
-//    [self shootBulletwithPosSmall:1 angle:270 xpos:30 ypos:-50];
-//    [self shootBulletwithPosSmall:1 angle:270 xpos:20 ypos:-40];
-//    [self shootBulletwithPosSmall:1 angle:270 xpos:10 ypos:-40];
-//    [self shootBulletwithPosSmall:1 angle:270 xpos:0 ypos:-40];
-//    [self shootBulletwithPosSmall:1 angle:270 xpos:-10 ypos:-40];
-//    [self shootBulletwithPosSmall:1 angle:270 xpos:-20 ypos:-40];
-//    [self shootBulletwithPosSmall:1 angle:270 xpos:-30 ypos:-50];
-//    [self shootBulletwithPosSmall:1 angle:270 xpos:-30 ypos:-60];
-//    [self shootBulletwithPosSmall:1 angle:270 xpos:-30 ypos:-70];
-//    [self shootBulletwithPosSmall:1 angle:270 xpos:-30 ypos:-80];
-//    [self shootBulletwithPosSmall:1 angle:270 xpos:-30 ypos:-90];
-//    [self shootBulletwithPosSmall:1 angle:270 xpos:-30 ypos:-100];
-    // Right Headphone
-    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-100];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-90];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-80];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-70];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-60];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-50];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:120 ypos:-40];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:110 ypos:-40];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:100 ypos:-40];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:90 ypos:-40];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:80 ypos:-40];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-50];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-60];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-70];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-80];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-90];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-100];
 }
 - (void) makeFace {
     // Left Eye
@@ -1042,9 +1015,16 @@ NSMutableDictionary *initialBoss;
     [self shootBulletwithPosSmall:1 angle:270 xpos:-40 ypos:-332];
     [self shootBulletwithPosSmall:1 angle:270 xpos:-50 ypos:-328];
 }
+-(void) shootSlowDownMissile {
+    [self shootBulletwithPosSlowDown:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
+}
+-(void) shootMiniMeMissile {
+    [self shootBulletwithPosSmallerBall:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
+}
 -(void) dropEffect:(CCSprite *) spriteToHaveTheEffectOn {
       id dropdown = [CCMoveTo actionWithDuration:0.9f position:ccp(screenCenter.x, screenCenter.y)];
-      id scaleUp = [CCScaleTo actionWithDuration:5.0f scale:0.6f];
+//      id scaleUp = [CCScaleTo actionWithDuration:5.0f scale:0.6f];
+      id scaleUp = [CCDelayTime actionWithDuration:3.0f];
       id dropdownagain = [CCMoveTo actionWithDuration:0.9f position:ccp(screenCenter.x, screenCenter.y-1000)];
       [spriteToHaveTheEffectOn runAction:[CCSequence actions:dropdown, scaleUp, dropdownagain, nil]];
 }
@@ -1059,6 +1039,7 @@ NSMutableDictionary *initialBoss;
             [[NSUserDefaults standardUserDefaults] setInteger:level forKey:@"boss"];
         }
         if(level == 1) {
+            [self shootBulletwithPosSlowDown:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
             [self removeChild:streak cleanup:YES];
             if([[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialcompleted"] == FALSE){
                 gameSegment = 0;
@@ -1067,7 +1048,7 @@ NSMutableDictionary *initialBoss;
                 levelOneLabel = [CCLabelTTF labelWithString:@"Level One!" fontName:@"Arial" fontSize:60];
                 levelOneLabel.position = ccp(screenSize.width/2,screenSize.height*3);
                 levelOneLabel.color = ccc3(0, 0, 0);
-                levelOneLabel.scale = 0.2;
+                levelOneLabel.scale = 0.6;
                 [self addChild:levelOneLabel];
                 [self dropEffect:levelOneLabel];
             }
@@ -1081,10 +1062,11 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 2) {
+            [self shootBulletwithPosSmallerBall:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
             levelTwoLabel = [CCLabelTTF labelWithString:@"Level Two!" fontName:@"Arial" fontSize:60];
             levelTwoLabel.position = ccp(screenSize.width/2,screenSize.height*3);
             levelTwoLabel.color = ccc3(0, 0, 0);
-            levelTwoLabel.scale = 0.2;
+            levelTwoLabel.scale = 0.6;
             [self addChild:levelTwoLabel];
             [self dropEffect:levelTwoLabel];
             int x = screenCenter.x;
@@ -1097,11 +1079,12 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 3) {
+            [self shootBulletwithPosSlowDown:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
             [self removeChild:streak cleanup:YES];
             levelThreeLabel = [CCLabelTTF labelWithString:@"Level Three!" fontName:@"Arial" fontSize:60];
             levelThreeLabel.position = ccp(screenSize.width/2,screenSize.height*3);
             levelThreeLabel.color = ccc3(0, 0, 0);
-            levelThreeLabel.scale = 0.2;
+            levelThreeLabel.scale = 0.6;
             [self addChild:levelThreeLabel];
             [self dropEffect:levelThreeLabel];
             int x = screenCenter.x;
@@ -1114,10 +1097,11 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 4) {
+            [self shootBulletwithPosSmallerBall:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
             levelFourLabel = [CCLabelTTF labelWithString:@"Level Four!" fontName:@"Arial" fontSize:60];
             levelFourLabel.position = ccp(screenSize.width/2,screenSize.height*3);
             levelFourLabel.color = ccc3(0, 0, 0);
-            levelFourLabel.scale = 0.2;
+            levelFourLabel.scale = 0.6;
             [self addChild:levelFourLabel];
             [self dropEffect:levelFourLabel];
             int x = screenCenter.x;
@@ -1130,10 +1114,11 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 5) {
+            [self shootBulletwithPosSlowDown:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
             levelFiveLabel = [CCLabelTTF labelWithString:@"Level Five!" fontName:@"Arial" fontSize:60];
             levelFiveLabel.position = ccp(screenSize.width/2,screenSize.height*3);
             levelFiveLabel.color = ccc3(0, 0, 0);
-            levelFiveLabel.scale = 0.2;
+            levelFiveLabel.scale = 0.6;
             [self addChild:levelFiveLabel];
             [self dropEffect:levelFiveLabel];
             int x = screenCenter.x;
@@ -1146,10 +1131,11 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 6) {
+            [self shootBulletwithPosSmallerBall:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
             levelSixLabel = [CCLabelTTF labelWithString:@"Level Six!" fontName:@"Arial" fontSize:60];
             levelSixLabel.position = ccp(screenSize.width/2,screenSize.height*3);
             levelSixLabel.color = ccc3(0, 0, 0);
-            levelSixLabel.scale = 0.2;
+            levelSixLabel.scale = 0.6;
             [self addChild:levelSixLabel];
             [self dropEffect:levelSixLabel];
             int x = screenCenter.x;
@@ -1162,10 +1148,11 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 7) {
+            [self shootBulletwithPosSlowDown:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
             levelSixLabel = [CCLabelTTF labelWithString:@"Level Seven!" fontName:@"Arial" fontSize:60];
             levelSixLabel.position = ccp(screenSize.width/2,screenSize.height*3);
             levelSixLabel.color = ccc3(0, 0, 0);
-            levelSixLabel.scale = 0.2;
+            levelSixLabel.scale = 0.6;
             [self addChild:levelSixLabel];
             [self dropEffect:levelSixLabel];
             int x = screenCenter.x;
@@ -1178,10 +1165,11 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 8) {
+            [self shootBulletwithPosSmallerBall:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
             levelSixLabel = [CCLabelTTF labelWithString:@"Level Eight!" fontName:@"Arial" fontSize:60];
             levelSixLabel.position = ccp(screenSize.width/2,screenSize.height*3);
             levelSixLabel.color = ccc3(0, 0, 0);
-            levelSixLabel.scale = 0.2;
+            levelSixLabel.scale = 0.6;
             [self addChild:levelSixLabel];
             [self dropEffect:levelSixLabel];
             int x = screenCenter.x;
@@ -1194,10 +1182,11 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 9) {
+            [self shootBulletwithPosSlowDown:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
             levelSixLabel = [CCLabelTTF labelWithString:@"Level Nine!" fontName:@"Arial" fontSize:60];
             levelSixLabel.position = ccp(screenSize.width/2,screenSize.height*3);
             levelSixLabel.color = ccc3(0, 0, 0);
-            levelSixLabel.scale = 0.2;
+            levelSixLabel.scale = 0.6;
             [self addChild:levelSixLabel];
             [self dropEffect:levelSixLabel];
             int x = screenCenter.x;
@@ -1280,8 +1269,21 @@ NSMutableDictionary *initialBoss;
         projectile = [bullets objectAtIndex:j];
         float angle = [[bullets objectAtIndex:j] getAngle];
         float speed = [[bullets objectAtIndex:j] getSpeed]; // Move 50 pixels in 60 frames (1 second)
-        if(isTimeWarped == true) {
-            speed = speed + 3;
+        // For the slow-down powerup
+        for(NSUInteger k = 0; k < [slowDowners count]; k++) {
+            CCSprite* tempSprite = [slowDowners objectAtIndex:k];
+            if ([self isCollidingSphere:tempSprite WithSphere:player] == true) {
+                [self removeChild:tempSprite cleanup:YES];
+
+                isItSlow = TRUE;
+                dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC));
+                dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                    isItSlow = FALSE;
+                });
+            }
+        }
+        if (isItSlow == TRUE) {
+            speed = speed - 0.5;
         }
         float vx = cos(angle * M_PI / 180) * speed;
         float vy = sin(angle * M_PI / 180) * speed;
@@ -1308,6 +1310,26 @@ NSMutableDictionary *initialBoss;
         CGPoint direction = ccp(vx,vy);
         projectile.position = ccpAdd(projectile.position, direction);
     }
+    for(NSUInteger i = 0; i < [smallerBallers count]; i++) {
+        NSInteger j = i;
+        projectile = [smallerBallers objectAtIndex:j];
+        float angle = 270;
+        float speed = 3;
+        float vx = cos(angle * M_PI / 180) * speed;
+        float vy = sin(angle * M_PI / 180) * speed;
+        CGPoint direction = ccp(vx,vy);
+        projectile.position = ccpAdd(projectile.position, direction);
+    }
+    for(NSUInteger i = 0; i < [slowDowners count]; i++) {
+        NSInteger j = i;
+        projectile = [slowDowners objectAtIndex:j];
+        float angle = 270;
+        float speed = 3;
+        float vx = cos(angle * M_PI / 180) * speed;
+        float vy = sin(angle * M_PI / 180) * speed;
+        CGPoint direction = ccp(vx,vy);
+        projectile.position = ccpAdd(projectile.position, direction);
+    }
     for(NSUInteger i = 0; i < [powerups count]; i++) {
         NSInteger j = i;
         projectile = [powerups objectAtIndex:j];
@@ -1325,7 +1347,7 @@ NSMutableDictionary *initialBoss;
     //create one
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == false) {
         [[CCDirector sharedDirector] pushScene:
-         [CCTransitionJumpZoom transitionWithDuration:0.5f scene:[LevelSelect node]]];
+         [CCTransitionCrossFade transitionWithDuration:0.5f scene:[LevelSelect node]]];
     }
     stagespast = stagespast + 1;
     [self initBoss];
@@ -1429,11 +1451,10 @@ NSMutableDictionary *initialBoss;
     id scale = [CCScaleTo actionWithDuration:1.0f scale:0.05f];
     [newB runAction:scale];
 }
--(void) shootBulletwithPosPowerup: (float) speed angle:(float) angleInput xpos:(float) xInput ypos:(float) yInput {
+-(void) shootBulletwithPosShield: (float) speed angle:(float) angleInput xpos:(float) xInput ypos:(float) yInput {
     if(shieldon == false) {
         Powerup *newB = [Powerup powerup:speed :angleInput];
-        newB.position = boss.position;
-        newB.position = ccp(newB.position.x + xInput, newB.position.y + yInput);
+        newB.position = ccp(boss.position.x + xInput, boss.position.y + yInput);
         [self addChild:newB z:9];
         [powerups addObject:newB];
         newB.tag = 42;
@@ -1441,6 +1462,40 @@ NSMutableDictionary *initialBoss;
 //        [self removeChild:newB cleanup:YES];
         [self removeChild:shield cleanup:YES];
     }
+}
+-(void) shootBulletwithPosSmallerBall: (float) speed angle:(float) angleInput xpos:(float) xInput ypos:(float) yInput {
+    SmallerBall *newB = [SmallerBall smallBall:speed :angleInput];
+    newB.position = ccp(boss.position.x, boss.position.y + 30);
+    newB.position = ccp(newB.position.x + xInput, newB.position.y + yInput);
+    [self addChild:newB z:9];
+    [smallerBallers addObject:newB];
+    newB.scale = 0;
+    id scale = [CCScaleTo actionWithDuration:1.0f scale:0.2f];
+    [newB runAction:scale];
+    smallerBall = [CCSprite spriteWithFile:@"cyan.png"];
+    smallerBall.position = newB.position;
+    smallerBall.scale = 0;
+    [self addChild:smallerBall z:10];
+    id bossscale = [CCScaleTo actionWithDuration:1.0f scale:0.2f];
+    [smallerBall runAction:bossscale];
+    [smallerBallers addObject:smallerBall];
+}
+-(void) shootBulletwithPosSlowDown: (float) speed angle:(float) angleInput xpos:(float) xInput ypos:(float) yInput {
+    SlowDown *newB = [SlowDown slowedDown:speed :angleInput];
+    newB.position = ccp(boss.position.x, boss.position.y + 30);
+    newB.position = ccp(newB.position.x + xInput, newB.position.y + yInput);
+    [self addChild:newB z:9];
+    [slowDowners addObject:newB];
+    newB.scale = 0;
+    id scale = [CCScaleTo actionWithDuration:1.0f scale:0.2f];
+    [newB runAction:scale];
+    slowDown = [CCSprite spriteWithFile:@"cyan.png"];
+    slowDown.position = newB.position;
+    slowDown.scale = 0;
+    [self addChild:slowDown z:10];
+    id bossscale = [CCScaleTo actionWithDuration:1.0f scale:0.2f];
+    [slowDown runAction:bossscale];
+    [slowDowners addObject:slowDown];
 }
 -(void) shootBulletwithPosFire: (float) speed angle:(float) angleInput xpos:(float) xInput ypos:(float) yInput {
     Bullet *newB = [Bullet bullet:speed :angleInput];
@@ -1554,15 +1609,13 @@ NSMutableDictionary *initialBoss;
         [self removeChild:temp cleanup:YES];
         [bullets removeAllObjects];
     }
-//    if (bullet.position.x > screenSize.width || bullet.position.y > screenSize.height) {
-//        Bullet *Somebullets = [bullets objectAtIndex:i];
-//        [self removeChild:Somebullets cleanup:YES];
-//        CCSprite *SomeflowerBullets = [flowerbullets objectAtIndex:i];
-//        [self removeChild:SomeflowerBullets cleanup:YES];
-//        CCSprite *someDonkeys = [fireBalls objectAtIndex:i];
-//        [self removeChild:someDonkeys cleanup:YES];
-//    }
+    for(NSUInteger i = 0; i < [smallerBallers count]; i++) {
+        CCSprite *temp = [smallerBallers objectAtIndex:i];
+        [self removeChild:temp cleanup:YES];
+        [smallerBallers removeAllObjects];
+    }
     [smileyFaces removeAllObjects];
+    [smallerBallers removeAllObjects];
     [fireBalls removeAllObjects];
     [bullets removeAllObjects];
     [flowerbullets removeAllObjects];
@@ -1572,7 +1625,7 @@ NSMutableDictionary *initialBoss;
     [self removeChild:streak cleanup:YES];
     [self flash:0 green:0 blue:255 alpha:255 actionWithDuration:0];
     [self rflash:255 green:255 blue:255 alpha:255 actionWithDuration:0];
-    [self shootBulletwithPosPowerup:3 angle:260 xpos:0 ypos:0];
+    [self shootBulletwithPosShield:3 angle:260 xpos:0 ypos:0];
     label.color = ccc3(0, 0, 0);
     id bossscale = [CCScaleTo actionWithDuration:0.5f scale:2.0f];
     [boss runAction:bossscale];
@@ -1591,6 +1644,10 @@ NSMutableDictionary *initialBoss;
         [self removeChild:[smileyFaces objectAtIndex:i] cleanup:YES];
     }
     [smileyFaces removeAllObjects];
+    for(NSUInteger i = 0; i<[smallerBallers count]; i++) {
+        [self removeChild:[smallerBallers objectAtIndex:i] cleanup:YES];
+    }
+    [smallerBallers removeAllObjects];
 }
 /* -------------------------------------------------------------------------------- */
 /*    COLLISIONS                                                                    */
@@ -1612,15 +1669,16 @@ NSMutableDictionary *initialBoss;
 // This is what moves the game on to the next level after you hit the target
 -(void) targetHit {
     if (targetHit == true) {
-        //        [self schedule:@selector(gameSegmentBeat)];
-        //        dispatch_time_t countdownTime1 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC));
-        //        dispatch_after(countdownTime1, dispatch_get_main_queue(), ^(void){
-        //            [self unschedule:@selector(gameSegmentBeat)];
-        //        });
         // This should happen when the bullet is deleted.
         if (level == 1) {
             gameSegment += 1;
             if (gameSegment >= 7) {
+                [self schedule:@selector(gameSegmentBeat)];
+                dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                    [self resumeSchedulerAndActions];
+                    [self unschedule:@selector(gameSegmentBeat)];
+                });
                 level += 1;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
@@ -1628,6 +1686,12 @@ NSMutableDictionary *initialBoss;
         } else if (level == 2) {
             gameSegment += 1;
             if (gameSegment >= 5) {
+                [self schedule:@selector(gameSegmentBeat)];
+                dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                    [self resumeSchedulerAndActions];
+                    [self unschedule:@selector(gameSegmentBeat)];
+                });
                 level += 1;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
@@ -1635,6 +1699,12 @@ NSMutableDictionary *initialBoss;
         } else if (level == 3) {
             gameSegment += 1;
             if (gameSegment >= 6) {
+                [self schedule:@selector(gameSegmentBeat)];
+                dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                    [self resumeSchedulerAndActions];
+                    [self unschedule:@selector(gameSegmentBeat)];
+                });
                 level += 1;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
@@ -1642,6 +1712,12 @@ NSMutableDictionary *initialBoss;
         } else if (level == 4) {
             gameSegment += 1;
             if (gameSegment >= 8) {
+                [self schedule:@selector(gameSegmentBeat)];
+                dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                    [self resumeSchedulerAndActions];
+                    [self unschedule:@selector(gameSegmentBeat)];
+                });
                 level += 1;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
@@ -1649,6 +1725,12 @@ NSMutableDictionary *initialBoss;
         } else if (level == 5) {
             gameSegment += 1;
             if (gameSegment >= 5) {
+                [self schedule:@selector(gameSegmentBeat)];
+                dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                    [self resumeSchedulerAndActions];
+                    [self unschedule:@selector(gameSegmentBeat)];
+                });
                 level += 1;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
@@ -1656,6 +1738,12 @@ NSMutableDictionary *initialBoss;
         } else if (level == 6) {
             gameSegment += 1;
             if (gameSegment >= 5) {
+                [self schedule:@selector(gameSegmentBeat)];
+                dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                    [self resumeSchedulerAndActions];
+                    [self unschedule:@selector(gameSegmentBeat)];
+                });
                 level += 1;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
@@ -1663,6 +1751,12 @@ NSMutableDictionary *initialBoss;
         } else if (level == 7) {
             gameSegment += 1;
             if (gameSegment >= 4) {
+                [self schedule:@selector(gameSegmentBeat)];
+                dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                    [self resumeSchedulerAndActions];
+                    [self unschedule:@selector(gameSegmentBeat)];
+                });
                 level += 1;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
@@ -1674,6 +1768,12 @@ NSMutableDictionary *initialBoss;
         } else if (level == 8) {
             gameSegment += 1;
             if (gameSegment >= 4) {
+                [self schedule:@selector(gameSegmentBeat)];
+                dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                    [self resumeSchedulerAndActions];
+                    [self unschedule:@selector(gameSegmentBeat)];
+                });
                 level += 1;
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
@@ -1685,6 +1785,12 @@ NSMutableDictionary *initialBoss;
         } else if (level == 9) {
             gameSegment += 1;
             if (gameSegment >= 4) {
+                [self schedule:@selector(gameSegmentBeat)];
+                dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                    [self resumeSchedulerAndActions];
+                    [self unschedule:@selector(gameSegmentBeat)];
+                });
                 [self gameEnd];
                 [self removeChild:boss cleanup:YES];
             }
@@ -1712,12 +1818,22 @@ NSMutableDictionary *initialBoss;
         targetHit = true;
         [self targetHit];
     }
-    
+        
     if (CGRectIntersectsRect(CGRectMake(player.position.x, player.position.y, playerWidth, playerHeight), CGRectMake(shield.position.x, shield.position.y, shield.boundingBox.size.width, shield.boundingBox.size.height)) == true) {
-        //        [powerups removeAllObjects];
-        //        [self removeChild:shield cleanup:YES];
     }
-    
+    // For the Mini-Me powerup
+    for(NSUInteger i = 0; i < [smallerBallers count]; i++) {
+        NSInteger j = i;
+        CCSprite* tempSprite = [smallerBallers objectAtIndex:j];
+        if ([self isCollidingSphere:tempSprite WithSphere:player] == true) {
+            [self removeChild:tempSprite cleanup:YES];
+            player.scale = 0.05f;
+            dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC));
+            dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                player.scale = 0.15f;
+            });
+        }
+    }
     for(NSUInteger i = 0; i < [bullets count]; i++) {
         NSInteger j = i;
         CCSprite* tempSprite = [bullets objectAtIndex:j];
@@ -1786,10 +1902,6 @@ NSMutableDictionary *initialBoss;
             [self addChild:shield z:-10];
             shieldon = true;
             [self flash:0 green:255 blue:0 alpha:255 actionWithDuration:0];
-            if([[NSUserDefaults standardUserDefaults]boolForKey:@"shield"] == false) {
-                [MGWU showMessage:@"Achievement Get!      Green is the new Orange" withImage:nil];
-                [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"shield"];
-            }
         }
     }
 }
@@ -1881,10 +1993,6 @@ NSMutableDictionary *initialBoss;
         [[SimpleAudioEngine sharedEngine] playEffect:@"zoom.mp3"];
         [[NSUserDefaults standardUserDefaults] setInteger:intScore forKey:@"score"];
         [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[Dead node]]];
-        if([[NSUserDefaults standardUserDefaults]boolForKey:@"doom"] == false) {
-            [MGWU showMessage:@"Achievement Get!      Fall of the Orange" withImage:nil];
-            [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"doom"];
-        }
     }
 }
 -(void) pause {
@@ -1907,24 +2015,45 @@ NSMutableDictionary *initialBoss;
     [self schedule:@selector(playerdeath) interval:0.5];
 }
 -(void) gameSegmentBeat {
+    // When the level ends - countdown :)
     [self pauseSchedulerAndActions];
     
     CCSprite *opaqueBG = [CCSprite spriteWithFile:@"background1.png"];
     opaqueBG.position = screenCenter;
     [self addChild:opaqueBG z:10000];
     
-    CCLabelTTF *awesome = [CCLabelTTF labelWithString:@"New\n Level!" fontName:@"Helvetica" fontSize:80];
-    awesome.position = ccp(screenCenter.x, screenCenter.y);
+    CCLabelTTF *three = [CCLabelTTF labelWithString:@"3" fontName:@"Helvetica" fontSize:100];
+    three.position = ccp(screenCenter.x, screenCenter.y);
+    CCLabelTTF *two = [CCLabelTTF labelWithString:@"2" fontName:@"Helvetica" fontSize:100];
+    two.position = ccp(screenCenter.x, screenCenter.y);
+    CCLabelTTF *one = [CCLabelTTF labelWithString:@"1" fontName:@"Helvetica" fontSize:100];
+    one.position = ccp(screenCenter.x, screenCenter.y);
+    CCLabelTTF *go = [CCLabelTTF labelWithString:@"New Level!" fontName:@"Helvetica" fontSize:100];
+    go.position = ccp(screenCenter.x, screenCenter.y);
     
-    dispatch_time_t countdownTime1 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC));
+    dispatch_time_t countdownTime1 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC));
     dispatch_after(countdownTime1, dispatch_get_main_queue(), ^(void){
-        [self addChild:awesome z:10001];        
+        [self addChild:three z:10001];
     });
-    dispatch_time_t countdownTime2 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC));
+    dispatch_time_t countdownTime2 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC));
     dispatch_after(countdownTime2, dispatch_get_main_queue(), ^(void){
-        [self removeChild:awesome cleanup:YES];
+        [self removeChild:three];
+        [self addChild:two z:10001];
+    });
+    dispatch_time_t countdownTime3 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC));
+    dispatch_after(countdownTime3, dispatch_get_main_queue(), ^(void){
+        [self removeChild:two];
+        [self addChild:one z:10001];
+    });
+    dispatch_time_t countdownTime4 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC));
+    dispatch_after(countdownTime4, dispatch_get_main_queue(), ^(void){
+        [self removeChild:one];
+        [self addChild:go z:10001];
+    });
+    dispatch_time_t countdownTime5 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.0 * NSEC_PER_SEC));
+    dispatch_after(countdownTime5, dispatch_get_main_queue(), ^(void){
+        [self removeChild:go];
         [self removeChild:opaqueBG];
-        [self resumeSchedulerAndActions];
     });
 }
 -(void) playerdeath {
@@ -1932,50 +2061,33 @@ NSMutableDictionary *initialBoss;
     [self unschedule:@selector(playerdeath)];
     [self unscheduleUpdate];
     NSLog(@"Player Died");
-    border = [CCSprite spriteWithFile:@"continue.png"];
-    border.position = ccp(160,240);
+    // Background
+    border = [CCSprite spriteWithFile:@"continuebg.png"];
+    border.position = ccp(screenCenter.x,screenCenter.y);
     [self addChild:border z:9010];
-    //background
-    gameOverLayer = [CCLayerColor layerWithColor: ccc4(0, 0, 0, 0) width: 200 height: 238];
-    gameOverLayer.position = ccp(40, 95);
-    [self addChild: gameOverLayer z:9010];
-    NSString* coinsl = @"Coins: ";
-    NSString* coincount = [coinsl stringByAppendingString:[NSString stringWithFormat:@"%i",coins]];
-    gameOver1 = [CCLabelTTF labelWithString:coincount fontName:@"HelveticaNeue-Light" fontSize:40];
-    gameOver1.position = ccp(160, 320);
-    [self addChild:gameOver1 z:9011];
-    coinLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",coins] fontName:@"HelveticaNeue-Light" fontSize:75];
-    coinLabel.position = ccp(240, 300);
-    //[self addChild:coinLabel z:9011];
-    NSString* hello = @"";
-    NSString*  world= @"";
-    NSString*  helloWorld= @"";
-    NSString*  burpworld= @"";
-    NSString*  coinc= @"";
-    hello = @"Continue for ";
-    world = [NSString stringWithFormat:@"%d",continueCost];
-    helloWorld = [hello stringByAppendingString:world];
-    burpworld = @" coins.";
-    coinc = [helloWorld stringByAppendingString:burpworld];
-    gameOver2 = [CCLabelTTF labelWithString:coinc fontName:@"HelveticaNeue-Light" fontSize:30];
-    gameOver2.position = ccp(160, 55);
+    if ([[CCDirector sharedDirector] winSizeInPixels].height == 1136){
+        border = [CCSprite spriteWithFile:@"continuebg-568h.png"];
+        border.position = ccp(screenCenter.x,screenCenter.y);
+        [self addChild:border z:9010];
+    }
+    // The coin label
+    NSString* world = [NSString stringWithFormat:@"...continue for %d coins.",continueCost];
+    gameOver2 = [CCLabelTTF labelWithString:world fontName:@"HelveticaNeue-Medium" fontSize:25];
+    gameOver2.position = ccp(screenCenter.x, screenCenter.y * 1.55);
     [self addChild:gameOver2 z:9011];
-    //gameOver.color=ccc3(0,0,0);
-    continuePressed = [CCLabelTTF labelWithString:@"Continue" fontName:@"HelveticaNeue-Light" fontSize:24];
-    continuePressed.position = ccp(screenSize.width/2, screenSize.height/2 - 5);
-    continuePressed.color = ccc3(52,73,94);
-    [self addChild:continuePressed z:9012];
-    
-    dieLabel = [CCLabelTTF labelWithString:@"Give Up" fontName:@"HelveticaNeue-Light" fontSize:24];
-    dieLabel.position = ccp(screenSize.width/2, screenSize.height/2 - 80);
-    dieLabel.color = ccc3(52,73,94);
-    [self addChild:dieLabel z:9012];
-    CCMenuItemImage* continueButton = [CCMenuItemImage itemWithNormalImage:@"button.png" selectedImage:@"button-sel.png" target:self selector:@selector(continuee)];
-    CCMenuItemImage* dieButton = [CCMenuItemImage itemWithNormalImage:@"button.png" selectedImage:@"button-sel.png" target:self selector:@selector(gameover)];
-
+    // The "or..." button
+    gameOver = [CCLabelTTF labelWithString:@"or..." fontName:@"HelveticaNeue-Bold" fontSize:24];
+    gameOver.position = ccp(screenCenter.x, screenCenter.y - 54);
+    gameOver.color = ccc3(52,73,94);
+    [self addChild:gameOver z:9012];
+    // The other buttons
+    CCMenuItemImage* continueButton = [CCMenuItemImage itemWithNormalImage:@"keepgoing.png" selectedImage:@"keepgoing-sel.png" target:self selector:@selector(continuee)];
+    continueButton.scale = 1.1f;
+    CCMenuItemImage* dieButton = [CCMenuItemImage itemWithNormalImage:@"giveup.png" selectedImage:@"giveup-sel.png" target:self selector:@selector(gameover)];
+    dieButton.scale = 1.1f;
     GameOverMenu = [CCMenu menuWithItems: continueButton, dieButton, nil];
-    [GameOverMenu alignItemsVerticallyWithPadding:10.0];
-    GameOverMenu.position = ccp(screenSize.width/2, screenSize.height/2 - 40);
+    [GameOverMenu alignItemsVerticallyWithPadding:45.0];
+    GameOverMenu.position = ccp(screenCenter.x, screenCenter.y - 54);
     [self addChild:GameOverMenu z:9011];
 }
 -(void) continuee {
@@ -1989,7 +2101,6 @@ NSMutableDictionary *initialBoss;
          [CCTransitionCrossFade transitionWithDuration:0.5f scene:[StoreLayer node]]];
     }
 }
--(void) purchased {}
 -(void) updateCoins {
     coins = [[NSUserDefaults standardUserDefaults] integerForKey:@"coins"];
     [coinLabel setString:[NSString stringWithFormat:@"%i",coins]];
@@ -2000,7 +2111,6 @@ NSMutableDictionary *initialBoss;
     [player runAction:tintp];
     [player runAction:scalep];
     deathanimation = true;
-    //[self removeChild:countdown];
     [self removeChild:border cleanup:YES];
     [self removeChild:coinLabel cleanup:YES];
     [self removeChild:gameOver cleanup:YES];

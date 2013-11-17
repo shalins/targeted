@@ -10,5 +10,8 @@
 #import "HelloWorldLayer.h"
 
 @interface Pausue : CCScene
-
+{
+    CGPoint screenCenter;
+    CGSize size;
+}
 @end

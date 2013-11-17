@@ -24,7 +24,6 @@
         
             // Some variables to make positioning more easy
             size = [[CCDirector sharedDirector] winSize];
-            CGSize screenSize = [[CCDirector sharedDirector] winSize];
             screenCenter = ccp(size.width/2, size.height/2);
 
             // Background Sprite
