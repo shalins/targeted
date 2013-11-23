@@ -2060,12 +2060,11 @@ NSMutableDictionary *initialBoss;
     // Background
     border = [CCSprite spriteWithFile:@"continuebg.png"];
     border.position = ccp(screenCenter.x,screenCenter.y);
-    [self addChild:border z:9010];
     if ([[CCDirector sharedDirector] winSizeInPixels].height == 1136){
         border = [CCSprite spriteWithFile:@"continuebg-568h.png"];
         border.position = ccp(screenCenter.x,screenCenter.y);
-        [self addChild:border z:9010];
     }
+    [self addChild:border z:9010];
     // The coin label
     NSString* world = [NSString stringWithFormat:@"...continue for %d coins.",continueCost];
     gameOver2 = [CCLabelTTF labelWithString:world fontName:@"HelveticaNeue-Medium" fontSize:25];
