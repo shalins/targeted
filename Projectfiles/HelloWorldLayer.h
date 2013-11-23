@@ -108,8 +108,8 @@
     int secs;
 }
 
-@property (nonatomic, copy) NSString* helloWorldString;
-@property (nonatomic, copy) NSString* helloWorldFontName;
+@property (nonatomic, copy) NSString *helloWorldString;
+@property (nonatomic, copy) NSString *helloWorldFontName;
 @property (nonatomic) int helloWorldFontSize;
 
 @end
