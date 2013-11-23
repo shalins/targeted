@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key></key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDisplayName</key>
@@ -77,8 +79,6 @@
 		<key>accelerometer</key>
 		<true/>
 		<key>armv7</key>
-		<true/>
-		<key>gamekit</key>
 		<true/>
 		<key>opengles-2</key>
 		<true/>

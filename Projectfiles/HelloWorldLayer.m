@@ -1660,7 +1660,6 @@ NSMutableDictionary *initialBoss;
         if (level == 1) {
             gameSegment += 1;
             if (gameSegment >= 7) {
-                [[NSUserDefaults standardUserDefaults] setInteger:(coins + 100) forKey:@"coins"];
                 [self schedule:@selector(gameSegmentBeat)];
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
                 dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
@@ -1674,7 +1673,6 @@ NSMutableDictionary *initialBoss;
         } else if (level == 2) {
             gameSegment += 1;
             if (gameSegment >= 5) {
-                [[NSUserDefaults standardUserDefaults] setInteger:(coins + 150) forKey:@"coins"];
                 [self schedule:@selector(gameSegmentBeat)];
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
                 dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
@@ -1688,7 +1686,6 @@ NSMutableDictionary *initialBoss;
         } else if (level == 3) {
             gameSegment += 1;
             if (gameSegment >= 6) {
-                [[NSUserDefaults standardUserDefaults] setInteger:(coins + 200) forKey:@"coins"];
                 [self schedule:@selector(gameSegmentBeat)];
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
                 dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
@@ -1702,7 +1699,6 @@ NSMutableDictionary *initialBoss;
         } else if (level == 4) {
             gameSegment += 1;
             if (gameSegment >= 8) {
-                [[NSUserDefaults standardUserDefaults] setInteger:(coins + 250) forKey:@"coins"];
                 [self schedule:@selector(gameSegmentBeat)];
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
                 dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
@@ -1716,7 +1712,6 @@ NSMutableDictionary *initialBoss;
         } else if (level == 5) {
             gameSegment += 1;
             if (gameSegment >= 5) {
-                [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
                 [self schedule:@selector(gameSegmentBeat)];
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
                 dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
@@ -1730,7 +1725,6 @@ NSMutableDictionary *initialBoss;
         } else if (level == 6) {
             gameSegment += 1;
             if (gameSegment >= 5) {
-                [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
                 [self schedule:@selector(gameSegmentBeat)];
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
                 dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
@@ -1744,7 +1738,6 @@ NSMutableDictionary *initialBoss;
         } else if (level == 7) {
             gameSegment += 1;
             if (gameSegment >= 4) {
-                [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
                 [self schedule:@selector(gameSegmentBeat)];
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
                 dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
@@ -1762,7 +1755,6 @@ NSMutableDictionary *initialBoss;
         } else if (level == 8) {
             gameSegment += 1;
             if (gameSegment >= 4) {
-                [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
                 [self schedule:@selector(gameSegmentBeat)];
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
                 dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
@@ -1780,7 +1772,6 @@ NSMutableDictionary *initialBoss;
         } else if (level == 9) {
             gameSegment += 1;
             if (gameSegment >= 4) {
-                [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
                 [self schedule:@selector(gameSegmentBeat)];
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
                 dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
@@ -2060,11 +2051,12 @@ NSMutableDictionary *initialBoss;
     // Background
     border = [CCSprite spriteWithFile:@"continuebg.png"];
     border.position = ccp(screenCenter.x,screenCenter.y);
+    [self addChild:border z:9010];
     if ([[CCDirector sharedDirector] winSizeInPixels].height == 1136){
         border = [CCSprite spriteWithFile:@"continuebg-568h.png"];
         border.position = ccp(screenCenter.x,screenCenter.y);
+        [self addChild:border z:9010];
     }
-    [self addChild:border z:9010];
     // The coin label
     NSString* world = [NSString stringWithFormat:@"...continue for %d coins.",continueCost];
     gameOver2 = [CCLabelTTF labelWithString:world fontName:@"HelveticaNeue-Medium" fontSize:25];
