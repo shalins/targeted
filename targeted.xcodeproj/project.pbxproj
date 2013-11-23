@@ -77,6 +77,17 @@
 		386320BA1831756D00EBB847 /* levelbg-568h.png in Resources */ = {isa = PBXBuildFile; fileRef = 386320B71831756D00EBB847 /* levelbg-568h.png */; };
 		386320BB1831756D00EBB847 /* levelbg-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 386320B81831756D00EBB847 /* levelbg-hd.png */; };
 		386320BC1831756D00EBB847 /* levelbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 386320B91831756D00EBB847 /* levelbg.png */; };
+		387F34C91840635800212194 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34C81840635800212194 /* Social.framework */; };
+		387F34CB1840636000212194 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34CA1840636000212194 /* Accounts.framework */; };
+		387F34CD1840636800212194 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34CC1840636800212194 /* AdSupport.framework */; };
+		387F34CF1840636D00212194 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34CE1840636D00212194 /* CFNetwork.framework */; };
+		387F34D11840637700212194 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34D01840637700212194 /* CoreTelephony.framework */; };
+		387F34D31840638B00212194 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34D21840638B00212194 /* libicucore.dylib */; };
+		387F34D51840639400212194 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34D41840639400212194 /* MessageUI.framework */; };
+		387F34D71840639B00212194 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34D61840639B00212194 /* Security.framework */; };
+		387F34D9184063A300212194 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34D8184063A300212194 /* StoreKit.framework */; };
+		387F34DB184063AB00212194 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34DA184063AB00212194 /* SystemConfiguration.framework */; };
+		387F34DD184063B200212194 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34DC184063B200212194 /* Twitter.framework */; };
 		388D6C5417B1C19B00BD6F07 /* b2sq.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 388D6BA317B1C19B00BD6F07 /* b2sq.ttf */; };
 		388D6C5517B1C19B00BD6F07 /* b2sqol1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 388D6BA417B1C19B00BD6F07 /* b2sqol1.ttf */; };
 		388D6C5617B1C19B00BD6F07 /* b2sqol2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 388D6BA517B1C19B00BD6F07 /* b2sqol2.ttf */; };
@@ -451,6 +462,17 @@
 		386320B71831756D00EBB847 /* levelbg-568h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "levelbg-568h.png"; sourceTree = "<group>"; };
 		386320B81831756D00EBB847 /* levelbg-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "levelbg-hd.png"; sourceTree = "<group>"; };
 		386320B91831756D00EBB847 /* levelbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = levelbg.png; sourceTree = "<group>"; };
+		387F34C81840635800212194 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/Social.framework; sourceTree = DEVELOPER_DIR; };
+		387F34CA1840636000212194 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/Accounts.framework; sourceTree = DEVELOPER_DIR; };
+		387F34CC1840636800212194 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
+		387F34CE1840636D00212194 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
+		387F34D01840637700212194 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
+		387F34D21840638B00212194 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/usr/lib/libicucore.dylib; sourceTree = DEVELOPER_DIR; };
+		387F34D41840639400212194 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
+		387F34D61840639B00212194 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		387F34D8184063A300212194 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
+		387F34DA184063AB00212194 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		387F34DC184063B200212194 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/Twitter.framework; sourceTree = DEVELOPER_DIR; };
 		388D6BA317B1C19B00BD6F07 /* b2sq.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = b2sq.ttf; sourceTree = "<group>"; };
 		388D6BA417B1C19B00BD6F07 /* b2sqol1.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = b2sqol1.ttf; sourceTree = "<group>"; };
 		388D6BA517B1C19B00BD6F07 /* b2sqol2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = b2sqol2.ttf; sourceTree = "<group>"; };
@@ -785,6 +807,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				387F34DD184063B200212194 /* Twitter.framework in Frameworks */,
+				387F34DB184063AB00212194 /* SystemConfiguration.framework in Frameworks */,
+				387F34D9184063A300212194 /* StoreKit.framework in Frameworks */,
+				387F34D71840639B00212194 /* Security.framework in Frameworks */,
+				387F34D51840639400212194 /* MessageUI.framework in Frameworks */,
+				387F34D31840638B00212194 /* libicucore.dylib in Frameworks */,
+				387F34D11840637700212194 /* CoreTelephony.framework in Frameworks */,
+				387F34CF1840636D00212194 /* CFNetwork.framework in Frameworks */,
+				387F34CD1840636800212194 /* AdSupport.framework in Frameworks */,
+				387F34CB1840636000212194 /* Accounts.framework in Frameworks */,
+				387F34C91840635800212194 /* Social.framework in Frameworks */,
 				84F92CE41784BBCB00500453 /* Social.framework in Frameworks */,
 				84F92CD91784BBB800500453 /* Accounts.framework in Frameworks */,
 				84F92CDA1784BBB800500453 /* AdSupport.framework in Frameworks */,
@@ -1228,17 +1261,6 @@
 		DCC1A0D613A94EC0005BD75D = {
 			isa = PBXGroup;
 			children = (
-				84F92CE31784BBCB00500453 /* Social.framework */,
-				84F92CCF1784BBB800500453 /* Accounts.framework */,
-				84F92CD01784BBB800500453 /* AdSupport.framework */,
-				84F92CD11784BBB800500453 /* CFNetwork.framework */,
-				84F92CD21784BBB800500453 /* CoreTelephony.framework */,
-				84F92CD31784BBB800500453 /* libicucore.dylib */,
-				84F92CD41784BBB800500453 /* MessageUI.framework */,
-				84F92CD51784BBB800500453 /* Security.framework */,
-				84F92CD61784BBB800500453 /* StoreKit.framework */,
-				84F92CD71784BBB800500453 /* SystemConfiguration.framework */,
-				84F92CD81784BBB800500453 /* Twitter.framework */,
 				848DADB31787784000611F6F /* bewilder.ttf */,
 				848DADB11787783A00611F6F /* b2sq.ttf */,
 				84825C0617A858E400D8FA2D /* Default-568h@2x.png */,
@@ -1265,6 +1287,28 @@
 		DCC1A0E613A94ED5005BD75D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84F92CE31784BBCB00500453 /* Social.framework */,
+				84F92CCF1784BBB800500453 /* Accounts.framework */,
+				84F92CD01784BBB800500453 /* AdSupport.framework */,
+				84F92CD11784BBB800500453 /* CFNetwork.framework */,
+				84F92CD21784BBB800500453 /* CoreTelephony.framework */,
+				84F92CD31784BBB800500453 /* libicucore.dylib */,
+				84F92CD41784BBB800500453 /* MessageUI.framework */,
+				84F92CD51784BBB800500453 /* Security.framework */,
+				84F92CD61784BBB800500453 /* StoreKit.framework */,
+				84F92CD71784BBB800500453 /* SystemConfiguration.framework */,
+				84F92CD81784BBB800500453 /* Twitter.framework */,
+				387F34DC184063B200212194 /* Twitter.framework */,
+				387F34DA184063AB00212194 /* SystemConfiguration.framework */,
+				387F34D8184063A300212194 /* StoreKit.framework */,
+				387F34D61840639B00212194 /* Security.framework */,
+				387F34D41840639400212194 /* MessageUI.framework */,
+				387F34D21840638B00212194 /* libicucore.dylib */,
+				387F34D01840637700212194 /* CoreTelephony.framework */,
+				387F34CE1840636D00212194 /* CFNetwork.framework */,
+				387F34CC1840636800212194 /* AdSupport.framework */,
+				387F34CA1840636000212194 /* Accounts.framework */,
+				387F34C81840635800212194 /* Social.framework */,
 				84F92CE71784C22400500453 /* mgwuSDK.embeddedframework */,
 				84F92CE51784C21C00500453 /* README.md */,
 			);
