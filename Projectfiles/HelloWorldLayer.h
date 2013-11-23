@@ -71,6 +71,7 @@
     CCLayerColor* colorLayer;
     int level;
     BOOL isItSlow;
+    BOOL shootThePowerup;
     bool bosstime;
     bool isDying;
     int attacktype;

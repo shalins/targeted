@@ -54,6 +54,7 @@ NSMutableDictionary *initialBoss;
         NSNumber *leveldata = [[NSUserDefaults standardUserDefaults] objectForKey:@"leveldata"];
         level = [leveldata intValue];
         NSLog(@"Level %i", level);
+        shootThePowerup = FALSE;
         isItSlow = false;
         shieldon = false;
         framespast = 0;
@@ -326,9 +327,6 @@ NSMutableDictionary *initialBoss;
                 [self startTutorial];
             }
             if(gameSegment == 1) {
-//                if(framespast == 160) {
-//                    [self shootMiniMeMissile];
-//                }
                 [self removeChild:tut];
                 [[NSUserDefaults standardUserDefaults]setBool:true forKey:@"tutorialcompleted"];
                 if(((framespast % 100) ==0) || ![initialBoss objectForKey:@1.1]) {
@@ -337,19 +335,11 @@ NSMutableDictionary *initialBoss;
                 }
             }
             if(gameSegment == 2) {
-//                if(framespast == 160) {
-//                    [self shootSlowDownMissile];
-//                }
-                BOOL shootThePowerup = TRUE;
-                if (shootThePowerup == TRUE) {
-                    [self shootSlowDownMissile];
-                    shootThePowerup = FALSE;
-                }
                 if((framespast % 155) ==0 || ![initialBoss objectForKey:@1.2]) {
-
+                    if (shootThePowerup == FALSE) {
+                        [self shootSlowDownMissile];
+                        shootThePowerup = TRUE; }
                     [initialBoss setObject:@TRUE forKey:@1.2];
-//                    [self shootBulletwithPosSlowDown:1 angle:270];
-                    
                     [self shootBullet:1 angle:230];
                     [self shootBullet:2 angle:270];
                     [self shootBullet:1 angle:310];
@@ -391,6 +381,9 @@ NSMutableDictionary *initialBoss;
             }
             if(gameSegment == 6) {
                 if((framespast % 75) ==0 || ![initialBoss objectForKey:@1.6]) {
+                    if (shootThePowerup == TRUE) {
+                        [self shootMiniMeMissile];
+                        shootThePowerup = FALSE; }
                     [initialBoss setObject:@TRUE forKey:@1.6];
                     [self shootBullet:3 angle:thetemporalint];
                     thetemporalint = thetemporalint + 15;
@@ -423,6 +416,9 @@ NSMutableDictionary *initialBoss;
             }
             if(gameSegment ==1) {
                 if((framespast % 70) == 0 || ![initialBoss objectForKey:@2.1]) {
+                    if (shootThePowerup == FALSE) {
+                        [self shootSlowDownMissile];
+                        shootThePowerup = TRUE; }
                     [initialBoss setObject:@TRUE forKey:@2.1];
                     [self shootBulletwithPos:2 angle:270 xpos:0 ypos:screenCenter.y *0.5];
                     [self shootBulletwithPos:2 angle:240 xpos:-50 ypos:screenCenter.y *0.5];
@@ -484,6 +480,9 @@ NSMutableDictionary *initialBoss;
             }
             if(gameSegment ==2) {
                 if((framespast % 400) == 0 || ![initialBoss objectForKey:@3.2]) {
+                    if (shootThePowerup == TRUE) {
+                        [self shootMiniMeMissile];
+                        shootThePowerup = FALSE; }
                     [initialBoss setObject:@TRUE forKey:@3.2];
                     [self laughoutloud];
                 }
@@ -540,6 +539,9 @@ NSMutableDictionary *initialBoss;
                 }
             }
             if(gameSegment ==3) {
+                if (shootThePowerup == FALSE) {
+                    [self shootMiniMeMissile];
+                    shootThePowerup = TRUE; }
                 if((framespast % 80) == 0 || ![initialBoss objectForKey:@4.3]) {
                     [initialBoss setObject:@TRUE forKey:@4.3];
                     [self shootBulletwithPos:5 angle:0 xpos:-180 ypos:-80];
@@ -622,6 +624,9 @@ NSMutableDictionary *initialBoss;
                 }
             }
             if(gameSegment ==1) {
+                if (shootThePowerup == TRUE) {
+                    [self shootSlowDownMissile];
+                    shootThePowerup = FALSE; }
                 if((framespast % 25) == 0 || ![initialBoss objectForKey:@5.1]) {
                     [initialBoss setObject:@TRUE forKey:@5.1];
                     wowanothertemportalint = wowanothertemportalint + 15;
@@ -696,6 +701,9 @@ NSMutableDictionary *initialBoss;
             }
             if(gameSegment ==1) {
                 if((framespast % 50) == 0 || ![initialBoss objectForKey:@6.1]) {
+                    if (shootThePowerup == FALSE) {
+                        [self shootSlowDownMissile];
+                        shootThePowerup = TRUE; }
                     [initialBoss setObject:@TRUE forKey:@6.1];
                     [self shootBulletwithPos:2 angle:180 xpos:0 ypos:-240];
                     [self shootBulletwithPos:2 angle:90 xpos:0 ypos:-240];
@@ -751,6 +759,9 @@ NSMutableDictionary *initialBoss;
             if(gameSegment ==1) {
                 if((framespast % 60) == 0 || ![initialBoss objectForKey:@7.1]) {
                     [initialBoss setObject:@TRUE forKey:@7.1];
+                    if (shootThePowerup == TRUE) {
+                        [self shootMiniMeMissile];
+                        shootThePowerup = FALSE; }
                     [self shootBullet:3 angle:300];
                     [self shootBullet:3 angle:240];
                 }
@@ -821,6 +832,9 @@ NSMutableDictionary *initialBoss;
             }
             if(gameSegment ==3) {
                 if((framespast % 60) == 0 || ![initialBoss objectForKey:@8.3]) {
+                    if (shootThePowerup == FALSE) {
+                        [self shootMiniMeMissile];
+                        shootThePowerup = TRUE; }
                     [initialBoss setObject:@TRUE forKey:@8.3];
                     [self shootBulletwithPosMult:4 angle:100 xpos:1.5 ypos:1/10];
                     [self shootBulletwithPosMult:4 angle:120 xpos:1.5 ypos:1/10];
@@ -861,6 +875,9 @@ NSMutableDictionary *initialBoss;
             if(gameSegment ==2) {
                 if((framespast % 25) == 0 || ![initialBoss objectForKey:@9.2]) {
                     [initialBoss setObject:@TRUE forKey:@9.2];
+                    if (shootThePowerup == TRUE) {
+                        [self shootSlowDownMissile];
+                        shootThePowerup = FALSE; }
                     [self shootBulletwithPos:3 angle:300 xpos:-100 ypos:0];
                     [self shootBulletwithPos:3 angle:270 xpos:0 ypos:0];
                     [self shootBulletwithPos:3 angle:240 xpos:100 ypos:0];
