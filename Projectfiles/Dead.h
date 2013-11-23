@@ -12,7 +12,8 @@
 {
     UITextField* nameField;
     NSString* score;
-    CGSize size;
     CGPoint screenCenter;
+    CGSize size;
+
 }
 @end
