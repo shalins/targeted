@@ -289,7 +289,7 @@ NSMutableDictionary *initialBoss;
         tut = [CCLabelTTF labelWithString:@"Tap to move" fontName:@"Helvetica" fontSize:30];
         tut.position = ccp(screenCenter.x,screenCenter.y);
         tut.color = ccc3(0, 0, 0);
-        [self addChild:tut];
+        [self addChild: tut];
     }
     if(framespast == 300) {
         [self shootBulletwithPos:1 angle:260 xpos:0 ypos:0];
@@ -903,8 +903,8 @@ NSMutableDictionary *initialBoss;
             }
         }
     }
-//    [self moveBullet];
-//    [self moveFakeBullet];
+    [self moveBullet];
+    [self moveFakeBullet];
 }
 -(void) laughoutloud {
     // L
@@ -1293,15 +1293,8 @@ NSMutableDictionary *initialBoss;
             CCSprite* tempSprite = [slowDowners objectAtIndex:k];
             if ([self isCollidingSphere:tempSprite WithSphere:player] == true) {
                 [self removeChild:tempSprite cleanup:YES];
-                CCLabelTTF *powerupText = [CCLabelTTF labelWithString:@"You Shrunk" fontName:@"Helvetica" fontSize:30];
-                powerupText.position = ccp(screenCenter.x,screenCenter.y);
-                powerupText.color = ccc3(0, 0, 0);
-                [self addChild:powerupText];
+
                 isItSlow = TRUE;
-                dispatch_time_t removeTextTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC));
-                dispatch_after(removeTextTime, dispatch_get_main_queue(), ^(void){
-                    [self removeChild:powerupText];
-                });
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC));
                 dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                     isItSlow = FALSE;
@@ -1309,7 +1302,7 @@ NSMutableDictionary *initialBoss;
             }
         }
         if (isItSlow == TRUE) {
-            speed = speed - 0.7;
+            speed = speed - 0.5;
         }
         float vx = cos(angle * M_PI / 180) * speed;
         float vy = sin(angle * M_PI / 180) * speed;
@@ -1853,6 +1846,7 @@ NSMutableDictionary *initialBoss;
         targetHit = true;
         [self targetHit];
     }
+        
     if (CGRectIntersectsRect(CGRectMake(player.position.x, player.position.y, playerWidth, playerHeight), CGRectMake(shield.position.x, shield.position.y, shield.boundingBox.size.width, shield.boundingBox.size.height)) == true) {
     }
     // For the Mini-Me powerup
@@ -1861,15 +1855,7 @@ NSMutableDictionary *initialBoss;
         CCSprite* tempSprite = [smallerBallers objectAtIndex:j];
         if ([self isCollidingSphere:tempSprite WithSphere:player] == true) {
             [self removeChild:tempSprite cleanup:YES];
-            CCLabelTTF *powerupText = [CCLabelTTF labelWithString:@"You Shrunk" fontName:@"Helvetica" fontSize:30];
-            powerupText.position = ccp(screenCenter.x,screenCenter.y);
-            powerupText.color = ccc3(0, 0, 0);
-            [self addChild:powerupText];
             player.scale = 0.05f;
-            dispatch_time_t removeTextTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC));
-            dispatch_after(removeTextTime, dispatch_get_main_queue(), ^(void){
-                [self removeChild:powerupText];
-            });
             dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC));
             dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                 player.scale = 0.15f;
