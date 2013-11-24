@@ -222,25 +222,6 @@ NSMutableDictionary *initialBoss;
     if (LevelTag.position.y > screenCenter.y * 10) {
         [self removeChild:LevelTag cleanup:YES];
     }
-//    else if (levelTwoLabel.position.y > screenCenter.y * 10) {
-//        [self removeChild:levelTwoLabel];
-//    } else if (levelThreeLabel.position.y > screenCenter.y * 10) {
-//        [self removeChild:levelThreeLabel];
-//    } else if (levelFourLabel.position.y > screenCenter.y * 10) {
-//        [self removeChild:levelFourLabel];
-//    } else if (levelFiveLabel.position.y > screenCenter.y * 10) {
-//        [self removeChild:levelFiveLabel];
-//    } else if (levelSixLabel.position.y > screenCenter.y * 10) {
-//        [self removeChild:levelSixLabel];
-//    } else if (levelSevenLabel.position.y > screenCenter.y * 10) {
-//        [self removeChild:levelSevenLabel];
-//    } else if (levelEightLabel.position.y > screenCenter.y * 10) {
-//        [self removeChild:levelEightLabel];
-//    } else if (levelNineLabel.position.y > screenCenter.y * 10) {
-//        [self removeChild:levelNineLabel];
-//    } else if (levelTenLabel.position.y > screenCenter.y * 10) {
-//        [self removeChild:levelTenLabel];
-//    }
     if(bosstime == false) {
         if(framespast == 300) {
             if(stagespast > -1) {
@@ -1059,7 +1040,6 @@ NSMutableDictionary *initialBoss;
             [[NSUserDefaults standardUserDefaults] setInteger:level forKey:@"boss"];
         }
         if(level == 1) {
-//            [self shootBulletwithPosSlowDown:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
             [self removeChild:streak cleanup:YES];
             if([[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialcompleted"] == FALSE){
                 gameSegment = 0;
@@ -1080,7 +1060,6 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 2) {
-//            [self shootBulletwithPosSmallerBall:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag2.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
             [self addChild:LevelTag z:10000];
@@ -1095,7 +1074,6 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 3) {
-//            [self shootBulletwithPosSlowDown:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
             [self removeChild:streak cleanup:YES];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag3.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
@@ -1111,7 +1089,6 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 4) {
-//            [self shootBulletwithPosSmallerBall:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag4.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
             [self addChild:LevelTag z:10000];
@@ -1126,7 +1103,6 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 5) {
-//            [self shootBulletwithPosSlowDown:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag5.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
             [self addChild:LevelTag z:10000];
@@ -1141,7 +1117,6 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 6) {
-//            [self shootBulletwithPosSmallerBall:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag6.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
             [self addChild:LevelTag z:10000];
@@ -1156,7 +1131,6 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 7) {
-//            [self shootBulletwithPosSlowDown:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag7.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
             [self addChild:LevelTag z:10000];
@@ -1171,7 +1145,6 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 8) {
-//            [self shootBulletwithPosSmallerBall:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag8.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
             [self addChild:LevelTag z:10000];
@@ -1186,7 +1159,6 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 9) {
-//            [self shootBulletwithPosSlowDown:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag9.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
             [self addChild:LevelTag z:10000];
