@@ -903,8 +903,8 @@ NSMutableDictionary *initialBoss;
             }
         }
     }
-    [self moveBullet];
-    [self moveFakeBullet];
+//    [self moveBullet];
+//    [self moveFakeBullet];
 }
 -(void) laughoutloud {
     // L
@@ -1293,15 +1293,15 @@ NSMutableDictionary *initialBoss;
             CCSprite* tempSprite = [slowDowners objectAtIndex:k];
             if ([self isCollidingSphere:tempSprite WithSphere:player] == true) {
                 [self removeChild:tempSprite cleanup:YES];
-//                CCLabelTTF *powerupText = [CCLabelTTF labelWithString:@"You Shrunk" fontName:@"Helvetica" fontSize:30];
-//                powerupText.position = ccp(screenCenter.x,screenCenter.y);
-//                powerupText.color = ccc3(0, 0, 0);
-//                [self addChild:powerupText];
+                CCLabelTTF *powerupText = [CCLabelTTF labelWithString:@"You Shrunk" fontName:@"Helvetica" fontSize:30];
+                powerupText.position = ccp(screenCenter.x,screenCenter.y);
+                powerupText.color = ccc3(0, 0, 0);
+                [self addChild:powerupText];
                 isItSlow = TRUE;
-//                dispatch_time_t removeTextTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC));
-//                dispatch_after(removeTextTime, dispatch_get_main_queue(), ^(void){
-//                    [self removeChild:powerupText];
-//                });
+                dispatch_time_t removeTextTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC));
+                dispatch_after(removeTextTime, dispatch_get_main_queue(), ^(void){
+                    [self removeChild:powerupText];
+                });
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC));
                 dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                     isItSlow = FALSE;
@@ -1861,15 +1861,15 @@ NSMutableDictionary *initialBoss;
         CCSprite* tempSprite = [smallerBallers objectAtIndex:j];
         if ([self isCollidingSphere:tempSprite WithSphere:player] == true) {
             [self removeChild:tempSprite cleanup:YES];
-//            CCLabelTTF *powerupText = [CCLabelTTF labelWithString:@"You Shrunk" fontName:@"Helvetica" fontSize:30];
-//            powerupText.position = ccp(screenCenter.x,screenCenter.y);
-//            powerupText.color = ccc3(0, 0, 0);
-//            [self addChild:powerupText];
+            CCLabelTTF *powerupText = [CCLabelTTF labelWithString:@"You Shrunk" fontName:@"Helvetica" fontSize:30];
+            powerupText.position = ccp(screenCenter.x,screenCenter.y);
+            powerupText.color = ccc3(0, 0, 0);
+            [self addChild:powerupText];
             player.scale = 0.05f;
-//            dispatch_time_t removeTextTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC));
-//            dispatch_after(removeTextTime, dispatch_get_main_queue(), ^(void){
-//                [self removeChild:powerupText];
-//            });
+            dispatch_time_t removeTextTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC));
+            dispatch_after(removeTextTime, dispatch_get_main_queue(), ^(void){
+                [self removeChild:powerupText];
+            });
             dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC));
             dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                 player.scale = 0.15f;
