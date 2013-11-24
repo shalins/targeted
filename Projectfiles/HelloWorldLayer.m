@@ -87,7 +87,7 @@ NSMutableDictionary *initialBoss;
         pausebutton = [CCSprite spriteWithFile:@"pause.png"];
         pausebutton.position = ccp(screenSize.width - 15,screenSize.height - 15);
         pausebutton.scale = 1;
-        [self addChild:pausebutton];
+//        [self addChild:pausebutton];
         // This shows the score
         //        [self initScore];        
         // If it's not endless mode
