@@ -10,6 +10,7 @@
 
 @interface Dead : CCScene
 {
+    int coins;
     UITextField* nameField;
     NSString* score;
     CGPoint screenCenter;

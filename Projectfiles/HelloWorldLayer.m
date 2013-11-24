@@ -54,6 +54,7 @@ NSMutableDictionary *initialBoss;
         NSNumber *leveldata = [[NSUserDefaults standardUserDefaults] objectForKey:@"leveldata"];
         level = [leveldata intValue];
         NSLog(@"Level %i", level);
+        flashTheThing = FALSE;
         shootThePowerup = FALSE;
         isItSlow = false;
         shieldon = false;
@@ -903,8 +904,8 @@ NSMutableDictionary *initialBoss;
             }
         }
     }
-//    [self moveBullet];
-//    [self moveFakeBullet];
+    [self moveBullet];
+    [self moveFakeBullet];
 }
 -(void) laughoutloud {
     // L
@@ -1293,15 +1294,17 @@ NSMutableDictionary *initialBoss;
             CCSprite* tempSprite = [slowDowners objectAtIndex:k];
             if ([self isCollidingSphere:tempSprite WithSphere:player] == true) {
                 [self removeChild:tempSprite cleanup:YES];
-                CCLabelTTF *powerupText = [CCLabelTTF labelWithString:@"You Shrunk" fontName:@"Helvetica" fontSize:30];
-                powerupText.position = ccp(screenCenter.x,screenCenter.y);
-                powerupText.color = ccc3(0, 0, 0);
-                [self addChild:powerupText];
                 isItSlow = TRUE;
-                dispatch_time_t removeTextTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC));
-                dispatch_after(removeTextTime, dispatch_get_main_queue(), ^(void){
-                    [self removeChild:powerupText];
-                });
+                if (tut.parent == nil) {
+                    tut = [CCLabelTTF labelWithString:@"Slow Motion!" fontName:@"Arial" fontSize:30];
+                    tut.position = screenCenter;
+                    tut.color = ccc3(0, 0, 0);
+                    [self addChild:tut z:10000];
+                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC));
+                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                        [self removeChild:tut cleanup:YES];
+                    });
+                }
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC));
                 dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                     isItSlow = FALSE;
@@ -1861,15 +1864,17 @@ NSMutableDictionary *initialBoss;
         CCSprite* tempSprite = [smallerBallers objectAtIndex:j];
         if ([self isCollidingSphere:tempSprite WithSphere:player] == true) {
             [self removeChild:tempSprite cleanup:YES];
-            CCLabelTTF *powerupText = [CCLabelTTF labelWithString:@"You Shrunk" fontName:@"Helvetica" fontSize:30];
-            powerupText.position = ccp(screenCenter.x,screenCenter.y);
-            powerupText.color = ccc3(0, 0, 0);
-            [self addChild:powerupText];
+            if (tut.parent == nil) {
+                tut = [CCLabelTTF labelWithString:@"You Shrunk!" fontName:@"Arial" fontSize:30];
+                tut.position = screenCenter;
+                [self addChild:tut z:10000];
+                tut.color = ccc3(0, 0, 0);
+                dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC));
+                dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                    [self removeChild:tut cleanup:YES];
+                });
+            }
             player.scale = 0.05f;
-            dispatch_time_t removeTextTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC));
-            dispatch_after(removeTextTime, dispatch_get_main_queue(), ^(void){
-                [self removeChild:powerupText];
-            });
             dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC));
             dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                 player.scale = 0.15f;
@@ -1975,7 +1980,6 @@ NSMutableDictionary *initialBoss;
     CCSequence *showLabelSeq = [CCSequence actions:addVisibility, delayInvis, addInvis, nil];
     [self runAction:showLabelSeq];
 }
-
 -(void) makeFlashLabelVisible {
     tut.visible = TRUE;
 }
@@ -2064,13 +2068,13 @@ NSMutableDictionary *initialBoss;
     opaqueBG.position = screenCenter;
     [self addChild:opaqueBG z:10000];
     
-    CCLabelTTF *three = [CCLabelTTF labelWithString:@"3" fontName:@"Helvetica" fontSize:100];
+    CCLabelTTF *three = [CCLabelTTF labelWithString:@"3" fontName:@"HelveticaNeue-Light" fontSize:100];
     three.position = ccp(screenCenter.x, screenCenter.y);
-    CCLabelTTF *two = [CCLabelTTF labelWithString:@"2" fontName:@"Helvetica" fontSize:100];
+    CCLabelTTF *two = [CCLabelTTF labelWithString:@"2" fontName:@"HelveticaNeue-Light" fontSize:100];
     two.position = ccp(screenCenter.x, screenCenter.y);
-    CCLabelTTF *one = [CCLabelTTF labelWithString:@"1" fontName:@"Helvetica" fontSize:100];
+    CCLabelTTF *one = [CCLabelTTF labelWithString:@"1" fontName:@"HelveticaNeue-Light" fontSize:100];
     one.position = ccp(screenCenter.x, screenCenter.y);
-    CCLabelTTF *go = [CCLabelTTF labelWithString:@"New Level!" fontName:@"Helvetica" fontSize:100];
+    CCLabelTTF *go = [CCLabelTTF labelWithString:@"Go!" fontName:@"HelveticaNeue-Light" fontSize:100];
     go.position = ccp(screenCenter.x, screenCenter.y);
     
     dispatch_time_t countdownTime1 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC));

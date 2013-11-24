@@ -33,6 +33,8 @@
             [node pauseSchedulerAndActions];
         }
         
+        coins = [[NSUserDefaults standardUserDefaults] integerForKey:@"coins"];
+        
         CCSprite* background = [CCSprite spriteWithFile:@"gameoverbg.png"];
         background.position = ccp(screenCenter.x,screenCenter.y);
         if ([[CCDirector sharedDirector] winSizeInPixels].height == 1136){
@@ -54,9 +56,9 @@
         //        [self addChild:gameOver2 z:100 tag:100];
         
         // Display # of coins in stash
-        NSString* world = [NSString stringWithFormat:@"...continue for coins."];
+        NSString* world = [NSString stringWithFormat:@"you have %i coins.", coins];
         CCLabelTTF *coinLabel = [CCLabelTTF labelWithString:world fontName:@"HelveticaNeue-Medium" fontSize:25];
-        coinLabel.position = ccp(screenCenter.x, screenCenter.y * 1.55);
+        coinLabel.position = ccp(screenCenter.x, screenCenter.y * 1.3);
         [self addChild:coinLabel z:9011];
         
         

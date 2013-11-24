@@ -70,6 +70,7 @@
     CCSprite* smileyface;
     CCLayerColor* colorLayer;
     int level;
+    BOOL flashTheThing;
     BOOL isItSlow;
     BOOL shootThePowerup;
     bool bosstime;
