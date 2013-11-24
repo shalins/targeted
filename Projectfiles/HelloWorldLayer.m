@@ -181,65 +181,66 @@ NSMutableDictionary *initialBoss;
             [self removeChild:temp cleanup:YES];
             [smileyFaces removeObjectAtIndex:i]; }
     }
-//    for(NSUInteger i = 0; i < [smallerBallers count]; i++) {
-//        CCSprite* shalinbullet = [smallerBallers objectAtIndex:i];
-//        if(shalinbullet.position.x > screenSize.width + 50) {
-//            Bullet *temp = [smallerBallers objectAtIndex:i];
-//            [self removeChild:temp cleanup:YES];
-//            [smallerBallers removeObjectAtIndex:i];        }
-//        if(shalinbullet.position.x < (screenSize.width / 10) - 50) {
-//            Bullet *temp = [smallerBallers objectAtIndex:i];
-//            [self removeChild:temp cleanup:YES];
-//            [smallerBallers removeObjectAtIndex:i];        }
-//        if(shalinbullet.position.y < -20) {
-//            Bullet *temp = [smallerBallers objectAtIndex:i];
-//            [self removeChild:temp cleanup:YES];
-//            [smallerBallers removeObjectAtIndex:i]; }
-//        if(shalinbullet.position.y > screenCenter.y * 3) {
-//            Bullet *temp = [smallerBallers objectAtIndex:i];
-//            [self removeChild:temp cleanup:YES];
-//            [smallerBallers removeObjectAtIndex:i]; }
-//    } for(NSUInteger i = 0; i < [slowDowners count]; i++) {
-//        CCSprite* shalinbullet = [slowDowners objectAtIndex:i];
-//        if(shalinbullet.position.x > screenSize.width + 50) {
-//            Bullet *temp = [slowDowners objectAtIndex:i];
-//            [self removeChild:temp cleanup:YES];
-//            [slowDowners removeObjectAtIndex:i];        }
-//        if(shalinbullet.position.x < (screenSize.width / 10) - 50) {
-//            Bullet *temp = [slowDowners objectAtIndex:i];
-//            [self removeChild:temp cleanup:YES];
-//            [slowDowners removeObjectAtIndex:i];        }
-//        if(shalinbullet.position.y < -20) {
-//            Bullet *temp = [slowDowners objectAtIndex:i];
-//            [self removeChild:temp cleanup:YES];
-//            [slowDowners removeObjectAtIndex:i]; }
-//        if(shalinbullet.position.y > screenCenter.y * 3) {
-//            Bullet *temp = [slowDowners objectAtIndex:i];
-//            [self removeChild:temp cleanup:YES];
-//            [slowDowners removeObjectAtIndex:i]; }
-//    }
-    // Remove the level labels after they leave the screen
-    if (levelOneLabel.position.y < 0) {
-        [self removeChild:levelOneLabel];
-    } else if (levelTwoLabel.position.y < 0) {
-        [self removeChild:levelTwoLabel];
-    } else if (levelThreeLabel.position.y < 0) {
-        [self removeChild:levelThreeLabel];
-    } else if (levelFourLabel.position.y < 0) {
-        [self removeChild:levelFourLabel];
-    } else if (levelFiveLabel.position.y < 0) {
-        [self removeChild:levelFiveLabel];
-    } else if (levelSixLabel.position.y < 0) {
-        [self removeChild:levelSixLabel];
-    } else if (levelSevenLabel.position.y < 0) {
-        [self removeChild:levelSevenLabel];
-    } else if (levelEightLabel.position.y < 0) {
-        [self removeChild:levelEightLabel];
-    } else if (levelNineLabel.position.y < 0) {
-        [self removeChild:levelNineLabel];
-    } else if (levelTenLabel.position.y < 0) {
-        [self removeChild:levelTenLabel];
+    for(NSUInteger i = 0; i < [smallerBallers count]; i++) {
+        CCSprite* shalinbullet = [smallerBallers objectAtIndex:i];
+        if(shalinbullet.position.x > screenSize.width + 50) {
+            Bullet *temp = [smallerBallers objectAtIndex:i];
+            [self removeChild:temp cleanup:YES];
+            [smallerBallers removeObjectAtIndex:i];        }
+        if(shalinbullet.position.x < (screenSize.width / 10) - 50) {
+            Bullet *temp = [smallerBallers objectAtIndex:i];
+            [self removeChild:temp cleanup:YES];
+            [smallerBallers removeObjectAtIndex:i];        }
+        if(shalinbullet.position.y < -20) {
+            Bullet *temp = [smallerBallers objectAtIndex:i];
+            [self removeChild:temp cleanup:YES];
+            [smallerBallers removeObjectAtIndex:i]; }
+        if(shalinbullet.position.y > screenCenter.y * 3) {
+            Bullet *temp = [smallerBallers objectAtIndex:i];
+            [self removeChild:temp cleanup:YES];
+            [smallerBallers removeObjectAtIndex:i]; }
+    } for(NSUInteger i = 0; i < [slowDowners count]; i++) {
+        CCSprite* shalinbullet = [slowDowners objectAtIndex:i];
+        if(shalinbullet.position.x > screenSize.width + 50) {
+            Bullet *temp = [slowDowners objectAtIndex:i];
+            [self removeChild:temp cleanup:YES];
+            [slowDowners removeObjectAtIndex:i];        }
+        if(shalinbullet.position.x < (screenSize.width / 10) - 50) {
+            Bullet *temp = [slowDowners objectAtIndex:i];
+            [self removeChild:temp cleanup:YES];
+            [slowDowners removeObjectAtIndex:i];        }
+        if(shalinbullet.position.y < -20) {
+            Bullet *temp = [slowDowners objectAtIndex:i];
+            [self removeChild:temp cleanup:YES];
+            [slowDowners removeObjectAtIndex:i]; }
+        if(shalinbullet.position.y > screenCenter.y * 3) {
+            Bullet *temp = [slowDowners objectAtIndex:i];
+            [self removeChild:temp cleanup:YES];
+            [slowDowners removeObjectAtIndex:i]; }
     }
+    // Remove the level labels after they leave the screen
+    if (LevelTag.position.y > screenCenter.y * 10) {
+        [self removeChild:LevelTag cleanup:YES];
+    }
+//    else if (levelTwoLabel.position.y > screenCenter.y * 10) {
+//        [self removeChild:levelTwoLabel];
+//    } else if (levelThreeLabel.position.y > screenCenter.y * 10) {
+//        [self removeChild:levelThreeLabel];
+//    } else if (levelFourLabel.position.y > screenCenter.y * 10) {
+//        [self removeChild:levelFourLabel];
+//    } else if (levelFiveLabel.position.y > screenCenter.y * 10) {
+//        [self removeChild:levelFiveLabel];
+//    } else if (levelSixLabel.position.y > screenCenter.y * 10) {
+//        [self removeChild:levelSixLabel];
+//    } else if (levelSevenLabel.position.y > screenCenter.y * 10) {
+//        [self removeChild:levelSevenLabel];
+//    } else if (levelEightLabel.position.y > screenCenter.y * 10) {
+//        [self removeChild:levelEightLabel];
+//    } else if (levelNineLabel.position.y > screenCenter.y * 10) {
+//        [self removeChild:levelNineLabel];
+//    } else if (levelTenLabel.position.y > screenCenter.y * 10) {
+//        [self removeChild:levelTenLabel];
+//    }
     if(bosstime == false) {
         if(framespast == 300) {
             if(stagespast > -1) {
@@ -1042,11 +1043,10 @@ NSMutableDictionary *initialBoss;
     [self shootBulletwithPosSmallerBall:1 angle:270];
 }
 -(void) dropEffect:(CCSprite *) spriteToHaveTheEffectOn {
-      id dropdown = [CCMoveTo actionWithDuration:0.9f position:ccp(screenCenter.x, screenCenter.y)];
-//      id scaleUp = [CCScaleTo actionWithDuration:5.0f scale:0.6f];
-      id scaleUp = [CCDelayTime actionWithDuration:3.0f];
-      id dropdownagain = [CCMoveTo actionWithDuration:0.9f position:ccp(screenCenter.x, screenCenter.y-1000)];
-      [spriteToHaveTheEffectOn runAction:[CCSequence actions:dropdown, scaleUp, dropdownagain, nil]];
+      id dropdown = [CCMoveTo actionWithDuration:1.5f position:ccp(screenCenter.x, screenCenter.y*1.8)];
+      id staythere = [CCDelayTime actionWithDuration:3.0f];
+      id gobackup = [CCMoveTo actionWithDuration:4.5f position:ccp(screenCenter.x, screenCenter.y * 11)];
+      [spriteToHaveTheEffectOn runAction:[CCSequence actions:dropdown, staythere, gobackup, nil]];
 }
 -(void) initBoss {
     if(bosstime == true) {
@@ -1065,12 +1065,10 @@ NSMutableDictionary *initialBoss;
                 gameSegment = 0;
             } else if([[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialcompleted"] == TRUE) {
                 gameSegment = 1;
-                levelOneLabel = [CCLabelTTF labelWithString:@"Level One!" fontName:@"Arial" fontSize:60];
-                levelOneLabel.position = ccp(screenSize.width/2,screenSize.height*3);
-                levelOneLabel.color = ccc3(0, 0, 0);
-                levelOneLabel.scale = 0.6;
-                [self addChild:levelOneLabel];
-                [self dropEffect:levelOneLabel];
+                LevelTag = [CCSprite spriteWithFile:@"LevelTag1.png"];
+                LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
+                [self addChild:LevelTag z:10000];
+                [self dropEffect:LevelTag];
             }
             int x = screenCenter.x;
             int y = screenCenter.y * 1.6;
@@ -1083,12 +1081,10 @@ NSMutableDictionary *initialBoss;
         }
         else if(level == 2) {
 //            [self shootBulletwithPosSmallerBall:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
-            levelTwoLabel = [CCLabelTTF labelWithString:@"Level Two!" fontName:@"Arial" fontSize:60];
-            levelTwoLabel.position = ccp(screenSize.width/2,screenSize.height*3);
-            levelTwoLabel.color = ccc3(0, 0, 0);
-            levelTwoLabel.scale = 0.6;
-            [self addChild:levelTwoLabel];
-            [self dropEffect:levelTwoLabel];
+            LevelTag = [CCSprite spriteWithFile:@"LevelTag2.png"];
+            LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
+            [self addChild:LevelTag z:10000];
+            [self dropEffect:LevelTag];
             int x = screenCenter.x;
             int y = screenCenter.y * 1.6;
             boss = [CCSprite spriteWithFile:@"w_obama.png"];
@@ -1101,12 +1097,10 @@ NSMutableDictionary *initialBoss;
         else if(level == 3) {
 //            [self shootBulletwithPosSlowDown:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
             [self removeChild:streak cleanup:YES];
-            levelThreeLabel = [CCLabelTTF labelWithString:@"Level Three!" fontName:@"Arial" fontSize:60];
-            levelThreeLabel.position = ccp(screenSize.width/2,screenSize.height*3);
-            levelThreeLabel.color = ccc3(0, 0, 0);
-            levelThreeLabel.scale = 0.6;
-            [self addChild:levelThreeLabel];
-            [self dropEffect:levelThreeLabel];
+            LevelTag = [CCSprite spriteWithFile:@"LevelTag3.png"];
+            LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
+            [self addChild:LevelTag z:10000];
+            [self dropEffect:LevelTag];
             int x = screenCenter.x;
             int y = screenCenter.y * 1.6;
             boss = [CCSprite spriteWithFile:@"Glowing_Blue_Orb.png"];
@@ -1118,12 +1112,10 @@ NSMutableDictionary *initialBoss;
         }
         else if(level == 4) {
 //            [self shootBulletwithPosSmallerBall:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
-            levelFourLabel = [CCLabelTTF labelWithString:@"Level Four!" fontName:@"Arial" fontSize:60];
-            levelFourLabel.position = ccp(screenSize.width/2,screenSize.height*3);
-            levelFourLabel.color = ccc3(0, 0, 0);
-            levelFourLabel.scale = 0.6;
-            [self addChild:levelFourLabel];
-            [self dropEffect:levelFourLabel];
+            LevelTag = [CCSprite spriteWithFile:@"LevelTag4.png"];
+            LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
+            [self addChild:LevelTag z:10000];
+            [self dropEffect:LevelTag];
             int x = screenCenter.x;
             int y = screenCenter.y * 1.6;
             boss = [CCSprite spriteWithFile:@"target.png"];
@@ -1135,12 +1127,10 @@ NSMutableDictionary *initialBoss;
         }
         else if(level == 5) {
 //            [self shootBulletwithPosSlowDown:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
-            levelFiveLabel = [CCLabelTTF labelWithString:@"Level Five!" fontName:@"Arial" fontSize:60];
-            levelFiveLabel.position = ccp(screenSize.width/2,screenSize.height*3);
-            levelFiveLabel.color = ccc3(0, 0, 0);
-            levelFiveLabel.scale = 0.6;
-            [self addChild:levelFiveLabel];
-            [self dropEffect:levelFiveLabel];
+            LevelTag = [CCSprite spriteWithFile:@"LevelTag5.png"];
+            LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
+            [self addChild:LevelTag z:10000];
+            [self dropEffect:LevelTag];
             int x = screenCenter.x;
             int y = screenCenter.y * 1.6;
             boss = [CCSprite spriteWithFile:@"download.png"];
@@ -1152,12 +1142,10 @@ NSMutableDictionary *initialBoss;
         }
         else if(level == 6) {
 //            [self shootBulletwithPosSmallerBall:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
-            levelSixLabel = [CCLabelTTF labelWithString:@"Level Six!" fontName:@"Arial" fontSize:60];
-            levelSixLabel.position = ccp(screenSize.width/2,screenSize.height*3);
-            levelSixLabel.color = ccc3(0, 0, 0);
-            levelSixLabel.scale = 0.6;
-            [self addChild:levelSixLabel];
-            [self dropEffect:levelSixLabel];
+            LevelTag = [CCSprite spriteWithFile:@"LevelTag6.png"];
+            LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
+            [self addChild:LevelTag z:10000];
+            [self dropEffect:LevelTag];
             int x = screenCenter.x;
             int y = screenCenter.y * 1.6;
             boss = [CCSprite spriteWithFile:@"target.png"];
@@ -1169,12 +1157,10 @@ NSMutableDictionary *initialBoss;
         }
         else if(level == 7) {
 //            [self shootBulletwithPosSlowDown:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
-            levelSixLabel = [CCLabelTTF labelWithString:@"Level Seven!" fontName:@"Arial" fontSize:60];
-            levelSixLabel.position = ccp(screenSize.width/2,screenSize.height*3);
-            levelSixLabel.color = ccc3(0, 0, 0);
-            levelSixLabel.scale = 0.6;
-            [self addChild:levelSixLabel];
-            [self dropEffect:levelSixLabel];
+            LevelTag = [CCSprite spriteWithFile:@"LevelTag7.png"];
+            LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
+            [self addChild:LevelTag z:10000];
+            [self dropEffect:LevelTag];
             int x = screenCenter.x;
             int y = screenCenter.y * 1.6;
             boss = [CCSprite spriteWithFile:@"target.png"];
@@ -1186,12 +1172,10 @@ NSMutableDictionary *initialBoss;
         }
         else if(level == 8) {
 //            [self shootBulletwithPosSmallerBall:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
-            levelSixLabel = [CCLabelTTF labelWithString:@"Level Eight!" fontName:@"Arial" fontSize:60];
-            levelSixLabel.position = ccp(screenSize.width/2,screenSize.height*3);
-            levelSixLabel.color = ccc3(0, 0, 0);
-            levelSixLabel.scale = 0.6;
-            [self addChild:levelSixLabel];
-            [self dropEffect:levelSixLabel];
+            LevelTag = [CCSprite spriteWithFile:@"LevelTag8.png"];
+            LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
+            [self addChild:LevelTag z:10000];
+            [self dropEffect:LevelTag];
             int x = screenCenter.x;
             int y = screenCenter.y * 1.6;
             boss = [CCSprite spriteWithFile:@"target.png"];
@@ -1203,12 +1187,10 @@ NSMutableDictionary *initialBoss;
         }
         else if(level == 9) {
 //            [self shootBulletwithPosSlowDown:1 angle:270 xpos:screenCenter.x ypos:screenCenter.y * 1.5];
-            levelSixLabel = [CCLabelTTF labelWithString:@"Level Nine!" fontName:@"Arial" fontSize:60];
-            levelSixLabel.position = ccp(screenSize.width/2,screenSize.height*3);
-            levelSixLabel.color = ccc3(0, 0, 0);
-            levelSixLabel.scale = 0.6;
-            [self addChild:levelSixLabel];
-            [self dropEffect:levelSixLabel];
+            LevelTag = [CCSprite spriteWithFile:@"LevelTag9.png"];
+            LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
+            [self addChild:LevelTag z:10000];
+            [self dropEffect:LevelTag];
             int x = screenCenter.x;
             int y = screenCenter.y * 1.6;
             boss = [CCSprite spriteWithFile:@"target.png"];

@@ -44,7 +44,7 @@ CCLabelBMFont *coinsLabel;
         CCSprite* header = [CCSprite spriteWithFile:@"store.png"];
         header.position = ccp(screenSize.width/2,screenSize.height / 1.2);
         header.scale = 1.3;
-        [self addChild:header];
+//        [self addChild:header];
         
         CCMenu *moneyVendor = [CCMenu menuWithItems:buyMoney1, buyMoney2, buyMoney3, nil];
         moneyVendor.position = ccp(screenSize.width/2, screenSize.height/2 - 45);

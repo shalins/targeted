@@ -27,16 +27,6 @@
 
 @interface HelloWorldLayer : CCLayer
 {
-    CCLabelTTF *levelOneLabel;
-    CCLabelTTF *levelTwoLabel;
-    CCLabelTTF *levelThreeLabel;
-    CCLabelTTF *levelFourLabel;
-    CCLabelTTF *levelFiveLabel;
-    CCLabelTTF *levelSixLabel;
-    CCLabelTTF *levelSevenLabel;
-    CCLabelTTF *levelEightLabel;
-    CCLabelTTF *levelNineLabel;
-    CCLabelTTF *levelTenLabel;
 	NSString* helloWorldString;
 	NSString* helloWorldFontName;
 	int helloWorldFontSize;
@@ -66,6 +56,7 @@
     CCLabelTTF* tut;
     NSString* score;
     int intScore;
+    CCSprite *LevelTag;
     CCSprite* fireball;
     CCSprite* smileyface;
     CCLayerColor* colorLayer;

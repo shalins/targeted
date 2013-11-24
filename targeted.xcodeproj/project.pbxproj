@@ -99,6 +99,24 @@
 		388B19021841AFC90030929E /* restart-sel-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B18FA1841AFC90030929E /* restart-sel-hd.png */; };
 		388B19031841AFC90030929E /* restart-sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B18FB1841AFC90030929E /* restart-sel.png */; };
 		388B19041841AFC90030929E /* restart.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B18FC1841AFC90030929E /* restart.png */; };
+		388B19171841DCC60030929E /* LevelTag1-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B19051841DCC60030929E /* LevelTag1-hd.png */; };
+		388B19181841DCC60030929E /* LevelTag1.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B19061841DCC60030929E /* LevelTag1.png */; };
+		388B19191841DCC60030929E /* LevelTag2-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B19071841DCC60030929E /* LevelTag2-hd.png */; };
+		388B191A1841DCC60030929E /* LevelTag2.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B19081841DCC60030929E /* LevelTag2.png */; };
+		388B191B1841DCC60030929E /* LevelTag3-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B19091841DCC60030929E /* LevelTag3-hd.png */; };
+		388B191C1841DCC60030929E /* LevelTag3.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B190A1841DCC60030929E /* LevelTag3.png */; };
+		388B191D1841DCC60030929E /* LevelTag4-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B190B1841DCC60030929E /* LevelTag4-hd.png */; };
+		388B191E1841DCC60030929E /* LevelTag4.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B190C1841DCC60030929E /* LevelTag4.png */; };
+		388B191F1841DCC60030929E /* LevelTag5-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B190D1841DCC60030929E /* LevelTag5-hd.png */; };
+		388B19201841DCC60030929E /* LevelTag5.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B190E1841DCC60030929E /* LevelTag5.png */; };
+		388B19211841DCC60030929E /* LevelTag6-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B190F1841DCC60030929E /* LevelTag6-hd.png */; };
+		388B19221841DCC60030929E /* LevelTag6.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B19101841DCC60030929E /* LevelTag6.png */; };
+		388B19231841DCC60030929E /* LevelTag7-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B19111841DCC60030929E /* LevelTag7-hd.png */; };
+		388B19241841DCC60030929E /* LevelTag7.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B19121841DCC60030929E /* LevelTag7.png */; };
+		388B19251841DCC60030929E /* LevelTag8-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B19131841DCC60030929E /* LevelTag8-hd.png */; };
+		388B19261841DCC60030929E /* LevelTag8.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B19141841DCC60030929E /* LevelTag8.png */; };
+		388B19271841DCC60030929E /* LevelTag9-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B19151841DCC60030929E /* LevelTag9-hd.png */; };
+		388B19281841DCC60030929E /* LevelTag9.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B19161841DCC60030929E /* LevelTag9.png */; };
 		388D6C5417B1C19B00BD6F07 /* b2sq.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 388D6BA317B1C19B00BD6F07 /* b2sq.ttf */; };
 		388D6C5517B1C19B00BD6F07 /* b2sqol1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 388D6BA417B1C19B00BD6F07 /* b2sqol1.ttf */; };
 		388D6C5617B1C19B00BD6F07 /* b2sqol2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 388D6BA517B1C19B00BD6F07 /* b2sqol2.ttf */; };
@@ -495,6 +513,24 @@
 		388B18FA1841AFC90030929E /* restart-sel-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "restart-sel-hd.png"; sourceTree = "<group>"; };
 		388B18FB1841AFC90030929E /* restart-sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "restart-sel.png"; sourceTree = "<group>"; };
 		388B18FC1841AFC90030929E /* restart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restart.png; sourceTree = "<group>"; };
+		388B19051841DCC60030929E /* LevelTag1-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LevelTag1-hd.png"; sourceTree = "<group>"; };
+		388B19061841DCC60030929E /* LevelTag1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LevelTag1.png; sourceTree = "<group>"; };
+		388B19071841DCC60030929E /* LevelTag2-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LevelTag2-hd.png"; sourceTree = "<group>"; };
+		388B19081841DCC60030929E /* LevelTag2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LevelTag2.png; sourceTree = "<group>"; };
+		388B19091841DCC60030929E /* LevelTag3-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LevelTag3-hd.png"; sourceTree = "<group>"; };
+		388B190A1841DCC60030929E /* LevelTag3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LevelTag3.png; sourceTree = "<group>"; };
+		388B190B1841DCC60030929E /* LevelTag4-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LevelTag4-hd.png"; sourceTree = "<group>"; };
+		388B190C1841DCC60030929E /* LevelTag4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LevelTag4.png; sourceTree = "<group>"; };
+		388B190D1841DCC60030929E /* LevelTag5-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LevelTag5-hd.png"; sourceTree = "<group>"; };
+		388B190E1841DCC60030929E /* LevelTag5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LevelTag5.png; sourceTree = "<group>"; };
+		388B190F1841DCC60030929E /* LevelTag6-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LevelTag6-hd.png"; sourceTree = "<group>"; };
+		388B19101841DCC60030929E /* LevelTag6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LevelTag6.png; sourceTree = "<group>"; };
+		388B19111841DCC60030929E /* LevelTag7-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LevelTag7-hd.png"; sourceTree = "<group>"; };
+		388B19121841DCC60030929E /* LevelTag7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LevelTag7.png; sourceTree = "<group>"; };
+		388B19131841DCC60030929E /* LevelTag8-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LevelTag8-hd.png"; sourceTree = "<group>"; };
+		388B19141841DCC60030929E /* LevelTag8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LevelTag8.png; sourceTree = "<group>"; };
+		388B19151841DCC60030929E /* LevelTag9-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LevelTag9-hd.png"; sourceTree = "<group>"; };
+		388B19161841DCC60030929E /* LevelTag9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LevelTag9.png; sourceTree = "<group>"; };
 		388D6BA317B1C19B00BD6F07 /* b2sq.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = b2sq.ttf; sourceTree = "<group>"; };
 		388D6BA417B1C19B00BD6F07 /* b2sqol1.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = b2sqol1.ttf; sourceTree = "<group>"; };
 		388D6BA517B1C19B00BD6F07 /* b2sqol2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = b2sqol2.ttf; sourceTree = "<group>"; };
@@ -1086,6 +1122,24 @@
 		388D6BA817B1C19B00BD6F07 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				388B19051841DCC60030929E /* LevelTag1-hd.png */,
+				388B19061841DCC60030929E /* LevelTag1.png */,
+				388B19071841DCC60030929E /* LevelTag2-hd.png */,
+				388B19081841DCC60030929E /* LevelTag2.png */,
+				388B19091841DCC60030929E /* LevelTag3-hd.png */,
+				388B190A1841DCC60030929E /* LevelTag3.png */,
+				388B190B1841DCC60030929E /* LevelTag4-hd.png */,
+				388B190C1841DCC60030929E /* LevelTag4.png */,
+				388B190D1841DCC60030929E /* LevelTag5-hd.png */,
+				388B190E1841DCC60030929E /* LevelTag5.png */,
+				388B190F1841DCC60030929E /* LevelTag6-hd.png */,
+				388B19101841DCC60030929E /* LevelTag6.png */,
+				388B19111841DCC60030929E /* LevelTag7-hd.png */,
+				388B19121841DCC60030929E /* LevelTag7.png */,
+				388B19131841DCC60030929E /* LevelTag8-hd.png */,
+				388B19141841DCC60030929E /* LevelTag8.png */,
+				388B19151841DCC60030929E /* LevelTag9-hd.png */,
+				388B19161841DCC60030929E /* LevelTag9.png */,
 				3892C4EE180A7BAC00E2765E /* smileyface-hd.png */,
 				3892C4EF180A7BAC00E2765E /* smileyface.png */,
 				3892C4EA180A3CCF00E2765E /* fire-hd.png */,
@@ -1600,6 +1654,7 @@
 				84F92D291784C22400500453 /* FBLoginBackgroundPortraitDark.png in Resources */,
 				84F92D2A1784C22400500453 /* FBLoginButton.png in Resources */,
 				84F92D2B1784C22400500453 /* FBLoginButton@2x.png in Resources */,
+				388B19201841DCC60030929E /* LevelTag5.png in Resources */,
 				84F92D2C1784C22400500453 /* FBLoginButtonPressed.png in Resources */,
 				84F92D2D1784C22400500453 /* FBLoginButtonPressed@2x.png in Resources */,
 				84F92D2E1784C22400500453 /* FBNoThanksButton.png in Resources */,
@@ -1620,6 +1675,7 @@
 				84F92D3C1784C22400500453 /* MGWUClose.png in Resources */,
 				84F92D3D1784C22400500453 /* MGWUClose@2x.png in Resources */,
 				84F92D3E1784C22400500453 /* MGWUFacebookLoginLandscape.nib in Resources */,
+				388B19181841DCC60030929E /* LevelTag1.png in Resources */,
 				84F92D3F1784C22400500453 /* MGWUFacebookLoginLandscapeDark.nib in Resources */,
 				84F92D401784C22400500453 /* MGWUFacebookLoginPortrait.nib in Resources */,
 				84F92D411784C22400500453 /* MGWUFacebookLoginPortraitDark.nib in Resources */,
@@ -1627,6 +1683,7 @@
 				84F92D431784C22400500453 /* mgwuLogo@2x.png in Resources */,
 				84F92D441784C22400500453 /* mgwuLogoDark.png in Resources */,
 				84F92D451784C22400500453 /* mgwuLogoDark@2x.png in Resources */,
+				388B19231841DCC60030929E /* LevelTag7-hd.png in Resources */,
 				84F92D461784C22400500453 /* mgwuPlaceholderIcon.png in Resources */,
 				388B19041841AFC90030929E /* restart.png in Resources */,
 				84F92D471784C22400500453 /* mgwuPlaceholderIcon@2x.png in Resources */,
@@ -1644,6 +1701,7 @@
 				84825C0317A858D800D8FA2D /* Default.png in Resources */,
 				84825C0517A858E000D8FA2D /* Default@2x.png in Resources */,
 				84825C0717A858E400D8FA2D /* Default-568h@2x.png in Resources */,
+				388B19171841DCC60030929E /* LevelTag1-hd.png in Resources */,
 				388D6C5417B1C19B00BD6F07 /* b2sq.ttf in Resources */,
 				388D6C5517B1C19B00BD6F07 /* b2sqol1.ttf in Resources */,
 				388D6C5617B1C19B00BD6F07 /* b2sqol2.ttf in Resources */,
@@ -1682,6 +1740,7 @@
 				388D6D3617B3254100BD6F07 /* derp-hd.png in Resources */,
 				388D6D3717B3254100BD6F07 /* derp.png in Resources */,
 				388D6D4217B3254100BD6F07 /* sunbg-hd.png in Resources */,
+				388B19241841DCC60030929E /* LevelTag7.png in Resources */,
 				388D6D4317B3254100BD6F07 /* sunbg.png in Resources */,
 				388D6D4417B3254100BD6F07 /* sunbgip5-hd.png in Resources */,
 				388D6D4A17B3254100BD6F07 /* yellowback-hd.png in Resources */,
@@ -1690,9 +1749,11 @@
 				388D6D7C17B3256000BD6F07 /* back-ipadhd.png in Resources */,
 				388D6D7D17B3256000BD6F07 /* back-sel-hd.png in Resources */,
 				388D6D7E17B3256000BD6F07 /* back-sel-ipadhd.png in Resources */,
+				388B19211841DCC60030929E /* LevelTag6-hd.png in Resources */,
 				388D6D7F17B3256000BD6F07 /* back-sel.png in Resources */,
 				388D6D8017B3256000BD6F07 /* back.png in Resources */,
 				388B19021841AFC90030929E /* restart-sel-hd.png in Resources */,
+				388B19261841DCC60030929E /* LevelTag8.png in Resources */,
 				388D6D8117B3256000BD6F07 /* button-hd.png in Resources */,
 				388D6D8217B3256000BD6F07 /* button-ipadhd.png in Resources */,
 				388D6D8317B3256000BD6F07 /* button-sel-hd.png in Resources */,
@@ -1707,7 +1768,9 @@
 				388D6D8C17B3256000BD6F07 /* highscores-sel-hd.png in Resources */,
 				388D6D8D17B3256000BD6F07 /* highscores-sel-ipadhd.png in Resources */,
 				388D6D8E17B3256000BD6F07 /* highscores-sel.png in Resources */,
+				388B191E1841DCC60030929E /* LevelTag4.png in Resources */,
 				388D6D8F17B3256000BD6F07 /* highscores.png in Resources */,
+				388B191C1841DCC60030929E /* LevelTag3.png in Resources */,
 				388D6D9017B3256000BD6F07 /* mgwu-hd.png in Resources */,
 				388D6D9117B3256000BD6F07 /* mgwu-ipadhd.png in Resources */,
 				388D6D9217B3256000BD6F07 /* mgwu-sel-hd.png in Resources */,
@@ -1727,6 +1790,7 @@
 				388D6DA217B3256000BD6F07 /* play-sel.png in Resources */,
 				388D6DA317B3256000BD6F07 /* play.png in Resources */,
 				388D6DA417B3256000BD6F07 /* reset-hd.png in Resources */,
+				388B19221841DCC60030929E /* LevelTag6.png in Resources */,
 				388B19001841AFC90030929E /* backarrow.png in Resources */,
 				388D6DA517B3256000BD6F07 /* reset-ipadhd.png in Resources */,
 				388D6DA617B3256000BD6F07 /* reset-sel-hd.png in Resources */,
@@ -1750,6 +1814,7 @@
 				388D6DD017B3259400BD6F07 /* flower.png in Resources */,
 				388D6DD117B3259400BD6F07 /* Glowing_Blue_Orb-hd.png in Resources */,
 				388D6DD217B3259400BD6F07 /* Glowing_Blue_Orb.png in Resources */,
+				388B19271841DCC60030929E /* LevelTag9-hd.png in Resources */,
 				388D6DD317B3259400BD6F07 /* greenfield-hd.png in Resources */,
 				388D6DD417B3259400BD6F07 /* greenfield.png in Resources */,
 				388D6DD517B3259400BD6F07 /* orange-hd.png in Resources */,
@@ -1758,6 +1823,7 @@
 				388D6DD817B3259400BD6F07 /* shield-ipadhd.png in Resources */,
 				388D6DD917B3259400BD6F07 /* shield.png in Resources */,
 				388D6DDA17B3259400BD6F07 /* target-hd.png in Resources */,
+				388B19191841DCC60030929E /* LevelTag2-hd.png in Resources */,
 				388D6DDB17B3259400BD6F07 /* target.png in Resources */,
 				388D6DDC17B3259400BD6F07 /* w_obama-hd.png in Resources */,
 				388D6DDD17B3259400BD6F07 /* w_obama.png in Resources */,
@@ -1798,6 +1864,7 @@
 				38FF6CBD17ED70DC002B539D /* background1.png in Resources */,
 				388B19031841AFC90030929E /* restart-sel.png in Resources */,
 				3892C4EC180A3CCF00E2765E /* fire-hd.png in Resources */,
+				388B191A1841DCC60030929E /* LevelTag2.png in Resources */,
 				3892C4ED180A3CCF00E2765E /* fire.png in Resources */,
 				3892C4F0180A7BAC00E2765E /* smileyface-hd.png in Resources */,
 				3892C4F1180A7BAC00E2765E /* smileyface.png in Resources */,
@@ -1810,6 +1877,7 @@
 				3863205C18305A5800EBB847 /* mainmenubg-568h.png in Resources */,
 				3863205D18305A5800EBB847 /* mainmenubg-hd.png in Resources */,
 				3863205E18305A5800EBB847 /* mainmenubg.png in Resources */,
+				388B191D1841DCC60030929E /* LevelTag4-hd.png in Resources */,
 				3863208B183172B700EBB847 /* 1-hd.png in Resources */,
 				3863208C183172B700EBB847 /* 1-sel-hd.png in Resources */,
 				3863208D183172B700EBB847 /* 1-sel.png in Resources */,
@@ -1828,7 +1896,9 @@
 				388B18F31841AF970030929E /* gameoverbg-hd.png in Resources */,
 				3863209A183172B700EBB847 /* 4.png in Resources */,
 				3863209B183172B700EBB847 /* 5-hd.png in Resources */,
+				388B191F1841DCC60030929E /* LevelTag5-hd.png in Resources */,
 				3863209C183172B700EBB847 /* 5-sel-hd.png in Resources */,
+				388B19281841DCC60030929E /* LevelTag9.png in Resources */,
 				3863209D183172B700EBB847 /* 5-sel.png in Resources */,
 				3863209E183172B700EBB847 /* 5.png in Resources */,
 				3863209F183172B700EBB847 /* 6-hd.png in Resources */,
@@ -1857,9 +1927,11 @@
 				386320B6183172B700EBB847 /* locked.png in Resources */,
 				386320BA1831756D00EBB847 /* levelbg-568h.png in Resources */,
 				386320BB1831756D00EBB847 /* levelbg-hd.png in Resources */,
+				388B191B1841DCC60030929E /* LevelTag3-hd.png in Resources */,
 				386320BC1831756D00EBB847 /* levelbg.png in Resources */,
 				380BC45B1837698C0091DE13 /* pausedbg-568h.png in Resources */,
 				380BC45C1837698C0091DE13 /* pausedbg-hd.png in Resources */,
+				388B19251841DCC60030929E /* LevelTag8-hd.png in Resources */,
 				380BC45D1837698C0091DE13 /* pausedbg.png in Resources */,
 				380BC461183769EF0091DE13 /* continuebg-568h.png in Resources */,
 				380BC462183769EF0091DE13 /* continuebg-hd.png in Resources */,
