@@ -17,7 +17,7 @@
 }
 -(id) initWithValues: (float) speedIn:(float) angleIn
 {
-    if (self = [super initWithFile:@"Glowing_Blue_Orb.png"])
+    if (self = [super initWithFile:@"bullet.png"])
     {
         speed = speedIn;
         angle = angleIn;

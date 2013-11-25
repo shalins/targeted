@@ -1419,12 +1419,10 @@ NSMutableDictionary *initialBoss;
 -(void) shootBullet: (float) speed angle:(float) angleInput {
     Bullet *newB = [Bullet bullet:speed :angleInput];
     newB.position = boss.position;
-//    newB.position = ccp(arc4random()%346 + 75,arc4random()%406 + 75);
     [self addChild:newB z:9];
     [bullets addObject:newB];
     newB.scale = 0;
-    id scale = [CCScaleTo actionWithDuration:1.0f scale:0.1f];
-    
+    id scale = [CCScaleTo actionWithDuration:1.0f scale:0.2f];
     [newB runAction:scale];
 }
 -(void) shootBulletwithPos: (float) speed angle:(float) angleInput xpos:(float) xInput ypos:(float) yInput {
@@ -1437,7 +1435,7 @@ NSMutableDictionary *initialBoss;
     [self addChild:newB z:9];
     [bullets addObject:newB];
     newB.scale = 0;
-    id scale = [CCScaleTo actionWithDuration:1.0f scale:0.1f];
+    id scale = [CCScaleTo actionWithDuration:1.0f scale:0.2f];
     [newB runAction:scale];
 }
 -(void) shootBulletwithPosMult: (float) speed angle:(float) angleInput xpos:(float) xInput ypos:(float) yInput {
@@ -1450,7 +1448,7 @@ NSMutableDictionary *initialBoss;
     [self addChild:newB z:9];
     [bullets addObject:newB];
     newB.scale = 0;
-    id scale = [CCScaleTo actionWithDuration:1.0f scale:0.1f];
+    id scale = [CCScaleTo actionWithDuration:1.0f scale:0.2f];
     [newB runAction:scale];
 }
 -(void) shootBulletwithPosNoArray: (float) speed angle:(float) angleInput xpos:(float) xInput ypos:(float) yInput {
@@ -1461,7 +1459,7 @@ NSMutableDictionary *initialBoss;
     [self addChild:newB z:9];
     [flowerbullets addObject:newB];
     newB.scale = 0;
-    id scale = [CCScaleTo actionWithDuration:1.0f scale:0.1f];
+    id scale = [CCScaleTo actionWithDuration:1.0f scale:0.2f];
     [newB runAction:scale];
 }
 -(void) shootBulletwithPosCustom: (float) speed angle:(float) angleInput xpos:(float) xInput ypos:(float) yInput {
