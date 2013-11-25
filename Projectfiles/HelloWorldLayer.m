@@ -1687,16 +1687,8 @@ NSMutableDictionary *initialBoss;
         return false;
     }
 }
-
 -(BOOL) isCollidingRect:(CCSprite *) spriteOne WithSphere:(CCSprite *) spriteTwo {
-    float diff = ccpDistance(spriteOne.position, spriteTwo.position);
-    float obj1Radii = [spriteOne boundingBox].size.width/2;
-    float obj2Radii = [spriteTwo boundingBox].size.width/2;
-    if (diff < obj1Radii + obj2Radii) {
-        return TRUE;
-    } else {
-        return FALSE;
-    }
+    return CGRectIntersectsRect([spriteOne boundingBox],[spriteTwo boundingBox]);
 }
 // This is what moves the game on to the next level after you hit the target
 -(void) targetHit {
