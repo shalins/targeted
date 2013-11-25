@@ -308,12 +308,9 @@ NSMutableDictionary *initialBoss;
 /* -------------------------------------------------------------------------------- */
 -(void) bossAttack {
     if(bosstime == true) {
-        dispatch_time_t countdownTime3 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC));
-        dispatch_after(countdownTime3, dispatch_get_main_queue(), ^(void){
-            if (blocker.parent == nil) {
-                [self addChild:blocker];
-            }
-        });
+        if (blocker.parent == nil) {
+            [self addChild:blocker];
+        }
         if(level == 1) {
             if(gameSegment == 0) {
                 [self startTutorial];
@@ -1665,29 +1662,10 @@ NSMutableDictionary *initialBoss;
     float obj2Radii = [spriteTwo boundingBox].size.width/2;
     if (diff < obj1Radii + obj2Radii) {
         return TRUE;
-    } else if (diff > obj1Radii + obj2Radii || diff > obj1Radii || diff > obj2Radii) {
-        return FALSE;
     } else {
         return FALSE;
     }
 }
-
-//-(BOOL) isCollidingSphere: (CircleType circle, RectType rect)
-//{
-//    circleDistance.x = abs(circle.x - rect.x);
-//    circleDistance.y = abs(circle.y - rect.y);
-//    
-//    if (circleDistance.x > (rect.width/2 + circle.r)) { return false; }
-//    if (circleDistance.y > (rect.height/2 + circle.r)) { return false; }
-//    
-//    if (circleDistance.x <= (rect.width/2)) { return true; }
-//    if (circleDistance.y <= (rect.height/2)) { return true; }
-//    
-//    cornerDistance_sq = (circleDistance.x - rect.width/2)^2 +
-//    (circleDistance.y - rect.height/2)^2;
-//    
-//    return (cornerDistance_sq <= (circle.r^2));
-//}
 // This is what moves the game on to the next level after you hit the target
 -(void) targetHit {
     if (targetHit == true) {
@@ -1858,6 +1836,7 @@ NSMutableDictionary *initialBoss;
         }
         else {
             [self playerdeathstart];
+//            [self schedule:@selector(playerdeath) interval:0.5];
         }
     }
     
@@ -2056,7 +2035,7 @@ NSMutableDictionary *initialBoss;
 }
 -(void) playerdeathstart {
     if(deathanimation == true) {
-        [self flash:255 green:0 blue:0 alpha:255 actionWithDuration:0];
+        [self flash:0 green:150 blue:150 alpha:255 actionWithDuration:2.5];
         [self schedule:@selector(scalePlayer) interval:0.5];
         deathanimation = false;
     }
@@ -2065,8 +2044,8 @@ NSMutableDictionary *initialBoss;
     [self unschedule:@selector(scalePlayer)];
     id tintp = [CCTintTo actionWithDuration:0.5 red:68 green:68 blue:255];
     id scalep = [CCScaleTo actionWithDuration:0.5 scale:5];
-    [player runAction:tintp];
-    [player runAction:scalep];
+    [bullet runAction:tintp];
+    [bullet runAction:scalep];
     [self schedule:@selector(playerdeath) interval:0.5];
 }
 -(void) gameSegmentBeat {
@@ -2161,9 +2140,10 @@ NSMutableDictionary *initialBoss;
 }
 -(void) boughtProduct {
     id tintp = [CCTintTo actionWithDuration:0.6 red:247 green:147 blue:29];
-    id scalep = [CCScaleTo actionWithDuration:0.6 scale:0.15];
-    [player runAction:tintp];
-    [player runAction:scalep];
+    id scalep = [CCScaleTo actionWithDuration:0.1 scale:0.15];
+    [bullet runAction:tintp];
+    [bullet runAction:scalep];
+    [self removeChild:blocker cleanup:YES];
     deathanimation = true;
     player.position = ccp(screenCenter.x,screenCenter.y / 4);
     [self removeFromParentAndCleanup:YES];
