@@ -104,8 +104,8 @@ NSMutableDictionary *initialBoss;
         [self pause];
         pausebutton = [CCSprite spriteWithFile:@"pause.png"];
         pausebutton.position = ccp(screenSize.width - 15,screenSize.height - 15);
-        pausebutton.scale = 1;
-//        [self addChild:pausebutton];
+        pausebutton.scale = 0.4;
+        [self addChild:pausebutton];
         blocker = [CCSprite spriteWithFile:@"blocker.png"];
         blocker.position = ccp(screenCenter.x,screenCenter.y * 1.3);
         blocker.scale = 0.8;
@@ -245,7 +245,7 @@ NSMutableDictionary *initialBoss;
     if(bosstime == false) {
         if(framespast == 300) {
             if(stagespast > -1) {
-                [self returnBullet];
+//                [self returnBullet];
                 for(NSUInteger i = 0; i < [bullets count]; i++) {
                     Bullet *temp = [bullets objectAtIndex:i];
                     [self removeChild:temp cleanup:YES];
@@ -440,8 +440,7 @@ NSMutableDictionary *initialBoss;
                 }
             }
             if(gameSegment ==3) {
-                if((framespast % 150) == 0 || ![initialBoss objectForKey:@2.3]) {
-                    [initialBoss setObject:@TRUE forKey:@2.3];
+                if((framespast % 150) == 0) {
                     [self makeDownvote:-100];
                     [self makeDownvote:0];
                 }
@@ -617,8 +616,7 @@ NSMutableDictionary *initialBoss;
         }
         if(level == 5) {
             if(gameSegment ==0) {
-                if((framespast % 50) == 0 || ![initialBoss objectForKey:@5.0]) {
-                    [initialBoss setObject:@TRUE forKey:@5.0];
+                if((framespast % 50) == 0) {
                     [self shootBulletwithPos:3 angle:180 xpos:0 ypos:-240];
                     [self shootBulletwithPos:3 angle:90 xpos:0 ypos:-240];
                     [self shootBulletwithPos:3 angle:270 xpos:0 ypos:-240];
@@ -633,8 +631,7 @@ NSMutableDictionary *initialBoss;
                 if (shootThePowerup == TRUE) {
                     [self shootSlowDownMissile];
                     shootThePowerup = FALSE; }
-                if((framespast % 25) == 0 || ![initialBoss objectForKey:@5.1]) {
-                    [initialBoss setObject:@TRUE forKey:@5.1];
+                if((framespast % 25) == 0) {
                     wowanothertemportalint = wowanothertemportalint + 15;
                     [self shootBulletwithPos:3 angle:wowanothertemportalint xpos:0 ypos:0];
                 }
@@ -1057,13 +1054,12 @@ NSMutableDictionary *initialBoss;
         label.color = ccc3(0, 0, 0);
         streak = [CCMotionStreak streakWithFade:0.5 minSeg:1 width:50 color:ccc3(247,148,29) textureFilename:@"orange.png"];
         [self addChild:streak];
-//        [self rflash:0 green:0 blue:0 alpha:255 actionWithDuration:0];
         // This is for the level changing mechanism for the level screen
         if([[NSUserDefaults standardUserDefaults] integerForKey:@"boss"] < level) {
             [[NSUserDefaults standardUserDefaults] setInteger:level forKey:@"boss"];
         }
         if(level == 1) {
-            [self addChild:level1bg];
+            [self addChild:level1bg z:-1000];
             [self removeChild:streak cleanup:YES];
             if([[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialcompleted"] == FALSE){
                 gameSegment = 0;
@@ -1085,7 +1081,7 @@ NSMutableDictionary *initialBoss;
         }
         else if(level == 2) {
             [self removeChild:level1bg];
-            [self addChild:level2bg];
+            [self addChild:level2bg z:-1000];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag2.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
             [self addChild:LevelTag z:10000];
@@ -1101,7 +1097,7 @@ NSMutableDictionary *initialBoss;
         }
         else if(level == 3) {
             [self removeChild:level2bg];
-            [self addChild:level3bg];
+            [self addChild:level3bg z:-1000];
             [self removeChild:streak cleanup:YES];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag3.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
@@ -1118,7 +1114,7 @@ NSMutableDictionary *initialBoss;
         }
         else if(level == 4) {
             [self removeChild:level3bg];
-            [self addChild:level4bg];
+            [self addChild:level4bg z:-1000];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag4.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
             [self addChild:LevelTag z:10000];
@@ -1134,7 +1130,7 @@ NSMutableDictionary *initialBoss;
         }
         else if(level == 5) {
             [self removeChild:level4bg];
-            [self addChild:level5bg];
+            [self addChild:level5bg z:-1000];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag5.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
             [self addChild:LevelTag z:10000];
@@ -1150,7 +1146,7 @@ NSMutableDictionary *initialBoss;
         }
         else if(level == 6) {
             [self removeChild:level5bg];
-            [self addChild:level6bg];
+            [self addChild:level6bg z:-1000];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag6.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
             [self addChild:LevelTag z:10000];
@@ -1166,7 +1162,7 @@ NSMutableDictionary *initialBoss;
         }
         else if(level == 7) {
             [self removeChild:level6bg];
-            [self addChild:level7bg];
+            [self addChild:level7bg z:-1000];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag7.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
             [self addChild:LevelTag z:10000];
@@ -1182,7 +1178,7 @@ NSMutableDictionary *initialBoss;
         }
         else if(level == 8) {
             [self removeChild:level7bg];
-            [self addChild:level8bg];
+            [self addChild:level8bg z:-1000];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag8.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
             [self addChild:LevelTag z:10000];
@@ -1198,7 +1194,7 @@ NSMutableDictionary *initialBoss;
         }
         else if(level == 9) {
             [self removeChild:level8bg];
-            [self addChild:level9bg];
+            [self addChild:level9bg z:-1000];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag9.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
             [self addChild:LevelTag z:10000];
@@ -1562,31 +1558,31 @@ NSMutableDictionary *initialBoss;
     id scale = [CCScaleTo actionWithDuration:1.0f scale:0.05f];
     [newB runAction:scale];
 }
--(void) returnBullet {
-    for(NSUInteger i = 0; i < [bullets count]; i++) {
-        NSInteger j = i;
-        projectile = [bullets objectAtIndex:j];
-        fakebullet = [CCSprite spriteWithFile:@"orange.png"];
-        fakebullet.position = projectile.position;
-        [self addChild:fakebullet];
-        [fakebullets addObject:fakebullet];
-        fakebullet.scale = 0.1;
-        [[SimpleAudioEngine sharedEngine] playEffect:@"bwooo.mp3"];
-        bwooo = false;
-    }
-    for(NSUInteger i = 0; i < [flowerbullets count]; i++) {
-        NSInteger j = i;
-        projectile = [flowerbullets objectAtIndex:j];
-        fakebullet = [CCSprite spriteWithFile:@"orange.png"];
-        fakebullet.position = projectile.position;
-        [self addChild:fakebullet];
-        [fakebullets addObject:fakebullet];
-        fakebullet.scale = 0.1;
-        [[SimpleAudioEngine sharedEngine] playEffect:@"bwooo.mp3"];
-        bwooo = false;
-    }
-    [self flash:247 green:148 blue:29 alpha:255 actionWithDuration:0];
-}
+//-(void) returnBullet {
+//    for(NSUInteger i = 0; i < [bullets count]; i++) {
+//        NSInteger j = i;
+//        projectile = [bullets objectAtIndex:j];
+//        fakebullet = [CCSprite spriteWithFile:@"orange.png"];
+//        fakebullet.position = projectile.position;
+//        [self addChild:fakebullet];
+//        [fakebullets addObject:fakebullet];
+//        fakebullet.scale = 0.1;
+//        [[SimpleAudioEngine sharedEngine] playEffect:@"bwooo.mp3"];
+//        bwooo = false;
+//    }
+//    for(NSUInteger i = 0; i < [flowerbullets count]; i++) {
+//        NSInteger j = i;
+//        projectile = [flowerbullets objectAtIndex:j];
+//        fakebullet = [CCSprite spriteWithFile:@"orange.png"];
+//        fakebullet.position = projectile.position;
+//        [self addChild:fakebullet];
+//        [fakebullets addObject:fakebullet];
+//        fakebullet.scale = 0.1;
+//        [[SimpleAudioEngine sharedEngine] playEffect:@"bwooo.mp3"];
+//        bwooo = false;
+//    }
+//    [self flash:247 green:148 blue:29 alpha:255 actionWithDuration:0];
+//}
 
 /* -------------------------------------------------------------------------------- */
 /*    END OF GAME                                                                   */
@@ -1609,7 +1605,7 @@ NSMutableDictionary *initialBoss;
     omganothertemportalint = 180;
 }
 -(void) deleteBullets {
-    [self returnBullet];
+//    [self returnBullet];
     for(NSUInteger i = 0; i < [bullets count]; i++) {
         Bullet *temp = [bullets objectAtIndex:i];
         [self removeChild:temp cleanup:YES];
@@ -2167,7 +2163,6 @@ NSMutableDictionary *initialBoss;
     id scalep = [CCScaleTo actionWithDuration:0.1 scale:0.15];
     [bullet runAction:tintp];
     [bullet runAction:scalep];
-    [self removeChild:blocker cleanup:YES];
     deathanimation = true;
     player.position = ccp(screenCenter.x,screenCenter.y / 4);
     [self removeFromParentAndCleanup:YES];
@@ -2183,7 +2178,7 @@ NSMutableDictionary *initialBoss;
     [self removeChild:GameOverMenu cleanup:YES];
     [self scheduleUpdate];
     [[CCDirector sharedDirector] resume];
-    [self returnBullet];
+//    [self returnBullet];
     for(NSUInteger i = 0; i < [bullets count]; i++) {
         Bullet *temp = [bullets objectAtIndex:i];
         [self removeChild:temp cleanup:YES];
