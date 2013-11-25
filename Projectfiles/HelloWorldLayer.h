@@ -99,6 +99,7 @@
     CGSize screenSize;
     BOOL playedTutorial;
     int secs;
+    CCSprite *blocker;
 }
 
 @property (nonatomic, copy) NSString *helloWorldString;

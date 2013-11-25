@@ -89,6 +89,9 @@ NSMutableDictionary *initialBoss;
         pausebutton.position = ccp(screenSize.width - 15,screenSize.height - 15);
         pausebutton.scale = 1;
 //        [self addChild:pausebutton];
+        blocker = [CCSprite spriteWithFile:@"blocker.png"];
+        blocker.position = ccp(screenCenter.x,screenCenter.y * 1.3);
+        blocker.scale = 0.8;
         // This shows the score
         //        [self initScore];        
         // If it's not endless mode
@@ -305,6 +308,12 @@ NSMutableDictionary *initialBoss;
 /* -------------------------------------------------------------------------------- */
 -(void) bossAttack {
     if(bosstime == true) {
+        dispatch_time_t countdownTime3 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC));
+        dispatch_after(countdownTime3, dispatch_get_main_queue(), ^(void){
+            if (blocker.parent == nil) {
+                [self addChild:blocker];
+            }
+        });
         if(level == 1) {
             if(gameSegment == 0) {
                 [self startTutorial];
@@ -1649,6 +1658,36 @@ NSMutableDictionary *initialBoss;
         return false;
     }
 }
+
+-(BOOL) isCollidingRect:(CCSprite *) spriteOne WithSphere:(CCSprite *) spriteTwo {
+    float diff = ccpDistance(spriteOne.position, spriteTwo.position);
+    float obj1Radii = [spriteOne boundingBox].size.width/2;
+    float obj2Radii = [spriteTwo boundingBox].size.width/2;
+    if (diff < obj1Radii + obj2Radii) {
+        return TRUE;
+    } else if (diff > obj1Radii + obj2Radii || diff > obj1Radii || diff > obj2Radii) {
+        return FALSE;
+    } else {
+        return FALSE;
+    }
+}
+
+//-(BOOL) isCollidingSphere: (CircleType circle, RectType rect)
+//{
+//    circleDistance.x = abs(circle.x - rect.x);
+//    circleDistance.y = abs(circle.y - rect.y);
+//    
+//    if (circleDistance.x > (rect.width/2 + circle.r)) { return false; }
+//    if (circleDistance.y > (rect.height/2 + circle.r)) { return false; }
+//    
+//    if (circleDistance.x <= (rect.width/2)) { return true; }
+//    if (circleDistance.y <= (rect.height/2)) { return true; }
+//    
+//    cornerDistance_sq = (circleDistance.x - rect.width/2)^2 +
+//    (circleDistance.y - rect.height/2)^2;
+//    
+//    return (cornerDistance_sq <= (circle.r^2));
+//}
 // This is what moves the game on to the next level after you hit the target
 -(void) targetHit {
     if (targetHit == true) {
@@ -1804,8 +1843,24 @@ NSMutableDictionary *initialBoss;
 -(void) changePlayerPosition {
     player.position = ccp(screenCenter.x,screenCenter.y / 3);
 }
+
 -(void) detectCollisions
 {
+    if ([self isCollidingRect:player WithSphere:blocker] == true) {
+        if(shieldon == true) {
+            [self removeChild:shield cleanup:YES];
+            [self deleteubershield];
+            shieldon = false;
+        }
+        else if(ubershieldon == true) {
+            [self removeChild:shield cleanup:YES];
+            [self deleteubershield];
+        }
+        else {
+            [self playerdeathstart];
+        }
+    }
+    
     if (CGRectIntersectsRect(CGRectMake(player.position.x, player.position.y, playerWidth, playerHeight), CGRectMake(boss.position.x, boss.position.y, bossWidth, bossHeight)) == true) {
         targetHit = true;
         [self targetHit];
@@ -2110,6 +2165,8 @@ NSMutableDictionary *initialBoss;
     [player runAction:tintp];
     [player runAction:scalep];
     deathanimation = true;
+    player.position = ccp(screenCenter.x,screenCenter.y / 4);
+    [self removeFromParentAndCleanup:YES];
     [self removeChild:border cleanup:YES];
     [self removeChild:coinLabel cleanup:YES];
     [self removeChild:gameOver cleanup:YES];
