@@ -242,30 +242,6 @@ NSMutableDictionary *initialBoss;
     if (LevelTag.position.y > screenCenter.y * 10) {
         [self removeChild:LevelTag cleanup:YES];
     }
-    if(bosstime == false) {
-        if(framespast == 300) {
-            if(stagespast > -1) {
-//                [self returnBullet];
-                for(NSUInteger i = 0; i < [bullets count]; i++) {
-                    Bullet *temp = [bullets objectAtIndex:i];
-                    [self removeChild:temp cleanup:YES];
-                    int randomtemp = arc4random() % 10;
-                    if(randomtemp == 5) {}
-                }
-                [bullets removeAllObjects];
-                attacktype = 0;
-                framespast = 0;
-                stagespast++;
-                bosstime = true;
-            }
-        }
-    }
-    if(bosstime == false) {
-        if(stagespast > 3) {
-            bosstime = true;
-            stagespast = 5;
-        }
-    }
     [self grabTouchCoord];
     [streak setPosition:player.position];
     
@@ -1558,32 +1534,6 @@ NSMutableDictionary *initialBoss;
     id scale = [CCScaleTo actionWithDuration:1.0f scale:0.05f];
     [newB runAction:scale];
 }
-//-(void) returnBullet {
-//    for(NSUInteger i = 0; i < [bullets count]; i++) {
-//        NSInteger j = i;
-//        projectile = [bullets objectAtIndex:j];
-//        fakebullet = [CCSprite spriteWithFile:@"orange.png"];
-//        fakebullet.position = projectile.position;
-//        [self addChild:fakebullet];
-//        [fakebullets addObject:fakebullet];
-//        fakebullet.scale = 0.1;
-//        [[SimpleAudioEngine sharedEngine] playEffect:@"bwooo.mp3"];
-//        bwooo = false;
-//    }
-//    for(NSUInteger i = 0; i < [flowerbullets count]; i++) {
-//        NSInteger j = i;
-//        projectile = [flowerbullets objectAtIndex:j];
-//        fakebullet = [CCSprite spriteWithFile:@"orange.png"];
-//        fakebullet.position = projectile.position;
-//        [self addChild:fakebullet];
-//        [fakebullets addObject:fakebullet];
-//        fakebullet.scale = 0.1;
-//        [[SimpleAudioEngine sharedEngine] playEffect:@"bwooo.mp3"];
-//        bwooo = false;
-//    }
-//    [self flash:247 green:148 blue:29 alpha:255 actionWithDuration:0];
-//}
-
 /* -------------------------------------------------------------------------------- */
 /*    END OF GAME                                                                   */
 /* -------------------------------------------------------------------------------- */
@@ -1604,39 +1554,39 @@ NSMutableDictionary *initialBoss;
     thetemporalint = 180;
     omganothertemportalint = 180;
 }
--(void) deleteBullets {
-//    [self returnBullet];
-    for(NSUInteger i = 0; i < [bullets count]; i++) {
-        Bullet *temp = [bullets objectAtIndex:i];
-        [self removeChild:temp cleanup:YES];
-        [bullets removeAllObjects];
-    }
-    for(NSUInteger i = 0; i < [fireBalls count]; i++) {
-        CCSprite *temp = [fireBalls objectAtIndex:i];
-        [self removeChild:temp cleanup:YES];
-        [bullets removeAllObjects];
-    }
-    for(NSUInteger i = 0; i < [flowerbullets count]; i++) {
-        CCSprite *temp = [flowerbullets objectAtIndex:i];
-        [self removeChild:temp cleanup:YES];
-        [bullets removeAllObjects];
-    }
-    for(NSUInteger i = 0; i < [smileyFaces count]; i++) {
-        CCSprite *temp = [smileyFaces objectAtIndex:i];
-        [self removeChild:temp cleanup:YES];
-        [bullets removeAllObjects];
-    }
-    for(NSUInteger i = 0; i < [smallerBallers count]; i++) {
-        CCSprite *temp = [smallerBallers objectAtIndex:i];
-        [self removeChild:temp cleanup:YES];
-        [smallerBallers removeAllObjects];
-    }
-    [smileyFaces removeAllObjects];
-    [smallerBallers removeAllObjects];
-    [fireBalls removeAllObjects];
-    [bullets removeAllObjects];
-    [flowerbullets removeAllObjects];
-}
+//-(void) deleteBullets {
+////    [self returnBullet];
+//    for(NSUInteger i = 0; i < [bullets count]; i++) {
+//        Bullet *temp = [bullets objectAtIndex:i];
+//        [self removeChild:temp cleanup:YES];
+//        [bullets removeAllObjects];
+//    }
+//    for(NSUInteger i = 0; i < [fireBalls count]; i++) {
+//        CCSprite *temp = [fireBalls objectAtIndex:i];
+//        [self removeChild:temp cleanup:YES];
+//        [bullets removeAllObjects];
+//    }
+//    for(NSUInteger i = 0; i < [flowerbullets count]; i++) {
+//        CCSprite *temp = [flowerbullets objectAtIndex:i];
+//        [self removeChild:temp cleanup:YES];
+//        [bullets removeAllObjects];
+//    }
+//    for(NSUInteger i = 0; i < [smileyFaces count]; i++) {
+//        CCSprite *temp = [smileyFaces objectAtIndex:i];
+//        [self removeChild:temp cleanup:YES];
+//        [bullets removeAllObjects];
+//    }
+//    for(NSUInteger i = 0; i < [smallerBallers count]; i++) {
+//        CCSprite *temp = [smallerBallers objectAtIndex:i];
+//        [self removeChild:temp cleanup:YES];
+//        [smallerBallers removeAllObjects];
+//    }
+//    [smileyFaces removeAllObjects];
+//    [smallerBallers removeAllObjects];
+//    [fireBalls removeAllObjects];
+//    [bullets removeAllObjects];
+//    [flowerbullets removeAllObjects];
+//}
 -(void) deathplusdeath {
     //    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 1) forKey:@"coins"];
     [self removeChild:streak cleanup:YES];
@@ -1950,7 +1900,7 @@ NSMutableDictionary *initialBoss;
         if ([self isCollidingSphere:tempSprite WithSphere:player] == true) {
             [self removeChildByTag:42 cleanup:YES];
             [powerups removeObjectAtIndex:i];
-            [self deleteBullets];
+//            [self deleteBullets];
             shield = [CCSprite spriteWithFile:@"shield.png"];
             shield.scale = 0.15;
             shield.position = player.position;
