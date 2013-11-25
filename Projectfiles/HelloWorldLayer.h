@@ -100,6 +100,16 @@
     BOOL playedTutorial;
     int secs;
     CCSprite *blocker;
+    CCSprite* level1bg;
+    CCSprite* level2bg;
+    CCSprite* level3bg;
+    CCSprite* level4bg;
+    CCSprite* level5bg;
+    CCSprite* level6bg;
+    CCSprite* level7bg;
+    CCSprite* level8bg;
+    CCSprite* level9bg;
+
 }
 
 @property (nonatomic, copy) NSString *helloWorldString;

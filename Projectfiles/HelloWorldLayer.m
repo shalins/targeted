@@ -27,7 +27,6 @@ int secondspast;
 int stagespast;
 int wowanothertemportalint;
 int coins;
-CCSprite* blank;
 CCMotionStreak* streak;
 NSMutableDictionary *initialBoss;
 
@@ -38,7 +37,25 @@ NSMutableDictionary *initialBoss;
         // get screen center and screen size
         screenCenter = [CCDirector sharedDirector].screenCenter;
         screenSize = [[CCDirector sharedDirector] winSize];
-        
+        level1bg = [CCSprite spriteWithFile:@"level1bg.png"];
+        level2bg = [CCSprite spriteWithFile:@"level2bg.png"];
+        level3bg = [CCSprite spriteWithFile:@"level3bg.png"];
+        level4bg = [CCSprite spriteWithFile:@"level4bg.png"];
+        level5bg = [CCSprite spriteWithFile:@"level5bg.png"];
+        level6bg = [CCSprite spriteWithFile:@"level6bg.png"];
+        level7bg = [CCSprite spriteWithFile:@"level7bg.png"];
+        level8bg = [CCSprite spriteWithFile:@"level8bg.png"];
+        level9bg = [CCSprite spriteWithFile:@"level9bg.png"];
+        level1bg.position = screenCenter;
+        level2bg.position = screenCenter;
+        level3bg.position = screenCenter;
+        level4bg.position = screenCenter;
+        level5bg.position = screenCenter;
+        level6bg.position = screenCenter;
+        level7bg.position = screenCenter;
+        level8bg.position = screenCenter;
+        level9bg.position = screenCenter;
+
         targetHit = false;
         [[NSUserDefaults standardUserDefaults] setBool:targetHit forKey:@"targetHit"];
         //        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
@@ -1046,6 +1063,7 @@ NSMutableDictionary *initialBoss;
             [[NSUserDefaults standardUserDefaults] setInteger:level forKey:@"boss"];
         }
         if(level == 1) {
+            [self addChild:level1bg];
             [self removeChild:streak cleanup:YES];
             if([[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialcompleted"] == FALSE){
                 gameSegment = 0;
@@ -1066,6 +1084,8 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 2) {
+            [self removeChild:level1bg];
+            [self addChild:level2bg];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag2.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
             [self addChild:LevelTag z:10000];
@@ -1080,6 +1100,8 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 3) {
+            [self removeChild:level2bg];
+            [self addChild:level3bg];
             [self removeChild:streak cleanup:YES];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag3.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
@@ -1095,6 +1117,8 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 4) {
+            [self removeChild:level3bg];
+            [self addChild:level4bg];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag4.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
             [self addChild:LevelTag z:10000];
@@ -1109,6 +1133,8 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 5) {
+            [self removeChild:level4bg];
+            [self addChild:level5bg];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag5.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
             [self addChild:LevelTag z:10000];
@@ -1123,6 +1149,8 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 6) {
+            [self removeChild:level5bg];
+            [self addChild:level6bg];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag6.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
             [self addChild:LevelTag z:10000];
@@ -1137,6 +1165,8 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 7) {
+            [self removeChild:level6bg];
+            [self addChild:level7bg];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag7.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
             [self addChild:LevelTag z:10000];
@@ -1151,6 +1181,8 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 8) {
+            [self removeChild:level7bg];
+            [self addChild:level8bg];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag8.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
             [self addChild:LevelTag z:10000];
@@ -1165,6 +1197,8 @@ NSMutableDictionary *initialBoss;
             [boss runAction:bossscale];
         }
         else if(level == 9) {
+            [self removeChild:level8bg];
+            [self addChild:level9bg];
             LevelTag = [CCSprite spriteWithFile:@"LevelTag9.png"];
             LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
             [self addChild:LevelTag z:10000];
