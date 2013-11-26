@@ -1422,15 +1422,15 @@ NSMutableDictionary *initialBoss;
     [self addChild:newB z:9];
     [smallerBallers addObject:newB];
     newB.scale = 0;
-    id scale = [CCScaleTo actionWithDuration:1.0f scale:0.2f];
+    id scale = [CCScaleTo actionWithDuration:1.0f scale:1.0f];
     [newB runAction:scale];
-    smallerBall = [CCSprite spriteWithFile:@"cyan.png"];
+    smallerBall = [CCSprite spriteWithFile:@"small.png"];
     smallerBall.position = newB.position;
     smallerBall.scale = 0;
     [self addChild:smallerBall z:10];
-    id bossscale = [CCScaleTo actionWithDuration:1.0f scale:0.2f];
+    id bossscale = [CCScaleTo actionWithDuration:1.0f scale:1.0f];
     id blinker = [CCBlink actionWithDuration:4.0f blinks:10];
-    if (firstTimeSlowDown == TRUE) {
+    if (firstTimeMiniMe == TRUE) {
         [smallerBall runAction:blinker];
     }
     [smallerBall runAction:bossscale];
@@ -1442,7 +1442,7 @@ NSMutableDictionary *initialBoss;
     [self addChild:newB z:9];
     [slowDowners addObject:newB];
     newB.scale = 0;
-    id scale = [CCScaleTo actionWithDuration:1.0f scale:0.2f];
+    id scale = [CCScaleTo actionWithDuration:1.0f scale:1.0f];
     [newB runAction:scale];
     slowDown = [CCSprite spriteWithFile:@"slow.png"];
     slowDown.position = newB.position;
