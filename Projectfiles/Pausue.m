@@ -115,11 +115,6 @@
 }
 -(void) quitGame
 {
-    if([[NSUserDefaults standardUserDefaults]boolForKey:@"panic"] == false)
-    {
-        [MGWU showMessage:@"Achievement Get!     Panic Shopping" withImage:nil];
-        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"panic"];
-    }
     [[CCDirector sharedDirector] replaceScene:
      [CCTransitionCrossFade transitionWithDuration:0.5f scene:[StoreLayer node]]];
 }

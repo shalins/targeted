@@ -74,8 +74,6 @@ CGSize screenSize;
 
 -(void) getScores
 {
-    [MGWU getHighScoresForLeaderboard:@"defaultLeaderboard" withCallback:@selector(receivedScores:)
-                             onTarget:self];
 }
 
 -(void)receivedScores:(NSDictionary*)scores

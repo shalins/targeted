@@ -78,12 +78,10 @@
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"data"] == false)
     {
         [[NSUserDefaults standardUserDefaults] setInteger:6 forKey:@"coins"];
-        [MGWU showMessage:@"Achievement Get!      Clearing the data" withImage:nil];
         [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"data"];
     }
     NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
-    [MGWU displayCrossPromo];
     [[SimpleAudioEngine sharedEngine] playEffect:@"zoom.mp3"];
 }
 
@@ -93,7 +91,6 @@
         NSLog(@"Leaderboards Button Clicked");
     }
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"high"] == false) {
-        [MGWU showMessage:@"Achievement Get!      You found a bug!" withImage:nil];
         [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"high"]; }
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:0.5f scene:[StatLayer node]]];
     [[SimpleAudioEngine sharedEngine] playEffect:@"zoom.mp3"];

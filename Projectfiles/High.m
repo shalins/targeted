@@ -28,7 +28,6 @@ CGSize screenSize;
         gameTitle.position = ccp(screenCenter.x, screenCenter.y + 210);
         [self addChild:gameTitle];
         
-        [MGWU submitHighScore:50 byPlayer:@"BobbyJoe" forLeaderboard:@"defaultLeaderboard"];
 
         [self getScores];
         
@@ -51,8 +50,6 @@ CGSize screenSize;
 
 -(void) getScores
 {
-    [MGWU getHighScoresForLeaderboard:@"defaultLeaderboard" withCallback:@selector(receivedScores:)
-                             onTarget:self];
 }
 
 -(void)receivedScores:(NSDictionary*)scores

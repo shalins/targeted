@@ -71,18 +71,18 @@ CCLabelBMFont *coinsLabel;
 }
 
 -(void) buyCash1 {
-    [MGWU testBuyProduct:@"com.shalinshah.100" withCallback:@selector(boughtProduct:) onTarget:self];
+//    [MGWU testBuyProduct:@"com.shalinshah.100" withCallback:@selector(boughtProduct:) onTarget:self];
 }
 -(void) buyCash2 {
-    [MGWU testBuyProduct:@"com.shalinshah.250" withCallback:@selector(boughtProduct:) onTarget:self];
+//    [MGWU testBuyProduct:@"com.shalinshah.250" withCallback:@selector(boughtProduct:) onTarget:self];
 }
 -(void) buyCash3 {
-    [MGWU testBuyProduct:@"com.shalinshah.500" withCallback:@selector(boughtProduct:) onTarget:self];
+//    [MGWU testBuyProduct:@"com.shalinshah.500" withCallback:@selector(boughtProduct:) onTarget:self];
 }
 
 -(void) boughtProduct:(NSString*) powerupToBuy {
     NSLog(@"Something was Bought!");
-    [MGWU showMessage:@"Purchase Successful" withImage:nil];
+//    [MGWU showMessage:@"Purchase Successful" withImage:nil];
     if ([powerupToBuy isEqualToString:@"com.shalinshah.100"] == true) {
         NSLog(@"100 Coins added!");
         coins += 100;

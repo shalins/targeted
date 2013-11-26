@@ -17,16 +17,8 @@
 	CCLOG(@"ARC is either not available or not enabled");
 #endif
     
-    [MGWU loadMGWU:@"iliketoeatpieandbananasandlotsandlotsofcake"];
 
 }
-
-
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    // attempt to extract a token from the url
-    return [MGWU handleURL:url];
-}
-
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     [director stopAnimation];

@@ -104,23 +104,6 @@
     return self;
 }
 
--(void) fblogin
-{
-    [MGWU loginToFacebook];
-}
--(void) fb
-{
-    if([MGWU isFacebookActive])
-    {
-        NSString *myString = @"I just finished a run of Blue and got a score of ";
-        NSString *test = [myString stringByAppendingString:score];
-        [MGWU shareWithTitle:@"Blue" caption:[MGWU getUsername] andDescription:test];
-    }
-    else{
-        [self fblogin];
-    }
-}
-
 -(void) quitGame
 {
     //    [nameField removeFromSuperview];
