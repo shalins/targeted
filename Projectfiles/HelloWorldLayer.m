@@ -89,7 +89,6 @@ NSMutableDictionary *initialBoss;
         smallerBallers = [[NSMutableArray alloc] init];
         slowDowners = [[NSMutableArray alloc] init];
         flowerbullets = [[NSMutableArray alloc] init];
-        fakebullets = [[NSMutableArray alloc] init];
         powerups = [[NSMutableArray alloc] init];
         initialBoss = [[NSMutableDictionary alloc] init];
         director = [CCDirector sharedDirector];
@@ -103,8 +102,8 @@ NSMutableDictionary *initialBoss;
         [self scheduleUpdate];
         [self pause];
         pausebutton = [CCSprite spriteWithFile:@"pause.png"];
-        pausebutton.position = ccp(screenSize.width - 15,screenSize.height - 15);
-        pausebutton.scale = 0.4;
+        pausebutton.position = ccp(screenSize.width - 17,screenSize.height - 17);
+        pausebutton.scale = 0.35;
         [self addChild:pausebutton];
         blocker = [CCSprite spriteWithFile:@"blocker.png"];
         blocker.position = ccp(screenCenter.x,screenCenter.y * 1.3);
@@ -244,10 +243,8 @@ NSMutableDictionary *initialBoss;
     }
     [self grabTouchCoord];
     [streak setPosition:player.position];
-    
     framespast++;
     secondspast = framespast / 60;
-    
     [self bossAttack];
     [self detectCollisions];
     KKInput* input = [KKInput sharedInput];
@@ -883,7 +880,6 @@ NSMutableDictionary *initialBoss;
         }
     }
     [self moveBullet];
-    [self moveFakeBullet];
 }
 -(void) laughoutloud {
     // L
@@ -1350,40 +1346,6 @@ NSMutableDictionary *initialBoss;
     framespast = 0;
     NSLog(@"Boss defeated.");
 }
--(void) moveFakeBullet
-{
-    for(NSUInteger i = 0; i < [fakebullets count]; i++) {
-        NSInteger j = i;
-        projectile2 = [fakebullets objectAtIndex:j];
-        CGPoint rot_pos2 = [projectile2 position];
-        CGPoint rot_pos1 = [player position];
-        float rotation_theta = atan((rot_pos1.y-rot_pos2.y)/(rot_pos1.x-rot_pos2.x)) * 180 / M_PI;
-        if(rot_pos1.y - rot_pos2.y > 0) {
-            if(rot_pos1.x - rot_pos2.x < 0) {
-                fakebulletangle = (-90-rotation_theta);
-            }
-            else if(rot_pos1.x - rot_pos2.x > 0) {
-                fakebulletangle = (90-rotation_theta);
-            }
-        }
-        else if(rot_pos1.y - rot_pos2.y < 0) {
-            if(rot_pos1.x - rot_pos2.x < 0) {
-                fakebulletangle = (270-rotation_theta);
-            }
-            else if(rot_pos1.x - rot_pos2.x > 0) {
-                fakebulletangle = (90-rotation_theta);
-            }
-        }
-        if (fakebulletangle < 0) {
-            fakebulletangle+=360;
-        }
-        float speed = 10; // Move 50 pixels in 60 frames (1 second)
-        float vx = cos(fakebulletangle * M_PI / 180) * speed;
-        float vy = sin(fakebulletangle * M_PI / 180) * speed;
-        CGPoint direction = ccp(vy,vx);
-        projectile2.position = ccpAdd(projectile2.position, direction);
-    }
-}
 /* -------------------------------------------------------------------------------- */
 /*    DIFFERENT BULLETS BEING SHOT                                                  */
 /* -------------------------------------------------------------------------------- */
@@ -1554,39 +1516,6 @@ NSMutableDictionary *initialBoss;
     thetemporalint = 180;
     omganothertemportalint = 180;
 }
-//-(void) deleteBullets {
-////    [self returnBullet];
-//    for(NSUInteger i = 0; i < [bullets count]; i++) {
-//        Bullet *temp = [bullets objectAtIndex:i];
-//        [self removeChild:temp cleanup:YES];
-//        [bullets removeAllObjects];
-//    }
-//    for(NSUInteger i = 0; i < [fireBalls count]; i++) {
-//        CCSprite *temp = [fireBalls objectAtIndex:i];
-//        [self removeChild:temp cleanup:YES];
-//        [bullets removeAllObjects];
-//    }
-//    for(NSUInteger i = 0; i < [flowerbullets count]; i++) {
-//        CCSprite *temp = [flowerbullets objectAtIndex:i];
-//        [self removeChild:temp cleanup:YES];
-//        [bullets removeAllObjects];
-//    }
-//    for(NSUInteger i = 0; i < [smileyFaces count]; i++) {
-//        CCSprite *temp = [smileyFaces objectAtIndex:i];
-//        [self removeChild:temp cleanup:YES];
-//        [bullets removeAllObjects];
-//    }
-//    for(NSUInteger i = 0; i < [smallerBallers count]; i++) {
-//        CCSprite *temp = [smallerBallers objectAtIndex:i];
-//        [self removeChild:temp cleanup:YES];
-//        [smallerBallers removeAllObjects];
-//    }
-//    [smileyFaces removeAllObjects];
-//    [smallerBallers removeAllObjects];
-//    [fireBalls removeAllObjects];
-//    [bullets removeAllObjects];
-//    [flowerbullets removeAllObjects];
-//}
 -(void) deathplusdeath {
     //    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 1) forKey:@"coins"];
     [self removeChild:streak cleanup:YES];
@@ -1880,20 +1809,6 @@ NSMutableDictionary *initialBoss;
             }
         }
     }
-    for(NSUInteger i = 0; i < [fakebullets count]; i++) {
-        NSInteger j = i;
-        if([fakebullets count] > 0) {
-            CCSprite* tempFakeSprite = [fakebullets objectAtIndex:j];
-            if ([self isCollidingSphere:[fakebullets objectAtIndex:j] WithSphere:player] == true) {
-                [self removeChild:tempFakeSprite cleanup:YES];
-                [fakebullets removeObjectAtIndex:j];
-                intScore = intScore + 100;
-                NSString *str = [NSString stringWithFormat:@"%d",intScore];
-                [label setString:str];
-                [label draw];
-            }
-        }
-    }
     for(NSUInteger i = 0; i < [powerups count];i++) {
         NSInteger j = i;
         CCSprite* tempSprite = [powerups objectAtIndex:j];
@@ -2128,7 +2043,6 @@ NSMutableDictionary *initialBoss;
     [self removeChild:GameOverMenu cleanup:YES];
     [self scheduleUpdate];
     [[CCDirector sharedDirector] resume];
-//    [self returnBullet];
     for(NSUInteger i = 0; i < [bullets count]; i++) {
         Bullet *temp = [bullets objectAtIndex:i];
         [self removeChild:temp cleanup:YES];
