@@ -130,17 +130,8 @@
 		386320BA1831756D00EBB847 /* levelbg-568h.png in Resources */ = {isa = PBXBuildFile; fileRef = 386320B71831756D00EBB847 /* levelbg-568h.png */; };
 		386320BB1831756D00EBB847 /* levelbg-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 386320B81831756D00EBB847 /* levelbg-hd.png */; };
 		386320BC1831756D00EBB847 /* levelbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 386320B91831756D00EBB847 /* levelbg.png */; };
-		387F34C91840635800212194 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34C81840635800212194 /* Social.framework */; };
-		387F34CB1840636000212194 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34CA1840636000212194 /* Accounts.framework */; };
-		387F34CD1840636800212194 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34CC1840636800212194 /* AdSupport.framework */; };
-		387F34CF1840636D00212194 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34CE1840636D00212194 /* CFNetwork.framework */; };
-		387F34D11840637700212194 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34D01840637700212194 /* CoreTelephony.framework */; };
-		387F34D31840638B00212194 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34D21840638B00212194 /* libicucore.dylib */; };
-		387F34D51840639400212194 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34D41840639400212194 /* MessageUI.framework */; };
 		387F34D71840639B00212194 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34D61840639B00212194 /* Security.framework */; };
 		387F34D9184063A300212194 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34D8184063A300212194 /* StoreKit.framework */; };
-		387F34DB184063AB00212194 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34DA184063AB00212194 /* SystemConfiguration.framework */; };
-		387F34DD184063B200212194 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34DC184063B200212194 /* Twitter.framework */; };
 		388B18F21841AF970030929E /* gameoverbg-568h.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B18EF1841AF970030929E /* gameoverbg-568h.png */; };
 		388B18F31841AF970030929E /* gameoverbg-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B18F01841AF970030929E /* gameoverbg-hd.png */; };
 		388B18F41841AF970030929E /* gameoverbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 388B18F11841AF970030929E /* gameoverbg.png */; };
@@ -849,17 +840,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				387F34DD184063B200212194 /* Twitter.framework in Frameworks */,
-				387F34DB184063AB00212194 /* SystemConfiguration.framework in Frameworks */,
 				387F34D9184063A300212194 /* StoreKit.framework in Frameworks */,
 				387F34D71840639B00212194 /* Security.framework in Frameworks */,
-				387F34D51840639400212194 /* MessageUI.framework in Frameworks */,
-				387F34D31840638B00212194 /* libicucore.dylib in Frameworks */,
-				387F34D11840637700212194 /* CoreTelephony.framework in Frameworks */,
-				387F34CF1840636D00212194 /* CFNetwork.framework in Frameworks */,
-				387F34CD1840636800212194 /* AdSupport.framework in Frameworks */,
-				387F34CB1840636000212194 /* Accounts.framework in Frameworks */,
-				387F34C91840635800212194 /* Social.framework in Frameworks */,
 				DC65615C13A969B600A7AC53 /* libbox2d-ios.a in Frameworks */,
 				DC65615D13A969B600A7AC53 /* libchipmunk-ios.a in Frameworks */,
 				DC65615E13A969B600A7AC53 /* libchipmunk-spacemanager-ios.a in Frameworks */,
