@@ -29,6 +29,8 @@
 		381C2C8618305804005213F5 /* start.png in Resources */ = {isa = PBXBuildFile; fileRef = 381C2C8018305804005213F5 /* start.png */; };
 		384DEF5D18441782004B71A9 /* pause-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 384DEF5B18441782004B71A9 /* pause-hd.png */; };
 		384DEF5E18441782004B71A9 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 384DEF5C18441782004B71A9 /* pause.png */; };
+		384DEF6718446403004B71A9 /* slow-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 384DEF6518446403004B71A9 /* slow-hd.png */; };
+		384DEF6818446403004B71A9 /* slow.png in Resources */ = {isa = PBXBuildFile; fileRef = 384DEF6618446403004B71A9 /* slow.png */; };
 		386088A7184323EC00388719 /* target1-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 38608895184323EC00388719 /* target1-hd.png */; };
 		386088A8184323EC00388719 /* target1.png in Resources */ = {isa = PBXBuildFile; fileRef = 38608896184323EC00388719 /* target1.png */; };
 		386088A9184323EC00388719 /* target2-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 38608897184323EC00388719 /* target2-hd.png */; };
@@ -494,6 +496,8 @@
 		381C2C8018305804005213F5 /* start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start.png; sourceTree = "<group>"; };
 		384DEF5B18441782004B71A9 /* pause-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause-hd.png"; sourceTree = "<group>"; };
 		384DEF5C18441782004B71A9 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
+		384DEF6518446403004B71A9 /* slow-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slow-hd.png"; sourceTree = "<group>"; };
+		384DEF6618446403004B71A9 /* slow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slow.png; sourceTree = "<group>"; };
 		38608895184323EC00388719 /* target1-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target1-hd.png"; sourceTree = "<group>"; };
 		38608896184323EC00388719 /* target1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = target1.png; sourceTree = "<group>"; };
 		38608897184323EC00388719 /* target2-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target2-hd.png"; sourceTree = "<group>"; };
@@ -1251,6 +1255,8 @@
 		388D6BA817B1C19B00BD6F07 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				384DEF6518446403004B71A9 /* slow-hd.png */,
+				384DEF6618446403004B71A9 /* slow.png */,
 				384DEF5B18441782004B71A9 /* pause-hd.png */,
 				384DEF5C18441782004B71A9 /* pause.png */,
 				386088EF184333B400388719 /* bullet-hd.png */,
@@ -1741,6 +1747,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0460;
+				TargetAttributes = {
+					DCC1A0E213A94ED5005BD75D = {
+						DevelopmentTeam = B39S6TGG7N;
+					};
+				};
 			};
 			buildConfigurationList = DCC1A0DB13A94EC0005BD75D /* Build configuration list for PBXProject "targeted" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1942,6 +1953,7 @@
 				388D6DA017B3256000BD6F07 /* play-sel-hd.png in Resources */,
 				388D6DA117B3256000BD6F07 /* play-sel-ipadhd.png in Resources */,
 				388D6DA217B3256000BD6F07 /* play-sel.png in Resources */,
+				384DEF6718446403004B71A9 /* slow-hd.png in Resources */,
 				388D6DA317B3256000BD6F07 /* play.png in Resources */,
 				388D6DA417B3256000BD6F07 /* reset-hd.png in Resources */,
 				388B19221841DCC60030929E /* LevelTag6.png in Resources */,
@@ -2147,6 +2159,7 @@
 				386088E018432BD800388719 /* level5bg-568h.png in Resources */,
 				386088E118432BD800388719 /* level5bg-hd.png in Resources */,
 				386088E218432BD800388719 /* level5bg.png in Resources */,
+				384DEF6818446403004B71A9 /* slow.png in Resources */,
 				386088E318432BD800388719 /* level6bg-568h.png in Resources */,
 				386088E418432BD800388719 /* level6bg-hd.png in Resources */,
 				386088E518432BD800388719 /* level6bg.png in Resources */,
@@ -2253,8 +2266,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DCFA90EF13B4F6F7009DD35A /* BuildSettings-Debug-iOS.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Dipti Shah (SKPGEPUU32)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dipti Shah (SKPGEPUU32)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/mgwuSDK.embeddedframework\"",
@@ -2264,7 +2277,7 @@
 					"$(KKFRAMEWORKS_IOS)",
 					"-lsqlite3.0",
 				);
-				PROVISIONING_PROFILE = "B530DCC7-C104-4C83-963E-4B20BE67B0F2";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B530DCC7-C104-4C83-963E-4B20BE67B0F2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2274,8 +2287,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DCFA90F013B4F811009DD35A /* BuildSettings-Release-iOS.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Dipti Shah (SKPGEPUU32)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dipti Shah (SKPGEPUU32)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/mgwuSDK.embeddedframework\"",
@@ -2285,7 +2298,7 @@
 					"$(KKFRAMEWORKS_IOS)",
 					"-lsqlite3.0",
 				);
-				PROVISIONING_PROFILE = "B530DCC7-C104-4C83-963E-4B20BE67B0F2";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B530DCC7-C104-4C83-963E-4B20BE67B0F2";
 			};
 			name = Release;

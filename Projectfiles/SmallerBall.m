@@ -19,7 +19,7 @@
 
 -(id) initWithValues: (float) speedIn:(float) angleIn
 {
-    if (self = [super initWithFile:@"cyan.png"])
+    if (self = [super init])
     {
         speed = speedIn;
         angle = angleIn;

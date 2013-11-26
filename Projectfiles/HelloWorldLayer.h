@@ -109,7 +109,10 @@
     CCSprite* level7bg;
     CCSprite* level8bg;
     CCSprite* level9bg;
-
+    int bossX;
+    int bossY;
+    BOOL firstTimeMiniMe;
+    BOOL firstTimeSlowDown;
 }
 
 @property (nonatomic, copy) NSString *helloWorldString;
