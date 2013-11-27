@@ -11,10 +11,6 @@
 
 @implementation HelloWorldLayer
 
-int playerWidth = 41.6;
-int playerHeight = 78.6;
-int bossWidth = 190/2;
-int bossHeight = 265/2;
 int thetemporalint = 180;
 int fromNumber;
 int toNumber;
@@ -322,7 +318,7 @@ NSMutableDictionary *initialBoss;
                         shootThePowerup = TRUE; }
                     [initialBoss setObject:@TRUE forKey:@1.2];
                 }
-                if((framespast % 155) ==0 || ![initialBoss objectForKey:@1.2]) {
+                if((framespast % 155) ==0) {
                 [self shootBullet:1 angle:230];
                 [self shootBullet:2 angle:270];
                 [self shootBullet:1 angle:310];
@@ -1508,9 +1504,8 @@ NSMutableDictionary *initialBoss;
     [self deathplusdeath];
 }
 -(void) warpTime {
-    [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+//    [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
 //    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"techno.mp3" loop:YES];
-    [[SimpleAudioEngine sharedEngine] playEffect:@"timewwarp.mp3"];
     [self removeChild:tut];
     isTimeWarped = true;
     framespast = 0;
@@ -1891,7 +1886,6 @@ NSMutableDictionary *initialBoss;
         gameSegment = 0;
         framespast = 0;
         secondspast = 0;
-        [[SimpleAudioEngine sharedEngine] playEffect:@"zoom.mp3"];
         [[NSUserDefaults standardUserDefaults] setInteger:intScore forKey:@"score"];
         [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[Dead node]]];
     }
@@ -1965,10 +1959,6 @@ NSMutableDictionary *initialBoss;
     // Background
     border = [CCSprite spriteWithFile:@"continuebg.png"];
     border.position = ccp(screenCenter.x,screenCenter.y);
-    if ([[CCDirector sharedDirector] winSizeInPixels].height == 1136){
-        border = [CCSprite spriteWithFile:@"continuebg-568h.png"];
-        border.position = ccp(screenCenter.x,screenCenter.y);
-    }
     [self addChild:border z:9010];
     // The coin label
     NSString* world = [NSString stringWithFormat:@"...continue for %d coins.",continueCost];

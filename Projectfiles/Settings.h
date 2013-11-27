@@ -8,6 +8,13 @@
 
 #import "CCScene.h"
 
-@interface Settings : CCScene
+@interface Settings : CCScene {
 
+    CGPoint screenCenter;
+    CGSize size;
+    CCMenu *menu;
+    UIAlertView *alert;
+    UIAlertView *FBalert;
+    
+}
 @end

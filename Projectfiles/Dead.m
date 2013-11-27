@@ -37,10 +37,6 @@
         
         CCSprite* background = [CCSprite spriteWithFile:@"gameoverbg.png"];
         background.position = ccp(screenCenter.x,screenCenter.y);
-        if ([[CCDirector sharedDirector] winSizeInPixels].height == 1136){
-            CCSprite* background = [CCSprite spriteWithFile:@"gameoverbg-568h.png"];
-            background.position = ccp(screenCenter.x,screenCenter.y);
-        }
         [self addChild:background z:-10000];
         
         // add the labels shown during game over

@@ -35,11 +35,6 @@
         CCSprite* background = [CCSprite spriteWithFile:@"pausedbg.png"];
         background.position = ccp(screenCenter.x,screenCenter.y);
         [self addChild:background];
-        if ([[CCDirector sharedDirector] winSizeInPixels].height == 1136){
-            CCSprite* background = [CCSprite spriteWithFile:@"pausedbg-568h.png"];
-            background.position = ccp(screenCenter.x,screenCenter.y);
-            [self addChild:background];
-        }
         
 //        CCLabelTTF* gameOver = [CCLabelTTF labelWithString:@"Paused" fontName:@"Arial" fontSize:40];
 //        [gameOver setColor:ccc3(0, 0, 0)];

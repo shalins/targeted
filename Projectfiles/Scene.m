@@ -34,12 +34,6 @@
         CCSprite *background = [CCSprite spriteWithFile:@"levelbg.png"];
         background.position = ccp(screenCenter.x,screenCenter.y);
         [self addChild:background];
-        // Different BG for iPhone 5
-        if ([[CCDirector sharedDirector] winSizeInPixels].height == 1136){
-            CCSprite *background = [CCSprite spriteWithFile:@"levelbg-568h.png"];
-            background.position = ccp(screenCenter.x,screenCenter.y);
-            [self addChild:background];
-        }
         
         if([[NSUserDefaults standardUserDefaults]integerForKey:@"boss"] == 0) {
             CCMenuItemImage *level1 = [CCMenuItemImage itemWithNormalImage:@"1.png" selectedImage:@"1-sel.png" target:self selector:@selector(level1)];

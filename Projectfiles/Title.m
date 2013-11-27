@@ -11,6 +11,7 @@
 #import "LevelSelect.h"
 #import "SimpleAudioEngine.h"
 #import "High.h"
+#import "Settings.h"
 #import "StatLayer.h"
 
 @implementation Title
@@ -46,17 +47,12 @@
             [self addChild:menu2];
         
             // Settings Button
-            CCMenuItemImage *settings = [CCMenuItemImage itemWithNormalImage:@"settings.png" selectedImage:@"settings.png" target:self selector:@selector(high)];
+            CCMenuItemImage *settings = [CCMenuItemImage itemWithNormalImage:@"settings.png" selectedImage:@"settings.png" target:self selector:@selector(settings)];
             settings.scale = 1.1;
             menu3 = [CCMenu menuWithItems:settings, nil];
             menu3.position = ccp(screenCenter.x + 33,screenCenter.y / 5);
             [self addChild:menu3];
         
-            if ([[CCDirector sharedDirector] winSizeInPixels].height == 1136){
-                CCSprite *background = [CCSprite spriteWithFile:@"mainmenubg-568h.png"];
-                background.position = screenCenter;
-                [self addChild:background z:-10000];
-            }
             // Have Everything Stop
             [self unscheduleAllSelectors];
             CCNode* node;
@@ -70,19 +66,12 @@
     return self;
 }
 
--(void) mgwu
+-(void) settings
 {
     if (theLogs == TRUE) {
         NSLog(@"MGWU Button Clicked");
     }
-    if([[NSUserDefaults standardUserDefaults]boolForKey:@"data"] == false)
-    {
-        [[NSUserDefaults standardUserDefaults] setInteger:6 forKey:@"coins"];
-        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"data"];
-    }
-    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
-    [[SimpleAudioEngine sharedEngine] playEffect:@"zoom.mp3"];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:0.5f scene:[Settings node]]];
 }
 
 -(void) high
@@ -93,7 +82,6 @@
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"high"] == false) {
         [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"high"]; }
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:0.5f scene:[StatLayer node]]];
-    [[SimpleAudioEngine sharedEngine] playEffect:@"zoom.mp3"];
 }
 
 -(void) unPause
@@ -103,7 +91,6 @@
     }
     [[CCDirector sharedDirector] replaceScene:
      [CCTransitionSlideInR transitionWithDuration:0.5f scene:[LevelSelect node]]];
-    [[SimpleAudioEngine sharedEngine] playEffect:@"zoom.mp3"];
 }
 -(void) dotsEffect:(CCSprite *) spriteToBeTheNextBigThing {
     if (theLogs == TRUE) {
