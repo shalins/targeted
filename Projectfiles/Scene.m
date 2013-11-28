@@ -31,7 +31,7 @@
         size = [[CCDirector sharedDirector] winSize];
         screenCenter = ccp(size.width/2, size.height/2);
     
-        CCSprite *background = [CCSprite spriteWithFile:@"levelbg.png"];
+        CCSprite *background = [CCSprite spriteWithFile:@"levelmenubg.png"];
         background.position = ccp(screenCenter.x,screenCenter.y);
         [self addChild:background];
         

@@ -11,6 +11,7 @@
 #import "HelloWorldLayer.h"
 #import "LevelSelect.h"
 #import "Title.h"
+#import "About.h"
 
 @implementation Settings
 
@@ -26,14 +27,14 @@
         background.position = screenCenter;
         [self addChild:background z:-1000];
         
-        CCLabelTTF *settings = [CCLabelTTF labelWithString:@"SETTINGS" fontName:@"HelveticaNeue-Light" fontSize:55];
+        CCLabelTTF *settings = [CCLabelTTF labelWithString:@"SETTINGS" fontName:@"HelveticaNeue-UltraLight" fontSize:55];
         settings.position = ccp(screenCenter.x, screenCenter.y * 1.65);
         [self addChild:settings];
         
         CCMenuItemImage *reset = [CCMenuItemImage itemWithNormalImage:@"resetdata.png" selectedImage:@"resetdata-sel.png" target:self selector:@selector(resetGameData)];
         reset.scale = 1.1f;
         
-        CCMenuItemImage *about = [CCMenuItemImage itemWithNormalImage:@"about.png" selectedImage:@"about-sel.png" target:self selector:@selector(resetGameData)];
+        CCMenuItemImage *about = [CCMenuItemImage itemWithNormalImage:@"about.png" selectedImage:@"about-sel.png" target:self selector:@selector(about)];
         about.scale = 1.1f;
 
         CCMenuItemImage *rateus = [CCMenuItemImage itemWithNormalImage:@"rate.png" selectedImage:@"rate-sel.png" target:self selector:@selector(resetGameData)];
@@ -80,6 +81,9 @@
 
 -(void) goHome {
     [[CCDirector sharedDirector] replaceScene: [CCTransitionFadeTR transitionWithDuration:0.5f scene:[Title node]]];
+}
+-(void) about {
+    [[CCDirector sharedDirector] replaceScene: [CCTransitionFadeTR transitionWithDuration:0.5f scene:[About node]]];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
