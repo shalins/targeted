@@ -71,7 +71,7 @@
     if (theLogs == TRUE) {
         NSLog(@"MGWU Button Clicked");
     }
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:0.5f scene:[Settings node]]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionPageTurn transitionWithDuration:0.5f scene:[Settings node]]];
 }
 
 -(void) high

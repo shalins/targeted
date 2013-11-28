@@ -26,25 +26,24 @@
         [self addChild:about z:1];
         about.position = screenCenter;
         
-        CCMenuItemImage *facebook = [CCMenuItemImage itemWithNormalImage:@"facebook.png" selectedImage:@"facebook.png" target:self selector:@selector(facebook)];
+        CCMenuItemImage *facebook = [CCMenuItemImage itemWithNormalImage:@"facebook.png" selectedImage:@"facebook-sel.png" target:self selector:@selector(facebook)];
         facebook.scale = 0.6f;
         
-        CCMenuItemImage *twitter = [CCMenuItemImage itemWithNormalImage:@"twitter.png" selectedImage:@"twitter.png" target:self selector:@selector(twitter)];
+        CCMenuItemImage *twitter = [CCMenuItemImage itemWithNormalImage:@"twitter.png" selectedImage:@"twitter-sel.png" target:self selector:@selector(twitter)];
         twitter.scale = 0.6f;
         
-        CCMenuItemImage *email = [CCMenuItemImage itemWithNormalImage:@"email.png" selectedImage:@"email.png" target:self selector:@selector(email)];
+        CCMenuItemImage *email = [CCMenuItemImage itemWithNormalImage:@"email.png" selectedImage:@"email-sel.png" target:self selector:@selector(email)];
         email.scale = 0.6f;
         
         CCMenu *menu = [CCMenu menuWithItems:facebook, twitter, email, nil];
         [menu alignItemsHorizontallyWithPadding:8];
-        menu.position = ccp(screenCenter.x,screenCenter.y * 1.4);
+        menu.position = ccp(screenCenter.x,screenCenter.y * 1.55);
         [self addChild:menu];
         
-        CCMenuItemImage *back = [CCMenuItemImage itemWithNormalImage:@"arrow.png" selectedImage:@"arrow-sel.png" target:self selector:@selector(back)];
-        back.scale = 1.1f;
+        CCMenuItemImage *back = [CCMenuItemImage itemWithNormalImage:@"backarrow.png" selectedImage:@"backarrow-sel.png" target:self selector:@selector(back)];
         CCMenu *backMenu = [CCMenu menuWithItems:back, nil];
         backMenu.position = ccp(screenCenter.x,screenCenter.y / 3);
-        [self addChild:backMenu];
+        [self addChild:backMenu z:1000];
         
     }
     return self;
@@ -68,7 +67,7 @@
 }
 
 -(void) back {
-    [[CCDirector sharedDirector] replaceScene: [CCTransitionProgress transitionWithDuration:0.5f scene:[Settings node]]];
+    [[CCDirector sharedDirector] replaceScene: [CCTransitionProgressRadialCCW transitionWithDuration:0.5f scene:[Settings node]]];
 }
 
 
