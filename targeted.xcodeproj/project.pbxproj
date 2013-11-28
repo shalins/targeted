@@ -257,6 +257,9 @@
 		38F7E3D81846F7F800784072 /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 38F7E3D31846F7F800784072 /* twitter.png */; };
 		38F7E3DB1846FDCA00784072 /* me-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 38F7E3D91846FDCA00784072 /* me-hd.png */; };
 		38F7E3DC1846FDCA00784072 /* me.png in Resources */ = {isa = PBXBuildFile; fileRef = 38F7E3DA1846FDCA00784072 /* me.png */; };
+		38F7E3E01847025500784072 /* email-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 38F7E3DD1847025500784072 /* email-hd.png */; };
+		38F7E3E11847025500784072 /* facebook-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 38F7E3DE1847025500784072 /* facebook-hd.png */; };
+		38F7E3E21847025500784072 /* twitter-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 38F7E3DF1847025500784072 /* twitter-hd.png */; };
 		38FF6CBA17ED70DC002B539D /* background1-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 38FF6CB517ED70DC002B539D /* background1-hd.png */; };
 		38FF6CBB17ED70DC002B539D /* background1-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 38FF6CB617ED70DC002B539D /* background1-ipad.png */; };
 		38FF6CBC17ED70DC002B539D /* background1-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 38FF6CB717ED70DC002B539D /* background1-ipadhd.png */; };
@@ -588,6 +591,9 @@
 		38F7E3D31846F7F800784072 /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 		38F7E3D91846FDCA00784072 /* me-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "me-hd.png"; sourceTree = "<group>"; };
 		38F7E3DA1846FDCA00784072 /* me.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = me.png; sourceTree = "<group>"; };
+		38F7E3DD1847025500784072 /* email-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "email-hd.png"; sourceTree = "<group>"; };
+		38F7E3DE1847025500784072 /* facebook-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook-hd.png"; sourceTree = "<group>"; };
+		38F7E3DF1847025500784072 /* twitter-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter-hd.png"; sourceTree = "<group>"; };
 		38FF6CB517ED70DC002B539D /* background1-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background1-hd.png"; sourceTree = "<group>"; };
 		38FF6CB617ED70DC002B539D /* background1-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background1-ipad.png"; sourceTree = "<group>"; };
 		38FF6CB717ED70DC002B539D /* background1-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background1-ipadhd.png"; sourceTree = "<group>"; };
@@ -989,6 +995,9 @@
 		388D6BEF17B1C19B00BD6F07 /* Social */ = {
 			isa = PBXGroup;
 			children = (
+				38F7E3DD1847025500784072 /* email-hd.png */,
+				38F7E3DE1847025500784072 /* facebook-hd.png */,
+				38F7E3DF1847025500784072 /* twitter-hd.png */,
 				38F7E3D91846FDCA00784072 /* me-hd.png */,
 				38F7E3DA1846FDCA00784072 /* me.png */,
 				38F7E3D11846F7F800784072 /* email.png */,
@@ -1331,6 +1340,7 @@
 				388B19171841DCC60030929E /* LevelTag1-hd.png in Resources */,
 				388D6C5417B1C19B00BD6F07 /* b2sq.ttf in Resources */,
 				388D6C5517B1C19B00BD6F07 /* b2sqol1.ttf in Resources */,
+				38F7E3E21847025500784072 /* twitter-hd.png in Resources */,
 				388D6C5617B1C19B00BD6F07 /* b2sqol2.ttf in Resources */,
 				384DEFF11845BC27004B71A9 /* back31-iphone5hd.png in Resources */,
 				388D6C5717B1C19B00BD6F07 /* bewilder.ttf in Resources */,
@@ -1481,6 +1491,7 @@
 				386320B0183172B700EBB847 /* arrow-sel-hd.png in Resources */,
 				386320B1183172B700EBB847 /* arrow-sel.png in Resources */,
 				386320B2183172B700EBB847 /* arrow.png in Resources */,
+				38F7E3E01847025500784072 /* email-hd.png in Resources */,
 				386320B3183172B700EBB847 /* locked-hd.png in Resources */,
 				386320B4183172B700EBB847 /* locked-sel-hd.png in Resources */,
 				386320B5183172B700EBB847 /* locked-sel.png in Resources */,
@@ -1542,6 +1553,7 @@
 				386088B5184323EC00388719 /* target8-hd.png in Resources */,
 				386088B6184323EC00388719 /* target8.png in Resources */,
 				386088B7184323EC00388719 /* target9-hd.png in Resources */,
+				38F7E3E11847025500784072 /* facebook-hd.png in Resources */,
 				384DEF6C18447431004B71A9 /* small.png in Resources */,
 				386088B8184323EC00388719 /* target9.png in Resources */,
 				386088D518432BD800388719 /* level1bg-hd.png in Resources */,
