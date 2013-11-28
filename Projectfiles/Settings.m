@@ -83,7 +83,7 @@
     [[CCDirector sharedDirector] replaceScene: [CCTransitionFadeTR transitionWithDuration:0.5f scene:[Title node]]];
 }
 -(void) about {
-    [[CCDirector sharedDirector] replaceScene: [CCTransitionFadeTR transitionWithDuration:0.5f scene:[About node]]];
+    [[CCDirector sharedDirector] replaceScene: [CCTransitionProgressRadialCW transitionWithDuration:0.5f scene:[About node]]];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
