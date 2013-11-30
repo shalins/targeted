@@ -23,6 +23,7 @@
     CCMenuItemSprite *playMenuItem;
     CCMenuItemSprite *leaderMenuItem;
     CCMenuItemImage *sound;
+    BOOL playTheSounds;
 }
 
 @end

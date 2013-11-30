@@ -57,6 +57,11 @@ NSMutableDictionary *initialBoss;
         [[NSUserDefaults standardUserDefaults] setBool:targetHit forKey:@"targetHit"];
         //        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
         //        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"hex.mp3" loop:YES];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"select.mp3"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"complete.mp3"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"correct.mp3"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"correctv2.mp3"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"died.mp3"];
         deathanimation = true;
         glClearColor(255,255,255,255);
         continueCost = 1;
@@ -1567,7 +1572,13 @@ NSMutableDictionary *initialBoss;
         // This should happen when the bullet is deleted.
         if (level == 1) {
             gameSegment += 1;
+            if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
+            }
             if (gameSegment >= 7) {
+                if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                    [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                }
                 [[NSUserDefaults standardUserDefaults] setInteger:(coins + 100) forKey:@"coins"];
                 [self schedule:@selector(gameSegmentBeat)];
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
@@ -1581,7 +1592,13 @@ NSMutableDictionary *initialBoss;
             }
         } else if (level == 2) {
             gameSegment += 1;
+            if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
+            }
             if (gameSegment >= 5) {
+                if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                    [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                }
                 [[NSUserDefaults standardUserDefaults] setInteger:(coins + 150) forKey:@"coins"];
                 [self schedule:@selector(gameSegmentBeat)];
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
@@ -1595,7 +1612,13 @@ NSMutableDictionary *initialBoss;
             }
         } else if (level == 3) {
             gameSegment += 1;
+            if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
+            }
             if (gameSegment >= 6) {
+                if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                    [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                }
                 [[NSUserDefaults standardUserDefaults] setInteger:(coins + 200) forKey:@"coins"];
                 [self schedule:@selector(gameSegmentBeat)];
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
@@ -1609,7 +1632,13 @@ NSMutableDictionary *initialBoss;
             }
         } else if (level == 4) {
             gameSegment += 1;
+            if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
+            }
             if (gameSegment >= 8) {
+                if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                    [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                }
                 [[NSUserDefaults standardUserDefaults] setInteger:(coins + 250) forKey:@"coins"];
                 [self schedule:@selector(gameSegmentBeat)];
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
@@ -1623,7 +1652,13 @@ NSMutableDictionary *initialBoss;
             }
         } else if (level == 5) {
             gameSegment += 1;
+            if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
+            }
             if (gameSegment >= 5) {
+                if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                    [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                }
                 [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
                 [self schedule:@selector(gameSegmentBeat)];
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
@@ -1637,7 +1672,13 @@ NSMutableDictionary *initialBoss;
             }
         } else if (level == 6) {
             gameSegment += 1;
+            if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
+            }
             if (gameSegment >= 5) {
+                if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                    [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                }
                 [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
                 [self schedule:@selector(gameSegmentBeat)];
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
@@ -1651,7 +1692,13 @@ NSMutableDictionary *initialBoss;
             }
         } else if (level == 7) {
             gameSegment += 1;
+            if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
+            }
             if (gameSegment >= 4) {
+                if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                    [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                }
                 [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
                 [self schedule:@selector(gameSegmentBeat)];
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
@@ -1669,7 +1716,13 @@ NSMutableDictionary *initialBoss;
             }
         } else if (level == 8) {
             gameSegment += 1;
+            if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
+            }
             if (gameSegment >= 4) {
+                if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                    [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                }
                 [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
                 [self schedule:@selector(gameSegmentBeat)];
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
@@ -1687,7 +1740,13 @@ NSMutableDictionary *initialBoss;
             }
         } else if (level == 9) {
             gameSegment += 1;
+            if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
+            }
             if (gameSegment >= 4) {
+                if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                    [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                }
                 [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
                 [self schedule:@selector(gameSegmentBeat)];
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
