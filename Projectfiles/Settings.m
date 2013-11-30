@@ -37,7 +37,7 @@
         CCMenuItemImage *about = [CCMenuItemImage itemWithNormalImage:@"about.png" selectedImage:@"about-sel.png" target:self selector:@selector(about)];
         about.scale = 1.1f;
 
-        CCMenuItemImage *rateus = [CCMenuItemImage itemWithNormalImage:@"rate.png" selectedImage:@"rate-sel.png" target:self selector:@selector(resetGameData)];
+        CCMenuItemImage *rateus = [CCMenuItemImage itemWithNormalImage:@"rate.png" selectedImage:@"rate-sel.png" target:self selector:@selector(rate)];
         rateus.scale = 1.1f;
 
         menu = [CCMenu menuWithItems:reset, about, rateus, nil];
@@ -84,6 +84,10 @@
 }
 -(void) about {
     [[CCDirector sharedDirector] replaceScene: [CCTransitionProgressRadialCW transitionWithDuration:0.5f scene:[About node]]];
+}
+-(void) rate {
+    NSURL *ituneslink = [NSURL URLWithString:@"https://www.appstore.com/center"];
+    [[UIApplication sharedApplication] openURL:ituneslink];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

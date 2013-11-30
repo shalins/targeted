@@ -22,12 +22,12 @@ CCLabelBMFont *coinsLabel;
 {
 	if ((self = [super init]))
 	{
-        CCSprite* background = [CCSprite spriteWithFile:@"blank.png"];
-        background.position = ccp(screenCenter.x,screenCenter.y);
-        [self addChild:background z:-1000];
-        
         screenSize = [[CCDirector sharedDirector] winSize];
         screenCenter = CGPointMake(screenSize.width/2, screenSize.height/2);
+
+        CCSprite* background = [CCSprite spriteWithFile:@"level2bg.png"];
+        background.position = screenCenter;
+        [self addChild:background z:-1000];
         
         int CoinNumber = [[NSUserDefaults standardUserDefaults] integerForKey:@"coins"];
         //        NSNumber *endingHighScoreNumber = [MGWU objectForKey:@"sharedHighScore"];
@@ -51,7 +51,7 @@ CCLabelBMFont *coinsLabel;
         [moneyVendor alignItemsVerticallyWithPadding:12];
         [self addChild:moneyVendor];
         
-        CCMenuItemImage *leaveButton = [CCMenuItemImage itemWithNormalImage:@"leaveButton.png" selectedImage:@"leaveButton-sel.png" target:self selector:@selector(goHome)];
+        CCMenuItemImage *leaveButton = [CCMenuItemImage itemWithNormalImage:@"backarrow.png" selectedImage:@"backarrow-sel.png" target:self selector:@selector(goHome)];
         leaveButton.scale = 0.8f;
         
         CCMenu *leaveMenu = [CCMenu menuWithItems:leaveButton, nil];

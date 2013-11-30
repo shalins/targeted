@@ -22,6 +22,7 @@
     CCMenu *menu3;
     CCMenuItemSprite *playMenuItem;
     CCMenuItemSprite *leaderMenuItem;
+    CCMenuItemImage *sound;
 }
 
 @end

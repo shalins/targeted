@@ -494,24 +494,21 @@ NSMutableDictionary *initialBoss;
         }
         if(level == 4) {
             if(gameSegment ==0) {
-                if((framespast % 150) == 0 || ![initialBoss objectForKey:@4.0]) {
-                    [initialBoss setObject:@TRUE forKey:@4.0];
+                if((framespast % 150) == 0) {
                     [self shootBulletwithPosMult:4 angle:20 xpos:1/10 ypos:1/10];
                     [self shootBulletwithPosMult:4 angle:40 xpos:1/10 ypos:1/10];
                     [self shootBulletwithPosMult:4 angle:60 xpos:1/10 ypos:1/10];
                 }
             }
             if(gameSegment ==1) {
-                if((framespast % 150) == 0 || ![initialBoss objectForKey:@4.1]) {
-                    [initialBoss setObject:@TRUE forKey:@4.1];
+                if((framespast % 150) == 0) {
                     [self shootBulletwithPosMult:4 angle:100 xpos:1.5 ypos:1/10];
                     [self shootBulletwithPosMult:4 angle:120 xpos:1.5 ypos:1/10];
                     [self shootBulletwithPosMult:4 angle:140 xpos:1.5 ypos:1/10];
                 }
             }
             if(gameSegment ==2) {
-                if((framespast % 130) == 0 || ![initialBoss objectForKey:@4.2]) {
-                    [initialBoss setObject:@TRUE forKey:@4.2];
+                if((framespast % 130) == 0) {
                     [self shootBulletwithPosMult:5 angle:40 xpos:1/10 ypos:1/10];
                     [self shootBulletwithPosMult:5 angle:120 xpos:1.5 ypos:1/10];
                 }

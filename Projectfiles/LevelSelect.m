@@ -27,7 +27,6 @@
 #import "HelloWorldLayer.h"
 #import "Title.h"
 #import "Scene.h"
-//#import "Level2.h"
 
 @implementation LevelSelect
 

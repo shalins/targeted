@@ -20,6 +20,8 @@
 {
     if ((self = [super init]))
     {
+            [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"musicon"];
+        
             // NSLogging Switch
             theLogs = TRUE;
         
@@ -40,11 +42,11 @@
             [self addChild:menu];
         
             // Sound Button
-            CCMenuItemImage *sound = [CCMenuItemImage itemWithNormalImage:@"music.png" selectedImage:@"music.png" target:self selector:@selector(high)];
-            sound.scale = 1.1;
-            menu2 = [CCMenu menuWithItems:sound, nil];
-            menu2.position = ccp(screenCenter.x - 33,screenCenter.y / 5);
-            [self addChild:menu2];
+//            sound = [CCMenuItemImage itemWithNormalImage:@"music.png" selectedImage:@"music.png" target:self selector:@selector(turnOffSound)];
+//            sound.scale = 1.1;
+//            menu2 = [CCMenu menuWithItems:sound, nil];
+//            menu2.position = ccp(screenCenter.x - 33,screenCenter.y / 5);
+//            [self addChild:menu2];
         
             // Settings Button
             CCMenuItemImage *settings = [CCMenuItemImage itemWithNormalImage:@"settings.png" selectedImage:@"settings.png" target:self selector:@selector(settings)];
@@ -53,17 +55,32 @@
             menu3.position = ccp(screenCenter.x + 33,screenCenter.y / 5);
             [self addChild:menu3];
         
-            // Have Everything Stop
-            [self unscheduleAllSelectors];
-            CCNode* node;
-            CCARRAY_FOREACH([self children], node)
-            {
-                [node pauseSchedulerAndActions];
-            }
+            [self scheduleUpdate];
             // Sounds
             [[SimpleAudioEngine sharedEngine] preloadEffect:@"zoom.mp3"];
     }
     return self;
+}
+-(void)update:(ccTime)delta
+{
+//    if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+//        sound = [CCMenuItemImage itemWithNormalImage:@"music.png" selectedImage:@"music.png" target:self selector:@selector(turnOffSound)];
+//    } else if ([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == FALSE){
+//        sound = [CCMenuItemImage itemWithNormalImage:@"music-not.png" selectedImage:@"music-not.png" target:self selector:@selector(turnOnSound)];
+//    }
+//    sound.scale = 1.1;
+//    menu2 = [CCMenu menuWithItems:sound, nil];
+//    menu2.position = ccp(screenCenter.x - 33,screenCenter.y / 5);
+//    if (menu2.parent == nil) {
+//        [self addChild:menu2];
+//    }
+}
+
+-(void) turnOnSound {
+    [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"musicon"];
+}
+-(void) turnOffSound {
+    [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"musicon"];
 }
 
 -(void) settings
