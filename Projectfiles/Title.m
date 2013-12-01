@@ -20,16 +20,8 @@
 {
     if ((self = [super init]))
     {
-            [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"musicon"];
+                [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"musicon"];
         
-//            bool musicStatusCheck = [[NSUserDefaults standardUserDefaults] boolForKey:@"musicon"];
-//            if (musicStatusCheck == FALSE) {
-//                playTheSounds = FALSE;
-//            }
-//            else {
-//                playTheSounds = [[NSUserDefaults standardUserDefaults] objectForKey:@"musicon"];
-//            }
-
             // NSLogging Switch
             theLogs = TRUE;
         
@@ -50,19 +42,11 @@
             [self addChild:menu];
         
             // Sound Button
-        if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
             sound = [CCMenuItemImage itemWithNormalImage:@"music.png" selectedImage:@"music.png" target:self selector:@selector(turnOffSound)];
             sound.scale = 1.1;
             menu2 = [CCMenu menuWithItems:sound, nil];
             menu2.position = ccp(screenCenter.x - 33,screenCenter.y / 5);
             [self addChild:menu2];
-        } else {
-            sound = [CCMenuItemImage itemWithNormalImage:@"music-not.png" selectedImage:@"music-not.png" target:self selector:@selector(turnOnSound)];
-            sound.scale = 1.1;
-            menu2 = [CCMenu menuWithItems:sound, nil];
-            menu2.position = ccp(screenCenter.x - 33,screenCenter.y / 5);
-            [self addChild:menu2];
-        }
         
 //            if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
 //            }
@@ -82,7 +66,7 @@
             [[SimpleAudioEngine sharedEngine] preloadEffect:@"correctv2.mp3"];
             [[SimpleAudioEngine sharedEngine] preloadEffect:@"died.mp3"];
             if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
-                [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                [[SimpleAudioEngine sharedEngine] playEffect:@"select.mp3"];
             }
         
     }
