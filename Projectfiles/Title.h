@@ -19,11 +19,12 @@
     CCSprite *myTitleLogo;
     CCMenu *menu;
     CCMenu *menu2;
+    CCMenu *menutwo;
     CCMenu *menu3;
     CCMenuItemSprite *playMenuItem;
     CCMenuItemSprite *leaderMenuItem;
     CCMenuItemImage *sound;
-    BOOL playTheSounds;
+    CCMenuItemSprite *soundOff;
 }
 
 @end
