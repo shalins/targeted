@@ -31,6 +31,8 @@
     CCMenuItemImage *level;
     CCMenu *endlessMenu;
     CCMenu *levelMenu;
+    CCLabelTTF *levelModeText;
+    CCLabelTTF *endlessModeText;
 
 }
 

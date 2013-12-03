@@ -86,6 +86,13 @@
             levelMenu.position = ccp(screenCenter.x + 95,screenCenter.y);
             [self addChild:levelMenu];
         
+            levelModeText = [CCLabelTTF labelWithString:@"LEVEL MODE" fontName:@"HelveticaNeue" fontSize:25];
+            levelModeText.position = ccp(screenCenter.x * 4, (screenCenter.y * 3) / 5);
+            [self addChild:levelModeText];
+            endlessModeText = [CCLabelTTF labelWithString:@"ENDLESS MODE" fontName:@"HelveticaNeue" fontSize:25];
+            endlessModeText.position = ccp(screenCenter.x * (-4), (screenCenter.y * 3) / 5);
+            [self addChild:endlessModeText];
+        
             // Sounds
             [[SimpleAudioEngine sharedEngine] preloadEffect:@"select.mp3"];
             [[SimpleAudioEngine sharedEngine] preloadEffect:@"complete.mp3"];
@@ -121,10 +128,16 @@
     [self addChild:menutwo];
 }
 -(void) endlessSelected {
+    isEndlessMode = TRUE;
+    isLevelMode = FALSE;
     [self removeChild:endless cleanup:YES];
     [self removeChild:endlessMenu cleanup:YES];
     [self removeChild:level cleanup:YES];
     [self removeChild:levelMenu cleanup:YES];
+    if (isEndlessMode == TRUE) {
+        [self fadeEffect:endlessModeText];
+    } else {
+    }
     endless = [CCMenuItemImage itemWithNormalImage:@"endless-sel.png" selectedImage:@"endless-sel.png" target:self selector:@selector(endlessSelected)];
     endlessMenu = [CCMenu menuWithItems:endless, nil];
     endlessMenu.position = ccp(screenCenter.x - 95,screenCenter.y);
@@ -133,14 +146,18 @@
     levelMenu = [CCMenu menuWithItems:level, nil];
     levelMenu.position = ccp(screenCenter.x + 95,screenCenter.y);
     [self addChild:levelMenu];
-    isEndlessMode = TRUE;
-    isLevelMode = FALSE;
 }
 -(void) levelSelected {
+    isEndlessMode = FALSE;
+    isLevelMode = TRUE;
     [self removeChild:endless cleanup:YES];
     [self removeChild:endlessMenu cleanup:YES];
     [self removeChild:level cleanup:YES];
     [self removeChild:levelMenu cleanup:YES];
+    if (isLevelMode == TRUE) {
+        [self fadeEffect:levelModeText];
+    } else {
+    }
     level = [CCMenuItemImage itemWithNormalImage:@"level-sel.png" selectedImage:@"level-sel.png" target:self selector:@selector(levelSelected)];
     levelMenu = [CCMenu menuWithItems:level, nil];
     levelMenu.position = ccp(screenCenter.x + 95,screenCenter.y);
@@ -149,8 +166,6 @@
     endlessMenu = [CCMenu menuWithItems:endless, nil];
     endlessMenu.position = ccp(screenCenter.x - 95,screenCenter.y);
     [self addChild:endlessMenu];
-    isEndlessMode = FALSE;
-    isLevelMode = TRUE;
 }
 -(void) settings
 {
@@ -181,6 +196,18 @@
     id jump = [CCJumpBy actionWithDuration:0.35f position:CGPointZero height:40 jumps:1];
     id repeatJump = [CCRepeat actionWithAction:jump times:1];
     [spriteToBeTheNextBigThing runAction:[CCSequence actions:dropdown, repeatJump, nil]];
+}
+-(void) fadeEffect:(CCSprite *) spriteToBeTheNextBigThing {
+    if (theLogs == TRUE) {
+//        NSLog(@"Title Logo Dropped Down Correctly");
+    }
+    id moveIn = [CCMoveTo actionWithDuration:0.7f position:ccp(screenCenter.x, (screenCenter.y * 3) / 5)];
+    id someDelay = [CCDelayTime actionWithDuration:3.0f];
+    id fadeAway = [CCFadeOut actionWithDuration:1.0f];
+    id someMoreDelay = [CCDelayTime actionWithDuration:1.0f];
+    id moveBack = [CCMoveTo actionWithDuration:0.7f position:ccp(spriteToBeTheNextBigThing.position.x, spriteToBeTheNextBigThing.position.y)];
+    id fadeBackIn = [CCFadeIn actionWithDuration:3.0f];
+    [spriteToBeTheNextBigThing runAction:[CCSequence actions:moveIn, someDelay, fadeAway, someMoreDelay, moveBack, fadeBackIn, nil]];
 }
 -(void) slideEffectRight:(CCMenu *) spriteToBeTheNextBigThing {
     if (theLogs == TRUE) {
