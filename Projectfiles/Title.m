@@ -13,6 +13,7 @@
 #import "High.h"
 #import "Settings.h"
 #import "StatLayer.h"
+#import "Scene.h"
 
 @implementation Title
 
@@ -42,6 +43,7 @@
             menu = [CCMenu menuWithItems:start, nil];
             menu.position = ccp(screenCenter.x,screenCenter.y);
             [self addChild:menu];
+        
         
             // Sound Button
             if([[NSUserDefaults standardUserDefaults] integerForKey:@"numTimesPlayed"] == 0) {
@@ -73,6 +75,16 @@
             menu3 = [CCMenu menuWithItems:settings, nil];
             menu3.position = ccp(screenCenter.x + 33,screenCenter.y / 5);
             [self addChild:menu3];
+            
+            endless = [CCMenuItemImage itemWithNormalImage:@"endless-sel.png" selectedImage:@"endless-sel.png" target:self selector:@selector(endlessSelected)];
+            endlessMenu = [CCMenu menuWithItems:endless, nil];
+            endlessMenu.position = ccp(screenCenter.x - 95,screenCenter.y);
+            [self addChild:endlessMenu];
+        
+            level = [CCMenuItemImage itemWithNormalImage:@"level.png" selectedImage:@"level-sel.png" target:self selector:@selector(levelSelected)];
+            levelMenu = [CCMenu menuWithItems:level, nil];
+            levelMenu.position = ccp(screenCenter.x + 95,screenCenter.y);
+            [self addChild:levelMenu];
         
             // Sounds
             [[SimpleAudioEngine sharedEngine] preloadEffect:@"select.mp3"];
@@ -108,6 +120,38 @@
     menutwo.position = ccp(screenCenter.x - 33,screenCenter.y / 5);
     [self addChild:menutwo];
 }
+-(void) endlessSelected {
+    [self removeChild:endless cleanup:YES];
+    [self removeChild:endlessMenu cleanup:YES];
+    [self removeChild:level cleanup:YES];
+    [self removeChild:levelMenu cleanup:YES];
+    endless = [CCMenuItemImage itemWithNormalImage:@"endless-sel.png" selectedImage:@"endless-sel.png" target:self selector:@selector(endlessSelected)];
+    endlessMenu = [CCMenu menuWithItems:endless, nil];
+    endlessMenu.position = ccp(screenCenter.x - 95,screenCenter.y);
+    [self addChild:endlessMenu];
+    level = [CCMenuItemImage itemWithNormalImage:@"level.png" selectedImage:@"level-sel.png" target:self selector:@selector(levelSelected)];
+    levelMenu = [CCMenu menuWithItems:level, nil];
+    levelMenu.position = ccp(screenCenter.x + 95,screenCenter.y);
+    [self addChild:levelMenu];
+    isEndlessMode = TRUE;
+    isLevelMode = FALSE;
+}
+-(void) levelSelected {
+    [self removeChild:endless cleanup:YES];
+    [self removeChild:endlessMenu cleanup:YES];
+    [self removeChild:level cleanup:YES];
+    [self removeChild:levelMenu cleanup:YES];
+    level = [CCMenuItemImage itemWithNormalImage:@"level-sel.png" selectedImage:@"level-sel.png" target:self selector:@selector(levelSelected)];
+    levelMenu = [CCMenu menuWithItems:level, nil];
+    levelMenu.position = ccp(screenCenter.x + 95,screenCenter.y);
+    [self addChild:levelMenu];
+    endless = [CCMenuItemImage itemWithNormalImage:@"endless.png" selectedImage:@"endless-sel.png" target:self selector:@selector(endlessSelected)];
+    endlessMenu = [CCMenu menuWithItems:endless, nil];
+    endlessMenu.position = ccp(screenCenter.x - 95,screenCenter.y);
+    [self addChild:endlessMenu];
+    isEndlessMode = FALSE;
+    isLevelMode = TRUE;
+}
 -(void) settings
 {
     if (theLogs == TRUE) {
@@ -121,8 +165,13 @@
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
         [[SimpleAudioEngine sharedEngine] playEffect:@"select.mp3"];
     }
-    [[CCDirector sharedDirector] replaceScene:
-     [CCTransitionSlideInR transitionWithDuration:0.5f scene:[LevelSelect node]]];
+    if (isLevelMode == TRUE) {
+        [[CCDirector sharedDirector] replaceScene: [CCTransitionSlideInR transitionWithDuration:0.5f scene:[Scene node]]];
+    } else if (isEndlessMode == TRUE) {
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[HelloWorldLayer node]]];
+    }
+//    [[CCDirector sharedDirector] replaceScene:
+//     [CCTransitionSlideInR transitionWithDuration:0.5f scene:[LevelSelect node]]];
 }
 -(void) dotsEffect:(CCSprite *) spriteToBeTheNextBigThing {
     if (theLogs == TRUE) {

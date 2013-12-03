@@ -25,7 +25,13 @@
     CCMenuItemSprite *playMenuItem;
     CCMenuItemSprite *leaderMenuItem;
     CCMenuItemImage *sound;
-    CCMenuItemSprite *soundOff;
+    CCMenuItemImage *soundOff;
+    
+    CCMenuItemImage *endless;
+    CCMenuItemImage *level;
+    CCMenu *endlessMenu;
+    CCMenu *levelMenu;
+
 }
 
 @end

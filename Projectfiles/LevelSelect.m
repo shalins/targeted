@@ -68,7 +68,7 @@
         endlessMode.position = ccp(screenSize.width/2, (screenSize.height/4) *3);
         CCMenu *endlessModeMenu = [CCMenu menuWithItems:endlessMode, nil];
         endlessModeMenu.position = CGPointZero;
-        [self addChild:endlessModeMenu];
+//        [self addChild:endlessModeMenu];
         
         CCMenuItem *bossMode = [CCMenuItemImage itemWithNormalImage:@"bossmode.png" selectedImage:@"bossmode.png" target:self selector:@selector(level2)];
         bossMode.position = ccp(screenSize.width/2, screenSize.height/4);
