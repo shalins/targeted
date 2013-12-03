@@ -58,6 +58,14 @@
 		384DF0081845E8D4004B71A9 /* rate-sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 384DF0021845E8D4004B71A9 /* rate-sel.png */; };
 		384DF0091845E8D4004B71A9 /* resetdata-sel-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 384DF0031845E8D4004B71A9 /* resetdata-sel-hd.png */; };
 		384DF00A1845E8D4004B71A9 /* resetdata-sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 384DF0041845E8D4004B71A9 /* resetdata-sel.png */; };
+		384E28E5184D6FEE00281ED9 /* start-sel-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 384E28E3184D6FEE00281ED9 /* start-sel-hd.png */; };
+		384E28E6184D6FEE00281ED9 /* start-sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 384E28E4184D6FEE00281ED9 /* start-sel.png */; };
+		384E28ED184D75E700281ED9 /* music-not-sel-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 384E28E7184D75E700281ED9 /* music-not-sel-hd.png */; };
+		384E28EE184D75E700281ED9 /* music-not-sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 384E28E8184D75E700281ED9 /* music-not-sel.png */; };
+		384E28EF184D75E700281ED9 /* music-sel-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 384E28E9184D75E700281ED9 /* music-sel-hd.png */; };
+		384E28F0184D75E700281ED9 /* music-sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 384E28EA184D75E700281ED9 /* music-sel.png */; };
+		384E28F1184D75E700281ED9 /* settings-sel-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 384E28EB184D75E700281ED9 /* settings-sel-hd.png */; };
+		384E28F2184D75E700281ED9 /* settings-sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 384E28EC184D75E700281ED9 /* settings-sel.png */; };
 		385208D31849891200375101 /* music-not-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 385208D11849891200375101 /* music-not-hd.png */; };
 		385208D41849891200375101 /* music-not.png in Resources */ = {isa = PBXBuildFile; fileRef = 385208D21849891200375101 /* music-not.png */; };
 		385208DA1849B05E00375101 /* complete.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 385208D51849B05E00375101 /* complete.mp3 */; };
@@ -391,6 +399,14 @@
 		384DF0021845E8D4004B71A9 /* rate-sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rate-sel.png"; sourceTree = "<group>"; };
 		384DF0031845E8D4004B71A9 /* resetdata-sel-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "resetdata-sel-hd.png"; sourceTree = "<group>"; };
 		384DF0041845E8D4004B71A9 /* resetdata-sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "resetdata-sel.png"; sourceTree = "<group>"; };
+		384E28E3184D6FEE00281ED9 /* start-sel-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "start-sel-hd.png"; sourceTree = "<group>"; };
+		384E28E4184D6FEE00281ED9 /* start-sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "start-sel.png"; sourceTree = "<group>"; };
+		384E28E7184D75E700281ED9 /* music-not-sel-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "music-not-sel-hd.png"; sourceTree = "<group>"; };
+		384E28E8184D75E700281ED9 /* music-not-sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "music-not-sel.png"; sourceTree = "<group>"; };
+		384E28E9184D75E700281ED9 /* music-sel-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "music-sel-hd.png"; sourceTree = "<group>"; };
+		384E28EA184D75E700281ED9 /* music-sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "music-sel.png"; sourceTree = "<group>"; };
+		384E28EB184D75E700281ED9 /* settings-sel-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings-sel-hd.png"; sourceTree = "<group>"; };
+		384E28EC184D75E700281ED9 /* settings-sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings-sel.png"; sourceTree = "<group>"; };
 		385208D11849891200375101 /* music-not-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "music-not-hd.png"; sourceTree = "<group>"; };
 		385208D21849891200375101 /* music-not.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "music-not.png"; sourceTree = "<group>"; };
 		385208D51849B05E00375101 /* complete.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = complete.mp3; sourceTree = "<group>"; };
@@ -748,6 +764,14 @@
 		381C2C7A18305804005213F5 /* Last Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				384E28E7184D75E700281ED9 /* music-not-sel-hd.png */,
+				384E28E8184D75E700281ED9 /* music-not-sel.png */,
+				384E28E9184D75E700281ED9 /* music-sel-hd.png */,
+				384E28EA184D75E700281ED9 /* music-sel.png */,
+				384E28EB184D75E700281ED9 /* settings-sel-hd.png */,
+				384E28EC184D75E700281ED9 /* settings-sel.png */,
+				384E28E3184D6FEE00281ED9 /* start-sel-hd.png */,
+				384E28E4184D6FEE00281ED9 /* start-sel.png */,
 				385208D11849891200375101 /* music-not-hd.png */,
 				385208D21849891200375101 /* music-not.png */,
 				384DEFFF1845E8D4004B71A9 /* about-sel-hd.png */,
@@ -1365,12 +1389,14 @@
 				DC65617315114B4A00E59F8A /* fps_images-ipadhd.png in Resources */,
 				DC2721A2160CAEB600D88944 /* Default-568h@2x.png in Resources */,
 				DC2721AA160CAFC700D88944 /* iTunesArtwork in Resources */,
+				384E28F1184D75E700281ED9 /* settings-sel-hd.png in Resources */,
 				84F92CE61784C21C00500453 /* README.md in Resources */,
 				388B19201841DCC60030929E /* LevelTag5.png in Resources */,
 				384DEFE31845BB46004B71A9 /* continuebg-iphone5hd.png in Resources */,
 				388B19181841DCC60030929E /* LevelTag1.png in Resources */,
 				388B19231841DCC60030929E /* LevelTag7-hd.png in Resources */,
 				388B19041841AFC90030929E /* restart.png in Resources */,
+				384E28EF184D75E700281ED9 /* music-sel-hd.png in Resources */,
 				38F7E3F418473FA200784072 /* twitter-sel-hd.png in Resources */,
 				848DADB21787783A00611F6F /* b2sq.ttf in Resources */,
 				848DADB41787784100611F6F /* bewilder.ttf in Resources */,
@@ -1386,6 +1412,7 @@
 				388D6C5717B1C19B00BD6F07 /* bewilder.ttf in Resources */,
 				388D6C5817B1C19B00BD6F07 /* NexaBold.ttf in Resources */,
 				388D6C7217B1C19B00BD6F07 /* Icon-72.png in Resources */,
+				384E28EE184D75E700281ED9 /* music-not-sel.png in Resources */,
 				388D6C7317B1C19B00BD6F07 /* Icon-72@2x.png in Resources */,
 				388D6C7417B1C19B00BD6F07 /* Icon-Small-50.png in Resources */,
 				388D6C7517B1C19B00BD6F07 /* Icon-Small-50@2x.png in Resources */,
@@ -1426,6 +1453,7 @@
 				388D6DC617B3259400BD6F07 /* bossmode-hd.png in Resources */,
 				385208DD1849B05E00375101 /* died.mp3 in Resources */,
 				388D6DC717B3259400BD6F07 /* bossmode.png in Resources */,
+				384E28F2184D75E700281ED9 /* settings-sel.png in Resources */,
 				388B19011841AFC90030929E /* restart-hd.png in Resources */,
 				388D6DCD17B3259400BD6F07 /* endless-hd.png in Resources */,
 				388D6DCE17B3259400BD6F07 /* endless.png in Resources */,
@@ -1459,8 +1487,10 @@
 				384DEFFA1845C8C3004B71A9 /* about.png in Resources */,
 				389DAAA817DBC26500B109F7 /* coins3-ipadhd.png in Resources */,
 				389DAAA917DBC26500B109F7 /* coins3-sel-hd.png in Resources */,
+				384E28ED184D75E700281ED9 /* music-not-sel-hd.png in Resources */,
 				389DAAAA17DBC26500B109F7 /* coins3-sel-ipadhd.png in Resources */,
 				389DAAAB17DBC26500B109F7 /* coins3-sel.png in Resources */,
+				384E28F0184D75E700281ED9 /* music-sel.png in Resources */,
 				385208DB1849B05E00375101 /* correct.mp3 in Resources */,
 				389DAAAC17DBC26500B109F7 /* coins3.png in Resources */,
 				38FF6CBA17ED70DC002B539D /* background1-hd.png in Resources */,
@@ -1489,6 +1519,7 @@
 				388B191D1841DCC60030929E /* LevelTag4-hd.png in Resources */,
 				384DF0071845E8D4004B71A9 /* rate-sel-hd.png in Resources */,
 				3863208B183172B700EBB847 /* 1-hd.png in Resources */,
+				384E28E6184D6FEE00281ED9 /* start-sel.png in Resources */,
 				3863208C183172B700EBB847 /* 1-sel-hd.png in Resources */,
 				3863208D183172B700EBB847 /* 1-sel.png in Resources */,
 				3863208E183172B700EBB847 /* 1.png in Resources */,
@@ -1502,6 +1533,7 @@
 				38632094183172B700EBB847 /* 3-sel-hd.png in Resources */,
 				385208D31849891200375101 /* music-not-hd.png in Resources */,
 				38632095183172B700EBB847 /* 3-sel.png in Resources */,
+				384E28E5184D6FEE00281ED9 /* start-sel-hd.png in Resources */,
 				38632096183172B700EBB847 /* 3.png in Resources */,
 				38632097183172B700EBB847 /* 4-hd.png in Resources */,
 				38632098183172B700EBB847 /* 4-sel-hd.png in Resources */,

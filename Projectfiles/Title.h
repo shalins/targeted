@@ -11,7 +11,8 @@
 @interface Title : CCScene
 {
     BOOL theLogs;
-    
+    BOOL isEndlessMode;
+    BOOL isLevelMode;
     CCSprite* bluemove;
     CCSprite* orangemove;
     CGPoint screenCenter;
