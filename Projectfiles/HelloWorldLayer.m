@@ -250,7 +250,7 @@ NSMutableDictionary *initialBoss;
     if (deadLevelTime == TRUE) {
         [self deadLevel];
 //        NSLog(@"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHH");
-        bosstime = FALSE;
+//        bosstime = FALSE;
     }
     [self grabTouchCoord];
     [streak setPosition:player.position];
@@ -891,8 +891,7 @@ NSMutableDictionary *initialBoss;
 -(void) deadLevel {
     if (deadLevelTime == TRUE) {
         if (blocker.parent == nil) {
-//            [self addChild:blocker];
-//            [self addChild:boss];
+            [self addChild:blocker];
             [self initBoss];
         }
         if(deadSegment == 0) {
@@ -1311,12 +1310,16 @@ NSMutableDictionary *initialBoss;
     if (deadLevelTime == TRUE) {
         int x = screenCenter.x;
         int y = screenCenter.y * 1.6;
+        if (boss.parent == nil) {
         boss = [CCSprite spriteWithFile:@"target9.png"];
         boss.position = ccp(x,y);
         boss.scale = 0;
         [self addChild:boss z:0];
         id bossscale = [CCScaleTo actionWithDuration:1.0f scale:0.5f];
         [boss runAction:bossscale];
+        BOOL *nullEnd = TRUE;
+        [[NSUserDefaults standardUserDefaults] setBool:nullEnd forKey:@"endless"];
+        }
     }
 }
 -(void) movePlayerPos: (CGPoint) rot_pos1 rot_pos2:(CGPoint) rot_pos2 {
@@ -1895,7 +1898,8 @@ NSMutableDictionary *initialBoss;
 //                            [self unschedule:@selector(gameSegmentBeat)];
 //                        });
 //                        level += 1;
-                [self gameEnd];
+//                [self gameEnd];
+//                [self unscheduleUpdate];
                 [self removeChild:boss cleanup:YES];
             }
         }
@@ -1926,7 +1930,11 @@ NSMutableDictionary *initialBoss;
             [self deleteubershield];
         }
         else {
+            if (deadLevelTime == FALSE) {
             [self playerdeathstart];
+            } else if (deadLevelTime == TRUE) {
+                [self ]
+            }
 //            [self schedule:@selector(playerdeath) interval:0.5];
         }
     }
@@ -2172,6 +2180,87 @@ NSMutableDictionary *initialBoss;
     [GameOverMenu alignItemsVerticallyWithPadding:45.0];
     GameOverMenu.position = ccp(screenCenter.x, screenCenter.y - 54);
     [self addChild:GameOverMenu z:9011];
+}
+-(void) cheetedDeath {
+    [self unschedule:@selector(playerdeath)];
+    [self unscheduleUpdate];
+    NSLog(@"Player Cheeted Death");
+    // Background
+    border = [CCSprite spriteWithFile:@"level9bg.png"];
+    border.position = ccp(screenCenter.x,screenCenter.y);
+    [self addChild:border z:9010];
+    // The coin label
+    gameOver2 = [CCLabelTTF labelWithString:@"You just collected 1,500 coins." fontName:@"HelveticaNeue-UltraLight" fontSize:25];
+    gameOver2.position = ccp(screenCenter.x, screenCenter.y * 1.1);
+    [self addChild:gameOver2 z:9011];
+    // The "title" button
+    gameOver = [CCLabelTTF labelWithString:@"You Cheated Death" fontName:@"HelveticaNeue-UltraLight" fontSize:35];
+    gameOver.position = ccp(screenCenter.x, screenCenter.y * 1.55);
+    [self addChild:gameOver z:9012];
+    // The other buttons
+    CCMenuItemImage* continueButton = [CCMenuItemImage itemWithNormalImage:@"keepgoing.png" selectedImage:@"keepgoing-sel.png" target:self selector:@selector(continuee)];
+    continueButton.scale = 1.1f;
+    CCMenuItemImage* dieButton = [CCMenuItemImage itemWithNormalImage:@"giveup.png" selectedImage:@"giveup-sel.png" target:self selector:@selector(gameover)];
+    dieButton.scale = 1.1f;
+    GameOverMenu = [CCMenu menuWithItems: continueButton, dieButton, nil];
+    [GameOverMenu alignItemsVerticallyWithPadding:45.0];
+    GameOverMenu.position = ccp(screenCenter.x, screenCenter.y - 54);
+    [self addChild:GameOverMenu z:9011];
+
+}
+-(void) noCoinDeath {
+    [self unschedule:@selector(playerdeath)];
+    [self unscheduleUpdate];
+    NSLog(@"Player Cheeted Death");
+    // Background
+    border = [CCSprite spriteWithFile:@"level9bg.png"];
+    border.position = ccp(screenCenter.x,screenCenter.y);
+    [self addChild:border z:9010];
+    // The coin label
+    gameOver2 = [CCLabelTTF labelWithString:@"If you win, you win it all, if you lose, you lose EVERY coin" fontName:@"HelveticaNeue-UltraLight" fontSize:25];
+    gameOver2.position = ccp(screenCenter.x, screenCenter.y * 1.1);
+    [self addChild:gameOver2 z:9011];
+    // The "title" button
+    gameOver = [CCLabelTTF labelWithString:@"You Have No Coins" fontName:@"HelveticaNeue-UltraLight" fontSize:35];
+    gameOver.position = ccp(screenCenter.x, screenCenter.y * 1.55);
+    [self addChild:gameOver z:9012];
+    // The other buttons
+    CCMenuItemImage* continueButton = [CCMenuItemImage itemWithNormalImage:@"keepgoing.png" selectedImage:@"keepgoing-sel.png" target:self selector:@selector(continuee)];
+    continueButton.scale = 1.1f;
+    CCMenuItemImage* dieButton = [CCMenuItemImage itemWithNormalImage:@"giveup.png" selectedImage:@"giveup-sel.png" target:self selector:@selector(gameover)];
+    dieButton.scale = 1.1f;
+    GameOverMenu = [CCMenu menuWithItems: continueButton, dieButton, nil];
+    [GameOverMenu alignItemsVerticallyWithPadding:45.0];
+    GameOverMenu.position = ccp(screenCenter.x, screenCenter.y - 54);
+    [self addChild:GameOverMenu z:9011];
+    
+}
+-(void) gaveupDeath {
+    [self unschedule:@selector(gaveupDeath)];
+    [self unscheduleUpdate];
+    NSLog(@"Player Cheeted Death");
+    // Background
+    border = [CCSprite spriteWithFile:@"level9bg.png"];
+    border.position = ccp(screenCenter.x,screenCenter.y);
+    [self addChild:border z:9010];
+    // The coin label
+    gameOver2 = [CCLabelTTF labelWithString:@"You lost EVERYTHING" fontName:@"HelveticaNeue-UltraLight" fontSize:25];
+    gameOver2.position = ccp(screenCenter.x, screenCenter.y * 1.1);
+    [self addChild:gameOver2 z:9011];
+    // The "title" button
+    gameOver = [CCLabelTTF labelWithString:@"You Failed" fontName:@"HelveticaNeue-UltraLight" fontSize:35];
+    gameOver.position = ccp(screenCenter.x, screenCenter.y * 1.55);
+    [self addChild:gameOver z:9012];
+    // The other buttons
+    CCMenuItemImage* continueButton = [CCMenuItemImage itemWithNormalImage:@"keepgoing.png" selectedImage:@"keepgoing-sel.png" target:self selector:@selector(continuee)];
+    continueButton.scale = 1.1f;
+    CCMenuItemImage* dieButton = [CCMenuItemImage itemWithNormalImage:@"giveup.png" selectedImage:@"giveup-sel.png" target:self selector:@selector(gameover)];
+    dieButton.scale = 1.1f;
+    GameOverMenu = [CCMenu menuWithItems: continueButton, dieButton, nil];
+    [GameOverMenu alignItemsVerticallyWithPadding:45.0];
+    GameOverMenu.position = ccp(screenCenter.x, screenCenter.y - 54);
+    [self addChild:GameOverMenu z:9011];
+    
 }
 -(void) continuee {
     if(coins >= continueCost) {
