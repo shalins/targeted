@@ -80,6 +80,7 @@
             endlessMenu = [CCMenu menuWithItems:endless, nil];
             endlessMenu.position = ccp(screenCenter.x - 95,screenCenter.y);
             [self addChild:endlessMenu];
+            isEndlessMode = TRUE;
         
             level = [CCMenuItemImage itemWithNormalImage:@"level.png" selectedImage:@"level-sel.png" target:self selector:@selector(levelSelected)];
             levelMenu = [CCMenu menuWithItems:level, nil];
@@ -88,10 +89,17 @@
         
             levelModeText = [CCLabelTTF labelWithString:@"LEVEL MODE" fontName:@"HelveticaNeue" fontSize:25];
             levelModeText.position = ccp(screenCenter.x * 4, (screenCenter.y * 3) / 5);
-            [self addChild:levelModeText];
+//            [self addChild:levelModeText];
             endlessModeText = [CCLabelTTF labelWithString:@"ENDLESS MODE" fontName:@"HelveticaNeue" fontSize:25];
             endlessModeText.position = ccp(screenCenter.x * (-4), (screenCenter.y * 3) / 5);
-            [self addChild:endlessModeText];
+//            [self addChild:endlessModeText];
+        
+            CCLabelTTF *levelText = [CCLabelTTF labelWithString:@"LEVEL" fontName:@"HelveticaNeue" fontSize:15];
+            levelText.position = ccp(screenCenter.x + 95,screenCenter.y + 35);
+            [self addChild:levelText];
+            CCLabelTTF *endlessText = [CCLabelTTF labelWithString:@"ENDLESS" fontName:@"HelveticaNeue" fontSize:15];
+            endlessText.position = ccp(screenCenter.x - 95,screenCenter.y + 35);
+            [self addChild:endlessText];
         
             // Sounds
             [[SimpleAudioEngine sharedEngine] preloadEffect:@"select.mp3"];

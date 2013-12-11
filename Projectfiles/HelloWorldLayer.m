@@ -8,6 +8,7 @@
 #import "Dead.h"
 #import "LevelSelect.h"
 #import "StoreLayer.h"
+#import "Scene.h"
 
 @implementation HelloWorldLayer
 
@@ -18,6 +19,7 @@ id movePlayer;
 int omganothertemportalint;
 bool bwooo = false;
 int gameSegment;
+int deadSegment;
 int framespast;
 int secondspast;
 int stagespast;
@@ -243,6 +245,11 @@ NSMutableDictionary *initialBoss;
     // Remove the level labels after they leave the screen
     if (LevelTag.position.y > screenCenter.y * 10) {
         [self removeChild:LevelTag cleanup:YES];
+    }
+    if (deadLevelTime == TRUE) {
+        [self deadLevel];
+//        NSLog(@"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHH");
+        bosstime = FALSE;
     }
     [self grabTouchCoord];
     [streak setPosition:player.position];
@@ -880,6 +887,95 @@ NSMutableDictionary *initialBoss;
     }
     [self moveBullet];
 }
+-(void) deadLevel {
+    if (deadLevelTime == TRUE) {
+        if (blocker.parent == nil) {
+            [self addChild:blocker];
+        }
+        if(deadSegment == 0) {
+        }
+        if(deadSegment == 1) {
+            if(((framespast % 100) ==0) || ![initialBoss objectForKey:@1.1]) {
+                [initialBoss setObject:@TRUE forKey:@1.1];
+                [self shootBullet:1 angle:270];
+            }
+        }
+        if(deadSegment == 2) {
+            if((framespast % 155) ==0 || ![initialBoss objectForKey:@1.2]) {
+                if (shootThePowerup == FALSE) {
+                    [self shootSlowDownMissile];
+                    shootThePowerup = TRUE; }
+                [initialBoss setObject:@TRUE forKey:@1.2];
+            }
+            if((framespast % 155) ==0) {
+                [self shootBullet:1 angle:230];
+                [self shootBullet:2 angle:270];
+                [self shootBullet:1 angle:310];
+            }
+        }
+        if(deadSegment == 3) {
+            if((framespast % 75) ==0 || ![initialBoss objectForKey:@1.3]) {
+                [initialBoss setObject:@TRUE forKey:@1.3];
+                [self shootBullet:3 angle:300];
+                [self shootBullet:3 angle:240];
+            }
+            for(NSUInteger i = 0; i < [bullets count]; i++) {
+                NSInteger j = i;
+                projectile = [bullets objectAtIndex:j];
+            }
+        }
+        if(deadSegment == 4) {
+            if((framespast % 30) ==0 || ![initialBoss objectForKey:@1.4]) {
+                [initialBoss setObject:@TRUE forKey:@1.4];
+                [self shootBullet:3 angle:180];
+                for(NSUInteger i = 0; i < [bullets count]; i++) {
+                    NSInteger j = i;
+                    int tempDir = [[bullets objectAtIndex:j] getAngle] + 30;
+                    [[bullets objectAtIndex:j] changeAngle:tempDir];
+                }
+            }
+        }
+        if(deadSegment == 5) {
+            if((framespast % 75) ==0 || ![initialBoss objectForKey:@1.5]) {
+                [initialBoss setObject:@TRUE forKey:@1.5];
+                [self shootBullet:1 angle:270];
+                [self shootBullet:1 angle:270];
+                for(NSUInteger i = 0; i < [bullets count]; i++) {
+                    NSInteger j = i;
+                    int tempDir = [[bullets objectAtIndex:j] getAngle] + (arc4random() % 90)-45;
+                    [[bullets objectAtIndex:j] changeAngle:tempDir];
+                }
+            }
+        }
+        if(deadSegment == 6) {
+            if((framespast % 75) ==0 || ![initialBoss objectForKey:@1.6]) {
+                if (shootThePowerup == TRUE) {
+                    [self shootMiniMeMissile];
+                    shootThePowerup = FALSE; }
+                [initialBoss setObject:@TRUE forKey:@1.6];
+                [self shootBullet:3 angle:thetemporalint];
+                thetemporalint = thetemporalint + 15;
+                [self shootBullet:3 angle:thetemporalint];
+                for(NSUInteger i = 0; i < [bullets count]; i++) {
+                    NSInteger j = i;
+                    [[bullets objectAtIndex:j] changeAngle:[[bullets objectAtIndex:j] getAngle] + 5];
+                }
+            }
+        }
+        if(deadSegment == 7) {
+            if((framespast % 125) ==0 || ![initialBoss objectForKey:@1.7]) {
+                [initialBoss setObject:@TRUE forKey:@1.7];
+                [self shootBullet:2 angle:180];
+                [self shootBullet:2 angle:240];
+                [self shootBullet:2 angle:260];
+                [self shootBullet:2 angle:280];
+                [self shootBullet:2 angle:300];
+                [self shootBullet:2 angle:360];
+            }
+        }
+    }
+    [self moveBullet];
+}
 -(void) laughoutloud {
     // L
     [self shootBulletwithPosSmall:1 angle:270 xpos:-140 ypos:100];
@@ -1349,7 +1445,7 @@ NSMutableDictionary *initialBoss;
     //create one
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == false) {
         [[CCDirector sharedDirector] pushScene:
-         [CCTransitionCrossFade transitionWithDuration:0.5f scene:[LevelSelect node]]];
+         [CCTransitionCrossFade transitionWithDuration:0.5f scene:[Scene node]]];
     }
     stagespast = stagespast + 1;
     [self initBoss];
@@ -2043,13 +2139,62 @@ NSMutableDictionary *initialBoss;
         [self boughtProduct];
     }
     else {
-        [[CCDirector sharedDirector] pushScene:
-         [CCTransitionCrossFade transitionWithDuration:0.5f scene:[StoreLayer node]]];
+//        [[CCDirector sharedDirector] pushScene:
+//         [CCTransitionCrossFade transitionWithDuration:0.5f scene:[StoreLayer node]]];
+//        [self schedule:@selector(@"deadLevel") interval:3.0];
+//        [self unschedule:@selector(continuee)];
+        [self deadMenu];
+        
+//        [self deadLevel];
     }
 }
 -(void) updateCoins {
     coins = [[NSUserDefaults standardUserDefaults] integerForKey:@"coins"];
     [coinLabel setString:[NSString stringWithFormat:@"%i",coins]];
+}
+-(void) deadMenu {
+    id tintp = [CCTintTo actionWithDuration:0.6 red:247 green:147 blue:29];
+    id scalep = [CCScaleTo actionWithDuration:0.1 scale:0.15];
+    [bullet runAction:tintp];
+    [bullet runAction:scalep];
+    deathanimation = true;
+    player.position = ccp(screenCenter.x,screenCenter.y / 4);
+    [self removeFromParentAndCleanup:YES];
+    [self removeChild:border cleanup:YES];
+    [self removeChild:coinLabel cleanup:YES];
+    [self removeChild:gameOver cleanup:YES];
+    [self removeChild:gameOver1 cleanup:YES];
+    [self removeChild:gameOver2 cleanup:YES];
+    [self removeChild:gameOver3 cleanup:YES];
+    [self removeChild:dieLabel cleanup:YES];
+    [self removeChild:continuePressed cleanup:YES];
+    [self removeChild:gameOverLayer cleanup:YES];
+    [self removeChild:GameOverMenu cleanup:YES];
+    [self removeChild:blocker];
+    [self removeChild:pausebutton cleanup:YES];
+    [self removeChild:boss];
+    [self removeChild:label];
+    [self removeChild:tut];
+    [self scheduleUpdate];
+    for(NSUInteger i = 0; i < [powerups count]; i++) {
+        Powerup *temp = [powerups objectAtIndex:i];
+        [self removeChild:temp cleanup:YES];
+    }
+    [powerups removeAllObjects];
+    for(NSUInteger i = 0; i < [bullets count]; i++) {
+        Bullet *temp = [bullets objectAtIndex:i];
+        [self removeChild:temp cleanup:YES];
+    }
+    [bullets removeAllObjects];
+    isDying = false;
+    [self unschedule:@selector(gameover)];
+    deadLevelTime = TRUE;
+// shield = [CCSprite spriteWithFile:@"shield.png"];
+// shield.scale = 0.15;
+// shield.position = player.position;
+// [self addChild:shield z:-10];
+// ubershieldon = true;
+// [self schedule:@selector(deleteubershield) interval:3.0];
 }
 -(void) boughtProduct {
     id tintp = [CCTintTo actionWithDuration:0.6 red:247 green:147 blue:29];

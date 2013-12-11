@@ -65,6 +65,7 @@
     BOOL isItSlow;
     BOOL shootThePowerup;
     bool bosstime;
+    BOOL deadLevelTime;
     bool isDying;
     int attacktype;
     int tempattacktype;
