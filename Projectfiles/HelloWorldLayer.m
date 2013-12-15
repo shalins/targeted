@@ -1688,223 +1688,215 @@ NSMutableDictionary *initialBoss;
 // This is what moves the game on to the next level after you hit the target
 -(void) targetHit {
     if (targetHit == true) {
-        // This should happen when the bullet is deleted.
-        if (level == 1) {
-            gameSegment += 1;
-            if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
-                [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
-            }
-            if (gameSegment >= 7) {
+        if (deadLevelTime == FALSE) {
+            // This should happen when the bullet is deleted.
+            if (level == 1) {
+                gameSegment += 1;
                 if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
-                    [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                    [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
                 }
-                [[NSUserDefaults standardUserDefaults] setInteger:(coins + 100) forKey:@"coins"];
-                [self schedule:@selector(gameSegmentBeat)];
-                dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
-                dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
-                    [self resumeSchedulerAndActions];
-                    [self unschedule:@selector(gameSegmentBeat)];
-                });
-                level += 1;
-                [self gameEnd];
-                [self removeChild:boss cleanup:YES];
-            }
-        } else if (level == 2) {
-            gameSegment += 1;
-            if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
-                [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
-            }
-            if (gameSegment >= 5) {
+                if (gameSegment >= 7) {
+                    if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                        [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                    }
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 100) forKey:@"coins"];
+                    [self schedule:@selector(gameSegmentBeat)];
+                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                        [self resumeSchedulerAndActions];
+                        [self unschedule:@selector(gameSegmentBeat)];
+                    });
+                    level += 1;
+                    [self gameEnd];
+                    [self removeChild:boss cleanup:YES];
+                }
+            } else if (level == 2) {
+                gameSegment += 1;
                 if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
-                    [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                    [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
                 }
-                [[NSUserDefaults standardUserDefaults] setInteger:(coins + 150) forKey:@"coins"];
-                [self schedule:@selector(gameSegmentBeat)];
-                dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
-                dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
-                    [self resumeSchedulerAndActions];
-                    [self unschedule:@selector(gameSegmentBeat)];
-                });
-                level += 1;
-                [self gameEnd];
-                [self removeChild:boss cleanup:YES];
-            }
-        } else if (level == 3) {
-            gameSegment += 1;
-            if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
-                [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
-            }
-            if (gameSegment >= 6) {
+                if (gameSegment >= 5) {
+                    if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                        [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                    }
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 150) forKey:@"coins"];
+                    [self schedule:@selector(gameSegmentBeat)];
+                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                        [self resumeSchedulerAndActions];
+                        [self unschedule:@selector(gameSegmentBeat)];
+                    });
+                    level += 1;
+                    [self gameEnd];
+                    [self removeChild:boss cleanup:YES];
+                }
+            } else if (level == 3) {
+                gameSegment += 1;
                 if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
-                    [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                    [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
                 }
-                [[NSUserDefaults standardUserDefaults] setInteger:(coins + 200) forKey:@"coins"];
-                [self schedule:@selector(gameSegmentBeat)];
-                dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
-                dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
-                    [self resumeSchedulerAndActions];
-                    [self unschedule:@selector(gameSegmentBeat)];
-                });
-                level += 1;
-                [self gameEnd];
-                [self removeChild:boss cleanup:YES];
-            }
-        } else if (level == 4) {
-            gameSegment += 1;
-            if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
-                [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
-            }
-            if (gameSegment >= 8) {
+                if (gameSegment >= 6) {
+                    if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                        [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                    }
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 200) forKey:@"coins"];
+                    [self schedule:@selector(gameSegmentBeat)];
+                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                        [self resumeSchedulerAndActions];
+                        [self unschedule:@selector(gameSegmentBeat)];
+                    });
+                    level += 1;
+                    [self gameEnd];
+                    [self removeChild:boss cleanup:YES];
+                }
+            } else if (level == 4) {
+                gameSegment += 1;
                 if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
-                    [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                    [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
                 }
-                [[NSUserDefaults standardUserDefaults] setInteger:(coins + 250) forKey:@"coins"];
-                [self schedule:@selector(gameSegmentBeat)];
-                dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
-                dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
-                    [self resumeSchedulerAndActions];
-                    [self unschedule:@selector(gameSegmentBeat)];
-                });
-                level += 1;
-                [self gameEnd];
-                [self removeChild:boss cleanup:YES];
-            }
-        } else if (level == 5) {
-            gameSegment += 1;
-            if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
-                [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
-            }
-            if (gameSegment >= 5) {
+                if (gameSegment >= 8) {
+                    if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                        [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                    }
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 250) forKey:@"coins"];
+                    [self schedule:@selector(gameSegmentBeat)];
+                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                        [self resumeSchedulerAndActions];
+                        [self unschedule:@selector(gameSegmentBeat)];
+                    });
+                    level += 1;
+                    [self gameEnd];
+                    [self removeChild:boss cleanup:YES];
+                }
+            } else if (level == 5) {
+                gameSegment += 1;
                 if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
-                    [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                    [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
                 }
-                [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
-                [self schedule:@selector(gameSegmentBeat)];
-                dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
-                dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
-                    [self resumeSchedulerAndActions];
-                    [self unschedule:@selector(gameSegmentBeat)];
-                });
-                level += 1;
-                [self gameEnd];
-                [self removeChild:boss cleanup:YES];
-            }
-        } else if (level == 6) {
-            gameSegment += 1;
-            if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
-                [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
-            }
-            if (gameSegment >= 5) {
+                if (gameSegment >= 5) {
+                    if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                        [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                    }
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
+                    [self schedule:@selector(gameSegmentBeat)];
+                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                        [self resumeSchedulerAndActions];
+                        [self unschedule:@selector(gameSegmentBeat)];
+                    });
+                    level += 1;
+                    [self gameEnd];
+                    [self removeChild:boss cleanup:YES];
+                }
+            } else if (level == 6) {
+                gameSegment += 1;
                 if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
-                    [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                    [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
                 }
-                [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
-                [self schedule:@selector(gameSegmentBeat)];
-                dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
-                dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
-                    [self resumeSchedulerAndActions];
-                    [self unschedule:@selector(gameSegmentBeat)];
-                });
-                level += 1;
-                [self gameEnd];
-                [self removeChild:boss cleanup:YES];
-            }
-        } else if (level == 7) {
-            gameSegment += 1;
-            if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
-                [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
-            }
-            if (gameSegment >= 4) {
+                if (gameSegment >= 5) {
+                    if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                        [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                    }
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
+                    [self schedule:@selector(gameSegmentBeat)];
+                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                        [self resumeSchedulerAndActions];
+                        [self unschedule:@selector(gameSegmentBeat)];
+                    });
+                    level += 1;
+                    [self gameEnd];
+                    [self removeChild:boss cleanup:YES];
+                }
+            } else if (level == 7) {
+                gameSegment += 1;
                 if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
-                    [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                    [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
                 }
-                [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
-                [self schedule:@selector(gameSegmentBeat)];
-                dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
-                dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
-                    [self resumeSchedulerAndActions];
-                    [self unschedule:@selector(gameSegmentBeat)];
-                });
-                level += 1;
-                [self gameEnd];
-                [self removeChild:boss cleanup:YES];
-            }
-            for(NSUInteger i = 0; i < [bullets count]; i++) {
-                Bullet *temp = [bullets objectAtIndex:i];
-                [self removeChild:temp];
-            }
-        } else if (level == 8) {
-            gameSegment += 1;
-            if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
-                [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
-            }
-            if (gameSegment >= 4) {
+                if (gameSegment >= 4) {
+                    if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                        [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                    }
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
+                    [self schedule:@selector(gameSegmentBeat)];
+                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                        [self resumeSchedulerAndActions];
+                        [self unschedule:@selector(gameSegmentBeat)];
+                    });
+                    level += 1;
+                    [self gameEnd];
+                    [self removeChild:boss cleanup:YES];
+                }
+                for(NSUInteger i = 0; i < [bullets count]; i++) {
+                    Bullet *temp = [bullets objectAtIndex:i];
+                    [self removeChild:temp];
+                }
+            } else if (level == 8) {
+                gameSegment += 1;
                 if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
-                    [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                    [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
                 }
-                [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
-                [self schedule:@selector(gameSegmentBeat)];
-                dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
-                dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
-                    [self resumeSchedulerAndActions];
-                    [self unschedule:@selector(gameSegmentBeat)];
-                });
-                level += 1;
-                [self gameEnd];
-                [self removeChild:boss cleanup:YES];
-            }
-            for(NSUInteger i = 0; i < [bullets count]; i++) {
-                Bullet *temp = [bullets objectAtIndex:i];
-                [self removeChild:temp];
-            }
-        } else if (level == 9) {
-            gameSegment += 1;
-            if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
-                [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
-            }
-            if (gameSegment >= 4) {
+                if (gameSegment >= 4) {
+                    if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                        [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                    }
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
+                    [self schedule:@selector(gameSegmentBeat)];
+                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                        [self resumeSchedulerAndActions];
+                        [self unschedule:@selector(gameSegmentBeat)];
+                    });
+                    level += 1;
+                    [self gameEnd];
+                    [self removeChild:boss cleanup:YES];
+                }
+                for(NSUInteger i = 0; i < [bullets count]; i++) {
+                    Bullet *temp = [bullets objectAtIndex:i];
+                    [self removeChild:temp];
+                }
+            } else if (level == 9) {
+                gameSegment += 1;
                 if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
-                    [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                    [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
                 }
-                [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
-                [self schedule:@selector(gameSegmentBeat)];
-                dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
-                dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
-                    [self resumeSchedulerAndActions];
-                    [self unschedule:@selector(gameSegmentBeat)];
-                });
-                [self gameEnd];
-                [self removeChild:boss cleanup:YES];
-            }
-            for(NSUInteger i = 0; i < [bullets count]; i++) {
-                Bullet *temp = [bullets objectAtIndex:i];
-                [self removeChild:temp];
+                if (gameSegment >= 4) {
+                    if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                        [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
+                    }
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
+                    [self schedule:@selector(gameSegmentBeat)];
+                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                        [self resumeSchedulerAndActions];
+                        [self unschedule:@selector(gameSegmentBeat)];
+                    });
+                    [self gameEnd];
+                    [self removeChild:boss cleanup:YES];
+                }
+                for(NSUInteger i = 0; i < [bullets count]; i++) {
+                    Bullet *temp = [bullets objectAtIndex:i];
+                    [self removeChild:temp];
+                }
             }
         }
-        
         if (deadLevelTime == TRUE) {
             deadSegment += 1;
             if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                 [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
             }
-            if (deadSegment >= 7) {
+            if (deadSegment == 7) {
                 if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                     [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                 }
                 [[NSUserDefaults standardUserDefaults] setInteger:(coins + 1500) forKey:@"coins"];
-//                        [self schedule:@selector(gameSegmentBeat)];
-//                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
-//                        dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
-//                            [self resumeSchedulerAndActions];
-//                            [self unschedule:@selector(gameSegmentBeat)];
-//                        });
-//                        level += 1;
-//                [self gameEnd];
-//                [self unscheduleUpdate];
+                [self schedule:@selector(cheetedDeath)];
                 [self removeChild:boss cleanup:YES];
             }
         }
-        
         for(NSUInteger i = 0; i < [bullets count]; i++) {
             Bullet *temp = [bullets objectAtIndex:i];
             [self removeChild:temp cleanup:YES];
@@ -1924,7 +1916,7 @@ NSMutableDictionary *initialBoss;
         if (deadLevelTime == FALSE) {
             [self playerdeathstart];
         } else if (deadLevelTime == TRUE) {
-            [self schedule:@selector(gaveupDeath) interval:0.5];
+            [self schedule:@selector(gaveupDeath)];
         }
     }
 
@@ -2179,34 +2171,42 @@ NSMutableDictionary *initialBoss;
     [self addChild:GameOverMenu z:9011];
 }
 -(void) cheetedDeath {
-    [self unschedule:@selector(playerdeath)];
+    [self unschedule:@selector(cheetedDeath)];
     [self unscheduleUpdate];
+    [self removeChild:border cleanup:YES];
+    [self removeChild:coinLabel cleanup:YES];
+    [self removeChild:gameOver cleanup:YES];
+    [self removeChild:gameOver1 cleanup:YES];
+    [self removeChild:gameOver2 cleanup:YES];
+    [self removeChild:gameOver3 cleanup:YES];
+    [self removeChild:dieLabel cleanup:YES];
+    [self removeChild:continuePressed cleanup:YES];
+    [self removeChild:gameOverLayer cleanup:YES];
+    [self removeChild:GameOverMenu cleanup:YES];
     NSLog(@"Player Cheeted Death");
     // Background
-    border = [CCSprite spriteWithFile:@"level9bg.png"];
+    border = [CCSprite spriteWithFile:@"level8bg.png"];
     border.position = ccp(screenCenter.x,screenCenter.y);
     [self addChild:border z:9010];
     // The coin label
-    gameOver2 = [CCLabelTTF labelWithString:@"You just collected 1,500 coins." fontName:@"HelveticaNeue-UltraLight" fontSize:25];
+    gameOver2 = [CCLabelTTF labelWithString:@"You just collected \n 1,500 coins." fontName:@"HelveticaNeue-Light" fontSize:30];
     gameOver2.position = ccp(screenCenter.x, screenCenter.y * 1.1);
     [self addChild:gameOver2 z:9011];
     // The "title" button
-    gameOver = [CCLabelTTF labelWithString:@"You Cheated Death" fontName:@"HelveticaNeue-UltraLight" fontSize:35];
-    gameOver.position = ccp(screenCenter.x, screenCenter.y * 1.55);
+    gameOver = [CCLabelTTF labelWithString:@"Death \n Cheated" fontName:@"HelveticaNeue-UltraLight" fontSize:60];
+    gameOver.position = ccp(screenCenter.x, screenCenter.y * 1.67);
     [self addChild:gameOver z:9012];
     // The other buttons
-    CCMenuItemImage* continueButton = [CCMenuItemImage itemWithNormalImage:@"keepgoing.png" selectedImage:@"keepgoing-sel.png" target:self selector:@selector(continuee)];
-    continueButton.scale = 1.1f;
-    CCMenuItemImage* dieButton = [CCMenuItemImage itemWithNormalImage:@"giveup.png" selectedImage:@"giveup-sel.png" target:self selector:@selector(gameover)];
-    dieButton.scale = 1.1f;
-    GameOverMenu = [CCMenu menuWithItems: continueButton, dieButton, nil];
+    CCMenuItemImage* gohomeButton = [CCMenuItemImage itemWithNormalImage:@"gohome.png" selectedImage:@"gohome-sel.png" target:self selector:@selector(gohome)];
+    gohomeButton.scale = 1.1f;
+    GameOverMenu = [CCMenu menuWithItems: gohomeButton, nil];
     [GameOverMenu alignItemsVerticallyWithPadding:45.0];
-    GameOverMenu.position = ccp(screenCenter.x, screenCenter.y - 54);
+    GameOverMenu.position = ccp(screenCenter.x, (screenCenter.y / 12) * 5);
     [self addChild:GameOverMenu z:9011];
 
 }
 -(void) noCoinChallenge {
-    [self unschedule:@selector(playerdeath)];
+    [self unschedule:@selector(noCoinChallenge)];
     [self unscheduleUpdate];
     [self removeChild:border cleanup:YES];
     [self removeChild:coinLabel cleanup:YES];
@@ -2247,6 +2247,16 @@ NSMutableDictionary *initialBoss;
 -(void) gaveupDeath {
     [self unschedule:@selector(gaveupDeath)];
     [self unscheduleUpdate];
+    [self removeChild:border cleanup:YES];
+    [self removeChild:coinLabel cleanup:YES];
+    [self removeChild:gameOver cleanup:YES];
+    [self removeChild:gameOver1 cleanup:YES];
+    [self removeChild:gameOver2 cleanup:YES];
+    [self removeChild:gameOver3 cleanup:YES];
+    [self removeChild:dieLabel cleanup:YES];
+    [self removeChild:continuePressed cleanup:YES];
+    [self removeChild:gameOverLayer cleanup:YES];
+    [self removeChild:GameOverMenu cleanup:YES];
     [self removeChild:tut cleanup:YES];
     NSLog(@"Player Cheeted Death");
     // Background
