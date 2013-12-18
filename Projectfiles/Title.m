@@ -14,6 +14,7 @@
 #import "Settings.h"
 #import "StatLayer.h"
 #import "Scene.h"
+#import "Bullet.h"
 
 @implementation Title
 
@@ -43,6 +44,8 @@
             menu = [CCMenu menuWithItems:start, nil];
             menu.position = ccp(screenCenter.x,screenCenter.y);
             [self addChild:menu];
+        
+            bullets = [[NSMutableArray alloc] init];
         
         
             // Sound Button
@@ -110,8 +113,81 @@
             if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                 [[SimpleAudioEngine sharedEngine] playEffect:@"select.mp3"];
             }
+            framespast = 0;
+        [self scheduleUpdate];
     }
     return self;
+}
+
+-(void)update:(ccTime)delta
+{
+    // Remove all the bullets after they move off the screen
+    for(NSUInteger i = 0; i < [bullets count]; i++) {
+        CCSprite* shalinbullet = [bullets objectAtIndex:i];
+        if(shalinbullet.position.x > size.width + 50) {
+            Bullet *temp = [bullets objectAtIndex:i];
+            [self removeChild:temp cleanup:YES];
+            [bullets removeObjectAtIndex:i];        }
+        if(shalinbullet.position.x < (size.width / 10) - 50) {
+            Bullet *temp = [bullets objectAtIndex:i];
+            [self removeChild:temp cleanup:YES];
+            [bullets removeObjectAtIndex:i];        }
+        if(shalinbullet.position.y < -20) {
+            Bullet *temp = [bullets objectAtIndex:i];
+            [self removeChild:temp cleanup:YES];
+            [bullets removeObjectAtIndex:i]; }
+        if(shalinbullet.position.y > screenCenter.y * 3) {
+            Bullet *temp = [bullets objectAtIndex:i];
+            [self removeChild:temp cleanup:YES];
+            [bullets removeObjectAtIndex:i]; }
+    }
+    framespast++;
+    [self shootSomeBullets];
+}
+
+-(void) shootSomeBullets {
+    if((framespast % 155) ==0) {
+        [self shootBullet:1 angle:230];
+        [self shootBullet:2 angle:270];
+        [self shootBullet:1 angle:310];
+    }
+    [self moveBullet];
+}
+
+-(void) moveBullet {
+    //move the bullets
+    for(NSUInteger i = 0; i < [bullets count]; i++) {
+        NSInteger j = i;
+        projectile = [bullets objectAtIndex:j];
+        float angle = [[bullets objectAtIndex:j] getAngle];
+        float speed = [[bullets objectAtIndex:j] getSpeed]; // Move 50 pixels in 60 frames (1 second)
+        // For the slow-down powerup
+        float vx = cos(angle * M_PI / 180) * speed;
+        float vy = sin(angle * M_PI / 180) * speed;
+        CGPoint direction = ccp(vx,vy);
+        projectile.position = ccpAdd(projectile.position, direction);
+    }
+}
+-(void) shootBullet: (float) speed angle:(float) angleInput {
+    Bullet *newB = [Bullet bullet:speed :angleInput];
+    newB.position = ccp(screenCenter.x, screenCenter.y * 1.5);
+    [self addChild:newB z:9];
+    [bullets addObject:newB];
+    newB.scale = 0;
+    id scale = [CCScaleTo actionWithDuration:1.0f scale:0.2f];
+    [newB runAction:scale];
+}
+-(void) shootBulletwithPos: (float) speed angle:(float) angleInput xpos:(float) xInput ypos:(float) yInput {
+    Bullet *newB = [Bullet bullet:speed :angleInput];
+    int x = screenCenter.x;
+    int y = screenCenter.y*1.3;
+    newB.position = ccp(x, y);
+    newB.position = ccp(newB.position.x + xInput, newB.position.y + yInput);
+    [self addChild:newB z:9];
+    [bullets addObject:newB];
+    newB.scale = 0;
+    id scale = [CCScaleTo actionWithDuration:1.0f scale:0.2f];
+    [newB runAction:scale];
 }
 -(void) turnOnSound {
     [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"musicon"];
@@ -193,8 +269,6 @@
     } else if (isEndlessMode == TRUE) {
         [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[HelloWorldLayer node]]];
     }
-//    [[CCDirector sharedDirector] replaceScene:
-//     [CCTransitionSlideInR transitionWithDuration:0.5f scene:[LevelSelect node]]];
 }
 -(void) dotsEffect:(CCSprite *) spriteToBeTheNextBigThing {
     if (theLogs == TRUE) {

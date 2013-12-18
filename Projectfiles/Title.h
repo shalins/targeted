@@ -10,6 +10,13 @@
 
 @interface Title : CCScene
 {
+    CCSprite* bullet;
+    NSMutableArray *bullets;
+    NSMutableArray *bulletDirection;
+    NSMutableArray *bulletSpeed;
+    CCSprite* projectile;
+    int framespast;
+
     BOOL theLogs;
     BOOL isEndlessMode;
     BOOL isLevelMode;
