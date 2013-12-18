@@ -58,6 +58,17 @@ NSMutableDictionary *initialBoss;
         bossY = screenCenter.y * 1.6;
         targetHit = false;
         [[NSUserDefaults standardUserDefaults] setBool:targetHit forKey:@"targetHit"];
+        int numTimesGamePlayed = [[NSUserDefaults standardUserDefaults] objectForKey:@"numTimesGamePlayed"];
+        numTimesGamePlayed++;
+        [[NSUserDefaults standardUserDefaults] setInteger:numTimesGamePlayed forKey:@"numTimesGamePlayed"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        if([[NSUserDefaults standardUserDefaults] integerForKey:@"numTimesPlayed"] == 0) {
+            [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"firstTimeSlowedDown"];
+            [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"firstTimeMiniedMe"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        
         //        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
         //        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"hex.mp3" loop:YES];
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"select.mp3"];
@@ -1187,9 +1198,14 @@ NSMutableDictionary *initialBoss;
     [self shootBulletwithPosSmall:1 angle:270 xpos:-50 ypos:-328];
 }
 -(void) shootSlowDownMissile {
-    if (firstTimeSlowDown == TRUE) {
-        NSLog(@"First Use of Slow Down Powerup");
-        [self shootBulletwithPosSlowDown:1 angle:270];
+    
+    if([[NSUserDefaults standardUserDefaults] integerForKey:@"numTimesPlayed"] == 0) {
+        firstTimeSlowDown = TRUE;
+        firstTimeMiniMe = TRUE;
+    }
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeSlowedDown"] == TRUE) {
+        int someRandomAngle = (arc4random() % 90) + 240;
+        [self shootBulletwithPosSlowDown:1 angle:someRandomAngle];
         tut = [CCLabelTTF labelWithString:@"New Powerup" fontName:@"HelveticaNeue-Light" fontSize:30];
         tut.position = screenCenter;
         [self addChild:tut z:10000];
@@ -1199,15 +1215,19 @@ NSMutableDictionary *initialBoss;
             [self removeChild:tut cleanup:YES];
         });
         firstTimeSlowDown = FALSE;
-    } else {
+        [[NSUserDefaults standardUserDefaults] setBool:firstTimeSlowDown forKey:@"firstTimeSlowedDown"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeSlowedDown"] == FALSE) {
         NSLog(@"Slow Down Powerup Used More Than Once");
-        [self shootBulletwithPosSlowDown:1 angle:270];
+        int someRandomAngle = (arc4random() % 90) + 240;
+        [self shootBulletwithPosSlowDown:1 angle:someRandomAngle];
     }
 }
 -(void) shootMiniMeMissile {
-    if (firstTimeMiniMe == TRUE) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeMiniedMe"] == TRUE) {
         NSLog(@"First Use of Mini Me Powerup");
-        [self shootBulletwithPosSmallerBall:1 angle:270];
+        int someRandomAngle = (arc4random() % 90) + 240;
+        [self shootBulletwithPosSmallerBall:1 angle:someRandomAngle];
         tut = [CCLabelTTF labelWithString:@"New Powerup!" fontName:@"HelveticaNeue-Light" fontSize:30];
         tut.position = screenCenter;
         [self addChild:tut z:10000];
@@ -1217,9 +1237,11 @@ NSMutableDictionary *initialBoss;
             [self removeChild:tut cleanup:YES];
         });
         firstTimeMiniMe = FALSE;
-    } else {
+        [[NSUserDefaults standardUserDefaults] setBool:firstTimeMiniMe forKey:@"firstTimeMiniedMe"];
+    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeMiniedMe"] == FALSE) {
         NSLog(@"Mini Me Powerup Used More Than Once");
-        [self shootBulletwithPosSmallerBall:1 angle:270];
+        int someRandomAngle = (arc4random() % 90) + 240;
+        [self shootBulletwithPosSmallerBall:1 angle:someRandomAngle];
     }
 }
 -(void) dropEffect:(CCSprite *) spriteToHaveTheEffectOn {
@@ -1949,7 +1971,7 @@ NSMutableDictionary *initialBoss;
                             [self unschedule:@selector(gameSegmentBeat)];
                         });
                     }
-                    [self gameEnd];
+                    [self schedule:@selector(gameBeat)];
                     [self removeChild:boss cleanup:YES];
                 }
                 for(NSUInteger i = 0; i < [bullets count]; i++) {
@@ -2279,6 +2301,30 @@ NSMutableDictionary *initialBoss;
     GameOverMenu.position = ccp(screenCenter.x, (screenCenter.y / 12) * 5);
     [self addChild:GameOverMenu z:9011];
 
+}
+-(void) gameBeat {
+    [self unschedule:@selector(gameBeat)];
+    [self unscheduleUpdate];
+    NSLog(@"Player Beat the Game");
+    // Background
+    border = [CCSprite spriteWithFile:@"level7bg.png"];
+    border.position = ccp(screenCenter.x,screenCenter.y);
+    [self addChild:border z:9010];
+    // The coin label
+    gameOver2 = [CCLabelTTF labelWithString:@"I am making more \n levels as we speak" fontName:@"HelveticaNeue-Light" fontSize:30];
+    gameOver2.position = ccp(screenCenter.x, screenCenter.y * 1.1);
+    [self addChild:gameOver2 z:9011];
+    // The "title" button
+    gameOver = [CCLabelTTF labelWithString:@"You Won" fontName:@"HelveticaNeue-UltraLight" fontSize:70];
+    gameOver.position = ccp(screenCenter.x, screenCenter.y * 1.67);
+    [self addChild:gameOver z:9012];
+    // The other buttons
+    CCMenuItemImage* gohomeButton = [CCMenuItemImage itemWithNormalImage:@"gohome.png" selectedImage:@"gohome-sel.png" target:self selector:@selector(gohome)];
+    gohomeButton.scale = 1.1f;
+    GameOverMenu = [CCMenu menuWithItems: gohomeButton, nil];
+    [GameOverMenu alignItemsVerticallyWithPadding:45.0];
+    GameOverMenu.position = ccp(screenCenter.x, (screenCenter.y / 12) * 5);
+    [self addChild:GameOverMenu z:9011];
 }
 -(void) noCoinChallenge {
     [self unschedule:@selector(noCoinChallenge)];
