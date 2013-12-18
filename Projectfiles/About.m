@@ -45,6 +45,8 @@
         backMenu.position = ccp(screenCenter.x,screenCenter.y / 3);
         [self addChild:backMenu z:1000];
         
+        [self unscheduleUpdate];
+        [self unscheduleAllSelectors];
     }
     return self;
 }

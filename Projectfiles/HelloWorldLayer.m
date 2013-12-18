@@ -250,8 +250,6 @@ NSMutableDictionary *initialBoss;
     }
     if (deadLevelTime == TRUE) {
         [self deadLevel];
-//        NSLog(@"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHH");
-//        bosstime = FALSE;
     }
     [self grabTouchCoord];
     [streak setPosition:player.position];
@@ -264,13 +262,6 @@ NSMutableDictionary *initialBoss;
         [self pause];
     }
 }
-//-(void) initScore {
-//    label = [CCLabelTTF labelWithString:@"0" fontName:@"HelveticaNeue-Light" fontSize:24];
-//    label.position = ccp(5,463);
-//    label.anchorPoint = ccp(0.0,0.5);
-//    label.color = ccc3(0, 0, 0);
-//    [self addChild: label];
-//}
 -(void) startTutorial {
     // Uses NSUserDefaults so doesn't appear twice
     if(framespast == 10) {
@@ -1540,8 +1531,7 @@ NSMutableDictionary *initialBoss;
     [self unschedule:@selector(mySelector)];
     //create one
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == false) {
-        [[CCDirector sharedDirector] pushScene:
-         [CCTransitionCrossFade transitionWithDuration:0.5f scene:[Scene node]]];
+        [[CCDirector sharedDirector] pushScene: [CCTransitionCrossFade transitionWithDuration:0.5f scene:[Scene node]]];
     }
     stagespast = stagespast + 1;
     [self initBoss];
@@ -2360,13 +2350,7 @@ NSMutableDictionary *initialBoss;
         [self boughtProduct];
     }
     else {
-//        [[CCDirector sharedDirector] pushScene:
-//         [CCTransitionCrossFade transitionWithDuration:0.5f scene:[StoreLayer node]]];
-//        [self schedule:@selector(@"deadLevel") interval:3.0];
-//        [self unschedule:@selector(continuee)];
         [self noCoinChallenge];
-        
-//        [self deadLevel];
     }
 }
 -(void) updateCoins {

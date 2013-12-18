@@ -95,7 +95,8 @@
         //        [self addChild:fbm];
         
         // [MGWU submitHighScore:[[NSUserDefaults standardUserDefaults] integerForKey:@"score"] byPlayer:@"Player" forLeaderboard:@"defaultLeaderboard"];
-        
+        [self unscheduleUpdate];
+        [self unscheduleAllSelectors];
     }
     return self;
 }

@@ -52,6 +52,8 @@
         backmenu3.position = CGPointZero;
         [self addChild:backmenu3];
         
+        [self unscheduleUpdate];
+        [self unscheduleAllSelectors];
     }
     return self;
 }
@@ -76,7 +78,7 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"coins"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"score"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"targetHit"];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"leveldata"];
+//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"leveldata"];
 }
 
 -(void) goHome {

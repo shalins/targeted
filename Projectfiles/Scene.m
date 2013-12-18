@@ -616,6 +616,9 @@
         CCMenu *backmenu3 = [CCMenu menuWithItems:back3, nil];
         backmenu3.position = CGPointZero;
         [self addChild:backmenu3];
+        
+        [self unscheduleUpdate];
+        [self unscheduleAllSelectors];
 
     }
     return self;

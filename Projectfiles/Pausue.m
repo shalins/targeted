@@ -104,7 +104,10 @@
         store.scale = 1.2f;
         CCMenu *storeMenu = [CCMenu menuWithItems:store, nil];
         storeMenu.position = ccp(screenCenter.x + 85, screenCenter.y - 110);
-        [self addChild:storeMenu];        
+        [self addChild:storeMenu];
+        
+        [self unscheduleUpdate];
+        [self unscheduleAllSelectors];
     }
     return self;
 }
