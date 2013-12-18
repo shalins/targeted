@@ -980,6 +980,18 @@ NSMutableDictionary *initialBoss;
                 [self shootBullet:2 angle:360];
             }
         }
+        if(deadSegment == 8) {
+            if((framespast % 125) ==0 || ![initialBoss objectForKey:@30.8]) {
+                [initialBoss setObject:@TRUE forKey:@30.8];
+                int tempInt = (arc4random() % 90) + 240;
+                [self shootBullet:3 angle:tempInt];
+                for(NSUInteger i = 0; i < [bullets count]; i++) {
+                    NSInteger j = i;
+                    int tempDir = [[bullets objectAtIndex:j] getAngle] + (arc4random() % 90)-45;
+                    [[bullets objectAtIndex:j] changeAngle:tempDir];
+                }
+            }
+        }
     }
     [self moveBullet];
 }
@@ -1888,7 +1900,7 @@ NSMutableDictionary *initialBoss;
             if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                 [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
             }
-            if (deadSegment == 7) {
+            if (deadSegment == 9) {
                 if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                     [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                 }
