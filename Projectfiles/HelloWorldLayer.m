@@ -898,26 +898,28 @@ NSMutableDictionary *initialBoss;
         if(deadSegment == 0) {
             if(((framespast % 100) == 0) || ![initialBoss objectForKey:@30.0]) {
                 [initialBoss setObject:@TRUE forKey:@30.0];
-                [self shootBullet:1 angle:270];
+                [self shootBulletwithPos:4 angle:275 xpos:0 ypos:screenCenter.y *0.5];
+                [self shootBulletwithPos:4 angle:250 xpos:0 ypos:screenCenter.y *0.5];
+                [self shootBulletwithPos:4 angle:300 xpos:0 ypos:screenCenter.y *0.5];
             }
         }
         if(deadSegment == 1) {
             if(((framespast % 100) ==0) || ![initialBoss objectForKey:@30.1]) {
                 [initialBoss setObject:@TRUE forKey:@30.1];
-                [self shootBullet:1 angle:270];
+                [self shootBulletwithPosMult:4 angle:100 xpos:1.5 ypos:1/10];
+                [self shootBulletwithPosMult:4 angle:120 xpos:1.5 ypos:1/10];
+                [self shootBulletwithPosMult:4 angle:140 xpos:1.5 ypos:1/10];
             }
         }
         if(deadSegment == 2) {
             if((framespast % 155) ==0 || ![initialBoss objectForKey:@30.2]) {
-                if (shootThePowerup == FALSE) {
-                    [self shootSlowDownMissile];
-                    shootThePowerup = TRUE; }
-                [initialBoss setObject:@TRUE forKey:@30.2];
-            }
-            if((framespast % 155) ==0) {
-                [self shootBullet:1 angle:230];
-                [self shootBullet:2 angle:270];
-                [self shootBullet:1 angle:310];
+                [self shootBulletwithPos:3 angle:180 xpos:-80 ypos:-140];
+                [self shootBulletwithPos:3 angle:180 xpos:80 ypos:-140];
+                for(NSUInteger i = 0; i < [bullets count]; i++) {
+                    NSInteger j = i;
+                    int tempDir = [[bullets objectAtIndex:j] getAngle] + 25;
+                    [[bullets objectAtIndex:j] changeAngle:tempDir];
+                }
             }
         }
         if(deadSegment == 3) {
@@ -990,6 +992,75 @@ NSMutableDictionary *initialBoss;
                     int tempDir = [[bullets objectAtIndex:j] getAngle] + (arc4random() % 90)-45;
                     [[bullets objectAtIndex:j] changeAngle:tempDir];
                 }
+            }
+        }
+        if (deadSegment == 9) {
+            if((framespast % 25) == 0) {
+                wowanothertemportalint = wowanothertemportalint + 15;
+                [self shootBulletwithPos:3 angle:wowanothertemportalint xpos:0 ypos:0];
+            }
+            if((framespast % 50) == 0) {
+                for(NSUInteger i = 0; i < [bullets count]; i++) {
+                    [[bullets objectAtIndex:i] changeAngle:[[bullets objectAtIndex:i] getAngle] - 15];
+                }
+            }
+        }
+        if (deadSegment == 10) {
+            [self shootBulletwithPos:4 angle:90 xpos:100 ypos:-300];
+            [self shootBulletwithPos:4 angle:90 xpos:-100 ypos:-300];
+            if ((framespast % 30) == 0) {
+                for(NSUInteger i = 0; i < [bullets count]; i++) {
+                    [[bullets objectAtIndex:i] changeAngle:[[bullets objectAtIndex:i] getAngle] + 270];
+                }
+            }
+        }
+        if (deadSegment == 11) {
+            if((framespast % 50) == 0 || ![initialBoss objectForKey:@30.11]) {
+                [initialBoss setObject:@TRUE forKey:@6.1];
+                [self shootBulletwithPos:2 angle:180 xpos:0 ypos:-240];
+                [self shootBulletwithPos:2 angle:90 xpos:0 ypos:-240];
+                [self shootBulletwithPos:2 angle:270 xpos:0 ypos:-240];
+                [self shootBulletwithPos:2 angle:360 xpos:0 ypos:-240];
+                [self shootBulletwithPos:2 angle:45 xpos:0 ypos:-240];
+                [self shootBulletwithPos:2 angle:135 xpos:0 ypos:-240];
+                [self shootBulletwithPos:2 angle:225 xpos:0 ypos:-240];
+                [self shootBulletwithPos:2 angle:315 xpos:0 ypos:-240];
+            }
+        }
+        if (deadSegment == 12) {
+            if((framespast % 50) == 0 || ![initialBoss objectForKey:@30.12]) {
+                [initialBoss setObject:@TRUE forKey:@30.12];
+                [self shootBulletwithPos:4 angle:90 xpos:100 ypos:-300];
+                [self shootBulletwithPos:4 angle:90 xpos:-100 ypos:-300];
+            }
+        }
+        if (deadSegment == 13) {
+            if((framespast % 60) == 0 || ![initialBoss objectForKey:@30.13]) {
+                [initialBoss setObject:@TRUE forKey:@30.13];
+                [self shootBullet:3 angle:300];
+                [self shootBullet:3 angle:240];
+            }
+            for(NSUInteger i = 0; i < [bullets count]; i++) {
+                NSInteger j = i;
+                projectile = [bullets objectAtIndex:j];
+            }
+        }
+        if (deadSegment == 14) {
+            if((framespast % 60) == 0 || ![initialBoss objectForKey:@30.14]) {
+                [initialBoss setObject:@TRUE forKey:@30.14];
+                int tempInt = (arc4random() % 90) + 240;
+                [self shootBullet:3 angle:tempInt];
+                [self shootBullet:3 angle:tempInt];
+                [self shootBullet:3 angle:tempInt];
+                [self shootBullet:3 angle:tempInt];
+            }
+        }
+        if (deadSegment == 15) {
+            if((framespast % 60) == 0 || ![initialBoss objectForKey:@30.15]) {
+                [initialBoss setObject:@TRUE forKey:@30.15];
+                [self shootBulletwithPosMult:4 angle:20 xpos:1/10 ypos:1/10];
+                [self shootBulletwithPosMult:4 angle:40 xpos:1/10 ypos:1/10];
+                [self shootBulletwithPosMult:4 angle:60 xpos:1/10 ypos:1/10];
             }
         }
     }
