@@ -552,7 +552,6 @@ NSMutableDictionary *initialBoss;
                     [initialBoss setObject:@TRUE forKey:@4.5];
                     [self shootBulletwithPos:4 angle:180 xpos:-40 ypos:0];
                     [self shootBulletwithPos:4 angle:180 xpos:40 ypos:0];
-//                    [self shootBulletwithPos:4 angle:180 xpos:0 ypos:-25];
                     for(NSUInteger i = 0; i < [bullets count]; i++) {
                         NSInteger j = i;
                         int tempDir = [[bullets objectAtIndex:j] getAngle] + 40;
@@ -906,23 +905,21 @@ NSMutableDictionary *initialBoss;
             });
         }
         if (deadSegment == 1) {
-            if(((framespast % 100) == 0) || ![initialBoss objectForKey:@30.0]) {
-                [initialBoss setObject:@TRUE forKey:@30.0];
+            if(((framespast % 85) == 0)) {
                 [self shootBulletwithPos:4 angle:275 xpos:0 ypos:screenCenter.y *0.5];
                 [self shootBulletwithPos:4 angle:250 xpos:0 ypos:screenCenter.y *0.5];
                 [self shootBulletwithPos:4 angle:300 xpos:0 ypos:screenCenter.y *0.5];
             }
         }
         if(deadSegment == 2) {
-            if(((framespast % 100) ==0) || ![initialBoss objectForKey:@30.1]) {
-                [initialBoss setObject:@TRUE forKey:@30.1];
+            if(((framespast % 70) ==0)) {
                 [self shootBulletwithPosMult:4 angle:100 xpos:1.5 ypos:1/10];
                 [self shootBulletwithPosMult:4 angle:120 xpos:1.5 ypos:1/10];
                 [self shootBulletwithPosMult:4 angle:140 xpos:1.5 ypos:1/10];
             }
         }
         if(deadSegment == 3) {
-            if((framespast % 155) ==0 || ![initialBoss objectForKey:@30.2]) {
+            if((framespast % 90) ==0) {
                 [self shootBulletwithPos:3 angle:180 xpos:-80 ypos:-140];
                 [self shootBulletwithPos:3 angle:180 xpos:80 ypos:-140];
                 for(NSUInteger i = 0; i < [bullets count]; i++) {
@@ -933,8 +930,7 @@ NSMutableDictionary *initialBoss;
             }
         }
         if(deadSegment == 4) {
-            if((framespast % 75) ==0 || ![initialBoss objectForKey:@30.3]) {
-                [initialBoss setObject:@TRUE forKey:@30.3];
+            if((framespast % 65) ==0) {
                 [self shootBullet:3 angle:300];
                 [self shootBullet:3 angle:240];
             }
@@ -944,8 +940,7 @@ NSMutableDictionary *initialBoss;
             }
         }
         if(deadSegment == 5) {
-            if((framespast % 30) ==0 || ![initialBoss objectForKey:@30.4]) {
-                [initialBoss setObject:@TRUE forKey:@30.4];
+            if((framespast % 30) ==0) {
                 [self shootBullet:3 angle:180];
                 for(NSUInteger i = 0; i < [bullets count]; i++) {
                     NSInteger j = i;
@@ -955,8 +950,7 @@ NSMutableDictionary *initialBoss;
             }
         }
         if(deadSegment == 6) {
-            if((framespast % 75) ==0 || ![initialBoss objectForKey:@30.5]) {
-                [initialBoss setObject:@TRUE forKey:@30.5];
+            if((framespast % 65) ==0) {
                 [self shootBullet:1 angle:270];
                 [self shootBullet:1 angle:270];
                 for(NSUInteger i = 0; i < [bullets count]; i++) {
@@ -967,11 +961,10 @@ NSMutableDictionary *initialBoss;
             }
         }
         if(deadSegment == 7) {
-            if((framespast % 75) ==0 || ![initialBoss objectForKey:@30.6]) {
+            if((framespast % 65) ==0) {
                 if (shootThePowerup == TRUE) {
                     [self shootMiniMeMissile];
                     shootThePowerup = FALSE; }
-                [initialBoss setObject:@TRUE forKey:@30.6];
                 [self shootBullet:3 angle:thetemporalint];
                 thetemporalint = thetemporalint + 15;
                 [self shootBullet:3 angle:thetemporalint];
@@ -982,8 +975,7 @@ NSMutableDictionary *initialBoss;
             }
         }
         if(deadSegment == 8) {
-            if((framespast % 125) ==0 || ![initialBoss objectForKey:@30.7]) {
-                [initialBoss setObject:@TRUE forKey:@30.7];
+            if((framespast % 100) ==0) {
                 [self shootBullet:2 angle:180];
                 [self shootBullet:2 angle:240];
                 [self shootBullet:2 angle:260];
@@ -993,8 +985,7 @@ NSMutableDictionary *initialBoss;
             }
         }
         if(deadSegment == 9) {
-            if((framespast % 125) ==0 || ![initialBoss objectForKey:@30.8]) {
-                [initialBoss setObject:@TRUE forKey:@30.8];
+            if((framespast % 100) ==0) {
                 int tempInt = (arc4random() % 90) + 240;
                 [self shootBullet:3 angle:tempInt];
                 for(NSUInteger i = 0; i < [bullets count]; i++) {
@@ -1389,17 +1380,6 @@ NSMutableDictionary *initialBoss;
                 [boss runAction:bossscale];
             }
         }
-    }
-    else if(bosstime == false) {
-//        int x = screenCenter.x;
-//        int y = screenCenter.y * 1.6;
-//        boss = [CCSprite spriteWithFile:@"target9.png"];
-//        boss.position = ccp(x,y);
-//        boss.scale = 0;
-//        [self addChild:boss z:0];
-//        id bossscale = [CCScaleTo actionWithDuration:1.0f scale:0.5f];
-//        [boss runAction:bossscale];
-//        [self shootBullet:1 angle:90];
     }
     if (deadLevelTime == TRUE) {
         int x = screenCenter.x;
@@ -1981,7 +1961,7 @@ NSMutableDictionary *initialBoss;
             if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                 [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
             }
-            if (deadSegment >= 16) {
+            if (deadSegment >= 17) {
                 if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                     [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                 }
@@ -2244,13 +2224,13 @@ NSMutableDictionary *initialBoss;
     border.position = ccp(screenCenter.x,screenCenter.y);
     [self addChild:border z:9010];
     // The coin label
-    NSString* world = [NSString stringWithFormat:@"...continue for %d coins.",continueCost];
+    NSString* world = [NSString stringWithFormat:@"...continue for %d coins. \n you have %i coins.",continueCost, coins];
     gameOver2 = [CCLabelTTF labelWithString:world fontName:@"HelveticaNeue-Medium" fontSize:25];
-    gameOver2.position = ccp(screenCenter.x, screenCenter.y * 1.55);
+    gameOver2.position = ccp(screenCenter.x, screenCenter.y * 1.535);
     [self addChild:gameOver2 z:9011];
     // The "or..." button
     gameOver = [CCLabelTTF labelWithString:@"or..." fontName:@"HelveticaNeue-Bold" fontSize:24];
-    gameOver.position = ccp(screenCenter.x, screenCenter.y - 54);
+    gameOver.position = ccp(screenCenter.x, screenCenter.y - 63);
     gameOver.color = ccc3(52,73,94);
     [self addChild:gameOver z:9012];
     // The other buttons
@@ -2260,7 +2240,7 @@ NSMutableDictionary *initialBoss;
     dieButton.scale = 1.1f;
     GameOverMenu = [CCMenu menuWithItems: continueButton, dieButton, nil];
     [GameOverMenu alignItemsVerticallyWithPadding:45.0];
-    GameOverMenu.position = ccp(screenCenter.x, screenCenter.y - 54);
+    GameOverMenu.position = ccp(screenCenter.x, screenCenter.y - 63);
     [self addChild:GameOverMenu z:9011];
 }
 -(void) cheetedDeath {
