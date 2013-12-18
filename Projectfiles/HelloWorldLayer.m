@@ -1971,7 +1971,7 @@ NSMutableDictionary *initialBoss;
             if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                 [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
             }
-            if (deadSegment == 9) {
+            if (deadSegment >= 16) {
                 if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                     [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                 }
