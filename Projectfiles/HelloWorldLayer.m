@@ -1714,7 +1714,7 @@ NSMutableDictionary *initialBoss;
     [boss runAction:bossscale2];
     stagespast = stagespast + 1;
     //create first,delay,create second
-    [self schedule:@selector(mySelector) interval:0.0];
+    [self schedule:@selector(mySelector)];
     for(NSUInteger i = 0; i<[fireBalls count]; i++) {
         [self removeChild:[fireBalls objectAtIndex:i] cleanup:YES];
     }
@@ -1763,12 +1763,12 @@ NSMutableDictionary *initialBoss;
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
                     [[NSUserDefaults standardUserDefaults] setInteger:(coins + 100) forKey:@"coins"];
-                    [self schedule:@selector(gameSegmentBeat)];
-                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
-                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
-                        [self resumeSchedulerAndActions];
-                        [self unschedule:@selector(gameSegmentBeat)];
-                    });
+//                    [self schedule:@selector(gameSegmentBeat)];
+//                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+//                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+//                        [self resumeSchedulerAndActions];
+//                        [self unschedule:@selector(gameSegmentBeat)];
+//                    });
                     level += 1;
                     [self gameEnd];
                     [self removeChild:boss cleanup:YES];
@@ -1783,12 +1783,14 @@ NSMutableDictionary *initialBoss;
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
                     [[NSUserDefaults standardUserDefaults] setInteger:(coins + 150) forKey:@"coins"];
-                    [self schedule:@selector(gameSegmentBeat)];
-                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
-                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
-                        [self resumeSchedulerAndActions];
-                        [self unschedule:@selector(gameSegmentBeat)];
-                    });
+                    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
+                        [self schedule:@selector(gameSegmentBeat)];
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                            [self resumeSchedulerAndActions];
+                            [self unschedule:@selector(gameSegmentBeat)];
+                        });
+                    }
                     level += 1;
                     [self gameEnd];
                     [self removeChild:boss cleanup:YES];
@@ -1803,13 +1805,14 @@ NSMutableDictionary *initialBoss;
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
                     [[NSUserDefaults standardUserDefaults] setInteger:(coins + 200) forKey:@"coins"];
-                    [self schedule:@selector(gameSegmentBeat)];
-                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
-                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
-                        [self resumeSchedulerAndActions];
-                        [self unschedule:@selector(gameSegmentBeat)];
-                    });
-                    level += 1;
+                    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
+                        [self schedule:@selector(gameSegmentBeat)];
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                            [self resumeSchedulerAndActions];
+                            [self unschedule:@selector(gameSegmentBeat)];
+                        });
+                    }                    level += 1;
                     [self gameEnd];
                     [self removeChild:boss cleanup:YES];
                 }
@@ -1823,13 +1826,14 @@ NSMutableDictionary *initialBoss;
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
                     [[NSUserDefaults standardUserDefaults] setInteger:(coins + 250) forKey:@"coins"];
-                    [self schedule:@selector(gameSegmentBeat)];
-                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
-                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
-                        [self resumeSchedulerAndActions];
-                        [self unschedule:@selector(gameSegmentBeat)];
-                    });
-                    level += 1;
+                    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
+                        [self schedule:@selector(gameSegmentBeat)];
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                            [self resumeSchedulerAndActions];
+                            [self unschedule:@selector(gameSegmentBeat)];
+                        });
+                    }                    level += 1;
                     [self gameEnd];
                     [self removeChild:boss cleanup:YES];
                 }
@@ -1843,13 +1847,14 @@ NSMutableDictionary *initialBoss;
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
                     [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
-                    [self schedule:@selector(gameSegmentBeat)];
-                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
-                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
-                        [self resumeSchedulerAndActions];
-                        [self unschedule:@selector(gameSegmentBeat)];
-                    });
-                    level += 1;
+                    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
+                        [self schedule:@selector(gameSegmentBeat)];
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                            [self resumeSchedulerAndActions];
+                            [self unschedule:@selector(gameSegmentBeat)];
+                        });
+                    }                    level += 1;
                     [self gameEnd];
                     [self removeChild:boss cleanup:YES];
                 }
@@ -1863,13 +1868,14 @@ NSMutableDictionary *initialBoss;
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
                     [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
-                    [self schedule:@selector(gameSegmentBeat)];
-                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
-                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
-                        [self resumeSchedulerAndActions];
-                        [self unschedule:@selector(gameSegmentBeat)];
-                    });
-                    level += 1;
+                    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
+                        [self schedule:@selector(gameSegmentBeat)];
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                            [self resumeSchedulerAndActions];
+                            [self unschedule:@selector(gameSegmentBeat)];
+                        });
+                    }                    level += 1;
                     [self gameEnd];
                     [self removeChild:boss cleanup:YES];
                 }
@@ -1883,12 +1889,14 @@ NSMutableDictionary *initialBoss;
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
                     [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
-                    [self schedule:@selector(gameSegmentBeat)];
-                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
-                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
-                        [self resumeSchedulerAndActions];
-                        [self unschedule:@selector(gameSegmentBeat)];
-                    });
+                    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
+                        [self schedule:@selector(gameSegmentBeat)];
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                            [self resumeSchedulerAndActions];
+                            [self unschedule:@selector(gameSegmentBeat)];
+                        });
+                    }
                     level += 1;
                     [self gameEnd];
                     [self removeChild:boss cleanup:YES];
@@ -1907,12 +1915,14 @@ NSMutableDictionary *initialBoss;
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
                     [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
-                    [self schedule:@selector(gameSegmentBeat)];
-                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
-                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
-                        [self resumeSchedulerAndActions];
-                        [self unschedule:@selector(gameSegmentBeat)];
-                    });
+                    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
+                        [self schedule:@selector(gameSegmentBeat)];
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                            [self resumeSchedulerAndActions];
+                            [self unschedule:@selector(gameSegmentBeat)];
+                        });
+                    }
                     level += 1;
                     [self gameEnd];
                     [self removeChild:boss cleanup:YES];
@@ -1931,12 +1941,14 @@ NSMutableDictionary *initialBoss;
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
                     [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
-                    [self schedule:@selector(gameSegmentBeat)];
-                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
-                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
-                        [self resumeSchedulerAndActions];
-                        [self unschedule:@selector(gameSegmentBeat)];
-                    });
+                    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
+                        [self schedule:@selector(gameSegmentBeat)];
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                            [self resumeSchedulerAndActions];
+                            [self unschedule:@selector(gameSegmentBeat)];
+                        });
+                    }
                     [self gameEnd];
                     [self removeChild:boss cleanup:YES];
                 }
@@ -2031,7 +2043,7 @@ NSMutableDictionary *initialBoss;
                 if (deadLevelTime == FALSE) {
                     [self playerdeathstart];
                 } else if (deadLevelTime == TRUE) {
-                    [self schedule:@selector(gaveupDeath) interval:0.5];
+                    [self schedule:@selector(gaveupDeath)];
                 }
             }
         }

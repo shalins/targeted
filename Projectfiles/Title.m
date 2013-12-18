@@ -118,6 +118,7 @@
             }
             framespast = 0;
         [self scheduleUpdate];
+//        [self schedule:<#(SEL)#> interval:<#(ccTime)#> repeat:<#(uint)#> delay:<#(ccTime)#>]
     }
     return self;
 }
