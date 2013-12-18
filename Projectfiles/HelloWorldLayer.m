@@ -115,6 +115,8 @@ NSMutableDictionary *initialBoss;
         player.position = ccp(screenCenter.x,screenCenter.y - 40);
         [self addChild:player z:9001];
         [self schedule:@selector(updateCoins)];
+        // The setup for the gameplay
+        [self initBoss];
         [self scheduleUpdate];
         [self pause];
         pausebutton = [CCSprite spriteWithFile:@"pause.png"];
@@ -172,8 +174,6 @@ NSMutableDictionary *initialBoss;
         tut.position = screenCenter;
         [self addChild:tut z:10000];
         tut.visible = FALSE;
-        // The setup for the game
-        [self initBoss];
     }
     return self;
 }
