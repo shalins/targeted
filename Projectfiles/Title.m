@@ -37,7 +37,10 @@
             // Background Sprite
             CCSprite *background = [CCSprite spriteWithFile:@"mainmenubg.png"];
             background.position = screenCenter;
-            [self addChild:background z:-10000];
+            [self addChild:background z:-500];
+            CCSprite *blurry = [CCSprite spriteWithFile:@"blurry.png"];
+            blurry.position = screenCenter;
+            [self addChild:blurry z:-1001];
         
             // Play Button
             CCMenuItemImage *start = [CCMenuItemImage itemWithNormalImage:@"start.png" selectedImage:@"start-sel.png" target:self selector:@selector(unPause)];
@@ -81,13 +84,13 @@
             
             endless = [CCMenuItemImage itemWithNormalImage:@"endless-sel.png" selectedImage:@"endless-sel.png" target:self selector:@selector(endlessSelected)];
             endlessMenu = [CCMenu menuWithItems:endless, nil];
-            endlessMenu.position = ccp(screenCenter.x - 95,screenCenter.y);
+            endlessMenu.position = ccp(screenCenter.x - 105,screenCenter.y);
             [self addChild:endlessMenu];
             isEndlessMode = TRUE;
         
             level = [CCMenuItemImage itemWithNormalImage:@"level.png" selectedImage:@"level-sel.png" target:self selector:@selector(levelSelected)];
             levelMenu = [CCMenu menuWithItems:level, nil];
-            levelMenu.position = ccp(screenCenter.x + 95,screenCenter.y);
+            levelMenu.position = ccp(screenCenter.x + 105,screenCenter.y);
             [self addChild:levelMenu];
         
             levelModeText = [CCLabelTTF labelWithString:@"LEVEL MODE" fontName:@"HelveticaNeue" fontSize:25];
@@ -98,10 +101,10 @@
 //            [self addChild:endlessModeText];
         
             CCLabelTTF *levelText = [CCLabelTTF labelWithString:@"LEVEL" fontName:@"HelveticaNeue" fontSize:15];
-            levelText.position = ccp(screenCenter.x + 95,screenCenter.y + 35);
+            levelText.position = ccp(screenCenter.x + 105,screenCenter.y + 35);
             [self addChild:levelText];
             CCLabelTTF *endlessText = [CCLabelTTF labelWithString:@"ENDLESS" fontName:@"HelveticaNeue" fontSize:15];
-            endlessText.position = ccp(screenCenter.x - 95,screenCenter.y + 35);
+            endlessText.position = ccp(screenCenter.x - 105,screenCenter.y + 35);
             [self addChild:endlessText];
         
             // Sounds
@@ -146,7 +149,7 @@
 }
 
 -(void) shootSomeBullets {
-    if((framespast % 155) ==0) {
+    if((framespast % 115) ==0) {
         [self shootBullet:1 angle:230];
         [self shootBullet:2 angle:270];
         [self shootBullet:1 angle:310];
@@ -171,7 +174,7 @@
 -(void) shootBullet: (float) speed angle:(float) angleInput {
     Bullet *newB = [Bullet bullet:speed :angleInput];
     newB.position = ccp(screenCenter.x, screenCenter.y * 1.5);
-    [self addChild:newB z:9];
+    [self addChild:newB z:-501];
     [bullets addObject:newB];
     newB.scale = 0;
     id scale = [CCScaleTo actionWithDuration:1.0f scale:0.2f];
@@ -224,11 +227,11 @@
     }
     endless = [CCMenuItemImage itemWithNormalImage:@"endless-sel.png" selectedImage:@"endless-sel.png" target:self selector:@selector(endlessSelected)];
     endlessMenu = [CCMenu menuWithItems:endless, nil];
-    endlessMenu.position = ccp(screenCenter.x - 95,screenCenter.y);
+    endlessMenu.position = ccp(screenCenter.x - 105,screenCenter.y);
     [self addChild:endlessMenu];
     level = [CCMenuItemImage itemWithNormalImage:@"level.png" selectedImage:@"level-sel.png" target:self selector:@selector(levelSelected)];
     levelMenu = [CCMenu menuWithItems:level, nil];
-    levelMenu.position = ccp(screenCenter.x + 95,screenCenter.y);
+    levelMenu.position = ccp(screenCenter.x + 105,screenCenter.y);
     [self addChild:levelMenu];
 }
 -(void) levelSelected {
@@ -244,11 +247,11 @@
     }
     level = [CCMenuItemImage itemWithNormalImage:@"level-sel.png" selectedImage:@"level-sel.png" target:self selector:@selector(levelSelected)];
     levelMenu = [CCMenu menuWithItems:level, nil];
-    levelMenu.position = ccp(screenCenter.x + 95,screenCenter.y);
+    levelMenu.position = ccp(screenCenter.x + 105,screenCenter.y);
     [self addChild:levelMenu];
     endless = [CCMenuItemImage itemWithNormalImage:@"endless.png" selectedImage:@"endless-sel.png" target:self selector:@selector(endlessSelected)];
     endlessMenu = [CCMenu menuWithItems:endless, nil];
-    endlessMenu.position = ccp(screenCenter.x - 95,screenCenter.y);
+    endlessMenu.position = ccp(screenCenter.x - 105,screenCenter.y);
     [self addChild:endlessMenu];
 }
 -(void) settings
