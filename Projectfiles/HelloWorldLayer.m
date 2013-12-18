@@ -895,7 +895,17 @@ NSMutableDictionary *initialBoss;
             [self addChild:blocker];
             [self initBoss];
         }
+        
         if(deadSegment == 0) {
+            [self schedule:@selector(gameSegmentBeat)];
+            dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+            dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                [self resumeSchedulerAndActions];
+                [self unschedule:@selector(gameSegmentBeat)];
+                deadSegment ++;
+            });
+        }
+        if (deadSegment == 1) {
             if(((framespast % 100) == 0) || ![initialBoss objectForKey:@30.0]) {
                 [initialBoss setObject:@TRUE forKey:@30.0];
                 [self shootBulletwithPos:4 angle:275 xpos:0 ypos:screenCenter.y *0.5];
@@ -903,7 +913,7 @@ NSMutableDictionary *initialBoss;
                 [self shootBulletwithPos:4 angle:300 xpos:0 ypos:screenCenter.y *0.5];
             }
         }
-        if(deadSegment == 1) {
+        if(deadSegment == 2) {
             if(((framespast % 100) ==0) || ![initialBoss objectForKey:@30.1]) {
                 [initialBoss setObject:@TRUE forKey:@30.1];
                 [self shootBulletwithPosMult:4 angle:100 xpos:1.5 ypos:1/10];
@@ -911,7 +921,7 @@ NSMutableDictionary *initialBoss;
                 [self shootBulletwithPosMult:4 angle:140 xpos:1.5 ypos:1/10];
             }
         }
-        if(deadSegment == 2) {
+        if(deadSegment == 3) {
             if((framespast % 155) ==0 || ![initialBoss objectForKey:@30.2]) {
                 [self shootBulletwithPos:3 angle:180 xpos:-80 ypos:-140];
                 [self shootBulletwithPos:3 angle:180 xpos:80 ypos:-140];
@@ -922,7 +932,7 @@ NSMutableDictionary *initialBoss;
                 }
             }
         }
-        if(deadSegment == 3) {
+        if(deadSegment == 4) {
             if((framespast % 75) ==0 || ![initialBoss objectForKey:@30.3]) {
                 [initialBoss setObject:@TRUE forKey:@30.3];
                 [self shootBullet:3 angle:300];
@@ -933,7 +943,7 @@ NSMutableDictionary *initialBoss;
                 projectile = [bullets objectAtIndex:j];
             }
         }
-        if(deadSegment == 4) {
+        if(deadSegment == 5) {
             if((framespast % 30) ==0 || ![initialBoss objectForKey:@30.4]) {
                 [initialBoss setObject:@TRUE forKey:@30.4];
                 [self shootBullet:3 angle:180];
@@ -944,7 +954,7 @@ NSMutableDictionary *initialBoss;
                 }
             }
         }
-        if(deadSegment == 5) {
+        if(deadSegment == 6) {
             if((framespast % 75) ==0 || ![initialBoss objectForKey:@30.5]) {
                 [initialBoss setObject:@TRUE forKey:@30.5];
                 [self shootBullet:1 angle:270];
@@ -956,7 +966,7 @@ NSMutableDictionary *initialBoss;
                 }
             }
         }
-        if(deadSegment == 6) {
+        if(deadSegment == 7) {
             if((framespast % 75) ==0 || ![initialBoss objectForKey:@30.6]) {
                 if (shootThePowerup == TRUE) {
                     [self shootMiniMeMissile];
@@ -971,7 +981,7 @@ NSMutableDictionary *initialBoss;
                 }
             }
         }
-        if(deadSegment == 7) {
+        if(deadSegment == 8) {
             if((framespast % 125) ==0 || ![initialBoss objectForKey:@30.7]) {
                 [initialBoss setObject:@TRUE forKey:@30.7];
                 [self shootBullet:2 angle:180];
@@ -982,7 +992,7 @@ NSMutableDictionary *initialBoss;
                 [self shootBullet:2 angle:360];
             }
         }
-        if(deadSegment == 8) {
+        if(deadSegment == 9) {
             if((framespast % 125) ==0 || ![initialBoss objectForKey:@30.8]) {
                 [initialBoss setObject:@TRUE forKey:@30.8];
                 int tempInt = (arc4random() % 90) + 240;
@@ -994,7 +1004,7 @@ NSMutableDictionary *initialBoss;
                 }
             }
         }
-        if (deadSegment == 9) {
+        if (deadSegment == 10) {
             if((framespast % 25) == 0) {
                 wowanothertemportalint = wowanothertemportalint + 15;
                 [self shootBulletwithPos:3 angle:wowanothertemportalint xpos:0 ypos:0];
@@ -1005,7 +1015,7 @@ NSMutableDictionary *initialBoss;
                 }
             }
         }
-        if (deadSegment == 10) {
+        if (deadSegment == 11) {
             [self shootBulletwithPos:4 angle:90 xpos:100 ypos:-300];
             [self shootBulletwithPos:4 angle:90 xpos:-100 ypos:-300];
             if ((framespast % 30) == 0) {
@@ -1014,7 +1024,7 @@ NSMutableDictionary *initialBoss;
                 }
             }
         }
-        if (deadSegment == 11) {
+        if (deadSegment == 12) {
             if((framespast % 50) == 0 || ![initialBoss objectForKey:@30.11]) {
                 [initialBoss setObject:@TRUE forKey:@6.1];
                 [self shootBulletwithPos:2 angle:180 xpos:0 ypos:-240];
@@ -1027,14 +1037,14 @@ NSMutableDictionary *initialBoss;
                 [self shootBulletwithPos:2 angle:315 xpos:0 ypos:-240];
             }
         }
-        if (deadSegment == 12) {
+        if (deadSegment == 13) {
             if((framespast % 50) == 0 || ![initialBoss objectForKey:@30.12]) {
                 [initialBoss setObject:@TRUE forKey:@30.12];
                 [self shootBulletwithPos:4 angle:90 xpos:100 ypos:-300];
                 [self shootBulletwithPos:4 angle:90 xpos:-100 ypos:-300];
             }
         }
-        if (deadSegment == 13) {
+        if (deadSegment == 14) {
             if((framespast % 60) == 0 || ![initialBoss objectForKey:@30.13]) {
                 [initialBoss setObject:@TRUE forKey:@30.13];
                 [self shootBullet:3 angle:300];
@@ -1045,7 +1055,7 @@ NSMutableDictionary *initialBoss;
                 projectile = [bullets objectAtIndex:j];
             }
         }
-        if (deadSegment == 14) {
+        if (deadSegment == 15) {
             if((framespast % 60) == 0 || ![initialBoss objectForKey:@30.14]) {
                 [initialBoss setObject:@TRUE forKey:@30.14];
                 int tempInt = (arc4random() % 90) + 240;
@@ -1055,7 +1065,7 @@ NSMutableDictionary *initialBoss;
                 [self shootBullet:3 angle:tempInt];
             }
         }
-        if (deadSegment == 15) {
+        if (deadSegment == 16) {
             if((framespast % 60) == 0 || ![initialBoss objectForKey:@30.15]) {
                 [initialBoss setObject:@TRUE forKey:@30.15];
                 [self shootBulletwithPosMult:4 angle:20 xpos:1/10 ypos:1/10];
@@ -2311,11 +2321,11 @@ NSMutableDictionary *initialBoss;
     gameOver2.position = ccp(screenCenter.x, screenCenter.y * 1.1);
     [self addChild:gameOver2 z:9011];
     // The title label
-    gameOver = [CCLabelTTF labelWithString:@"No Coins" fontName:@"HelveticaNeue-UltraLight" fontSize:70];
-    gameOver.position = ccp(screenCenter.x, screenCenter.y * 1.64);
+    gameOver = [CCLabelTTF labelWithString:@"Coins" fontName:@"HelveticaNeue-UltraLight" fontSize:73];
+    gameOver.position = ccp(screenCenter.x, screenCenter.y * 1.63);
     [self addChild:gameOver z:9012];
     // Another Label
-    gameOver1 = [CCLabelTTF labelWithString:@"YOU HAVE" fontName:@"HelveticaNeue-Bold" fontSize:20];
+    gameOver1 = [CCLabelTTF labelWithString:@"NOT ENOUGH" fontName:@"HelveticaNeue-Bold" fontSize:20];
     gameOver1.position = ccp(screenCenter.x, screenCenter.y * 1.84);
     [self addChild:gameOver1 z:9012];
     // The other buttons
