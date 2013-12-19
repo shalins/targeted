@@ -168,7 +168,10 @@ NSMutableDictionary *initialBoss;
                 bosstime = true;
                 stagespast = 45;
             }
-        }        
+        }
+//        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
+//            level = 1;
+//        }
         // Set up Tutorial
         tut = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:30];
         tut.position = screenCenter;

@@ -194,7 +194,7 @@
 }
 -(void) turnOnSound {
     [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"musicon"];
-    [[NSUserDefaults standardUserDefaults] synchronize];// Add this
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [self removeChild:soundOff cleanup:YES];
     [self removeChild:menutwo cleanup:YES];
     sound = [CCMenuItemImage itemWithNormalImage:@"music.png" selectedImage:@"music-sel.png" target:self selector:@selector(turnOffSound)];
@@ -205,7 +205,7 @@
 }
 -(void) turnOffSound {
     [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"musicon"];
-    [[NSUserDefaults standardUserDefaults] synchronize];// Add this
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [self removeChild:sound cleanup:YES];
     [self removeChild:menu2 cleanup:YES];
     soundOff = [CCMenuItemImage itemWithNormalImage:@"music-not.png" selectedImage:@"music-not-sel.png" target:self selector:@selector(turnOnSound)];
@@ -256,20 +256,19 @@
 }
 -(void) settings
 {
-    if (theLogs == TRUE) {
-        NSLog(@"MGWU Button Clicked");
-    }
     [[CCDirector sharedDirector] replaceScene:[CCTransitionPageTurn transitionWithDuration:0.5f scene:[Settings node]]];
 }
 -(void) unPause
 {
-    NSLog(@"Play Button Clicked");
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
         [[SimpleAudioEngine sharedEngine] playEffect:@"select.mp3"];
     }
     if (isLevelMode == TRUE) {
         [[CCDirector sharedDirector] replaceScene: [CCTransitionSlideInR transitionWithDuration:0.5f scene:[Scene node]]];
     } else if (isEndlessMode == TRUE) {
+        NSNumber *leveldata = [NSNumber numberWithInteger:1];
+        [[NSUserDefaults standardUserDefaults] setObject:leveldata forKey:@"leveldata"];
+        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"endless"];
         [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[HelloWorldLayer node]]];
     }
 }

@@ -78,10 +78,10 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"coins"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"score"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"targetHit"];
-//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"numTimesPlayed"];
-//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"firstTimeMiniedMe"];
-//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"firstTimeSlowedDown"];
-//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"leveldata"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"numTimesPlayed"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"firstTimeMiniedMe"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"firstTimeSlowedDown"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"leveldata"];
 }
 
 -(void) goHome {
