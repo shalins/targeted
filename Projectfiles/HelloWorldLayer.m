@@ -67,6 +67,8 @@ NSMutableDictionary *initialBoss;
             [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"firstTimeSlowedDown"];
             [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"firstTimeMiniedMe"];
             [[NSUserDefaults standardUserDefaults] synchronize];
+            firstTimeSlowDown = TRUE;
+            firstTimeMiniMe = TRUE;
         }
         
         //        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
@@ -281,7 +283,7 @@ NSMutableDictionary *initialBoss;
     if(framespast == 10) {
         tut = [CCLabelTTF labelWithString:@"Tap to move" fontName:@"Helvetica" fontSize:30];
         tut.position = ccp(screenCenter.x,screenCenter.y);
-        tut.color = ccc3(0, 0, 0);
+        tut.color = ccc3(255,255,255);
         [self addChild:tut];
     }
     if(framespast == 300) {
@@ -289,25 +291,32 @@ NSMutableDictionary *initialBoss;
         [self removeChild:tut];
         tut = [CCLabelTTF labelWithString:@"Avoid these" fontName:@"Helvetica" fontSize:30];
         tut.position = ccp(screenCenter.x,screenCenter.y);
-        tut.color = ccc3(0, 0, 0);
+        tut.color = ccc3(255,255,255);
         [self addChild:tut];
-        
+        id blinker = [CCBlink actionWithDuration:4.0f blinks:10];
+        [bullet runAction:blinker];
+        [blocker runAction:blinker];
     }
     if(framespast == 580) {
         [self shootBulletwithPosShield:1 angle:260 xpos:0 ypos:0];
         [self removeChild:tut];
         tut = [CCLabelTTF labelWithString:@"These are shields" fontName:@"Helvetica" fontSize:30];
         tut.position = ccp(screenCenter.x,screenCenter.y);
-        tut.color = ccc3(0, 0, 0);
+        tut.color = ccc3(255,255,255);
         [self addChild:tut];
+        id blinker = [CCBlink actionWithDuration:4.0f blinks:10];
+        [shield runAction:blinker];
     }
     if(framespast == 750) {
         [self shootBulletwithPosShield:1 angle:260 xpos:0 ypos:0];
         [self removeChild:tut];
         tut = [CCLabelTTF labelWithString:@"Drag into target" fontName:@"Helvetica" fontSize:30];
         tut.position = ccp(screenCenter.x,screenCenter.y);
-        tut.color = ccc3(0, 0, 0);
+        tut.color = ccc3(255,255,255);
         [self addChild:tut];
+        id blinker = [CCBlink actionWithDuration:4.0f blinks:10];
+        [boss runAction:blinker];
+        
     }
 }
 /* -------------------------------------------------------------------------------- */
@@ -1201,11 +1210,6 @@ NSMutableDictionary *initialBoss;
     [self shootBulletwithPosSmall:1 angle:270 xpos:-50 ypos:-328];
 }
 -(void) shootSlowDownMissile {
-    
-    if([[NSUserDefaults standardUserDefaults] integerForKey:@"numTimesPlayed"] == 0) {
-        firstTimeSlowDown = TRUE;
-        firstTimeMiniMe = TRUE;
-    }
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeSlowedDown"] == TRUE) {
         int someRandomAngle = (arc4random() % 90) + 240;
         [self shootBulletwithPosSlowDown:1 angle:someRandomAngle];
@@ -1477,9 +1481,9 @@ NSMutableDictionary *initialBoss;
                 [self removeChild:tempSprite cleanup:YES];
                 isItSlow = TRUE;
                 if (tut.parent == nil) {
-                    tut = [CCLabelTTF labelWithString:@"Slow Motion!" fontName:@"Arial" fontSize:30];
+                    tut = [CCLabelTTF labelWithString:@"Bullets Slowed Down" fontName:@"Arial" fontSize:30];
                     tut.position = screenCenter;
-                    tut.color = ccc3(0, 0, 0);
+                    tut.color = ccc3(255,255,255);
                     [self addChild:tut z:10000];
                     dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC));
                     dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
@@ -1635,7 +1639,7 @@ NSMutableDictionary *initialBoss;
     [self addChild:smallerBall z:10];
     id bossscale = [CCScaleTo actionWithDuration:1.0f scale:1.0f];
     id blinker = [CCBlink actionWithDuration:4.0f blinks:10];
-    if (firstTimeMiniMe == TRUE) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeSlowedDown"] == TRUE) {
         [smallerBall runAction:blinker];
     }
     [smallerBall runAction:bossscale];
@@ -1655,7 +1659,7 @@ NSMutableDictionary *initialBoss;
     [self addChild:slowDown z:10];
     id bossscale = [CCScaleTo actionWithDuration:1.0f scale:1.0f];
     id blinker = [CCBlink actionWithDuration:4.0f blinks:10];
-    if (firstTimeSlowDown == TRUE) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeSlowedDown"] == TRUE) {
         [slowDown runAction:blinker];
     }
     [slowDown runAction:bossscale];
@@ -1788,12 +1792,13 @@ NSMutableDictionary *initialBoss;
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
                     [[NSUserDefaults standardUserDefaults] setInteger:(coins + 100) forKey:@"coins"];
-//                    [self schedule:@selector(gameSegmentBeat)];
-//                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
-//                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
-//                        [self resumeSchedulerAndActions];
-//                        [self unschedule:@selector(gameSegmentBeat)];
-//                    });
+                    [self schedule:@selector(gameSegmentBeat)];
+                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                    dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
+                        [self resumeSchedulerAndActions];
+                        [self unschedule:@selector(gameSegmentBeat)];
+                    });
+                    [mixpanel track:@"Level One Beat"];
                     level += 1;
                     [self gameEnd];
                     [self removeChild:boss cleanup:YES];
@@ -1816,6 +1821,7 @@ NSMutableDictionary *initialBoss;
                             [self unschedule:@selector(gameSegmentBeat)];
                         });
                     }
+                    [mixpanel track:@"Level 2 Beat"];
                     level += 1;
                     [self gameEnd];
                     [self removeChild:boss cleanup:YES];
@@ -1837,7 +1843,9 @@ NSMutableDictionary *initialBoss;
                             [self resumeSchedulerAndActions];
                             [self unschedule:@selector(gameSegmentBeat)];
                         });
-                    }                    level += 1;
+                    }
+                    [mixpanel track:@"Level 3 Beat"];
+                    level += 1;
                     [self gameEnd];
                     [self removeChild:boss cleanup:YES];
                 }
@@ -1858,7 +1866,9 @@ NSMutableDictionary *initialBoss;
                             [self resumeSchedulerAndActions];
                             [self unschedule:@selector(gameSegmentBeat)];
                         });
-                    }                    level += 1;
+                    }
+                    [mixpanel track:@"Level 4 Beat"];
+                    level += 1;
                     [self gameEnd];
                     [self removeChild:boss cleanup:YES];
                 }
@@ -1879,7 +1889,9 @@ NSMutableDictionary *initialBoss;
                             [self resumeSchedulerAndActions];
                             [self unschedule:@selector(gameSegmentBeat)];
                         });
-                    }                    level += 1;
+                    }
+                    [mixpanel track:@"Level 5 Beat"];
+                    level += 1;
                     [self gameEnd];
                     [self removeChild:boss cleanup:YES];
                 }
@@ -1900,7 +1912,9 @@ NSMutableDictionary *initialBoss;
                             [self resumeSchedulerAndActions];
                             [self unschedule:@selector(gameSegmentBeat)];
                         });
-                    }                    level += 1;
+                    }
+                    [mixpanel track:@"Level 6 Beat"];
+                    level += 1;
                     [self gameEnd];
                     [self removeChild:boss cleanup:YES];
                 }
@@ -1922,6 +1936,7 @@ NSMutableDictionary *initialBoss;
                             [self unschedule:@selector(gameSegmentBeat)];
                         });
                     }
+                    [mixpanel track:@"Level 7 Beat"];
                     level += 1;
                     [self gameEnd];
                     [self removeChild:boss cleanup:YES];
@@ -1948,6 +1963,7 @@ NSMutableDictionary *initialBoss;
                             [self unschedule:@selector(gameSegmentBeat)];
                         });
                     }
+                    [mixpanel track:@"Level 8 Beat"];
                     level += 1;
                     [self gameEnd];
                     [self removeChild:boss cleanup:YES];
@@ -1974,6 +1990,7 @@ NSMutableDictionary *initialBoss;
                             [self unschedule:@selector(gameSegmentBeat)];
                         });
                     }
+                    [mixpanel track:@"Level 9 Beat"];
                     [self schedule:@selector(gameBeat)];
                     [self removeChild:boss cleanup:YES];
                 }
@@ -2031,10 +2048,10 @@ NSMutableDictionary *initialBoss;
         if ([self isCollidingSphere:tempSprite WithSphere:player] == true) {
             [self removeChild:tempSprite cleanup:YES];
             if (tut.parent == nil) {
-                tut = [CCLabelTTF labelWithString:@"You Shrunk!" fontName:@"Arial" fontSize:30];
+                tut = [CCLabelTTF labelWithString:@"You Shrunk" fontName:@"Arial" fontSize:30];
                 tut.position = screenCenter;
                 [self addChild:tut z:10000];
-                tut.color = ccc3(0, 0, 0);
+                tut.color = ccc3(255,255,255);
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC));
                 dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                     [self removeChild:tut cleanup:YES];
@@ -2269,6 +2286,7 @@ NSMutableDictionary *initialBoss;
     [GameOverMenu alignItemsVerticallyWithPadding:45.0];
     GameOverMenu.position = ccp(screenCenter.x, screenCenter.y - 63);
     [self addChild:GameOverMenu z:9011];
+    [mixpanel track:@"Player died but player can come back"];
 }
 -(void) cheetedDeath {
     [self unschedule:@selector(cheetedDeath)];
@@ -2303,6 +2321,7 @@ NSMutableDictionary *initialBoss;
     [GameOverMenu alignItemsVerticallyWithPadding:45.0];
     GameOverMenu.position = ccp(screenCenter.x, (screenCenter.y / 12) * 5);
     [self addChild:GameOverMenu z:9011];
+    [mixpanel track:@"Player collected tons of coins"];
 
 }
 -(void) gameBeat {
@@ -2328,6 +2347,7 @@ NSMutableDictionary *initialBoss;
     [GameOverMenu alignItemsVerticallyWithPadding:45.0];
     GameOverMenu.position = ccp(screenCenter.x, (screenCenter.y / 12) * 5);
     [self addChild:GameOverMenu z:9011];
+    [mixpanel track:@"Player beat the game"];
 }
 -(void) noCoinChallenge {
     [self unschedule:@selector(noCoinChallenge)];
@@ -2366,6 +2386,7 @@ NSMutableDictionary *initialBoss;
     [GameOverMenu alignItemsVerticallyWithPadding:45.0];
     GameOverMenu.position = ccp(screenCenter.x, (screenCenter.y / 12) * 4);
     [self addChild:GameOverMenu z:9011];
+    [mixpanel track:@"Player doesn't have enough coins"];
     
 }
 -(void) gaveupDeath {
@@ -2402,6 +2423,7 @@ NSMutableDictionary *initialBoss;
     [GameOverMenu alignItemsVerticallyWithPadding:45.0];
     GameOverMenu.position = ccp(screenCenter.x, (screenCenter.y / 3) * 2);
     [self addChild:GameOverMenu z:9011];
+    [mixpanel track:@"Player failed to earn extra coins"];
     
 }
 -(void) continuee {
@@ -2455,12 +2477,6 @@ NSMutableDictionary *initialBoss;
     [bullets removeAllObjects];
     isDying = false;
     [self unschedule:@selector(gameover)];
-// shield = [CCSprite spriteWithFile:@"shield.png"];
-// shield.scale = 0.15;
-// shield.position = player.position;
-// [self addChild:shield z:-10];
-// ubershieldon = true;
-// [self schedule:@selector(deleteubershield) interval:3.0];
 }
 -(void) boughtProduct {
     id tintp = [CCTintTo actionWithDuration:0.6 red:247 green:147 blue:29];

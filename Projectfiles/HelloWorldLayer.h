@@ -114,6 +114,7 @@
     int bossY;
     BOOL firstTimeMiniMe;
     BOOL firstTimeSlowDown;
+    Mixpanel *mixpanel;
 }
 
 @property (nonatomic, copy) NSString *helloWorldString;

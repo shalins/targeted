@@ -15,6 +15,10 @@
 #warning "This project uses features only available in iPhone SDK 3.0 and later."
 #endif
 
+#ifndef __IPHONE_4_0
+#warning "This project uses features only available in iOS SDK 4.0 and later."
+#endif
+
 #ifdef __OBJC__
 
 // iOS SDK headers
@@ -22,6 +26,7 @@
 #import <GameKit/GameKit.h>
 #import <iAd/iAd.h>
 #import <UIKit/UIKit.h>
+#import "Mixpanel.h"
 
 // Cocos2D headers
 #import "cocos2d.h"

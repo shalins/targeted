@@ -97,6 +97,11 @@
         // [MGWU submitHighScore:[[NSUserDefaults standardUserDefaults] integerForKey:@"score"] byPlayer:@"Player" forLeaderboard:@"defaultLeaderboard"];
         [self unscheduleUpdate];
         [self unscheduleAllSelectors];
+        
+        mixpanel = [Mixpanel sharedInstance];
+
+        [mixpanel track:@"Game Over"];
+        
     }
     return self;
 }

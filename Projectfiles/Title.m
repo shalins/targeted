@@ -30,6 +30,9 @@
             // NSLogging Switch
             theLogs = TRUE;
         
+            // Mixpanel
+            mixpanel = [Mixpanel sharedInstance];
+
             // Some variables to make positioning more easy
             size = [[CCDirector sharedDirector] winSize];
             screenCenter = ccp(size.width/2, size.height/2);
@@ -41,12 +44,17 @@
             CCSprite *blurry = [CCSprite spriteWithFile:@"blurry.png"];
             blurry.position = screenCenter;
             [self addChild:blurry z:-1001];
+            CCSprite *logo = [CCSprite spriteWithFile:@"text.png"];
+            logo.position = ccp(screenCenter.x, screenCenter.y);
+            [self addChild:logo z:1];
+            [self slideUp:logo];
         
             // Play Button
             CCMenuItemImage *start = [CCMenuItemImage itemWithNormalImage:@"start.png" selectedImage:@"start-sel.png" target:self selector:@selector(unPause)];
             menu = [CCMenu menuWithItems:start, nil];
             menu.position = ccp(screenCenter.x,screenCenter.y);
             [self addChild:menu];
+            [self fadeIn:menu];
         
             bullets = [[NSMutableArray alloc] init];
         
@@ -60,19 +68,24 @@
                 menu2 = [CCMenu menuWithItems:sound, nil];
                 menu2.position = ccp(screenCenter.x - 33,screenCenter.y / 5);
                 [self addChild:menu2];
+                [self fadeIn:menu2];
                 NSLog(@"reset");
+            } else if ([[NSUserDefaults standardUserDefaults] integerForKey:@"numTimesPlayed"] == 3){
+                [mixpanel showSurvey];
             } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicon"] == TRUE) {
                 sound = [CCMenuItemImage itemWithNormalImage:@"music.png" selectedImage:@"music-sel.png" target:self selector:@selector(turnOffSound)];
                 sound.scale = 1.1;
                 menu2 = [CCMenu menuWithItems:sound, nil];
                 menu2.position = ccp(screenCenter.x - 33,screenCenter.y / 5);
                 [self addChild:menu2];
+                [self fadeIn:menu2];
             } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicon"] == FALSE) {
                 soundOff = [CCMenuItemImage itemWithNormalImage:@"music-not.png" selectedImage:@"music-not-sel.png" target:self selector:@selector(turnOnSound)];
                 soundOff.scale = 1.1;
                 menutwo = [CCMenu menuWithItems:soundOff, nil];
                 menutwo.position = ccp(screenCenter.x - 33,screenCenter.y / 5);
                 [self addChild:menutwo];
+                [self fadeIn:menutwo];
             }
         
             // Settings Button
@@ -81,17 +94,19 @@
             menu3 = [CCMenu menuWithItems:settings, nil];
             menu3.position = ccp(screenCenter.x + 33,screenCenter.y / 5);
             [self addChild:menu3];
-            
+            [self fadeIn:menu3];
             endless = [CCMenuItemImage itemWithNormalImage:@"endless-sel.png" selectedImage:@"endless-sel.png" target:self selector:@selector(endlessSelected)];
             endlessMenu = [CCMenu menuWithItems:endless, nil];
             endlessMenu.position = ccp(screenCenter.x - 105,screenCenter.y);
             [self addChild:endlessMenu];
+            [self fadeIn:endlessMenu];
             isEndlessMode = TRUE;
         
             level = [CCMenuItemImage itemWithNormalImage:@"level.png" selectedImage:@"level-sel.png" target:self selector:@selector(levelSelected)];
             levelMenu = [CCMenu menuWithItems:level, nil];
             levelMenu.position = ccp(screenCenter.x + 105,screenCenter.y);
             [self addChild:levelMenu];
+            [self fadeIn:levelMenu];
         
             levelModeText = [CCLabelTTF labelWithString:@"LEVEL MODE" fontName:@"HelveticaNeue" fontSize:25];
             levelModeText.position = ccp(screenCenter.x * 4, (screenCenter.y * 3) / 5);
@@ -103,9 +118,11 @@
             CCLabelTTF *levelText = [CCLabelTTF labelWithString:@"LEVEL" fontName:@"HelveticaNeue" fontSize:15];
             levelText.position = ccp(screenCenter.x + 105,screenCenter.y + 35);
             [self addChild:levelText];
+            [self fadeIn:levelText];
             CCLabelTTF *endlessText = [CCLabelTTF labelWithString:@"ENDLESS" fontName:@"HelveticaNeue" fontSize:15];
             endlessText.position = ccp(screenCenter.x - 105,screenCenter.y + 35);
             [self addChild:endlessText];
+            [self fadeIn:endlessText];
         
             // Sounds
             [[SimpleAudioEngine sharedEngine] preloadEffect:@"select.mp3"];
@@ -315,4 +332,13 @@
     [spriteToBeTheNextBigThing runAction:[CCSequence actions:slide, nil]];
     
 }
+-(void) slideUp:(CCSprite *) spriteToBeTheNextBigThing {
+    id slide = [CCMoveTo actionWithDuration:0.7f position:ccp(screenCenter.x, screenCenter.y * 1.65)];
+    [spriteToBeTheNextBigThing runAction:[CCSequence actions:slide, nil]];
+}
+-(void) fadeIn:(CCMenu *) spriteToBeTheNextBigThing {
+    id faded = [CCFadeIn actionWithDuration:2.3f];
+    [spriteToBeTheNextBigThing runAction:[CCSequence actions:faded, nil]];
+}
+
 @end

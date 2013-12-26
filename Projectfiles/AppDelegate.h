@@ -6,6 +6,8 @@
  */
 
 #import "KKAppDelegate.h"
+#define MIXPANEL_TOKEN @"bb014e1c2040c0a262d7fb1f2f902052"
+
 
 @interface AppDelegate : KKAppDelegate
 {

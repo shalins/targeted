@@ -16,7 +16,7 @@
     NSMutableArray *bulletSpeed;
     CCSprite* projectile;
     int framespast;
-
+    Mixpanel *mixpanel;
     BOOL theLogs;
     BOOL isEndlessMode;
     BOOL isLevelMode;
