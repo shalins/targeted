@@ -78,7 +78,7 @@ NSMutableDictionary *initialBoss;
         
         coincount = [NSString stringWithFormat:@"Coins: %i", coins];
         coinCountage = [CCLabelTTF labelWithString:coincount fontName:@"HelveticaNeue-Light" fontSize:25];
-        coinCountage.position = ccp((screenSize.width / 10) + 25,(screenSize.height/15) - 11);
+        coinCountage.position = ccp((screenSize.width / 10) + 35,(screenSize.height/15) - 11);
         [self addChild:coinCountage];
         
         redtint = 0;
@@ -1782,7 +1782,11 @@ NSMutableDictionary *initialBoss;
         if (deadLevelTime == FALSE) {
             // This should happen when the bullet is deleted.
             if (level == 1) {
-                gameSegment += 1;
+                if (gameSegment == 0) {
+                    gameSegment = 0;
+                } else {
+                    gameSegment += 1;
+                }
                 if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                     [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
                 }
