@@ -27,6 +27,9 @@
 
 @interface HelloWorldLayer : CCLayer
 {
+    CCLabelTTF *coinCountage;
+    CCLabelTTF *coiner;
+    NSString* coincount;
 	NSString* helloWorldString;
 	NSString* helloWorldFontName;
 	int helloWorldFontSize;

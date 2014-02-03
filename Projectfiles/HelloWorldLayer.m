@@ -76,10 +76,10 @@ NSMutableDictionary *initialBoss;
         continueCost = 1;
         coins = [[NSUserDefaults standardUserDefaults] integerForKey:@"coins"];
         
-        NSString* coincount = [NSString stringWithFormat:@"Coins: %i",coins];
-        CCLabelTTF *coinCount = [CCLabelTTF labelWithString:coincount fontName:@"HelveticaNeue-Light" fontSize:25];
-        coinCount.position = ccp((screenSize.width / 10) + 17,(screenSize.height/15) - 11);
-        [self addChild:coinCount];
+        coincount = [NSString stringWithFormat:@"Coins: %i", coins];
+        coinCountage = [CCLabelTTF labelWithString:coincount fontName:@"HelveticaNeue-Light" fontSize:25];
+        coinCountage.position = ccp((screenSize.width / 10) + 25,(screenSize.height/15) - 11);
+        [self addChild:coinCountage];
         
         redtint = 0;
         greentint = 0;
@@ -273,6 +273,7 @@ NSMutableDictionary *initialBoss;
     if ([input isAnyTouchOnNode:pausebutton touchPhase:KKTouchPhaseAny]) {
         [self pause];
     }
+    [coinCountage setString:[NSString stringWithFormat:@"Coins: %i", coins]];
 }
 -(void) startTutorial {
     // Uses NSUserDefaults so doesn't appear twice
