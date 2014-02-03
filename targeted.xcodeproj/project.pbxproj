@@ -330,7 +330,6 @@
 		84F92CE61784C21C00500453 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 84F92CE51784C21C00500453 /* README.md */; };
 		DC26D6DA14B9F2C600B6002E /* fps_images-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = DC26D6D914B9F2C600B6002E /* fps_images-hd.png */; };
 		DC26D6DB14B9F2C600B6002E /* fps_images-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = DC26D6D914B9F2C600B6002E /* fps_images-hd.png */; };
-		DC2721A2160CAEB600D88944 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2721A1160CAEB600D88944 /* Default-568h@2x.png */; };
 		DC2721AA160CAFC700D88944 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = DC2721A9160CAFC700D88944 /* iTunesArtwork */; };
 		DC485B1113AA0E5600F2BC70 /* libchipmunk-mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC485B0D13AA0E5600F2BC70 /* libchipmunk-mac.a */; };
 		DC485B1713AA0EBB00F2BC70 /* libbox2d-mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC485B1613AA0EBB00F2BC70 /* libbox2d-mac.a */; };
@@ -348,7 +347,6 @@
 		DC65617315114B4A00E59F8A /* fps_images-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = DC65617215114B4A00E59F8A /* fps_images-ipadhd.png */; };
 		DC979E3E13B35F8800656CB9 /* libcocos2d-extensions-mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC979E3D13B35F8800656CB9 /* libcocos2d-extensions-mac.a */; };
 		DC979E5A13B3607E00656CB9 /* libchipmunk-spacemanager-mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC979E5913B3607E00656CB9 /* libchipmunk-spacemanager-mac.a */; };
-		DCC1A0FA13A94ED5005BD75D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = DCC1A0F913A94ED5005BD75D /* Default.png */; };
 		DCC1A0FC13A94ED5005BD75D /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = DCC1A0FB13A94ED5005BD75D /* fps_images.png */; };
 		DCC1A26913A94EE6005BD75D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCC1A26713A94EE6005BD75D /* InfoPlist.strings */; };
 		DCC1A26C13A94EE6005BD75D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCC1A26A13A94EE6005BD75D /* MainMenu.xib */; };
@@ -715,7 +713,6 @@
 		84F92CC11784A12000500453 /* LevelSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelSelect.h; sourceTree = "<group>"; };
 		84F92CE51784C21C00500453 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		DC26D6D914B9F2C600B6002E /* fps_images-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fps_images-hd.png"; sourceTree = "<group>"; };
-		DC2721A1160CAEB600D88944 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		DC2721A9160CAFC700D88944 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = text; path = iTunesArtwork; sourceTree = "<group>"; };
 		DC3BE97813B4FB71003739CC /* BuildSettings-iOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "BuildSettings-iOS.xcconfig"; sourceTree = "<group>"; };
 		DC485B0D13AA0E5600F2BC70 /* libchipmunk-mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libchipmunk-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -738,7 +735,6 @@
 		DC9C33E813B5024400931BF2 /* BuildSettings-Mac.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "BuildSettings-Mac.xcconfig"; sourceTree = "<group>"; };
 		DC9C33E913B5024400931BF2 /* BuildSettings-Release-Mac.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "BuildSettings-Release-Mac.xcconfig"; sourceTree = "<group>"; };
 		DCC1A0E313A94ED5005BD75D /* targeted-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "targeted-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DCC1A0F913A94ED5005BD75D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		DCC1A0FB13A94ED5005BD75D /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fps_images.png; sourceTree = "<group>"; };
 		DCC1A10913A94ED5005BD75D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DCC1A25A13A94EE6005BD75D /* targeted-Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "targeted-Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1227,8 +1223,6 @@
 			isa = PBXGroup;
 			children = (
 				DC2721A9160CAFC700D88944 /* iTunesArtwork */,
-				DC2721A1160CAEB600D88944 /* Default-568h@2x.png */,
-				DCC1A0F913A94ED5005BD75D /* Default.png */,
 				DCC1A0FB13A94ED5005BD75D /* fps_images.png */,
 				DC26D6D914B9F2C600B6002E /* fps_images-hd.png */,
 				DC65617215114B4A00E59F8A /* fps_images-ipadhd.png */,
@@ -1429,14 +1423,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				388B3EEE1861AF690072084D /* Icon.png in Resources */,
-				DCC1A0FA13A94ED5005BD75D /* Default.png in Resources */,
 				DCC1A0FC13A94ED5005BD75D /* fps_images.png in Resources */,
 				384DEF5D18441782004B71A9 /* pause-hd.png in Resources */,
 				384DF0051845E8D4004B71A9 /* about-sel-hd.png in Resources */,
 				DCC1A3AF13A94F1A005BD75D /* config.lua in Resources */,
 				DC26D6DA14B9F2C600B6002E /* fps_images-hd.png in Resources */,
 				DC65617315114B4A00E59F8A /* fps_images-ipadhd.png in Resources */,
-				DC2721A2160CAEB600D88944 /* Default-568h@2x.png in Resources */,
 				DC2721AA160CAFC700D88944 /* iTunesArtwork in Resources */,
 				384E28F1184D75E700281ED9 /* settings-sel-hd.png in Resources */,
 				84F92CE61784C21C00500453 /* README.md in Resources */,
