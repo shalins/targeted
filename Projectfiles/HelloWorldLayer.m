@@ -175,6 +175,9 @@ NSMutableDictionary *initialBoss;
         tut.position = screenCenter;
         [self addChild:tut z:10000];
         tut.visible = FALSE;
+        if ([[NSUserDefaults standardUserDefaults] integerForKey:@"numTimesGamePlayed"] == 0) {
+        [[NSUserDefaults standardUserDefaults] setInteger:(coins + 15) forKey:@"coins"];
+        }
     }
     return self;
 }
@@ -1792,7 +1795,7 @@ NSMutableDictionary *initialBoss;
                     if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
-                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 100) forKey:@"coins"];
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 30) forKey:@"coins"];
                     [self schedule:@selector(gameSegmentBeat)];
                     dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
                     dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
@@ -1812,7 +1815,7 @@ NSMutableDictionary *initialBoss;
                     if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
-                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 150) forKey:@"coins"];
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 35) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
                         dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
@@ -1834,7 +1837,7 @@ NSMutableDictionary *initialBoss;
                     if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
-                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 200) forKey:@"coins"];
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 40) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
                         dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
@@ -1855,7 +1858,7 @@ NSMutableDictionary *initialBoss;
                     if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
-                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 250) forKey:@"coins"];
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 45) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
                         dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
@@ -1876,7 +1879,7 @@ NSMutableDictionary *initialBoss;
                     if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
-                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 50) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
                         dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
@@ -1897,7 +1900,7 @@ NSMutableDictionary *initialBoss;
                     if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
-                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 50) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
                         dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
@@ -1918,7 +1921,7 @@ NSMutableDictionary *initialBoss;
                     if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
-                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 50) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
                         dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
@@ -1944,7 +1947,7 @@ NSMutableDictionary *initialBoss;
                     if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
-                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 50) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
                         dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
@@ -1970,7 +1973,7 @@ NSMutableDictionary *initialBoss;
                     if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
-                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 50) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
                         dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
