@@ -1782,9 +1782,7 @@ NSMutableDictionary *initialBoss;
         if (deadLevelTime == FALSE) {
             // This should happen when the bullet is deleted.
             if (level == 1) {
-                if (gameSegment == 0) {
-                    gameSegment = 0;
-                } else {
+                if (framespast >= 920) {
                     gameSegment += 1;
                 }
                 if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
@@ -2023,10 +2021,12 @@ NSMutableDictionary *initialBoss;
         if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
             [[SimpleAudioEngine sharedEngine] playEffect:@"died.mp3"];
         }
-        if (deadLevelTime == FALSE) {
-            [self playerdeathstart];
-        } else if (deadLevelTime == TRUE) {
-            [self schedule:@selector(gaveupDeath)];
+        if (framespast > 920) {
+            if (deadLevelTime == FALSE) {
+                [self playerdeathstart];
+            } else if (deadLevelTime == TRUE) {
+                [self schedule:@selector(gaveupDeath)];
+            }
         }
     }
     
@@ -2064,24 +2064,26 @@ NSMutableDictionary *initialBoss;
         NSInteger j = i;
         CCSprite* tempSprite = [bullets objectAtIndex:j];
         if ([self isCollidingSphere:tempSprite WithSphere:player] == true) {
-            if(shieldon == true) {
-                [self removeChild:tempSprite cleanup:YES];
-                [bullets removeObjectAtIndex:i];
-                [self removeChild:shield cleanup:YES];
-                [self deleteubershield];
-                shieldon = false;
-            }
-            else if(ubershieldon == true) {
-                [self removeChild:shield cleanup:YES];
-                [self deleteubershield];
-                [self removeChild:tempSprite cleanup:YES];
-                [bullets removeObjectAtIndex:i];
-            }
-            else {
-                if (deadLevelTime == FALSE) {
-                    [self playerdeathstart];
-                } else if (deadLevelTime == TRUE) {
-                    [self schedule:@selector(gaveupDeath)];
+            if (framespast > 920) {
+                if(shieldon == true) {
+                    [self removeChild:tempSprite cleanup:YES];
+                    [bullets removeObjectAtIndex:i];
+                    [self removeChild:shield cleanup:YES];
+                    [self deleteubershield];
+                    shieldon = false;
+                }
+                else if(ubershieldon == true) {
+                    [self removeChild:shield cleanup:YES];
+                    [self deleteubershield];
+                    [self removeChild:tempSprite cleanup:YES];
+                    [bullets removeObjectAtIndex:i];
+                }
+                else {
+                    if (deadLevelTime == FALSE) {
+                        [self playerdeathstart];
+                    } else if (deadLevelTime == TRUE) {
+                        [self schedule:@selector(gaveupDeath)];
+                    }
                 }
             }
         }
