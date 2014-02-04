@@ -18,6 +18,7 @@
 
 @implementation Title
 
+int coins;
 
 -(id) init
 {
@@ -26,6 +27,7 @@
             int numTimesPlayed = [[NSUserDefaults standardUserDefaults] objectForKey:@"numTimesPlayed"];
             numTimesPlayed++;
             [[NSUserDefaults standardUserDefaults] setInteger:numTimesPlayed forKey:@"numTimesPlayed"];
+            coins = [[NSUserDefaults standardUserDefaults] integerForKey:@"coins"];
         
             // NSLogging Switch
             theLogs = TRUE;
@@ -270,6 +272,9 @@
         [[NSUserDefaults standardUserDefaults] setObject:leveldata forKey:@"leveldata"];
         [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"endless"];
         [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[HelloWorldLayer node]]];
+    }
+    if([[NSUserDefaults standardUserDefaults] integerForKey:@"numTimesPlayed"] == 0) {
+        [[NSUserDefaults standardUserDefaults] setInteger:(coins + 15) forKey:@"coins"];
     }
 }
 -(void) dotsEffect:(CCSprite *) spriteToBeTheNextBigThing {

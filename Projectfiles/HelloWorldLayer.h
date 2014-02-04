@@ -118,7 +118,6 @@
     BOOL firstTimeMiniMe;
     BOOL firstTimeSlowDown;
 }
-
 @property (nonatomic, copy) NSString *helloWorldString;
 @property (nonatomic, copy) NSString *helloWorldFontName;
 @property (nonatomic) int helloWorldFontSize;

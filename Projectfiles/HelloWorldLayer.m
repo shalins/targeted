@@ -63,8 +63,8 @@ NSMutableDictionary *initialBoss;
         [[NSUserDefaults standardUserDefaults] setInteger:numTimesGamePlayed forKey:@"numTimesGamePlayed"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        //        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-        //        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"trance.mp3" loop:YES];
+//        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+//        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"trance.mp3" loop:YES];
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"select.mp3"];
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"complete.mp3"];
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"correct.mp3"];
@@ -175,9 +175,6 @@ NSMutableDictionary *initialBoss;
         tut.position = screenCenter;
         [self addChild:tut z:10000];
         tut.visible = FALSE;
-        if ([[NSUserDefaults standardUserDefaults] integerForKey:@"numTimesGamePlayed"] == 0) {
-        [[NSUserDefaults standardUserDefaults] setInteger:(coins + 15) forKey:@"coins"];
-        }
     }
     return self;
 }
@@ -329,6 +326,7 @@ NSMutableDictionary *initialBoss;
     if(bosstime == true) {
         if (blocker.parent == nil) {
             [self addChild:blocker];
+            [self moveBlocker:blocker];
         }
         if(level == 1) {
             if(gameSegment == 0) {
@@ -2109,6 +2107,15 @@ NSMutableDictionary *initialBoss;
 /* -------------------------------------------------------------------------------- */
 /*    USEFUL CODE TO MAKE MY LIFE EASIER                                            */
 /* -------------------------------------------------------------------------------- */
+-(void) moveBlocker:(CCSprite *) spriteToBeTheNextBigThing {
+    id moveLeft = [CCMoveTo actionWithDuration:0.9f position:ccp(screenCenter.x / 3, screenCenter.y * 1.3)];
+    id moveRight = [CCMoveTo actionWithDuration:0.9f position:ccp(screenCenter.x * 1.7, screenCenter.y * 1.3)];
+    CCSequence *act =[CCSequence actions:moveLeft, moveRight, nil];
+    CCRepeatForever *repeat = [CCRepeatForever actionWithAction:act];
+//    if (framespast >= 920) {
+    [spriteToBeTheNextBigThing runAction:repeat];
+//    }
+}
 -(void) flashLabel:(NSString *) stringToFlashOnScreen actionWithDuration:(float) numSecondsToFlash color:(NSString *) colorString
 {
     if ([colorString isEqualToString:@"red"] == TRUE) {
