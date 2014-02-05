@@ -119,6 +119,8 @@ int coins;
             [[SimpleAudioEngine sharedEngine] preloadEffect:@"correctv2.mp3"];
             [[SimpleAudioEngine sharedEngine] preloadEffect:@"died.mp3"];
             if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"trance.mp3"];
+                [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"trance.mp3" loop:YES];
                 [[SimpleAudioEngine sharedEngine] playEffect:@"select.mp3"];
             }
             framespast = 0;

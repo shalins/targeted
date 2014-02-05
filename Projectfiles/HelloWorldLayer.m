@@ -64,7 +64,6 @@ NSMutableDictionary *initialBoss;
         [[NSUserDefaults standardUserDefaults] synchronize];
         
 //        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-//        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"trance.mp3" loop:YES];
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"select.mp3"];
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"complete.mp3"];
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"correct.mp3"];
