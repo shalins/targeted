@@ -316,7 +316,7 @@ int coins;
     [spriteToBeTheNextBigThing runAction:[CCSequence actions:dropdown, nil]];
 }
 -(void) fadeEffect:(CCMenu *) spriteToBeTheNextBigThing {
-    id delay = [CCDelayTime actionWithDuration:1.35];
+    id delay = [CCDelayTime actionWithDuration:1.25];
     id addStuffIn = [CCCallFunc actionWithTarget:self selector:@selector(addStuffIn)];
     id fadeIn = [CCFadeIn actionWithDuration:2.0f];
     [spriteToBeTheNextBigThing runAction:[CCSequence actions:delay,addStuffIn,fadeIn, nil]];
