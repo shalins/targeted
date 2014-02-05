@@ -53,15 +53,6 @@ int coins;
             menu.position = ccp(screenCenter.x,screenCenter.y);
             [self addChild:menu];
 
-            // Animations
-            [self goUp:title];
-            [self fadeEffect:menu];
-            [self fadeEffect:menu2];
-            [self fadeEffect:menutwo];
-            [self fadeEffect:menu3];
-            [self fadeEffect:endlessMenu];
-            [self fadeEffect:levelMenu];
-        
             bullets = [[NSMutableArray alloc] init];
         
         
@@ -114,10 +105,10 @@ int coins;
             endlessModeText.position = ccp(screenCenter.x * (-4), (screenCenter.y * 3) / 5);
 //            [self addChild:endlessModeText];
         
-            CCLabelTTF *levelText = [CCLabelTTF labelWithString:@"LEVEL" fontName:@"HelveticaNeue" fontSize:15];
+            levelText = [CCLabelTTF labelWithString:@"LEVEL" fontName:@"HelveticaNeue" fontSize:15];
             levelText.position = ccp(screenCenter.x + 105,screenCenter.y + 35);
             [self addChild:levelText];
-            CCLabelTTF *endlessText = [CCLabelTTF labelWithString:@"ENDLESS" fontName:@"HelveticaNeue" fontSize:15];
+            endlessText = [CCLabelTTF labelWithString:@"ENDLESS" fontName:@"HelveticaNeue" fontSize:15];
             endlessText.position = ccp(screenCenter.x - 105,screenCenter.y + 35);
             [self addChild:endlessText];
         
@@ -131,6 +122,27 @@ int coins;
                 [[SimpleAudioEngine sharedEngine] playEffect:@"select.mp3"];
             }
             framespast = 0;
+        // Set everything to be invisible
+        menu.visible = NO;
+        menu2.visible = NO;
+        menu3.visible = NO;
+        menutwo.visible = NO;
+        endlessMenu.visible = NO;
+        levelMenu.visible = NO;
+        levelText.visible = NO;
+        endlessText.visible = NO;
+
+        // Animations
+        [self goUp:title];
+        [self fadeEffect:menu];
+        [self fadeEffect:menu2];
+        [self fadeEffect:menutwo];
+        [self fadeEffect:menu3];
+        [self fadeEffect:endlessMenu];
+        [self fadeEffect:levelMenu];
+        [self fadeEffect:levelText];
+        [self fadeEffect:endlessText];
+        
         [self scheduleUpdate];
     }
     return self;
@@ -289,34 +301,24 @@ int coins;
         [[NSUserDefaults standardUserDefaults] setInteger:(coins + 15) forKey:@"coins"];
     }
 }
+-(void) addStuffIn {
+    menu.visible = YES;
+    menu2.visible = YES;
+    menu3.visible = YES;
+    menutwo.visible = YES;
+    endlessMenu.visible = YES;
+    levelMenu.visible = YES;
+    levelText.visible = YES;
+    endlessText.visible = YES;
+}
 -(void) goUp:(CCSprite *) spriteToBeTheNextBigThing {
-    id dropdown = [CCMoveTo actionWithDuration:0.7f position:ccp(screenCenter.x, screenCenter.y * 1.8)];
+    id dropdown = [CCMoveTo actionWithDuration:0.8f position:ccp(screenCenter.x, screenCenter.y * 1.7)];
     [spriteToBeTheNextBigThing runAction:[CCSequence actions:dropdown, nil]];
 }
 -(void) fadeEffect:(CCMenu *) spriteToBeTheNextBigThing {
+    id delay = [CCDelayTime actionWithDuration:1.35];
+    id addStuffIn = [CCCallFunc actionWithTarget:self selector:@selector(addStuffIn)];
     id fadeIn = [CCFadeIn actionWithDuration:2.0f];
-    [spriteToBeTheNextBigThing runAction:[CCSequence actions:fadeIn, nil]];
-}
--(void) slideEffectRight:(CCMenu *) spriteToBeTheNextBigThing {
-    if (theLogs == TRUE) {
-        NSLog(@"The Start Button Slid from the Right");
-    }
-    id slide = [CCMoveTo actionWithDuration:0.7f position:ccp(screenCenter.x, screenCenter.y / 1.5)];
-    if ([[CCDirector sharedDirector] winSizeInPixels].height == 1024 || [[CCDirector sharedDirector] winSizeInPixels].height == 2048){
-        slide = [CCMoveTo actionWithDuration:0.7f position:ccp(screenCenter.x - 30, screenCenter.y / 1.7)];
-    }
-    [spriteToBeTheNextBigThing runAction:[CCSequence actions:slide, nil]];
-    
-}
--(void) slideEffectLeft:(CCMenu *) spriteToBeTheNextBigThing {
-    if (theLogs == TRUE) {
-        NSLog(@"The Leaderboard Button Slid from the Left");
-    }
-    id slide = [CCMoveTo actionWithDuration:0.7f position:ccp(screenCenter.x, screenCenter.y / 3.1)];
-    if ([[CCDirector sharedDirector] winSizeInPixels].height == 1024 || [[CCDirector sharedDirector] winSizeInPixels].height == 2048){
-        slide = [CCMoveTo actionWithDuration:0.7f position:ccp(screenCenter.x - 30, screenCenter.y / 3.0)];
-    }
-    [spriteToBeTheNextBigThing runAction:[CCSequence actions:slide, nil]];
-    
+    [spriteToBeTheNextBigThing runAction:[CCSequence actions:delay,addStuffIn,fadeIn, nil]];
 }
 @end
