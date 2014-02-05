@@ -43,12 +43,24 @@ int coins;
             CCSprite *blurry = [CCSprite spriteWithFile:@"blurry.png"];
             blurry.position = screenCenter;
             [self addChild:blurry z:-1001];
+            CCSprite *title = [CCSprite spriteWithFile:@"text.png"];
+            title.position = screenCenter;
+            [self addChild:title z:0];
         
             // Play Button
             CCMenuItemImage *start = [CCMenuItemImage itemWithNormalImage:@"start.png" selectedImage:@"start-sel.png" target:self selector:@selector(unPause)];
             menu = [CCMenu menuWithItems:start, nil];
             menu.position = ccp(screenCenter.x,screenCenter.y);
             [self addChild:menu];
+
+            // Animations
+            [self goUp:title];
+            [self fadeEffect:menu];
+            [self fadeEffect:menu2];
+            [self fadeEffect:menutwo];
+            [self fadeEffect:menu3];
+            [self fadeEffect:endlessMenu];
+            [self fadeEffect:levelMenu];
         
             bullets = [[NSMutableArray alloc] init];
         
@@ -277,26 +289,13 @@ int coins;
         [[NSUserDefaults standardUserDefaults] setInteger:(coins + 15) forKey:@"coins"];
     }
 }
--(void) dotsEffect:(CCSprite *) spriteToBeTheNextBigThing {
-    if (theLogs == TRUE) {
-        NSLog(@"Title Logo Dropped Down Correctly");
-    }
-    id dropdown = [CCMoveTo actionWithDuration:0.7f position:ccp(screenCenter.x, screenCenter.y * 1.4)];
-    id jump = [CCJumpBy actionWithDuration:0.35f position:CGPointZero height:40 jumps:1];
-    id repeatJump = [CCRepeat actionWithAction:jump times:1];
-    [spriteToBeTheNextBigThing runAction:[CCSequence actions:dropdown, repeatJump, nil]];
+-(void) goUp:(CCSprite *) spriteToBeTheNextBigThing {
+    id dropdown = [CCMoveTo actionWithDuration:0.7f position:ccp(screenCenter.x, screenCenter.y * 1.8)];
+    [spriteToBeTheNextBigThing runAction:[CCSequence actions:dropdown, nil]];
 }
--(void) fadeEffect:(CCSprite *) spriteToBeTheNextBigThing {
-    if (theLogs == TRUE) {
-//        NSLog(@"Title Logo Dropped Down Correctly");
-    }
-    id moveIn = [CCMoveTo actionWithDuration:0.7f position:ccp(screenCenter.x, (screenCenter.y * 3) / 5)];
-    id someDelay = [CCDelayTime actionWithDuration:3.0f];
-    id fadeAway = [CCFadeOut actionWithDuration:1.0f];
-    id someMoreDelay = [CCDelayTime actionWithDuration:1.0f];
-    id moveBack = [CCMoveTo actionWithDuration:0.7f position:ccp(spriteToBeTheNextBigThing.position.x, spriteToBeTheNextBigThing.position.y)];
-    id fadeBackIn = [CCFadeIn actionWithDuration:3.0f];
-    [spriteToBeTheNextBigThing runAction:[CCSequence actions:moveIn, someDelay, fadeAway, someMoreDelay, moveBack, fadeBackIn, nil]];
+-(void) fadeEffect:(CCMenu *) spriteToBeTheNextBigThing {
+    id fadeIn = [CCFadeIn actionWithDuration:2.0f];
+    [spriteToBeTheNextBigThing runAction:[CCSequence actions:fadeIn, nil]];
 }
 -(void) slideEffectRight:(CCMenu *) spriteToBeTheNextBigThing {
     if (theLogs == TRUE) {
