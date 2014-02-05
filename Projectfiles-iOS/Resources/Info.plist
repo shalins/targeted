@@ -60,7 +60,7 @@
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
-	<string>com.shalinshah.targeted</string>
+	<string>com.shalin.targeted</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -79,7 +79,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1.1</string>
 	<key>FacebookAppID</key>
 	<string>317776771691564</string>
 	<key>LSRequiresIPhoneOS</key>
