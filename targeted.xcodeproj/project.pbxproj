@@ -1682,8 +1682,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DCFA90EF13B4F6F7009DD35A /* BuildSettings-Debug-iOS.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Shalin Shah (3SSVVBSKNP)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shalin Shah (3SSVVBSKNP)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shalin Shah (GQ254GL522)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shalin Shah (GQ254GL522)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/mgwuSDK.embeddedframework\"",
@@ -1694,8 +1694,8 @@
 					"$(KKFRAMEWORKS_IOS)",
 					"-lsqlite3.0",
 				);
-				PROVISIONING_PROFILE = "00AB1680-2E90-4CA0-AEB1-50A481B50B5E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "00AB1680-2E90-4CA0-AEB1-50A481B50B5E";
+				PROVISIONING_PROFILE = "B29EA715-2324-4858-8562-0602995AB902";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B29EA715-2324-4858-8562-0602995AB902";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1705,8 +1705,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DCFA90F013B4F811009DD35A /* BuildSettings-Release-iOS.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Shalin Shah (3SSVVBSKNP)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shalin Shah (3SSVVBSKNP)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shalin Shah (GQ254GL522)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shalin Shah (GQ254GL522)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/mgwuSDK.embeddedframework\"",
@@ -1717,8 +1717,8 @@
 					"$(KKFRAMEWORKS_IOS)",
 					"-lsqlite3.0",
 				);
-				PROVISIONING_PROFILE = "00AB1680-2E90-4CA0-AEB1-50A481B50B5E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "00AB1680-2E90-4CA0-AEB1-50A481B50B5E";
+				PROVISIONING_PROFILE = "B29EA715-2324-4858-8562-0602995AB902";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B29EA715-2324-4858-8562-0602995AB902";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
