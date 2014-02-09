@@ -277,6 +277,7 @@ NSMutableDictionary *initialBoss;
 }
 -(void) startTutorial {
     [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"isTutInProgress"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
     // Uses NSUserDefaults so doesn't appear twice
     if(framespast == 10) {
         tut = [CCLabelTTF labelWithString:@"Tap to move" fontName:@"Helvetica" fontSize:30];
@@ -337,6 +338,7 @@ NSMutableDictionary *initialBoss;
                 [self removeChild:tut];
                 [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"isTutInProgress"];
                 [[NSUserDefaults standardUserDefaults]setBool:true forKey:@"tutorialcompleted"];
+//                [[NSUserDefaults standardUserDefaults] synchronize];
                 if(((framespast % 90) ==0) || ![initialBoss objectForKey:@1.1]) {
                     [initialBoss setObject:@TRUE forKey:@1.1];
                     [self shootBullet:1 angle:270];
@@ -1273,8 +1275,12 @@ NSMutableDictionary *initialBoss;
                 [self addChild:level1bg z:-1000];
                 [self removeChild:streak cleanup:YES];
                 if([[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialcompleted"] == FALSE){
+                    [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"isTutInProgress"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
                     gameSegment = 0;
                 } else if([[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialcompleted"] == TRUE) {
+                    [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"isTutInProgress"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
                     gameSegment = 1;
                     LevelTag = [CCSprite spriteWithFile:@"LevelTag1.png"];
                     LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
@@ -1785,7 +1791,11 @@ NSMutableDictionary *initialBoss;
         if (deadLevelTime == FALSE) {
             // This should happen when the bullet is deleted.
             if (level == 1) {
-                if (framespast >= 920) {
+                if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isTutInProgress"] == TRUE) {
+                    if (framespast >= 920) {
+                        gameSegment += 1;
+                    }
+                } else {
                     gameSegment += 1;
                 }
                 if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
@@ -1797,7 +1807,7 @@ NSMutableDictionary *initialBoss;
                     }
                     [[NSUserDefaults standardUserDefaults] setInteger:(coins + 30) forKey:@"coins"];
                     [self schedule:@selector(gameSegmentBeat)];
-                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
                     dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                         [self resumeSchedulerAndActions];
                         [self unschedule:@selector(gameSegmentBeat)];
@@ -1818,7 +1828,7 @@ NSMutableDictionary *initialBoss;
                     [[NSUserDefaults standardUserDefaults] setInteger:(coins + 35) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
-                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
                         dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                             [self resumeSchedulerAndActions];
                             [self unschedule:@selector(gameSegmentBeat)];
@@ -1840,7 +1850,7 @@ NSMutableDictionary *initialBoss;
                     [[NSUserDefaults standardUserDefaults] setInteger:(coins + 40) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
-                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
                         dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                             [self resumeSchedulerAndActions];
                             [self unschedule:@selector(gameSegmentBeat)];
@@ -1861,7 +1871,7 @@ NSMutableDictionary *initialBoss;
                     [[NSUserDefaults standardUserDefaults] setInteger:(coins + 45) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
-                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
                         dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                             [self resumeSchedulerAndActions];
                             [self unschedule:@selector(gameSegmentBeat)];
@@ -1882,7 +1892,7 @@ NSMutableDictionary *initialBoss;
                     [[NSUserDefaults standardUserDefaults] setInteger:(coins + 50) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
-                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
                         dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                             [self resumeSchedulerAndActions];
                             [self unschedule:@selector(gameSegmentBeat)];
@@ -1903,7 +1913,7 @@ NSMutableDictionary *initialBoss;
                     [[NSUserDefaults standardUserDefaults] setInteger:(coins + 50) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
-                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
                         dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                             [self resumeSchedulerAndActions];
                             [self unschedule:@selector(gameSegmentBeat)];
@@ -1924,7 +1934,7 @@ NSMutableDictionary *initialBoss;
                     [[NSUserDefaults standardUserDefaults] setInteger:(coins + 50) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
-                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
                         dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                             [self resumeSchedulerAndActions];
                             [self unschedule:@selector(gameSegmentBeat)];
@@ -1950,7 +1960,7 @@ NSMutableDictionary *initialBoss;
                     [[NSUserDefaults standardUserDefaults] setInteger:(coins + 50) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
-                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
                         dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                             [self resumeSchedulerAndActions];
                             [self unschedule:@selector(gameSegmentBeat)];
@@ -1976,7 +1986,7 @@ NSMutableDictionary *initialBoss;
                     [[NSUserDefaults standardUserDefaults] setInteger:(coins + 50) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
-                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
                         dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                             [self resumeSchedulerAndActions];
                             [self unschedule:@selector(gameSegmentBeat)];
@@ -2024,7 +2034,7 @@ NSMutableDictionary *initialBoss;
         if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
             [[SimpleAudioEngine sharedEngine] playEffect:@"died.mp3"];
         }
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isTutInProgress"] == FALSE) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isTutInProgress"] == TRUE) { } else {
             if (deadLevelTime == FALSE) {
                 [self playerdeathstart];
             } else if (deadLevelTime == TRUE) {
@@ -2066,7 +2076,7 @@ NSMutableDictionary *initialBoss;
         NSInteger j = i;
         CCSprite* tempSprite = [bullets objectAtIndex:j];
         if ([self isCollidingSphere:tempSprite WithSphere:player] == true) {
-            if (framespast > 920) {
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isTutInProgress"] == TRUE) { } else {
                 if(shieldon == true) {
                     [self removeChild:tempSprite cleanup:YES];
                     [bullets removeObjectAtIndex:i];
@@ -2239,8 +2249,8 @@ NSMutableDictionary *initialBoss;
     two.position = ccp(screenCenter.x, screenCenter.y);
     CCLabelTTF *one = [CCLabelTTF labelWithString:@"1" fontName:@"HelveticaNeue-Light" fontSize:100];
     one.position = ccp(screenCenter.x, screenCenter.y);
-    CCLabelTTF *go = [CCLabelTTF labelWithString:@"Go!" fontName:@"HelveticaNeue-Light" fontSize:100];
-    go.position = ccp(screenCenter.x, screenCenter.y);
+//    CCLabelTTF *go = [CCLabelTTF labelWithString:@"Go!" fontName:@"HelveticaNeue-Light" fontSize:100];
+//    go.position = ccp(screenCenter.x, screenCenter.y);
     
     dispatch_time_t countdownTime1 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC));
     dispatch_after(countdownTime1, dispatch_get_main_queue(), ^(void){
@@ -2259,13 +2269,14 @@ NSMutableDictionary *initialBoss;
     dispatch_time_t countdownTime4 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC));
     dispatch_after(countdownTime4, dispatch_get_main_queue(), ^(void){
         [self removeChild:one];
-        [self addChild:go z:10001];
-    });
-    dispatch_time_t countdownTime5 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.0 * NSEC_PER_SEC));
-    dispatch_after(countdownTime5, dispatch_get_main_queue(), ^(void){
-        [self removeChild:go];
         [self removeChild:opaqueBG];
+//        [self addChild:go z:10001];
     });
+//    dispatch_time_t countdownTime5 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.0 * NSEC_PER_SEC));
+//    dispatch_after(countdownTime5, dispatch_get_main_queue(), ^(void){
+//        [self removeChild:go];
+//        [self removeChild:opaqueBG];
+//    });
 }
 -(void) playerdeath {
     isDying = true;
