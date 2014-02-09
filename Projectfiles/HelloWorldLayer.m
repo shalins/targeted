@@ -58,6 +58,7 @@ NSMutableDictionary *initialBoss;
         bossY = screenCenter.y * 1.6;
         targetHit = false;
         [[NSUserDefaults standardUserDefaults] setBool:targetHit forKey:@"targetHit"];
+        [[NSUserDefaults standardUserDefaults] setBool:isTutInProgress forKey:@"isTutInProgress"];
         int numTimesGamePlayed = [[NSUserDefaults standardUserDefaults] objectForKey:@"numTimesGamePlayed"];
         numTimesGamePlayed++;
         [[NSUserDefaults standardUserDefaults] setInteger:numTimesGamePlayed forKey:@"numTimesGamePlayed"];
@@ -275,6 +276,7 @@ NSMutableDictionary *initialBoss;
     [coinCountage setString:[NSString stringWithFormat:@"Coins: %i", coins]];
 }
 -(void) startTutorial {
+    [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"isTutInProgress"];
     // Uses NSUserDefaults so doesn't appear twice
     if(framespast == 10) {
         tut = [CCLabelTTF labelWithString:@"Tap to move" fontName:@"Helvetica" fontSize:30];
@@ -333,6 +335,7 @@ NSMutableDictionary *initialBoss;
             }
             if(gameSegment == 1) {
                 [self removeChild:tut];
+                [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"isTutInProgress"];
                 [[NSUserDefaults standardUserDefaults]setBool:true forKey:@"tutorialcompleted"];
                 if(((framespast % 90) ==0) || ![initialBoss objectForKey:@1.1]) {
                     [initialBoss setObject:@TRUE forKey:@1.1];
@@ -2021,7 +2024,7 @@ NSMutableDictionary *initialBoss;
         if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
             [[SimpleAudioEngine sharedEngine] playEffect:@"died.mp3"];
         }
-        if (framespast > 920) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isTutInProgress"] == FALSE) {
             if (deadLevelTime == FALSE) {
                 [self playerdeathstart];
             } else if (deadLevelTime == TRUE) {
@@ -2029,7 +2032,6 @@ NSMutableDictionary *initialBoss;
             }
         }
     }
-    
     if (CGRectIntersectsRect([player boundingBox], [boss boundingBox]) == true) {
         targetHit = true;
         [self targetHit];

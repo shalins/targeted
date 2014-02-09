@@ -117,6 +117,7 @@
     int bossY;
     BOOL firstTimeMiniMe;
     BOOL firstTimeSlowDown;
+    BOOL isTutInProgress;
 }
 @property (nonatomic, copy) NSString *helloWorldString;
 @property (nonatomic, copy) NSString *helloWorldFontName;
