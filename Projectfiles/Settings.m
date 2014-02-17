@@ -91,7 +91,7 @@
     [[CCDirector sharedDirector] replaceScene: [CCTransitionProgressRadialCW transitionWithDuration:0.5f scene:[About node]]];
 }
 -(void) rate {
-    NSURL *ituneslink = [NSURL URLWithString:@"https://itunes.apple.com/us/app/center/id790510225?ls=1&mt=8"];
+    NSURL *ituneslink = [NSURL URLWithString:@"https://www.appstore.com/center"];
     [[UIApplication sharedApplication] openURL:ituneslink];
 }
 

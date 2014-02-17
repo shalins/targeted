@@ -16,8 +16,9 @@
 #else
 	CCLOG(@"ARC is either not available or not enabled");
 #endif
-}
+    
 
+}
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     [director stopAnimation];
@@ -36,29 +37,6 @@
 -(void) applicationDidBecomeActive:(UIApplication *)application
 {
     [director resume];
-}
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Setup Mixpanel
-    [self setupMixpanel];
-    return YES;
-}
-
-- (void)setupMixpanel {
-    // Initialize Mixpanel
-    Mixpanel *mixpanel = [Mixpanel sharedInstanceWithToken:MIXPANEL_TOKEN];
-    // Identify
-    NSString *mixpanelUUID = [[NSUserDefaults standardUserDefaults] objectForKey:@"MixpanelUUID"];
-    if (!mixpanelUUID) {
-        mixpanelUUID = [[NSUUID UUID] UUIDString];
-        [[NSUserDefaults standardUserDefaults] setObject:mixpanelUUID forKey:@"MixpanelUUID"];
-    }
-    [mixpanel identify:mixpanelUUID];
-    // Register Super Properties
-    NSDictionary *properties = @{@"APIVersion": @"1.2", @"date" : [NSDate date], @"language" : @"en"};
-    [mixpanel registerSuperProperties:properties];
-    // No survey on start
-    mixpanel.showSurveyOnActive = NO;
 }
 
 -(id) alternateView

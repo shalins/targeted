@@ -15,6 +15,6 @@
     NSString* score;
     CGPoint screenCenter;
     CGSize size;
-    Mixpanel *mixpanel;
+    
 }
 @end

@@ -97,14 +97,14 @@
         CCMenuItemImage *quit = [CCMenuItemImage itemWithNormalImage:@"quited.png" selectedImage:@"quited-sel.png" target:self selector:@selector(restartGame)];
         quit.scale = 1.2f;
         CCMenu *quitMenu = [CCMenu menuWithItems:quit, nil];
-        quitMenu.position = ccp(screenCenter.x, screenCenter.y - 135);
+        quitMenu.position = ccp(screenCenter.x - 85, screenCenter.y - 110);
         [self addChild:quitMenu];
         
         CCMenuItemImage *store = [CCMenuItemImage itemWithNormalImage:@"shop.png" selectedImage:@"shop-sel.png" target:self selector:@selector(quitGame)];
         store.scale = 1.2f;
         CCMenu *storeMenu = [CCMenu menuWithItems:store, nil];
         storeMenu.position = ccp(screenCenter.x + 85, screenCenter.y - 110);
-//        [self addChild:storeMenu];
+        [self addChild:storeMenu];
         
         [self unscheduleUpdate];
         [self unscheduleAllSelectors];

@@ -16,7 +16,7 @@
     NSMutableArray *bulletSpeed;
     CCSprite* projectile;
     int framespast;
-    Mixpanel *mixpanel;
+
     BOOL theLogs;
     BOOL isEndlessMode;
     BOOL isLevelMode;
@@ -29,8 +29,6 @@
     CCMenu *menu2;
     CCMenu *menutwo;
     CCMenu *menu3;
-    CCLabelTTF *levelText;
-    CCLabelTTF *endlessText;
     CCMenuItemSprite *playMenuItem;
     CCMenuItemSprite *leaderMenuItem;
     CCMenuItemImage *sound;
