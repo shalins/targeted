@@ -70,9 +70,11 @@
                 [self addChild:menu2];
                 [self fadeIn:menu2];
                 NSLog(@"reset");
-            } else if ([[NSUserDefaults standardUserDefaults] integerForKey:@"numTimesPlayed"] == 3){
-                [mixpanel showSurvey];
-            } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicon"] == TRUE) {
+            }
+//            else if ([[NSUserDefaults standardUserDefaults] integerForKey:@"numTimesPlayed"] == 3){
+//                [mixpanel showSurvey];
+//            }
+            else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"musicon"] == TRUE) {
                 sound = [CCMenuItemImage itemWithNormalImage:@"music.png" selectedImage:@"music-sel.png" target:self selector:@selector(turnOffSound)];
                 sound.scale = 1.1;
                 menu2 = [CCMenu menuWithItems:sound, nil];

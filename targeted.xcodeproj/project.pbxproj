@@ -186,6 +186,9 @@
 		3876DBAC186CC91D00CE293F /* default-ip4.png in Resources */ = {isa = PBXBuildFile; fileRef = 3876DBA9186CC91D00CE293F /* default-ip4.png */; };
 		3876DBAD186CC91D00CE293F /* default-ip4ret.png in Resources */ = {isa = PBXBuildFile; fileRef = 3876DBAA186CC91D00CE293F /* default-ip4ret.png */; };
 		3876DBAE186CC91D00CE293F /* default-ip5.png in Resources */ = {isa = PBXBuildFile; fileRef = 3876DBAB186CC91D00CE293F /* default-ip5.png */; };
+		3876DBB3186D54FF00CE293F /* NSData+MPBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 3876DB6F186ABC7A00CE293F /* NSData+MPBase64.m */; };
+		3876DBB4186D54FF00CE293F /* UIImage+MPAverageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3876DB71186ABC7A00CE293F /* UIImage+MPAverageColor.m */; };
+		3876DBB6186D54FF00CE293F /* UIView+MPSnapshotImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3876DB75186ABC7A00CE293F /* UIView+MPSnapshotImage.m */; };
 		387896B41845E9BF00415D22 /* Appirater.m in Sources */ = {isa = PBXBuildFile; fileRef = 387896B21845E9BF00415D22 /* Appirater.m */; };
 		387F34D71840639B00212194 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34D61840639B00212194 /* Security.framework */; };
 		387F34D9184063A300212194 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387F34D8184063A300212194 /* StoreKit.framework */; };
@@ -1870,6 +1873,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3876DBB3186D54FF00CE293F /* NSData+MPBase64.m in Sources */,
+				3876DBB4186D54FF00CE293F /* UIImage+MPAverageColor.m in Sources */,
+				3876DBB6186D54FF00CE293F /* UIView+MPSnapshotImage.m in Sources */,
 				3876DBA7186CC70D00CE293F /* Mixpanel.m in Sources */,
 				3876DBA4186CB3CE00CE293F /* MPSurveyQuestionViewController.m in Sources */,
 				3876DB81186ABC7A00CE293F /* MPSurvey.m in Sources */,
