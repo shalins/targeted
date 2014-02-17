@@ -29,6 +29,8 @@
     CCMenu *menu2;
     CCMenu *menutwo;
     CCMenu *menu3;
+    CCLabelTTF *levelText;
+    CCLabelTTF *endlessText;
     CCMenuItemSprite *playMenuItem;
     CCMenuItemSprite *leaderMenuItem;
     CCMenuItemImage *sound;

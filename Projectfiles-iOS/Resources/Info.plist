@@ -25,8 +25,32 @@
 	<dict>
 		<key>CFBundlePrimaryIcon</key>
 		<dict>
+<<<<<<< HEAD
+=======
 			<key>CFBundleIconFiles</key>
 			<array>
+				<string>AppIcon60x60</string>
+				<string>AppIcon40x40</string>
+				<string>Icon.png</string>
+				<string>Icon@2x.png</string>
+				<string>Icon-72.png</string>
+				<string>Icon-Small-50.png</string>
+				<string>Icon-Small.png</string>
+				<string>Icon-Small@2x.png</string>
+			</array>
+			<key>UIPrerenderedIcon</key>
+			<true/>
+		</dict>
+	</dict>
+	<key>CFBundleIcons~ipad</key>
+	<dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+>>>>>>> dd845d6db446fddf4e62caa25a9a08782125da49
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>AppIcon76x76</string>
+				<string>AppIcon40x40</string>
 				<string>Icon.png</string>
 				<string>Icon@2x.png</string>
 				<string>Icon-72.png</string>
@@ -39,7 +63,11 @@
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
+<<<<<<< HEAD
 	<string>com.shalinshah.targeted</string>
+=======
+	<string>com.shalin.targeted</string>
+>>>>>>> dd845d6db446fddf4e62caa25a9a08782125da49
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -58,7 +86,11 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
+<<<<<<< HEAD
 	<string>1.0</string>
+=======
+	<string>1.1</string>
+>>>>>>> dd845d6db446fddf4e62caa25a9a08782125da49
 	<key>FacebookAppID</key>
 	<string>317776771691564</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -75,6 +107,7 @@
 			<key>UILaunchImageMinimumOSVersion</key>
 			<string>7.0</string>
 			<key>UILaunchImageName</key>
+<<<<<<< HEAD
 			<string>default-ip5</string>
 			<key>UILaunchImageOrientation</key>
 			<string>Portrait</string>
@@ -95,6 +128,8 @@
 			<key>UILaunchImageMinimumOSVersion</key>
 			<string>7.0</string>
 			<key>UILaunchImageName</key>
+=======
+>>>>>>> dd845d6db446fddf4e62caa25a9a08782125da49
 			<string>Default</string>
 			<key>UILaunchImageOrientation</key>
 			<string>Portrait</string>
@@ -111,6 +146,7 @@
 			<key>UILaunchImageSize</key>
 			<string>{320, 480}</string>
 		</dict>
+<<<<<<< HEAD
 		<dict>
 			<key>UILaunchImageMinimumOSVersion</key>
 			<string>7.0</string>
@@ -131,6 +167,8 @@
 			<key>UILaunchImageSize</key>
 			<string>{320, 480}</string>
 		</dict>
+=======
+>>>>>>> dd845d6db446fddf4e62caa25a9a08782125da49
 	</array>
 	<key>UIPrerenderedIcon</key>
 	<true/>

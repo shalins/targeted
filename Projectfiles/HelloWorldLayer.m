@@ -58,11 +58,13 @@ NSMutableDictionary *initialBoss;
         bossY = screenCenter.y * 1.6;
         targetHit = false;
         [[NSUserDefaults standardUserDefaults] setBool:targetHit forKey:@"targetHit"];
+        [[NSUserDefaults standardUserDefaults] setBool:isTutInProgress forKey:@"isTutInProgress"];
         int numTimesGamePlayed = [[NSUserDefaults standardUserDefaults] objectForKey:@"numTimesGamePlayed"];
         numTimesGamePlayed++;
         [[NSUserDefaults standardUserDefaults] setInteger:numTimesGamePlayed forKey:@"numTimesGamePlayed"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
+<<<<<<< HEAD
         if([[NSUserDefaults standardUserDefaults] integerForKey:@"numTimesPlayed"] == 0) {
             [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"firstTimeSlowedDown"];
             [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"firstTimeMiniedMe"];
@@ -73,6 +75,9 @@ NSMutableDictionary *initialBoss;
         
         //        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
         //        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"hex.mp3" loop:YES];
+=======
+//        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+>>>>>>> dd845d6db446fddf4e62caa25a9a08782125da49
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"select.mp3"];
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"complete.mp3"];
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"correct.mp3"];
@@ -83,6 +88,12 @@ NSMutableDictionary *initialBoss;
         glClearColor(255,255,255,255);
         continueCost = 1;
         coins = [[NSUserDefaults standardUserDefaults] integerForKey:@"coins"];
+        
+        coincount = [NSString stringWithFormat:@"Coins: %i", coins];
+        coinCountage = [CCLabelTTF labelWithString:coincount fontName:@"HelveticaNeue-Light" fontSize:25];
+        coinCountage.position = ccp((screenSize.width / 10) + 35,(screenSize.height/15) - 11);
+        [self addChild:coinCountage];
+        
         redtint = 0;
         greentint = 0;
         bluetint = 255;
@@ -122,16 +133,14 @@ NSMutableDictionary *initialBoss;
         [self scheduleUpdate];
         [self pause];
         pausebutton = [CCSprite spriteWithFile:@"pause.png"];
-        pausebutton.position = ccp(screenSize.width - 17,screenSize.height - 20);
+        pausebutton.position = ccp(screenSize.width - 17,(screenSize.height/15) - 10);
         pausebutton.scale = 0.35;
         [self addChild:pausebutton];
         blocker = [CCSprite spriteWithFile:@"blocker.png"];
         blocker.position = ccp(screenCenter.x,screenCenter.y * 1.3);
         blocker.scale = 0.8;
-        firstTimeMiniMe = TRUE;
-        firstTimeSlowDown = TRUE;
         // This shows the score
-        //        [self initScore];        
+        //        [self initScore];
         // If it's not endless mode
         if([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == false) {
             if(level == 1) {
@@ -171,9 +180,9 @@ NSMutableDictionary *initialBoss;
                 stagespast = 45;
             }
         }
-//        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
-//            level = 1;
-//        }
+        //        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
+        //            level = 1;
+        //        }
         // Set up Tutorial
         tut = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:30];
         tut.position = screenCenter;
@@ -186,7 +195,7 @@ NSMutableDictionary *initialBoss;
 {
     // Remove all the bullets after they move off the screen
     for(NSUInteger i = 0; i < [bullets count]; i++) {
-        CCSprite* shalinbullet = [bullets objectAtIndex:i];        
+        CCSprite* shalinbullet = [bullets objectAtIndex:i];
         if(shalinbullet.position.x > screenSize.width + 50) {
             Bullet *temp = [bullets objectAtIndex:i];
             [self removeChild:temp cleanup:YES];
@@ -277,44 +286,74 @@ NSMutableDictionary *initialBoss;
     if ([input isAnyTouchOnNode:pausebutton touchPhase:KKTouchPhaseAny]) {
         [self pause];
     }
+    [coinCountage setString:[NSString stringWithFormat:@"Coins: %i", coins]];
 }
 -(void) startTutorial {
+    [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"isTutInProgress"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
     // Uses NSUserDefaults so doesn't appear twice
     if(framespast == 10) {
         tut = [CCLabelTTF labelWithString:@"Tap to move" fontName:@"Helvetica" fontSize:30];
         tut.position = ccp(screenCenter.x,screenCenter.y);
+<<<<<<< HEAD
         tut.color = ccc3(255,255,255);
+=======
+        tut.color = ccc3(255, 255, 255);
+>>>>>>> dd845d6db446fddf4e62caa25a9a08782125da49
         [self addChild:tut];
     }
     if(framespast == 300) {
+        [self removeChild:tut];
+        tut = [CCLabelTTF labelWithString:@"Don't touch this" fontName:@"Helvetica" fontSize:30];
+        tut.position = ccp(screenCenter.x,screenCenter.y);
+        tut.color = ccc3(255, 255, 255);
+        [self addChild:tut];
+        id blinker = [CCBlink actionWithDuration:4.0f blinks:7];
+        [blocker runAction:blinker];
+    }
+    if(framespast == 550) {
         [self shootBulletwithPos:1 angle:260 xpos:0 ypos:0];
         [self removeChild:tut];
-        tut = [CCLabelTTF labelWithString:@"Avoid these" fontName:@"Helvetica" fontSize:30];
+        tut = [CCLabelTTF labelWithString:@"Or these" fontName:@"Helvetica" fontSize:30];
         tut.position = ccp(screenCenter.x,screenCenter.y);
+<<<<<<< HEAD
         tut.color = ccc3(255,255,255);
         [self addChild:tut];
         id blinker = [CCBlink actionWithDuration:4.0f blinks:10];
         [bullet runAction:blinker];
         [blocker runAction:blinker];
-    }
-    if(framespast == 580) {
-        [self shootBulletwithPosShield:1 angle:260 xpos:0 ypos:0];
-        [self removeChild:tut];
-        tut = [CCLabelTTF labelWithString:@"These are shields" fontName:@"Helvetica" fontSize:30];
-        tut.position = ccp(screenCenter.x,screenCenter.y);
-        tut.color = ccc3(255,255,255);
+=======
+        tut.color = ccc3(255, 255, 255);
         [self addChild:tut];
-        id blinker = [CCBlink actionWithDuration:4.0f blinks:10];
-        [shield runAction:blinker];
+>>>>>>> dd845d6db446fddf4e62caa25a9a08782125da49
     }
     if(framespast == 750) {
         [self shootBulletwithPosShield:1 angle:260 xpos:0 ypos:0];
         [self removeChild:tut];
-        tut = [CCLabelTTF labelWithString:@"Drag into target" fontName:@"Helvetica" fontSize:30];
+        tut = [CCLabelTTF labelWithString:@"These are shields" fontName:@"Helvetica" fontSize:30];
         tut.position = ccp(screenCenter.x,screenCenter.y);
+<<<<<<< HEAD
+        tut.color = ccc3(255,255,255);
+=======
+        tut.color = ccc3(255, 255, 255);
+>>>>>>> dd845d6db446fddf4e62caa25a9a08782125da49
+        [self addChild:tut];
+        id blinker = [CCBlink actionWithDuration:4.0f blinks:10];
+        [shield runAction:blinker];
+    }
+    if(framespast == 920) {
+        [self removeChild:tut];
+        tut = [CCLabelTTF labelWithString:@"Drag into the target" fontName:@"Helvetica" fontSize:30];
+        tut.position = ccp(screenCenter.x,screenCenter.y);
+<<<<<<< HEAD
         tut.color = ccc3(255,255,255);
         [self addChild:tut];
         id blinker = [CCBlink actionWithDuration:4.0f blinks:10];
+=======
+        tut.color = ccc3(255, 255, 255);
+        [self addChild:tut];
+        id blinker = [CCBlink actionWithDuration:4.0f blinks:5];
+>>>>>>> dd845d6db446fddf4e62caa25a9a08782125da49
         [boss runAction:blinker];
         
     }
@@ -326,6 +365,7 @@ NSMutableDictionary *initialBoss;
     if(bosstime == true) {
         if (blocker.parent == nil) {
             [self addChild:blocker];
+            [self moveBlocker:blocker];
         }
         if(level == 1) {
             if(gameSegment == 0) {
@@ -333,8 +373,10 @@ NSMutableDictionary *initialBoss;
             }
             if(gameSegment == 1) {
                 [self removeChild:tut];
+                [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"isTutInProgress"];
                 [[NSUserDefaults standardUserDefaults]setBool:true forKey:@"tutorialcompleted"];
-                if(((framespast % 100) ==0) || ![initialBoss objectForKey:@1.1]) {
+//                [[NSUserDefaults standardUserDefaults] synchronize];
+                if(((framespast % 90) ==0) || ![initialBoss objectForKey:@1.1]) {
                     [initialBoss setObject:@TRUE forKey:@1.1];
                     [self shootBullet:1 angle:270];
                 }
@@ -347,9 +389,9 @@ NSMutableDictionary *initialBoss;
                     [initialBoss setObject:@TRUE forKey:@1.2];
                 }
                 if((framespast % 155) ==0) {
-                [self shootBullet:1 angle:230];
-                [self shootBullet:2 angle:270];
-                [self shootBullet:1 angle:310];
+                    [self shootBullet:1 angle:230];
+                    [self shootBullet:2 angle:270];
+                    [self shootBullet:1 angle:310];
                 }
             }
             if(gameSegment == 3) {
@@ -474,7 +516,8 @@ NSMutableDictionary *initialBoss;
         }
         if(level == 3) {
             if(gameSegment ==0) {
-                if((framespast % 450) == 0) {
+                if((framespast % 450) == 0 || ![initialBoss objectForKey:@3.1]) {
+                    [initialBoss setObject:@TRUE forKey:@3.1];
                     [self makeFace];
                 }
             }
@@ -790,7 +833,7 @@ NSMutableDictionary *initialBoss;
                         int tempDir = [[bullets objectAtIndex:j] getAngle] + (arc4random() % 90)-45;
                         [[bullets objectAtIndex:j] changeAngle:tempDir];
                     }
-
+                    
                 }
             }
             if(gameSegment ==4) {
@@ -859,7 +902,7 @@ NSMutableDictionary *initialBoss;
                     [self shootBulletwithPos:2 angle:135 xpos:0 ypos:-240];
                     [self shootBulletwithPos:2 angle:225 xpos:0 ypos:-240];
                     [self shootBulletwithPos:2 angle:315 xpos:0 ypos:-240];
-
+                    
                 }
             }
             if(gameSegment ==1) {
@@ -1157,57 +1200,57 @@ NSMutableDictionary *initialBoss;
 }
 - (void) makeFace {
     // Left Eye
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-100];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-90];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-80];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-70];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-60];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-70 ypos:-50];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-80 ypos:-40];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-90 ypos:-40];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-100 ypos:-40];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-110 ypos:-40];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-120 ypos:-40];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-50];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-60];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-70];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-80];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-90];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-130 ypos:-100];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-70 ypos:-100];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-70 ypos:-90];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-70 ypos:-80];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-70 ypos:-70];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-70 ypos:-60];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-70 ypos:-50];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-80 ypos:-40];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-90 ypos:-40];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-100 ypos:-40];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-110 ypos:-40];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-120 ypos:-40];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-130 ypos:-50];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-130 ypos:-60];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-130 ypos:-70];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-130 ypos:-80];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-130 ypos:-90];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-130 ypos:-100];
     // Right Eye
-    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-100];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-90];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-80];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-70];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-60];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:130 ypos:-50];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:120 ypos:-40];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:110 ypos:-40];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:100 ypos:-40];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:90 ypos:-40];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:80 ypos:-40];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-50];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-60];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-70];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-80];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-90];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:70 ypos:-100];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:130 ypos:-100];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:130 ypos:-90];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:130 ypos:-80];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:130 ypos:-70];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:130 ypos:-60];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:130 ypos:-50];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:120 ypos:-40];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:110 ypos:-40];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:100 ypos:-40];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:90 ypos:-40];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:80 ypos:-40];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:70 ypos:-50];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:70 ypos:-60];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:70 ypos:-70];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:70 ypos:-80];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:70 ypos:-90];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:70 ypos:-100];
     // Nose
-    [self shootBulletwithPosSmall:1 angle:270 xpos:4 ypos:-236];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:0 ypos:-240];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-4 ypos:-244];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:4 ypos:-236];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:0 ypos:-240];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-4 ypos:-244];
     // Smile
-    [self shootBulletwithPosSmall:1 angle:270 xpos:50 ypos:-328];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:40 ypos:-332];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:30 ypos:-336];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:20 ypos:-340];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:10 ypos:-340];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:0 ypos:-340];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-10 ypos:-340];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-20 ypos:-340];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-30 ypos:-336];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-40 ypos:-332];
-    [self shootBulletwithPosSmall:1 angle:270 xpos:-50 ypos:-328];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:50 ypos:-328];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:40 ypos:-332];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:30 ypos:-336];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:20 ypos:-340];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:10 ypos:-340];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:0 ypos:-340];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-10 ypos:-340];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-20 ypos:-340];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-30 ypos:-336];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-40 ypos:-332];
+    [self shootBulletwithPosSmall:3 angle:270 xpos:-50 ypos:-328];
 }
 -(void) shootSlowDownMissile {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeSlowedDown"] == TRUE) {
@@ -1221,8 +1264,7 @@ NSMutableDictionary *initialBoss;
         dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
             [self removeChild:tut cleanup:YES];
         });
-        firstTimeSlowDown = FALSE;
-        [[NSUserDefaults standardUserDefaults] setBool:firstTimeSlowDown forKey:@"firstTimeSlowedDown"];
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"firstTimeSlowedDown"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeSlowedDown"] == FALSE) {
         NSLog(@"Slow Down Powerup Used More Than Once");
@@ -1243,8 +1285,7 @@ NSMutableDictionary *initialBoss;
         dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
             [self removeChild:tut cleanup:YES];
         });
-        firstTimeMiniMe = FALSE;
-        [[NSUserDefaults standardUserDefaults] setBool:firstTimeMiniMe forKey:@"firstTimeMiniedMe"];
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"firstTimeMiniedMe"];
     } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeMiniedMe"] == FALSE) {
         NSLog(@"Mini Me Powerup Used More Than Once");
         int someRandomAngle = (arc4random() % 90) + 240;
@@ -1252,15 +1293,15 @@ NSMutableDictionary *initialBoss;
     }
 }
 -(void) dropEffect:(CCSprite *) spriteToHaveTheEffectOn {
-      id dropdown = [CCMoveTo actionWithDuration:1.5f position:ccp(screenCenter.x, screenCenter.y*1.8)];
-      id staythere = [CCDelayTime actionWithDuration:3.0f];
-      id gobackup = [CCMoveTo actionWithDuration:4.5f position:ccp(screenCenter.x, screenCenter.y * 11)];
-      [spriteToHaveTheEffectOn runAction:[CCSequence actions:dropdown, staythere, gobackup, nil]];
+    id dropdown = [CCMoveTo actionWithDuration:1.5f position:ccp(screenCenter.x, screenCenter.y*1.8)];
+    id staythere = [CCDelayTime actionWithDuration:3.0f];
+    id gobackup = [CCMoveTo actionWithDuration:4.5f position:ccp(screenCenter.x, screenCenter.y * 11)];
+    [spriteToHaveTheEffectOn runAction:[CCSequence actions:dropdown, staythere, gobackup, nil]];
 }
 -(void) initBoss {
     if (deadLevelTime == FALSE) {
         if(bosstime == true) {
-            label.color = ccc3(0, 0, 0);
+            label.color = ccc3(255, 255, 255);
             streak = [CCMotionStreak streakWithFade:0.5 minSeg:1 width:50 color:ccc3(247,148,29) textureFilename:@"orange.png"];
             [self addChild:streak];
             // This is for the level changing mechanism for the level screen
@@ -1271,8 +1312,12 @@ NSMutableDictionary *initialBoss;
                 [self addChild:level1bg z:-1000];
                 [self removeChild:streak cleanup:YES];
                 if([[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialcompleted"] == FALSE){
+                    [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"isTutInProgress"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
                     gameSegment = 0;
                 } else if([[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialcompleted"] == TRUE) {
+                    [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"isTutInProgress"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
                     gameSegment = 1;
                     LevelTag = [CCSprite spriteWithFile:@"LevelTag1.png"];
                     LevelTag.position = ccp(screenCenter.x,screenCenter.y * 3);
@@ -1405,14 +1450,14 @@ NSMutableDictionary *initialBoss;
         int x = screenCenter.x;
         int y = screenCenter.y * 1.6;
         if (boss.parent == nil) {
-        boss = [CCSprite spriteWithFile:@"target9.png"];
-        boss.position = ccp(x,y);
-        boss.scale = 0;
-        [self addChild:boss z:0];
-        id bossscale = [CCScaleTo actionWithDuration:1.0f scale:0.5f];
-        [boss runAction:bossscale];
-        BOOL *nullEnd = TRUE;
-        [[NSUserDefaults standardUserDefaults] setBool:nullEnd forKey:@"endless"];
+            boss = [CCSprite spriteWithFile:@"target9.png"];
+            boss.position = ccp(x,y);
+            boss.scale = 0;
+            [self addChild:boss z:0];
+            id bossscale = [CCScaleTo actionWithDuration:1.0f scale:0.5f];
+            [boss runAction:bossscale];
+            BOOL *nullEnd = TRUE;
+            [[NSUserDefaults standardUserDefaults] setBool:nullEnd forKey:@"endless"];
         }
     }
 }
@@ -1483,7 +1528,11 @@ NSMutableDictionary *initialBoss;
                 if (tut.parent == nil) {
                     tut = [CCLabelTTF labelWithString:@"Bullets Slowed Down" fontName:@"Arial" fontSize:30];
                     tut.position = screenCenter;
+<<<<<<< HEAD
                     tut.color = ccc3(255,255,255);
+=======
+                    tut.color = ccc3(255, 255, 255);
+>>>>>>> dd845d6db446fddf4e62caa25a9a08782125da49
                     [self addChild:tut z:10000];
                     dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC));
                     dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
@@ -1639,7 +1688,11 @@ NSMutableDictionary *initialBoss;
     [self addChild:smallerBall z:10];
     id bossscale = [CCScaleTo actionWithDuration:1.0f scale:1.0f];
     id blinker = [CCBlink actionWithDuration:4.0f blinks:10];
+<<<<<<< HEAD
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeSlowedDown"] == TRUE) {
+=======
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeMiniedMe"] == TRUE) {
+>>>>>>> dd845d6db446fddf4e62caa25a9a08782125da49
         [smallerBall runAction:blinker];
     }
     [smallerBall runAction:bossscale];
@@ -1717,14 +1770,14 @@ NSMutableDictionary *initialBoss;
     [self deathplusdeath];
 }
 -(void) warpTime {
-//    [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-//    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"techno.mp3" loop:YES];
+    //    [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+    //    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"techno.mp3" loop:YES];
     [self removeChild:tut];
     isTimeWarped = true;
     framespast = 0;
     stagespast = 4;
     [self flash:255 green:255 blue:255 alpha:255 actionWithDuration:0.5];
-//    bosstime = false;
+    //    bosstime = false;
     thetemporalint = 180;
     omganothertemportalint = 180;
 }
@@ -1734,7 +1787,7 @@ NSMutableDictionary *initialBoss;
     [self flash:0 green:0 blue:255 alpha:255 actionWithDuration:0];
     [self rflash:255 green:255 blue:255 alpha:255 actionWithDuration:0];
     [self shootBulletwithPosShield:3 angle:260 xpos:0 ypos:0];
-    label.color = ccc3(0, 0, 0);
+    label.color = ccc3(255, 255, 255);
     id bossscale = [CCScaleTo actionWithDuration:0.5f scale:2.0f];
     [boss runAction:bossscale];
     id bossturn = [CCRotateTo actionWithDuration:2.0 angle:200];
@@ -1783,7 +1836,13 @@ NSMutableDictionary *initialBoss;
         if (deadLevelTime == FALSE) {
             // This should happen when the bullet is deleted.
             if (level == 1) {
-                gameSegment += 1;
+                if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isTutInProgress"] == TRUE) {
+                    if (framespast >= 920) {
+                        gameSegment += 1;
+                    }
+                } else {
+                    gameSegment += 1;
+                }
                 if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                     [[SimpleAudioEngine sharedEngine] playEffect:@"correct.mp3"];
                 }
@@ -1791,14 +1850,23 @@ NSMutableDictionary *initialBoss;
                     if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
+<<<<<<< HEAD
                     [[NSUserDefaults standardUserDefaults] setInteger:(coins + 100) forKey:@"coins"];
                     [self schedule:@selector(gameSegmentBeat)];
                     dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+=======
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 30) forKey:@"coins"];
+                    [self schedule:@selector(gameSegmentBeat)];
+                    dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
+>>>>>>> dd845d6db446fddf4e62caa25a9a08782125da49
                     dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                         [self resumeSchedulerAndActions];
                         [self unschedule:@selector(gameSegmentBeat)];
                     });
+<<<<<<< HEAD
                     [mixpanel track:@"Level One Beat"];
+=======
+>>>>>>> dd845d6db446fddf4e62caa25a9a08782125da49
                     level += 1;
                     [self gameEnd];
                     [self removeChild:boss cleanup:YES];
@@ -1812,10 +1880,10 @@ NSMutableDictionary *initialBoss;
                     if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
-                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 150) forKey:@"coins"];
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 35) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
-                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
                         dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                             [self resumeSchedulerAndActions];
                             [self unschedule:@selector(gameSegmentBeat)];
@@ -1835,10 +1903,10 @@ NSMutableDictionary *initialBoss;
                     if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
-                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 200) forKey:@"coins"];
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 40) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
-                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
                         dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                             [self resumeSchedulerAndActions];
                             [self unschedule:@selector(gameSegmentBeat)];
@@ -1858,10 +1926,10 @@ NSMutableDictionary *initialBoss;
                     if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
-                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 250) forKey:@"coins"];
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 45) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
-                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
                         dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                             [self resumeSchedulerAndActions];
                             [self unschedule:@selector(gameSegmentBeat)];
@@ -1881,10 +1949,10 @@ NSMutableDictionary *initialBoss;
                     if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
-                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 50) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
-                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
                         dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                             [self resumeSchedulerAndActions];
                             [self unschedule:@selector(gameSegmentBeat)];
@@ -1904,10 +1972,10 @@ NSMutableDictionary *initialBoss;
                     if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
-                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 50) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
-                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
                         dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                             [self resumeSchedulerAndActions];
                             [self unschedule:@selector(gameSegmentBeat)];
@@ -1927,10 +1995,10 @@ NSMutableDictionary *initialBoss;
                     if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
-                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 50) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
-                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
                         dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                             [self resumeSchedulerAndActions];
                             [self unschedule:@selector(gameSegmentBeat)];
@@ -1954,10 +2022,10 @@ NSMutableDictionary *initialBoss;
                     if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
-                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 50) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
-                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
                         dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                             [self resumeSchedulerAndActions];
                             [self unschedule:@selector(gameSegmentBeat)];
@@ -1981,10 +2049,10 @@ NSMutableDictionary *initialBoss;
                     if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
                         [[SimpleAudioEngine sharedEngine] playEffect:@"complete.mp3"];
                     }
-                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 300) forKey:@"coins"];
+                    [[NSUserDefaults standardUserDefaults] setInteger:(coins + 50) forKey:@"coins"];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"endless"] == TRUE) {
                         [self schedule:@selector(gameSegmentBeat)];
-                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC));
+                        dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
                         dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                             [self resumeSchedulerAndActions];
                             [self unschedule:@selector(gameSegmentBeat)];
@@ -2030,16 +2098,23 @@ NSMutableDictionary *initialBoss;
 -(void) detectCollisions
 {
     if ([self isCollidingRect:player WithSphere:blocker] == true) {
-        if (deadLevelTime == FALSE) {
-            [self playerdeathstart];
-        } else if (deadLevelTime == TRUE) {
-            [self schedule:@selector(gaveupDeath)];
+        if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+            [[SimpleAudioEngine sharedEngine] playEffect:@"died.mp3"];
+        }
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isTutInProgress"] == TRUE) { } else {
+            if (deadLevelTime == FALSE) {
+                [self playerdeathstart];
+            } else if (deadLevelTime == TRUE) {
+                [self schedule:@selector(gaveupDeath)];
+            }
         }
     }
-
     if (CGRectIntersectsRect([player boundingBox], [boss boundingBox]) == true) {
         targetHit = true;
         [self targetHit];
+        if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+            [[SimpleAudioEngine sharedEngine] playEffect:@"died.mp3"];
+        }
     }
     // For the Mini-Me powerup
     for(NSUInteger i = 0; i < [smallerBallers count]; i++) {
@@ -2051,7 +2126,11 @@ NSMutableDictionary *initialBoss;
                 tut = [CCLabelTTF labelWithString:@"You Shrunk" fontName:@"Arial" fontSize:30];
                 tut.position = screenCenter;
                 [self addChild:tut z:10000];
+<<<<<<< HEAD
                 tut.color = ccc3(255,255,255);
+=======
+                tut.color = ccc3(255, 255, 255);
+>>>>>>> dd845d6db446fddf4e62caa25a9a08782125da49
                 dispatch_time_t countdownTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC));
                 dispatch_after(countdownTime, dispatch_get_main_queue(), ^(void){
                     [self removeChild:tut cleanup:YES];
@@ -2068,24 +2147,26 @@ NSMutableDictionary *initialBoss;
         NSInteger j = i;
         CCSprite* tempSprite = [bullets objectAtIndex:j];
         if ([self isCollidingSphere:tempSprite WithSphere:player] == true) {
-            if(shieldon == true) {
-                [self removeChild:tempSprite cleanup:YES];
-                [bullets removeObjectAtIndex:i];
-                [self removeChild:shield cleanup:YES];
-                [self deleteubershield];
-                shieldon = false;
-            }
-            else if(ubershieldon == true) {
-                [self removeChild:shield cleanup:YES];
-                [self deleteubershield];
-                [self removeChild:tempSprite cleanup:YES];
-                [bullets removeObjectAtIndex:i];
-            }
-            else {
-                if (deadLevelTime == FALSE) {
-                    [self playerdeathstart];
-                } else if (deadLevelTime == TRUE) {
-                    [self schedule:@selector(gaveupDeath)];
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isTutInProgress"] == TRUE) { } else {
+                if(shieldon == true) {
+                    [self removeChild:tempSprite cleanup:YES];
+                    [bullets removeObjectAtIndex:i];
+                    [self removeChild:shield cleanup:YES];
+                    [self deleteubershield];
+                    shieldon = false;
+                }
+                else if(ubershieldon == true) {
+                    [self removeChild:shield cleanup:YES];
+                    [self deleteubershield];
+                    [self removeChild:tempSprite cleanup:YES];
+                    [bullets removeObjectAtIndex:i];
+                }
+                else {
+                    if (deadLevelTime == FALSE) {
+                        [self playerdeathstart];
+                    } else if (deadLevelTime == TRUE) {
+                        [self schedule:@selector(gaveupDeath)];
+                    }
                 }
             }
         }
@@ -2108,6 +2189,15 @@ NSMutableDictionary *initialBoss;
 /* -------------------------------------------------------------------------------- */
 /*    USEFUL CODE TO MAKE MY LIFE EASIER                                            */
 /* -------------------------------------------------------------------------------- */
+-(void) moveBlocker:(CCSprite *) spriteToBeTheNextBigThing {
+    id moveLeft = [CCMoveTo actionWithDuration:0.9f position:ccp(screenCenter.x / 3, screenCenter.y * 1.3)];
+    id moveRight = [CCMoveTo actionWithDuration:0.9f position:ccp(screenCenter.x * 1.7, screenCenter.y * 1.3)];
+    CCSequence *act =[CCSequence actions:moveLeft, moveRight, nil];
+    CCRepeatForever *repeat = [CCRepeatForever actionWithAction:act];
+//    if (framespast >= 920) {
+    [spriteToBeTheNextBigThing runAction:repeat];
+//    }
+}
 -(void) flashLabel:(NSString *) stringToFlashOnScreen actionWithDuration:(float) numSecondsToFlash color:(NSString *) colorString
 {
     if ([colorString isEqualToString:@"red"] == TRUE) {
@@ -2230,8 +2320,8 @@ NSMutableDictionary *initialBoss;
     two.position = ccp(screenCenter.x, screenCenter.y);
     CCLabelTTF *one = [CCLabelTTF labelWithString:@"1" fontName:@"HelveticaNeue-Light" fontSize:100];
     one.position = ccp(screenCenter.x, screenCenter.y);
-    CCLabelTTF *go = [CCLabelTTF labelWithString:@"Go!" fontName:@"HelveticaNeue-Light" fontSize:100];
-    go.position = ccp(screenCenter.x, screenCenter.y);
+//    CCLabelTTF *go = [CCLabelTTF labelWithString:@"Go!" fontName:@"HelveticaNeue-Light" fontSize:100];
+//    go.position = ccp(screenCenter.x, screenCenter.y);
     
     dispatch_time_t countdownTime1 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC));
     dispatch_after(countdownTime1, dispatch_get_main_queue(), ^(void){
@@ -2250,13 +2340,14 @@ NSMutableDictionary *initialBoss;
     dispatch_time_t countdownTime4 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC));
     dispatch_after(countdownTime4, dispatch_get_main_queue(), ^(void){
         [self removeChild:one];
-        [self addChild:go z:10001];
-    });
-    dispatch_time_t countdownTime5 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.0 * NSEC_PER_SEC));
-    dispatch_after(countdownTime5, dispatch_get_main_queue(), ^(void){
-        [self removeChild:go];
         [self removeChild:opaqueBG];
+//        [self addChild:go z:10001];
     });
+//    dispatch_time_t countdownTime5 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.0 * NSEC_PER_SEC));
+//    dispatch_after(countdownTime5, dispatch_get_main_queue(), ^(void){
+//        [self removeChild:go];
+//        [self removeChild:opaqueBG];
+//    });
 }
 -(void) playerdeath {
     isDying = true;
@@ -2321,8 +2412,12 @@ NSMutableDictionary *initialBoss;
     [GameOverMenu alignItemsVerticallyWithPadding:45.0];
     GameOverMenu.position = ccp(screenCenter.x, (screenCenter.y / 12) * 5);
     [self addChild:GameOverMenu z:9011];
+<<<<<<< HEAD
     [mixpanel track:@"Player collected tons of coins"];
 
+=======
+    
+>>>>>>> dd845d6db446fddf4e62caa25a9a08782125da49
 }
 -(void) gameBeat {
     [self unschedule:@selector(gameBeat)];
@@ -2477,6 +2572,15 @@ NSMutableDictionary *initialBoss;
     [bullets removeAllObjects];
     isDying = false;
     [self unschedule:@selector(gameover)];
+<<<<<<< HEAD
+=======
+    // shield = [CCSprite spriteWithFile:@"shield.png"];
+    // shield.scale = 0.15;
+    // shield.position = player.position;
+    // [self addChild:shield z:-10];
+    // ubershieldon = true;
+    // [self schedule:@selector(deleteubershield) interval:3.0];
+>>>>>>> dd845d6db446fddf4e62caa25a9a08782125da49
 }
 -(void) boughtProduct {
     id tintp = [CCTintTo actionWithDuration:0.6 red:247 green:147 blue:29];

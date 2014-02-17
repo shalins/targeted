@@ -18,6 +18,7 @@
 
 @implementation Title
 
+int coins;
 
 -(id) init
 {
@@ -26,6 +27,7 @@
             int numTimesPlayed = [[NSUserDefaults standardUserDefaults] objectForKey:@"numTimesPlayed"];
             numTimesPlayed++;
             [[NSUserDefaults standardUserDefaults] setInteger:numTimesPlayed forKey:@"numTimesPlayed"];
+            coins = [[NSUserDefaults standardUserDefaults] integerForKey:@"coins"];
         
             // NSLogging Switch
             theLogs = TRUE;
@@ -44,18 +46,28 @@
             CCSprite *blurry = [CCSprite spriteWithFile:@"blurry.png"];
             blurry.position = screenCenter;
             [self addChild:blurry z:-1001];
+<<<<<<< HEAD
             CCSprite *logo = [CCSprite spriteWithFile:@"text.png"];
             logo.position = ccp(screenCenter.x, screenCenter.y);
             [self addChild:logo z:1];
             [self slideUp:logo];
+=======
+            CCSprite *title = [CCSprite spriteWithFile:@"text.png"];
+            title.position = screenCenter;
+            [self addChild:title z:0];
+>>>>>>> dd845d6db446fddf4e62caa25a9a08782125da49
         
             // Play Button
             CCMenuItemImage *start = [CCMenuItemImage itemWithNormalImage:@"start.png" selectedImage:@"start-sel.png" target:self selector:@selector(unPause)];
             menu = [CCMenu menuWithItems:start, nil];
             menu.position = ccp(screenCenter.x,screenCenter.y);
             [self addChild:menu];
+<<<<<<< HEAD
             [self fadeIn:menu];
         
+=======
+
+>>>>>>> dd845d6db446fddf4e62caa25a9a08782125da49
             bullets = [[NSMutableArray alloc] init];
         
         
@@ -117,11 +129,15 @@
             endlessModeText.position = ccp(screenCenter.x * (-4), (screenCenter.y * 3) / 5);
 //            [self addChild:endlessModeText];
         
-            CCLabelTTF *levelText = [CCLabelTTF labelWithString:@"LEVEL" fontName:@"HelveticaNeue" fontSize:15];
+            levelText = [CCLabelTTF labelWithString:@"LEVEL" fontName:@"HelveticaNeue" fontSize:15];
             levelText.position = ccp(screenCenter.x + 105,screenCenter.y + 35);
             [self addChild:levelText];
+<<<<<<< HEAD
             [self fadeIn:levelText];
             CCLabelTTF *endlessText = [CCLabelTTF labelWithString:@"ENDLESS" fontName:@"HelveticaNeue" fontSize:15];
+=======
+            endlessText = [CCLabelTTF labelWithString:@"ENDLESS" fontName:@"HelveticaNeue" fontSize:15];
+>>>>>>> dd845d6db446fddf4e62caa25a9a08782125da49
             endlessText.position = ccp(screenCenter.x - 105,screenCenter.y + 35);
             [self addChild:endlessText];
             [self fadeIn:endlessText];
@@ -133,9 +149,32 @@
             [[SimpleAudioEngine sharedEngine] preloadEffect:@"correctv2.mp3"];
             [[SimpleAudioEngine sharedEngine] preloadEffect:@"died.mp3"];
             if([[NSUserDefaults standardUserDefaults]boolForKey:@"musicon"] == TRUE) {
+                [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"trance.mp3"];
+                [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"trance.mp3" loop:YES];
                 [[SimpleAudioEngine sharedEngine] playEffect:@"select.mp3"];
             }
             framespast = 0;
+        // Set everything to be invisible
+        menu.visible = NO;
+        menu2.visible = NO;
+        menu3.visible = NO;
+        menutwo.visible = NO;
+        endlessMenu.visible = NO;
+        levelMenu.visible = NO;
+        levelText.visible = NO;
+        endlessText.visible = NO;
+
+        // Animations
+        [self goUp:title];
+        [self fadeEffect:menu];
+        [self fadeEffect:menu2];
+        [self fadeEffect:menutwo];
+        [self fadeEffect:menu3];
+        [self fadeEffect:endlessMenu];
+        [self fadeEffect:levelMenu];
+        [self fadeEffect:levelText];
+        [self fadeEffect:endlessText];
+        
         [self scheduleUpdate];
     }
     return self;
@@ -290,49 +329,29 @@
         [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"endless"];
         [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:0.5f scene:[HelloWorldLayer node]]];
     }
+    if([[NSUserDefaults standardUserDefaults] integerForKey:@"numTimesPlayed"] == 0) {
+        [[NSUserDefaults standardUserDefaults] setInteger:(coins + 15) forKey:@"coins"];
+    }
 }
--(void) dotsEffect:(CCSprite *) spriteToBeTheNextBigThing {
-    if (theLogs == TRUE) {
-        NSLog(@"Title Logo Dropped Down Correctly");
-    }
-    id dropdown = [CCMoveTo actionWithDuration:0.7f position:ccp(screenCenter.x, screenCenter.y * 1.4)];
-    id jump = [CCJumpBy actionWithDuration:0.35f position:CGPointZero height:40 jumps:1];
-    id repeatJump = [CCRepeat actionWithAction:jump times:1];
-    [spriteToBeTheNextBigThing runAction:[CCSequence actions:dropdown, repeatJump, nil]];
+-(void) addStuffIn {
+    menu.visible = YES;
+    menu2.visible = YES;
+    menu3.visible = YES;
+    menutwo.visible = YES;
+    endlessMenu.visible = YES;
+    levelMenu.visible = YES;
+    levelText.visible = YES;
+    endlessText.visible = YES;
 }
--(void) fadeEffect:(CCSprite *) spriteToBeTheNextBigThing {
-    if (theLogs == TRUE) {
-//        NSLog(@"Title Logo Dropped Down Correctly");
-    }
-    id moveIn = [CCMoveTo actionWithDuration:0.7f position:ccp(screenCenter.x, (screenCenter.y * 3) / 5)];
-    id someDelay = [CCDelayTime actionWithDuration:3.0f];
-    id fadeAway = [CCFadeOut actionWithDuration:1.0f];
-    id someMoreDelay = [CCDelayTime actionWithDuration:1.0f];
-    id moveBack = [CCMoveTo actionWithDuration:0.7f position:ccp(spriteToBeTheNextBigThing.position.x, spriteToBeTheNextBigThing.position.y)];
-    id fadeBackIn = [CCFadeIn actionWithDuration:3.0f];
-    [spriteToBeTheNextBigThing runAction:[CCSequence actions:moveIn, someDelay, fadeAway, someMoreDelay, moveBack, fadeBackIn, nil]];
+-(void) goUp:(CCSprite *) spriteToBeTheNextBigThing {
+    id dropdown = [CCMoveTo actionWithDuration:0.8f position:ccp(screenCenter.x, screenCenter.y * 1.7)];
+    [spriteToBeTheNextBigThing runAction:[CCSequence actions:dropdown, nil]];
 }
--(void) slideEffectRight:(CCMenu *) spriteToBeTheNextBigThing {
-    if (theLogs == TRUE) {
-        NSLog(@"The Start Button Slid from the Right");
-    }
-    id slide = [CCMoveTo actionWithDuration:0.7f position:ccp(screenCenter.x, screenCenter.y / 1.5)];
-    if ([[CCDirector sharedDirector] winSizeInPixels].height == 1024 || [[CCDirector sharedDirector] winSizeInPixels].height == 2048){
-        slide = [CCMoveTo actionWithDuration:0.7f position:ccp(screenCenter.x - 30, screenCenter.y / 1.7)];
-    }
-    [spriteToBeTheNextBigThing runAction:[CCSequence actions:slide, nil]];
-    
-}
--(void) slideEffectLeft:(CCMenu *) spriteToBeTheNextBigThing {
-    if (theLogs == TRUE) {
-        NSLog(@"The Leaderboard Button Slid from the Left");
-    }
-    id slide = [CCMoveTo actionWithDuration:0.7f position:ccp(screenCenter.x, screenCenter.y / 3.1)];
-    if ([[CCDirector sharedDirector] winSizeInPixels].height == 1024 || [[CCDirector sharedDirector] winSizeInPixels].height == 2048){
-        slide = [CCMoveTo actionWithDuration:0.7f position:ccp(screenCenter.x - 30, screenCenter.y / 3.0)];
-    }
-    [spriteToBeTheNextBigThing runAction:[CCSequence actions:slide, nil]];
-    
+-(void) fadeEffect:(CCMenu *) spriteToBeTheNextBigThing {
+    id delay = [CCDelayTime actionWithDuration:1.25];
+    id addStuffIn = [CCCallFunc actionWithTarget:self selector:@selector(addStuffIn)];
+    id fadeIn = [CCFadeIn actionWithDuration:2.0f];
+    [spriteToBeTheNextBigThing runAction:[CCSequence actions:delay,addStuffIn,fadeIn, nil]];
 }
 -(void) slideUp:(CCSprite *) spriteToBeTheNextBigThing {
     id slide = [CCMoveTo actionWithDuration:0.7f position:ccp(screenCenter.x, screenCenter.y * 1.65)];

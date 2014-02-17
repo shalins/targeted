@@ -27,6 +27,9 @@
 
 @interface HelloWorldLayer : CCLayer
 {
+    CCLabelTTF *coinCountage;
+    CCLabelTTF *coiner;
+    NSString* coincount;
 	NSString* helloWorldString;
 	NSString* helloWorldFontName;
 	int helloWorldFontSize;
@@ -114,9 +117,12 @@
     int bossY;
     BOOL firstTimeMiniMe;
     BOOL firstTimeSlowDown;
+<<<<<<< HEAD
     Mixpanel *mixpanel;
+=======
+    BOOL isTutInProgress;
+>>>>>>> dd845d6db446fddf4e62caa25a9a08782125da49
 }
-
 @property (nonatomic, copy) NSString *helloWorldString;
 @property (nonatomic, copy) NSString *helloWorldFontName;
 @property (nonatomic) int helloWorldFontSize;
